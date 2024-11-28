@@ -20,7 +20,10 @@
     "paths": {
       "@nano": [
         "./src/components/nano/Index.tsx"
-      ]
+      ],
+      "@fn/*": [
+        "./src/functions/*"
+      ],
     },
     "outDir": "./dist",
     "declaration": true,
