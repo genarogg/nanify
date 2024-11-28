@@ -24,8 +24,7 @@ const A: React.FC<AProps> = ({ href, type, children, className = " " }) => {
         </a>
       );
     case "push":
-      router.push(href);
-      return <></>;
+      return router.push(href);
     default:
       return (
         <Link href={href} className={className}>

@@ -22,16 +22,17 @@
     "react-dom": "^18"
   },
   "dependencies": {
-    "react-toastify": "^10.0.6",
-    "next": "14.2.18"
+    "next": "14.2.18",
+    "react-toastify": "^10.0.6"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+
     "eslint": "^8",
     "eslint-config-next": "14.2.18",
-    "typescript": "^5",
-    "tsup": "^6.7.0"
+    "tsup": "^6.7.0",
+    "typescript": "^5"
   }
 }

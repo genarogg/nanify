@@ -1,4 +1,4 @@
-import { toast, ToastOptions, ToastPosition, Bounce } from 'react-toastify';
+import { toast, ToastOptions, ToastPosition, Flip } from 'react-toastify';
 
 interface ToastProps {
   type: 'success' | 'error' | 'warning';
@@ -14,7 +14,7 @@ const defaultToastConfig: ToastOptions = {
   pauseOnHover: true,
   draggable: true,
   progress: undefined,
-  transition: Bounce,
+  transition: Flip,
 };
 
 const notify = ({ type, message, config = {} }: ToastProps) => {
