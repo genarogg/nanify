@@ -1,24 +1,37 @@
 {
-  "name": "nano-kit",
-  "version": "0.1.0",
-  "private": true,
+  "name": "nanify",
+  "description": "Un kit de componentes para React basado en TypeScript.",
+  "author": "Genaro Gonzalez",
+  "license": "MIT",
+  "version": "0.1.9",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "build-lib": "tsup src/components --format cjs,esm --dts",
+    "publicar": "npm run build-lib && npm publish"
+  },
+  "peerDependencies": {
+    "react": "^18",
+    "react-dom": "^18"
   },
   "dependencies": {
-    "react": "^18",
-    "react-dom": "^18",
+    "react-toastify": "^10.0.6",
     "next": "14.2.18"
   },
   "devDependencies": {
-    "typescript": "^5",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",
-    "eslint-config-next": "14.2.18"
+    "eslint-config-next": "14.2.18",
+    "typescript": "^5",
+    "tsup": "^6.7.0"
   }
 }
