@@ -24,7 +24,8 @@
       ],
       "@fn/*": [
         "./src/functions/*"
-      ]
+      ],
+      "@gravatar":["./src/components/gravatar/Gravatar.tsx"],
     },
     "outDir": "./dist",
     "declaration": true,
