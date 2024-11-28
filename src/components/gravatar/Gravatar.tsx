@@ -15,7 +15,7 @@ const Gravatar: React.FC<GravatarProps> = ({
   email,
   alt,
   size = 80,
-  className = "",
+  className = " ",
 
 }) => {
   if (!isValidEmail(email)) {
