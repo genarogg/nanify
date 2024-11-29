@@ -25,7 +25,9 @@
       "@fn/*": [
         "./src/functions/*"
       ],
-      "@gravatar":["./src/components/gravatar/Gravatar.tsx"],
+      "@gravatar": [
+        "./src/components/gravatar/Gravatar.tsx"
+      ],
     },
     "outDir": "./dist",
     "declaration": true,
@@ -34,8 +36,9 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
-, "postinstall.js"  ],
+    "**/*.tsx",
+    "postinstall.js"
+  ],
   "exclude": [
     "node_modules"
   ]
