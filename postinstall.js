@@ -20,6 +20,10 @@ const sourceDir = path.join(__dirname, 'src', 'sass');
 const targetDir = path.join(__dirname, '..', '..', 'src', 'sass');
 
 // Copia la carpeta de origen a la carpeta de destino
-copyFolderSync(sourceDir, targetDir);
+try {
+    copyFolderSync(sourceDir, targetDir);
+} catch (error) {
+    console.error('Error al copiar la carpeta', error);
+}
 
 console.log('Carpeta copiada');
