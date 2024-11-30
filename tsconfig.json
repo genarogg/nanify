@@ -44,7 +44,7 @@
     "**/*.ts",
     "**/*.tsx",
     "postinstall.js"
-  ],
+, "moveFile.js"  ],
   "exclude": [
     "node_modules"
   ]
