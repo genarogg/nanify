@@ -7,9 +7,13 @@ interface btnLokiProps {
 
 const btnLoki: React.FC<btnLokiProps> = () => {
 
-
     const [isActive, setIsActive] = useState(false);
-    return (<><BtnLoki isActive={isActive} setIsActive={setIsActive}></BtnLoki></>);
+
+    return (
+        <>
+            <BtnLoki isActive={isActive} setIsActive={setIsActive} />
+        </>
+    );
 }
 
 export default btnLoki;

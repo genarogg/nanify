@@ -15,7 +15,7 @@ const BtnLoki: React.FC<BtnLokiProps> = ({
   className = "",
 }) => {
 
-  
+
 
   return (
     <button
@@ -23,7 +23,13 @@ const BtnLoki: React.FC<BtnLokiProps> = ({
         setIsActive(!isActive);
         fn && fn();
       }}
-      className={`btnLoki btnMenu ${styles.btnLoki} ${styles.btnMenu} ${className} ${isActive ? styles.active : ""}`}
+      className={`
+                  btnLoki btnMenu 
+                  ${styles.btnLoki} 
+                  ${styles.btnMenu} 
+                  ${className} 
+                  ${isActive ? styles.active : ""}
+                `}
     >
       <span></span>
       <span></span>
