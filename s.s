@@ -46,8 +46,6 @@ rl.question('Introduce la opción del archivo a copiar: ', (option) => {
         fs.mkdirSync(destinationDir, { recursive: true });
     }
 
-    console.log(`${from} `);
-
     try {
         copyFile(from, to);
     } catch (error) {
@@ -55,3 +53,5 @@ rl.question('Introduce la opción del archivo a copiar: ', (option) => {
     }
     rl.close();
 });
+
+quiero que tenga dos opciones donde puede estar el archivo ./src/./src/sass_backup y 

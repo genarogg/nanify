@@ -3,12 +3,13 @@
   "description": "Un kit de componentes para React basado en TypeScript.",
   "author": "Genaro Gonzalez",
   "license": "MIT",
-  "version": "0.1.26",
+  "version": "0.1.27",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist",
     "src/sass",
+    "src/sass_backup",
     "postinstall.js"
   ],
   "scripts": {
@@ -16,10 +17,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "node ./postinstall.js",
-    "build-lib": "tsup src/components --format cjs,esm --dts",
-    "publicar": "npm run build-lib && npm publish",
-    "move": "node ./moveFile.js"
+    "build-css": "postcss src/**/*.scss --dir dist",
+    "build-lib": "tsup",
+    "publicar": "npm run build-css && npm run build-lib && npm publish",
+    "move": "node ./moveFile.js",
+    "postinstall": "node ./postinstall.js"
   },
   "peerDependencies": {
     "react": "^18",
@@ -38,8 +40,14 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "autoprefixer": "^10.4.20",
     "eslint": "^8",
     "eslint-config-next": "14.2.18",
+    "postcss": "^8.4.49",
+    "postcss-cli": "^11.0.0",
+    "postcss-import": "^16.1.0",
+    "postcss-modules": "^6.0.1",
+    "postcss-scss": "^4.0.9",
     "ts-node": "^10.9.2",
     "tsup": "^6.7.0",
     "typescript": "^5.7.2"
