@@ -1,0 +1,27 @@
+.hamburguer2 span {
+  color: white;
+  display: block;
+  border-top: 0.125rem solid;
+  width: 20px;
+}
+.hamburguer2 span::after,
+.hamburguer2 span::before {
+  content: "";
+  display: block;
+  width: 20px;
+  height: 2px;
+  background-color: currentColor;
+  margin-top: 5px;
+  transition: 0.5s;
+  position: relative;
+}
+.hamburguer2.active span {
+  border-top-color: transparent;
+}
+.hamburguer2.active span::before {
+  transform: rotate(135deg);
+}
+.hamburguer2.active span::after {
+  transform: rotate(-135deg);
+  top: -0.4375rem;
+}

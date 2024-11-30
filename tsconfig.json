@@ -28,6 +28,12 @@
       "@gravatar": [
         "./src/components/gravatar/Gravatar.tsx"
       ],
+      "@components/*": [
+        "./src/components/*"
+      ],
+      "@styles/*": [
+        "./src/styles/*"
+      ],
     },
     "outDir": "./dist",
     "declaration": true,
