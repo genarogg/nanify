@@ -17,9 +17,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "build-css": "postcss ./src/sass/**/*.scss --dir dist",
-    "build-ts": "tsup",
-    "publicar": "npm run build-css && npm run build-ts && npm publish",
+    "build-css": "",
+    "build-ts":  "tsup",
+    "publicar": "npm run build-ts && npm run build-css &&  npm publish",
     "move": "node ./moveFile.js",
     "postinstall": "node ./postinstall.js"
   },
