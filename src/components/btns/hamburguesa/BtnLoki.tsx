@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './btnLoki.module.css';
+
 
 interface BtnLokiProps {
   fn?: () => void;
@@ -22,10 +22,8 @@ const BtnLoki: React.FC<BtnLokiProps> = ({
       }}
       className={`
                   btnLoki btnMenu 
-                  ${styles.btnLoki} 
-                  ${styles.btnMenu} 
                   ${className} 
-                  ${isActive ? styles.active : ""}
+                  ${isActive ? "active" : ""}
                 `}
     >
       <span></span>

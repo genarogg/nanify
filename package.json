@@ -3,7 +3,7 @@
   "description": "Un kit de componentes para React basado en TypeScript.",
   "author": "Genaro Gonzalez",
   "license": "MIT",
-  "version": "0.1.28",
+  "version": "0.1.31",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -18,7 +18,7 @@
     "start": "next start",
     "lint": "next lint",
     "build-css": "",
-    "build-ts":  "tsup",
+    "build-ts": "tsup src/components --format cjs,esm --dts --minify --legacy-output --clean --out-dir dist ",
     "publicar": "npm run build-ts && npm run build-css &&  npm publish",
     "move": "node ./moveFile.js",
     "postinstall": "node ./postinstall.js"
