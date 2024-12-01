@@ -4,5 +4,5 @@ export default defineConfig({
   entry: ['src/components/index.tsx'], 
   format: ['cjs', 'esm'],
   dts: true,
-  external: ['**/*.scss'],
+  external: ['**/**/**/*.scss'],
 });
