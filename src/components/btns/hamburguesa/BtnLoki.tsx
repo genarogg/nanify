@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '@cssModule/btns/btnLoki.module.scss';
+import styles from './btnLoki.module.css';
 
 interface BtnLokiProps {
   fn?: () => void;
