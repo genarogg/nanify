@@ -11,7 +11,7 @@
     "noEmit": false,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "module": "commonjs",
+    "module": "commonjs", // Cambia a "commonjs" para compatibilidad con Node.js
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -24,19 +24,7 @@
       ],
       "@fn/*": [
         "./src/functions/*"
-      ],
-      "@gravatar": [
-        "./src/components/gravatar/Gravatar.tsx"
-      ],
-      "@components/*": [
-        "./src/components/*"
-      ],
-      "@styles/*": [
-        "./src/styles/*"
-      ],
-      "@cssModule/*": [
-        "./src/sass/components/*"
-      ],
+      ]
     },
     "outDir": "./dist",
     "declaration": true,
@@ -45,9 +33,8 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx",
-    "postinstall.js"
-, "moveFile.js"  ],
+    "**/*.tsx"
+, "postinstall.js"  ],
   "exclude": [
     "node_modules"
   ]

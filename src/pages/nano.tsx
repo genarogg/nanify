@@ -14,7 +14,6 @@ const nano: React.FC<nanoProps> = () => {
 
             <h3>Icon</h3>
             <p>Icon component</p>
-
             <ul>
                 <li className="prosp">El componente `Icon` se utiliza para renderizar un ícono con clases CSS opcionales.</li>
                 <li className="prosp">Props:</li>
@@ -22,10 +21,6 @@ const nano: React.FC<nanoProps> = () => {
                     <li><strong>icon</strong>: El ícono a renderizar (opcional).</li>
                     <li><strong>className</strong>: Clase CSS para el ícono (opcional).</li>
                 </ul>
-                <br />
-                Uso del componente <code>{'<Icon icon={<icono />}/>'}</code>
-                <br />
-                Uso del componente <code>{'<Icon className={"css"}/>'}</code>
             </ul>
 
 
@@ -39,15 +34,6 @@ const nano: React.FC<nanoProps> = () => {
                     <li><strong>type</strong>: El tipo de enlace (opcional). Puede ser "mailto", "a", "push" o por defecto.</li>
                     <li><strong>children</strong>: Los elementos hijos que se renderizan dentro del enlace (opcional).</li>
                     <li><strong>className</strong>: Clase CSS para el enlace (opcional).</li>
-
-                    <br />
-                    Uso del componente <code>{'<A href="ruta">name</A>'}</code>
-                    <br />
-                    Uso del componente <code>{'<A href="ruta" type="a">name</A>'}</code>
-                    <br />
-                    Uso del componente <code>{'<A href="email" type="mailto">name</A>'}</code>
-                    <br />
-                    Uso del componente <code>{'A({type: "pust", href: "ruta"})'}</code>
                 </ul>
             </ul>
 

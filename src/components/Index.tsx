@@ -1,6 +1,4 @@
 import Gravatar from "./gravatar/Gravatar";
-import { A, AR, Icon, notify } from "./nano/Index";
-import { BtnLoki } from "./btns";
+import { A, Icon, notify } from "./nano/Index";
 
-
-export { Gravatar, A, AR, Icon, notify, BtnLoki };
+export { Gravatar, A, Icon, notify };
