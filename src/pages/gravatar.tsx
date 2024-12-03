@@ -1,6 +1,7 @@
 import React from 'react';
+import Gravatar from "@components/gravatar/Gravatar";
 
-interface gravatarProps {}
+interface gravatarProps { }
 
 const gravatar: React.FC<gravatarProps> = () => {
     return (
@@ -12,6 +13,9 @@ const gravatar: React.FC<gravatarProps> = () => {
 
             <h3>Gravatar</h3>
             <p>Componente Gravatar</p>
+            <Gravatar email="genarrogg@gmail.com" alt='genaro gonzalez'/>
+            <br />
+            Uso del componente <code>{'<Gravatar email="genarrogg@gmail.com" alt="genaro gonzalez"/>'}</code> 
             <ul>
                 <li className="prosp">El componente `Gravatar` se utiliza para mostrar una imagen de Gravatar basada en el correo electrónico proporcionado.</li>
                 <li className="prosp">Props:</li>
