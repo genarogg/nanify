@@ -23,7 +23,7 @@ const CheckBoxBasic: React.FC<CheckBoxBasicProps> = ({ text, valueChange }) => {
       {isClicked ? (
         <Icon icon={<FaSquareCheck />} className="animate" />
       ) : (
-        <Icon icon={<ImCheckboxUnchecked />} />
+        <Icon icon={<ImCheckboxUnchecked />}  />
       )}
       <span className="text">{text}</span>
     </div>

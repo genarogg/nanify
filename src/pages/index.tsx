@@ -13,6 +13,8 @@ const home: React.FC<homeProps> = () => {
       <A href='/nano'>nano</A>
       <br />
       <A href='/gravatar'>gravatar</A>
+      <br />
+      <A href='/btns'>btns</A>
     </>
   );
 }
