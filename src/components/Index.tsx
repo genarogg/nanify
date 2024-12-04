@@ -9,16 +9,13 @@ import {
     BtnSubmitBasic,
     BtnNormalBasic,
     BtnText,
+
+    CheckBoxBasic,
 } from "./btns/index"
 
 export {
     Gravatar, A, Icon, notify,
-    BtnLoki,
-    BtnFreya,
-    BtnThor,
-
-
-    BtnSubmitBasic,
-    BtnNormalBasic,
-    BtnText,
+    BtnLoki, BtnFreya, BtnThor,
+    BtnSubmitBasic, BtnNormalBasic, BtnText,
+    CheckBoxBasic,
 };

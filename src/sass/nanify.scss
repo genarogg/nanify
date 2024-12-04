@@ -1,11 +1,16 @@
 @import "../styles/init/style.scss";
+
+/* btns */
 @import "../styles/module/btnFrekya.module.scss";
 @import "../styles/module/btnLoki.module.scss";
 @import "../styles/module/btnThor.module.scss";
 
 @import "../styles/module/btnText.module.scss";
-@import "../styles/module/btnNormalBasic.module";
-@import "../styles/module/btnSubmitBasic.module";
+@import "../styles/module/btnNormalBasic.module.scss";
+@import "../styles/module/btnSubmitBasic.module.scss";
+
+@import "../styles/module/checkboxBasic.module.scss";
+@import "../styles/module/expancion.module.scss";
 
 code {
     background-color: #9a00ff

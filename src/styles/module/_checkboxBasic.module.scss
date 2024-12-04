@@ -1,0 +1,50 @@
+.checkbox-basic {
+  @include center-y;
+  cursor: pointer;
+  max-width: 190px;
+
+  display: grid;
+  grid-template-columns: 1fr 7fr;
+
+  &:hover {
+    span {
+      color: $color-secondary;
+    }
+  }
+
+  span {
+    transition: 500ms ease all;
+  }
+
+  .icono {
+    @include center-flex-xy;
+    color: $color-secondary;
+    margin-left: 10px;
+  }
+
+  .text {
+    color: $color-secondary;
+    margin-left: 24px;
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  @keyframes check-animation {
+    0% {
+      transform: scale(1);
+      opacity: 0.2;
+    }
+    50% {
+      transform: scale(1.3);
+      color: $color-secondary;
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  .animate {
+    animation: check-animation 500ms forwards;
+  }
+}

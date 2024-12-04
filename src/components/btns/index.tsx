@@ -8,6 +8,8 @@ import BtnSubmitBasic from "./basic/BtnSubmitBasic";
 import BtnNormalBasic from "./basic/BtnNormalBasic";
 import BtnText from "./basic/BtnText";
 
+import CheckBoxBasic from "./checkbox/CheckboxBasic";
+
 export {
   BtnLoki,
   BtnFreya,
@@ -16,4 +18,6 @@ export {
   BtnSubmitBasic,
   BtnNormalBasic,
   BtnText,
+
+  CheckBoxBasic,
 };

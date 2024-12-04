@@ -5,10 +5,19 @@ const readline = require('readline');
 // Rutas preestablecidas
 const pathJoin = path.join(__dirname, 'src', 'styles', 'module',)
 const predefinedPaths = {
+    /* btn Hamburguesa */
     btnLoki: path.join(pathJoin, '_btnLoki.module.scss'),
     btnFreya: path.join(pathJoin, '_btnFreya.module.scss'),
     btnThor: path.join(pathJoin, '_btnThor.module.scss'),
-    // Agrega más rutas aquí según sea necesario
+
+    /* btn Basic */
+    btnNormalBasic: path.join(pathJoin, '_btnNormalBasic.module.scss'),
+    btnSubmitBasic: path.join(pathJoin, '_btnSubmitBasic.module.scss'),
+    btnText: path.join(pathJoin, '_btnText.module.scss'),
+    btnExpancion: path.join(pathJoin, '_expancion.module.scss'),
+
+    /* CheckBox */
+    checkboxBasic: path.join(pathJoin, '_checkboxBasic.module.scss'),
 };
 
 // Ruta de destino fija relativa al proyecto que usa el módulo

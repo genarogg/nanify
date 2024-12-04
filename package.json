@@ -17,10 +17,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-
     "build-lib": "tsup src/components --format cjs,esm --dts",
     "publicar": "npm run build-lib && npm publish",
-
     "postinstall": "node ./postinstall.js"
   },
   "peerDependencies": {
@@ -29,7 +27,9 @@
   },
   "dependencies": {
     "crypto-js": "^4.2.0",
+    "nanify": "^0.1.76",
     "next": "14.2.18",
+    "react-icons": "^5.4.0",
     "react-toastify": "^10.0.6"
   },
   "devDependencies": {

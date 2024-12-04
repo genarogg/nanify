@@ -1,5 +1,5 @@
 import React from 'react'
-import { A } from '@nano';
+import { A } from 'nanify';
 
 interface homeProps {
 
