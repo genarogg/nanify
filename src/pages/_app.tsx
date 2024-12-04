@@ -1,5 +1,5 @@
 import React from "react";
-import "../sass/styles.scss";
+import "../sass/nanify.scss";
 
 import type { AppProps } from "next/app";
 
