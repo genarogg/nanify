@@ -26,6 +26,7 @@
     "react-dom": "^18"
   },
   "dependencies": {
+    "@plaiceholder/next": "^3.0.0",
     "crypto-js": "^4.2.0",
     "nanify": "^0.1.77",
     "next": "14.2.18",

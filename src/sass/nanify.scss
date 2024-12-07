@@ -12,15 +12,20 @@
 @import "../styles/module/checkboxBasic.module.scss";
 @import "../styles/module/expancion.module.scss";
 
+
+@import "../styles/module/layoutMain.module.scss";
+
+@import "../styles/module/headerOneElementCenter.module.scss";
+
 code {
     background-color: #9a00ff
 }
 
 body {
     background-color: #f5e6ed;
-    
+
 }
 
-a{
+a {
     color: #000;
 }

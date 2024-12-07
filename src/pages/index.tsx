@@ -15,6 +15,8 @@ const home: React.FC<homeProps> = () => {
       <A href='/gravatar'>gravatar</A>
       <br />
       <A href='/btns'>btns</A>
+      <br />
+      <A href='/layout/header-one-element-center'>header-one-element-center</A>
     </>
   );
 }
