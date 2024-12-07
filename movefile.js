@@ -18,6 +18,11 @@ const predefinedPaths = {
 
     /* CheckBox */
     checkboxBasic: path.join(pathJoin, '_checkboxBasic.module.scss'),
+
+
+    /* Layout */
+    simpleFooter: path.join(pathJoin, '_simpleFooter.module.scss'),
+    headerOneElementCenter: path.join(pathJoin, '_headerOneElementCenter.module.scss'),
 };
 
 // Ruta de destino fija relativa al proyecto que usa el módulo

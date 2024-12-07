@@ -13,9 +13,18 @@ import {
     CheckBoxBasic,
 } from "./btns/index"
 
+import {
+    LayoutDemo,
+    LayoutMain,
+    HeaderOneElementCenter,
+    SimpleFooter
+} from "./layout/index";
+
 export {
     Gravatar, A, Icon, notify,
     BtnLoki, BtnFreya, BtnThor,
     BtnSubmitBasic, BtnNormalBasic, BtnText,
     CheckBoxBasic,
+
+    LayoutDemo, LayoutMain, HeaderOneElementCenter, SimpleFooter
 };

@@ -1,0 +1,18 @@
+.simple-footer{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    background-color: $color-quaternary;
+    height: 60px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    border-top: 1px solid $color-secondary;
+    justify-items: center;
+    align-items: center;
+
+    h2 {
+        font-size: 18px;
+        font-weight: 700;
+        color: $color-secondary;
+        text-transform: uppercase;
+    }
+}

@@ -16,7 +16,10 @@ const home: React.FC<homeProps> = () => {
       <br />
       <A href='/btns'>btns</A>
       <br />
-      <A href='/layout/header-one-element-center'>header-one-element-center</A>
+      <A href='/layout/headers/header-one-element-center'>header-one-element-center</A>
+
+      <br />
+      <A href='/layout/footers/simple-footer'>simple-footer</A>
     </>
   );
 }
