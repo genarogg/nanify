@@ -1,0 +1,42 @@
+$azul: $color-secondary;
+
+body {
+    padding: 30px;
+}
+
+.container-input {
+    border: $border;
+    border-radius: $border-radius;
+
+    height: 46px;
+    position: relative;
+    width: 100%;
+
+    &,
+    * {
+        transition: 500ms ease all;
+    }
+
+    &:hover {
+        border: $border;
+    }
+
+    &.focus {
+        border: $border;
+
+        span.holder {}
+    }
+
+    input {
+        background-color: transparent;
+        border: none;
+        font-size: 18px;
+        font-weight: 600;
+        height: 100%;
+        outline: none;
+        padding: 0 10px;
+        position: relative;
+        width: 100%;
+        color: $azul;
+    }
+}

@@ -20,6 +20,9 @@ const home: React.FC<homeProps> = () => {
 
       <br />
       <A href='/layout/footers/simple-footer'>simple-footer</A>
+
+      <br />
+      <A href='/form/input'>inputs</A>
     </>
   );
 }
