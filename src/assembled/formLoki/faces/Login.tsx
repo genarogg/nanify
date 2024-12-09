@@ -54,7 +54,7 @@ const Login: React.FC<LoginProps> = ({ cardState }) => {
     return (
         <>
             <div className="login front">
-                <HeadBtn cardState={cardState} />
+                <HeadBtn cardState={cardState} register={false}/>
                 <form onSubmit={handleSubmit} >
                     <Input
                         type="email"

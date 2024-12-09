@@ -3,9 +3,10 @@ import { BtnText } from "nanify"
 
 interface HeadBtnProps {
     cardState: (css: string) => void;
+    register?: boolean;
 }
 
-const HeadBtn: React.FC<HeadBtnProps> = ({ cardState }) => {
+const HeadBtn: React.FC<HeadBtnProps> = ({ cardState, register }) => {
     const btnActive = () => {
         $("containerFormLoki")?.classList.add("active");
 
@@ -24,14 +25,19 @@ const HeadBtn: React.FC<HeadBtnProps> = ({ cardState }) => {
                     btnActive();
                 }}
             />
-            <span className="span-sesion">|</span>
-            <BtnText
-                text="Registrarse"
-                onClick={() => {
-                    cardState("right-active");
-                    btnActive();
-                }}
-            />
+            {register && (
+                <>
+                    <span className="span-sesion">|</span>
+                    <BtnText
+                        text="Registrarse"
+                        onClick={() => {
+                            cardState("right-active");
+                            btnActive();
+                        }}
+                    />
+                </>
+            )
+            }
         </div>
     );
 };
