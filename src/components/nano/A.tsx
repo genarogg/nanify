@@ -10,6 +10,15 @@ interface AProps {
 }
 
 const A: React.FC<AProps> = ({ href, type, children, className = " " }) => {
+
+  if (!type) {
+    return (
+      <Link href={href} className={className}>
+        {children}
+      </Link>
+    );
+  }
+
   switch (type) {
     case "mailto":
       return (
@@ -25,12 +34,6 @@ const A: React.FC<AProps> = ({ href, type, children, className = " " }) => {
       );
     case "push":
       return router.push(href);
-    default:
-      return (
-        <Link href={href} className={className}>
-          {children}
-        </Link>
-      );
   }
 };
 

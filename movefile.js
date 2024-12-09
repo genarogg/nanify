@@ -23,6 +23,9 @@ const predefinedPaths = {
     /* Layout */
     simpleFooter: path.join(pathJoin, '_simpleFooter.module.scss'),
     headerOneElementCenter: path.join(pathJoin, '_headerOneElementCenter.module.scss'),
+
+    /* Input */
+    inputBasic: path.join(pathJoin, '_input.module.scss'),
 };
 
 // Ruta de destino fija relativa al proyecto que usa el módulo

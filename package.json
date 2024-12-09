@@ -3,7 +3,7 @@
   "description": "Un kit de componentes para React basado en TypeScript.",
   "author": "Genaro Gonzalez",
   "license": "MIT",
-  "version": "0.1.80",
+  "version": "0.1.85",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -18,7 +18,7 @@
     "start": "next start",
     "lint": "next lint",
     "build-lib": "tsup src/components --format cjs,esm --dts",
-    "publicar": "npm run build-lib && npm publish",
+    "publicar": " npm run build-lib && npm publish",
     "postinstall": "node ./postinstall.js"
   },
   "peerDependencies": {
@@ -28,8 +28,9 @@
   "dependencies": {
     "@plaiceholder/next": "^3.0.0",
     "crypto-js": "^4.2.0",
-    "nanify": "^0.1.77",
+    "nanify": "^0.1.85",
     "next": "14.2.18",
+    "react-google-recaptcha-v3": "^1.10.1",
     "react-icons": "^5.4.0",
     "react-toastify": "^10.0.6"
   },

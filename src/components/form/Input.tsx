@@ -14,7 +14,7 @@ interface InputProps {
     min?: number;
     hasContentState?: boolean;
     placeholder: string;
-    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Input: React.FC<InputProps> = ({

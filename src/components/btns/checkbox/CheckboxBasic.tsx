@@ -5,17 +5,15 @@ import { ImCheckboxUnchecked } from "react-icons/im";
 
 interface CheckBoxBasicProps {
   text: string;
-  valueChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onClick: () => void;
 }
 
-const CheckBoxBasic: React.FC<CheckBoxBasicProps> = ({ text, valueChange }) => {
+const CheckBoxBasic: React.FC<CheckBoxBasicProps> = ({ text, onClick }) => {
   const [isClicked, setIsClicked] = useState(false);
 
   const handleClick = () => {
     setIsClicked(!isClicked);
-    valueChange({ target: { checked: !isClicked } } as React.ChangeEvent<
-      HTMLInputElement
-    >);
+    onClick();
   };
 
   return (
@@ -23,7 +21,7 @@ const CheckBoxBasic: React.FC<CheckBoxBasicProps> = ({ text, valueChange }) => {
       {isClicked ? (
         <Icon icon={<FaSquareCheck />} className="animate" />
       ) : (
-        <Icon icon={<ImCheckboxUnchecked />}  />
+        <Icon icon={<ImCheckboxUnchecked />} />
       )}
       <span className="text">{text}</span>
     </div>

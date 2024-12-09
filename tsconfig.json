@@ -27,9 +27,12 @@
       "@components/*": [
         "./src/components/*"
       ],
+      "@assembled/*": [
+        "./src/assembled/*"
+      ],
       "@form": [
         "./src/components/form/index.tsx"
-      ],
+      ]
     },
     "outDir": "./dist",
     "declaration": true,

@@ -23,6 +23,9 @@ const home: React.FC<homeProps> = () => {
 
       <br />
       <A href='/form/input'>inputs</A>
+
+      <br />
+      <A href='/assembled/loki-login'>loki-login</A>
     </>
   );
 }

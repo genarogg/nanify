@@ -1,6 +1,8 @@
 import Gravatar from "./gravatar/Gravatar";
 import { A, Icon, notify } from "./nano/Index";
 
+import { Input } from "./form"
+
 import {
     BtnLoki,
     BtnFreya,
@@ -25,6 +27,6 @@ export {
     BtnLoki, BtnFreya, BtnThor,
     BtnSubmitBasic, BtnNormalBasic, BtnText,
     CheckBoxBasic,
-
-    LayoutDemo, LayoutMain, HeaderOneElementCenter, SimpleFooter
+    LayoutDemo, LayoutMain, HeaderOneElementCenter, SimpleFooter,
+    Input,
 };
