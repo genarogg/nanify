@@ -21,7 +21,7 @@ const BtnLoki: React.FC<BtnLokiProps> = ({
         fn && fn();
       }}
       className={`
-                  btnLoki btnMenu 
+                  btn-loki btn-menu 
                   ${className} 
                   ${isActive ? "active" : ""}
                 `}
