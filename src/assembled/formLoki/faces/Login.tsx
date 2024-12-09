@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 
 import { Input, CheckBoxBasic, BtnSubmitBasic, BtnText } from 'nanify';
 
-import { BsEnvelopeFill } from 'react-icons/bs';
+import { BsFillEnvelopeHeartFill } from 'react-icons/bs';
 import { MdLock } from "react-icons/md";
 
 interface LoginProps { }
@@ -40,7 +40,7 @@ const Login: React.FC<LoginProps> = () => {
                         type="email"
                         name="email"
                         placeholder="Email"
-                        icon={<BsEnvelopeFill />}
+                        icon={<BsFillEnvelopeHeartFill />}
                         onChange={handleChange}
                     />
 

@@ -1,0 +1,152 @@
+/* Logica para voltear la tarjeta */
+
+.container-form-loki {
+    @include center-x;
+    height: 570px;
+    position: relative;
+    transform: rotateY(0deg);
+    transform-style: preserve-3d;
+    transition: 1s all ease-in-out;
+    width: 360px;
+    z-index: 2;
+
+    &.right-active {
+        transform: rotateY(180deg);
+
+        &.active {
+            .right {
+                animation: colorChange 1s forwards;
+            }
+        }
+
+        .front {
+            z-index: 1;
+        }
+
+        .right {
+            @include height(500px);
+            border: $border-color;
+            transition: all ease 1.6s;
+            z-index: 4;
+        }
+    }
+
+    &.front-active {
+        transform: rotateY(0deg);
+
+        &.active {
+            .front {
+                animation: colorChange 1s forwards;
+            }
+        }
+
+        .front {
+            border: 1px solid #fff;
+            transition: all ease 1.6s;
+            z-index: 4;
+        }
+
+        .right {
+            z-index: 1;
+        }
+    }
+
+    &.left-active {
+        transform: rotateY(-180deg);
+
+        &.active {
+            .left {
+                animation: colorChange 1s forwards;
+            }
+        }
+
+        .left {
+            border: 1px solid #fff;
+            transition: all ease 1.6s;
+            z-index: 4;
+        }
+
+        .right {
+            display: none;
+            z-index: 1;
+        }
+    }
+
+    .login,
+    .register,
+    .left {
+        @include width(440px);
+
+        align-items: center;
+        border: 1px solid #fff;
+        border-radius: $border-radius;
+        box-shadow: $box-shadow;
+        display: flex;
+        flex-direction: column;
+        padding: 40px;
+        padding-top: 30px;
+        width: 100%;
+    }
+
+    .front {
+        @include height(380px);
+        position: absolute;
+        backface-visibility: hidden;
+    }
+
+    .right {
+        @include height(380px);
+        backface-visibility: hidden;
+        overflow: hidden;
+        position: absolute;
+        transform: rotateY(180deg);
+        transition: all ease 0.8s;
+    }
+
+    .left {
+        @include height(260px);
+        backface-visibility: hidden;
+        display: none;
+        overflow: hidden;
+        position: absolute;
+        transform: rotateY(-180deg);
+        transition: all ease 0.8s;
+
+        .text-recovery {
+            background-color: transparent;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 600;
+            max-width: 333px;
+            outline: none;
+            transition: all ease 500ms;
+        }
+    }
+
+    .icono {
+        font-size: 20px;
+    }
+
+    form {
+        @include center-x;
+        display: grid;
+        gap: 30px;
+        grid-template-columns: 1fr;
+    }
+}
+
+@keyframes colorChange {
+    0% {
+        border-color: #fff;
+    }
+
+    50% {
+        border-color: $azul;
+    }
+
+    100% {
+        border-color: #fff;
+    }
+}

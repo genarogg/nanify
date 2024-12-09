@@ -5,6 +5,7 @@ import React from 'react'
 
 import ResetPassWord from './faces/ResetPassWord';
 import Login from './faces/Login';
+import Register from './faces/Register';
 
 interface LokiLoginProps {
 
@@ -17,6 +18,7 @@ const LokiLogin: React.FC<LokiLoginProps> = () => {
             {/* <GoogleReCaptchaProvider reCaptchaKey={RECAPTCHA_KEY}> */}
             <ResetPassWord />
             <Login />
+            <Register />
             {/* </GoogleReCaptchaProvider> */}
         </div>
     );

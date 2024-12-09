@@ -30,29 +30,27 @@
         }
     }
 
-   
-}
+    @keyframes circle {
+        0% {
+            border-color: transparent;
+            transform: rotate(0deg);
+        }
 
-@keyframes circle {
-    0% {
-        border-color: transparent;
-        transform: rotate(0deg);
-    }
+        25% {
+            border-color: transparent #fff transparent transparent;
+        }
 
-    25% {
-        border-color: transparent #fff transparent transparent;
-    }
+        50% {
+            border-color: transparent #fff #fff transparent;
+        }
 
-    50% {
-        border-color: transparent #fff #fff transparent;
-    }
+        75% {
+            border-color: transparent #fff #fff;
+        }
 
-    75% {
-        border-color: transparent #fff #fff;
-    }
-
-    to {
-        border-color: #fff;
-        transform: rotate(-700deg);
+        to {
+            border-color: #fff;
+            transform: rotate(-700deg);
+        }
     }
 }

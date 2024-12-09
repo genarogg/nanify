@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 
 import { Input, BtnSubmitBasic, BtnRowCircle } from '@components/Index';
 
-import { BsEnvelopeFill } from 'react-icons/bs';
+import { BsFillEnvelopeHeartFill } from 'react-icons/bs';
 
 interface ResetPassWordProps {}
 
@@ -37,12 +37,11 @@ const ResetPassWord: React.FC<ResetPassWordProps> = () => {
                     e.preventDefault();
                 }}
             >
-
                 <Input
                     type="email"
                     name="email"
                     placeholder="Email"
-                    icon={<BsEnvelopeFill />}
+                    icon={<BsFillEnvelopeHeartFill />}
                     onChange={handleChange}
                 />
 
