@@ -47,7 +47,7 @@ const bts: React.FC<btsProps> = () => {
 
             <h3>CheckBoxBasic</h3>
             <p>Componente CheckBoxBasic</p>
-            <CheckBoxBasic text="Accept Terms and Conditions" valueChange={handleValueChange} />
+            {/* <CheckBoxBasic text="Accept Terms and Conditions" valueChange={handleValueChange} /> */}
             <p>{isChecked ? "Checked" : "Unchecked"}</p>
             <br />
             Uso del componente <code>{'<CheckBoxBasic text="Accept Terms and Conditions" valueChange={handleValueChange} />'}</code>

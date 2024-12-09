@@ -1,9 +1,9 @@
 import React from 'react'
-import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
+// import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 
 // import { RECAPTCHA_KEY } from "@env";
 
-import ResetPassWord from './faces/ResetPass';
+import ResetPassWord from './faces/ResetPassWord';
 import Login from './faces/Login';
 
 interface LokiLoginProps {

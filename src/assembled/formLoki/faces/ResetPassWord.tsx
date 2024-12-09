@@ -1,17 +1,14 @@
 import React, { useRef, useState } from 'react'
 
-import { Input,  BtnSubmitBasic } from '@components/Index';
+import { Input, BtnSubmitBasic, BtnRowCircle } from '@components/Index';
 
 import { BsEnvelopeFill } from 'react-icons/bs';
 
-interface ResetPassWordProps {
-
-}
+interface ResetPassWordProps {}
 
 const ResetPassWord: React.FC<ResetPassWordProps> = () => {
     const inputRef = useRef({
         email: "",
- 
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,19 +26,11 @@ const ResetPassWord: React.FC<ResetPassWordProps> = () => {
     return (
         <div className="reset left" id="reset">
             <div className="title">
-                {/* <button
-                    id="btnBack"
-                    onClick={() => {
-                        active();
-                        cardState("front-active");
-                    }}
-                >
-                    <Icono icono={<FaArrowLeft />} />
-                </button> */}
+                <BtnRowCircle onClick={() => { console.log("hola mundo") }} />
 
                 <p>Restablecer la contraseña</p>
 
-                {/* <hr className="titleHr" /> */}
+                <hr className="titleHr" />
             </div>
             <form
                 onSubmit={(e) => {
@@ -66,6 +55,7 @@ const ResetPassWord: React.FC<ResetPassWordProps> = () => {
                     </span>
                 </div>
             </form>
+
         </div>
     );
 }

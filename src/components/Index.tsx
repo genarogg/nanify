@@ -13,6 +13,7 @@ import {
     BtnText,
 
     CheckBoxBasic,
+    BtnRowCircle
 } from "./btns/index"
 
 import {
@@ -25,8 +26,9 @@ import {
 export {
     Gravatar, A, Icon, notify,
     BtnLoki, BtnFreya, BtnThor,
-    BtnSubmitBasic, BtnNormalBasic, BtnText,
+    BtnSubmitBasic, BtnNormalBasic, BtnText, BtnRowCircle,
     CheckBoxBasic,
     LayoutDemo, LayoutMain, HeaderOneElementCenter, SimpleFooter,
     Input,
+
 };

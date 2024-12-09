@@ -10,6 +10,8 @@ import BtnText from "./basic/BtnText";
 
 import CheckBoxBasic from "./checkbox/CheckboxBasic";
 
+import BtnRowCircle from "./animte/BtnRowCircle";
+
 export {
   BtnLoki,
   BtnFreya,
@@ -20,4 +22,5 @@ export {
   BtnText,
 
   CheckBoxBasic,
+  BtnRowCircle,
 };
