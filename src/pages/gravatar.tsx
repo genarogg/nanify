@@ -1,5 +1,5 @@
 import React from 'react';
-import { Gravatar } from "nanify";
+import { Gravatar } from "@components/Index";
 
 interface gravatarProps { }
 
