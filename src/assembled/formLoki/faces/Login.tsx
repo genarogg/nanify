@@ -1,13 +1,17 @@
 import React, { useRef, useState } from 'react'
-
 import { Input, CheckBoxBasic, BtnSubmitBasic, BtnText } from 'nanify';
 
 import { BsFillEnvelopeHeartFill } from 'react-icons/bs';
 import { MdLock } from "react-icons/md";
 
-interface LoginProps { }
+import { $ } from "@fn";
+import HeadBtn from "./global/HeadBtn";
 
-const Login: React.FC<LoginProps> = () => {
+interface LoginProps {
+    cardState: (css: string) => void;
+}
+
+const Login: React.FC<LoginProps> = ({ cardState }) => {
 
     const inputRef = useRef({
         email: "",
@@ -31,10 +35,26 @@ const Login: React.FC<LoginProps> = () => {
         console.log(inputRef.current);
     };
 
+    const active = () => {
+        $("btnBack")?.classList.add("active");
+
+        const register = $("register");
+
+        if (register) {
+            register.style.display = "none";
+        }
+
+        const reset = $("reset");
+
+        if (reset) {
+            reset.style.display = "flex";
+        }
+    };
+
     return (
         <>
             <div className="login front">
-                {/* <HeadBtn cardState={cardState} /> */}
+                <HeadBtn cardState={cardState} />
                 <form onSubmit={handleSubmit} >
                     <Input
                         type="email"
@@ -57,11 +77,11 @@ const Login: React.FC<LoginProps> = () => {
                         onClick={toogleChecked}
                     />
 
-                    <BtnSubmitBasic text='Acceder' disable={loading} />
-
+                    <BtnSubmitBasic text='Acceder' disable={loading} onClick={(() => setLoading(true))} />
 
                     <BtnText text='¿Olvidaste tu contraseña?' onClick={() => {
-                        // changeFace("left-active");
+                        active();
+                        cardState("left-active");
                     }} />
 
                 </form>

@@ -26,11 +26,11 @@ form {
     }
 
     &:hover {
-        border: $border;
+        border:1px solid $color-secondary;
     }
 
     &.focus {
-        border: $border;
+        border:1px solid $color-secondary;
 
         span.holder {
             font-size: 14px;

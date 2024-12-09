@@ -4,9 +4,13 @@ import { BsFillEnvelopeHeartFill, BsPersonFill } from 'react-icons/bs';
 import { MdLock } from 'react-icons/md';
 import { IoMdUnlock } from "react-icons/io";
 
-interface RegisterProps { }
+import HeadBtn from "./global/HeadBtn";
 
-const Register: React.FC<RegisterProps> = () => {
+interface RegisterProps {
+    cardState: (css: string) => void;
+}
+
+const Register: React.FC<RegisterProps> = ({ cardState }) => {
     const inputRef = useRef({
         name: "",
         email: "",
@@ -29,7 +33,7 @@ const Register: React.FC<RegisterProps> = () => {
     return (
 
         <div className="register right" id="register">
-            {/* <HeadBtn cardState={cardState} /> */}
+            <HeadBtn cardState={cardState} />
             <form onSubmit={(e) => { e.preventDefault() }}>
                 <Input
                     type="text"
@@ -63,7 +67,7 @@ const Register: React.FC<RegisterProps> = () => {
                     onChange={handleChange}
                 />
 
-                <BtnSubmitBasic text='Registrarse' disable={loading} />
+                <BtnSubmitBasic text='Registrarse' disable={loading} onClick={(() => setLoading(true))}  />
 
                 <div className="text-recovery">
                     <span>

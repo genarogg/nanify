@@ -32,6 +32,9 @@
       ],
       "@form": [
         "./src/components/form/index.tsx"
+      ],
+      "@fn": [
+        "./src/functions/index.ts"
       ]
     },
     "outDir": "./dist",

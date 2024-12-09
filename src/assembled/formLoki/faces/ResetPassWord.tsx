@@ -3,10 +3,13 @@ import React, { useRef, useState } from 'react'
 import { Input, BtnSubmitBasic, BtnRowCircle } from '@components/Index';
 
 import { BsFillEnvelopeHeartFill } from 'react-icons/bs';
+import { $ } from "@fn";
 
-interface ResetPassWordProps {}
+interface ResetPassWordProps {
+    cardState: (css: string) => void;
+}
 
-const ResetPassWord: React.FC<ResetPassWordProps> = () => {
+const ResetPassWord: React.FC<ResetPassWordProps> = ({ cardState }) => {
     const inputRef = useRef({
         email: "",
     });
@@ -23,10 +26,32 @@ const ResetPassWord: React.FC<ResetPassWordProps> = () => {
         console.log(inputRef.current);
     };
 
+    const active = () => {
+        setTimeout(() => {
+            $("btnBack")?.classList.remove("active");
+
+            const register = $("register");
+
+            if (register) {
+                register.style.display = "flex";
+            }
+
+            const reset = $("reset");
+
+            if (reset) {
+                reset.style.display = "none";
+            }
+        }, 600);
+    };
+
+
     return (
         <div className="reset left" id="reset">
             <div className="title">
-                <BtnRowCircle onClick={() => { console.log("hola mundo") }} />
+                <BtnRowCircle id="btnBack" onClick={() => {
+                    active();
+                    cardState("front-active");
+                }} />
 
                 <p>Restablecer la contraseña</p>
 
@@ -45,7 +70,7 @@ const ResetPassWord: React.FC<ResetPassWordProps> = () => {
                     onChange={handleChange}
                 />
 
-                <BtnSubmitBasic text='Recuperar cuenta' disable={loading} />
+                <BtnSubmitBasic text='Recuperar cuenta' disable={loading} onClick={(() => setLoading(true))} />
 
                 <div className="text-recovery">
                     <span>
@@ -54,7 +79,6 @@ const ResetPassWord: React.FC<ResetPassWordProps> = () => {
                     </span>
                 </div>
             </form>
-
         </div>
     );
 }
