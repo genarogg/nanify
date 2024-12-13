@@ -1,5 +1,5 @@
 import React from 'react'
-import { A } from "@components/Index";
+import { A } from "nanify";
 
 interface homeProps {
 
