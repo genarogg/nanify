@@ -18,8 +18,7 @@
     "start": "next start",
     "lint": "next lint",
     "build-lib": "tsup src/components --format cjs,esm --dts",
-    "publicar": "npm run build-lib && npm publish",
-    "postinstall": "node ./postinstall.js"
+    "publicar": "npm run build-lib && npm publish"
   },
   "peerDependencies": {
     "react": "^18",
