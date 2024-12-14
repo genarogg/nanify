@@ -3,7 +3,7 @@
   "description": "Un kit de componentes para React basado en TypeScript.",
   "author": "Genaro Gonzalez",
   "license": "MIT",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -17,7 +17,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "clean-dist": "rimraf dist",
+    "update:jsx": "node updateTsconfig.js",
+    "clean-dist": "npm run update:jsx &&  rimraf dist",
     "build-lib": "npm run clean-dist && tsup src/components --format cjs,esm --dts",
     "publicar": "npm run build-lib && npm publish"
   },
@@ -27,7 +28,7 @@
   },
   "dependencies": {
     "crypto-js": "^4.2.0",
-    "nanify": "^0.2.5",
+    "nanify": "^0.2.6",
     "next": "14.2.18",
     "react-google-recaptcha-v3": "^1.10.1",
     "react-icons": "^5.4.0",
@@ -40,6 +41,7 @@
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "14.2.18",
+    "json": "^11.0.0",
     "rimraf": "^6.0.1",
     "tsup": "^6.7.0",
     "typescript": "^5"

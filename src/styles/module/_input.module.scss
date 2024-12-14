@@ -55,6 +55,7 @@ form {
             @include center-flex-xy;
             font-size: 20px;
             color: $color-secondary;
+            cursor: pointer;
         }
     }
 
