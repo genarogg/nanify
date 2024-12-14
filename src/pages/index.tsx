@@ -1,5 +1,5 @@
 import React from 'react'
-import { A } from "nanify";
+import { A } from "../../dist/Index";
 
 interface homeProps {
 
