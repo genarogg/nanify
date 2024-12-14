@@ -23,9 +23,6 @@ import {
 import {
   BtnText_default
 } from "./chunk-JPKTKWKS.mjs";
-import {
-  Gravatar_default
-} from "./chunk-KMUPCYLF.mjs";
 import "./chunk-L5JBIXBB.mjs";
 import {
   Input_default
@@ -40,6 +37,9 @@ import {
 import {
   notify_default
 } from "./chunk-72SLRPXM.mjs";
+import {
+  Gravatar_default
+} from "./chunk-KMUPCYLF.mjs";
 import "./chunk-CICLFD6I.mjs";
 import {
   SimpleFooter_default
