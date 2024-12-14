@@ -3,9 +3,9 @@
   "description": "Un kit de componentes para React basado en TypeScript.",
   "author": "Genaro Gonzalez",
   "license": "MIT",
-  "version": "0.1.99",
-  "main": "dist/Index.js",
-  "types": "dist/Index.d.ts",
+  "version": "0.2.01",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
     "dist",
     "src/styles",
@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "crypto-js": "^4.2.0",
-    "nanify": "^0.1.99",
+    "nanify": "^0.2.01",
     "next": "14.2.18",
     "publicar": "^1.0.0",
     "react-icons": "^5.4.0",

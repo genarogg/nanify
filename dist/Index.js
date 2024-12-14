@@ -27,9 +27,9 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
 ));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-// src/components/Index.tsx
-var Index_exports = {};
-__export(Index_exports, {
+// src/components/index.tsx
+var components_exports = {};
+__export(components_exports, {
   A: () => A_default,
   BtnFreya: () => BtnFreya_default,
   BtnLoki: () => BtnLoki_default,
@@ -48,7 +48,7 @@ __export(Index_exports, {
   SimpleFooter: () => SimpleFooter_default,
   notify: () => notify_default
 });
-module.exports = __toCommonJS(Index_exports);
+module.exports = __toCommonJS(components_exports);
 
 // src/components/gravatar/Gravatar.tsx
 var import_react = __toESM(require("react"));

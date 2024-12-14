@@ -1,5 +1,5 @@
 import React from 'react';
-import { Gravatar } from "@components/Index";
+import { Gravatar } from "@components/index";
 
 interface gravatarProps { }
 
