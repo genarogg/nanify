@@ -9,6 +9,7 @@ interface GravatarProps {
   alt: string;
   size?: number;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 const Gravatar: React.FC<GravatarProps> = ({
@@ -16,7 +17,7 @@ const Gravatar: React.FC<GravatarProps> = ({
   alt,
   size = 80,
   className = "",
-
+  style = {},
 }) => {
   if (!isValidEmail(email)) {
     throw new Error("Invalid email");
@@ -33,6 +34,7 @@ const Gravatar: React.FC<GravatarProps> = ({
       height={size}
       priority
       className={className}
+      style={style}
     />
   );
 };
