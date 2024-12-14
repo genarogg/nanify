@@ -1,5 +1,5 @@
 import Gravatar from "./gravatar/Gravatar";
-import { A, Icon, notify } from "./nano/Index";
+import { A, Icon, notify } from "./nano";
 
 import { Input } from "./form"
 
@@ -14,7 +14,7 @@ import {
 
     CheckBoxBasic,
     BtnRowCircle
-} from "./btns/index"
+} from "./btns"
 
 import {
     LayoutDemo,

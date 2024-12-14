@@ -1,5 +1,6 @@
 import React from 'react'
-
+// import { A } from '@nano';
+import { A } from '@components/index';
 interface nanoProps {
 
 }
@@ -63,7 +64,13 @@ const nano: React.FC<nanoProps> = () => {
                     <li><strong>config</strong>: Configuración opcional para personalizar la notificación.</li>
                 </ul>
                 <li className="prosp">Advertencia: Asegúrate de incluir /ToastContainer/ en tu layout para que las notificaciones se muestren correctamente.</li>
-                <li className="prosp">Documentación oficial: <a href="https://fkhadra.github.io/react-toastify/introduction" target="_blank" rel="noopener noreferrer">react-toastify</a></li>
+                <li className="prosp">Documentación oficial:
+                    <A type='a'
+                        href="https://fkhadra.github.io/react-toastify/introduction" style={{ backgroundColor: "#9a00ff" }}
+                    >
+                        react-toastify
+                    </A>
+                </li>
             </ul>
         </>
     );

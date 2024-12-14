@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { Icon } from '@nano'
+import { Icon } from '@components/nano'
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 
 interface InputProps {

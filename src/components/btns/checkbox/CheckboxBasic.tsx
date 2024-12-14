@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Icon } from "@nano";
+import { Icon } from "@components/nano";
 import { FaSquareCheck } from "react-icons/fa6";
 import { ImCheckboxUnchecked } from "react-icons/im";
 
