@@ -19,13 +19,16 @@
     "tsBuildInfoFile": "./dist/tsconfig.tsbuildinfo",
     "paths": {
       "@nano": [
-        "src/components/nano/index.tsx"
+        "./src/components/nano/index.tsx"
       ],
       "@fn/*": [
         "./src/functions/*"
       ],
       "@components/*": [
         "./src/components/*"
+      ],
+      "@nanify": [
+        "./src/components/index.tsx"
       ],
       "@assembled/*": [
         "./src/assembled/*"
@@ -44,6 +47,7 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
+    "**/**/*.tsx",
     "**/*.tsx"
   ],
   "exclude": [

@@ -6,8 +6,6 @@ interface homeProps {
 }
 
 const home: React.FC<homeProps> = () => {
-
-
   return (
     <>
       <A href='/nano'>nano</A>
