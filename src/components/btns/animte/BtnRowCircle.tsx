@@ -1,6 +1,6 @@
 import React from 'react'
 import { FaArrowLeft } from 'react-icons/fa';
-import { Icon } from '@components/nano';
+import { Icon } from '@components/nano/index';
 
 interface BtnRowCircleProps {
     icon?: React.ReactNode;
