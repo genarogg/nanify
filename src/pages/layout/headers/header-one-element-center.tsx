@@ -1,6 +1,6 @@
 import React from 'react'
-import LayoutMain from '@components/layout/LayoutMain';
-import HeaderOneElementCenter from "@components/layout/headers/HeaderOneElementCenter"
+import LayoutMain from '@assembled/layout/LayoutMain';
+import HeaderOneElementCenter from "@assembled/layout/headers/HeaderOneElementCenter"
 
 interface headerOneElementCenterProps {
 

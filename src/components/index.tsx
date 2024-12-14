@@ -16,13 +16,6 @@ import {
     BtnRowCircle
 } from "./btns"
 
-import {
-    LayoutDemo,
-    LayoutMain,
-    HeaderOneElementCenter,
-    SimpleFooter
-} from "./layout/index";
-
 export {
     Gravatar, A, Icon, notify,
 
@@ -31,8 +24,6 @@ export {
     BtnSubmitBasic, BtnNormalBasic, BtnText, BtnRowCircle,
 
     CheckBoxBasic,
-
-    LayoutDemo, LayoutMain, HeaderOneElementCenter, SimpleFooter,
     
     Input,
 

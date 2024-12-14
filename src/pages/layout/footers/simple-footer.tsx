@@ -1,6 +1,6 @@
 import React from 'react'
-import LayoutMain from '@components/layout/LayoutMain';
-import SimpleFooter from '@components/layout/footers/SimpleFooter';
+import LayoutMain from '@assembled/layout/LayoutMain';
+import SimpleFooter from '@assembled/layout/footers/SimpleFooter';
 
 interface simpleFooterProps {
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import LayoutDemo from '../components/layout/LayoutDemo';
+import LayoutDemo from '../assembled/layout/LayoutDemo';
 
 interface LayoutMainProps {
 
