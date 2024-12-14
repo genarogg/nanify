@@ -1,0 +1,120 @@
+$azul: $color-secondary;
+
+body {
+    padding: 30px;
+}
+
+form {
+    display: grid;
+    gap: 40px;
+}
+
+.container-input {
+    @include center-flex-xy;
+
+    border: $border;
+    border-radius: $border-radius;
+
+    height: 46px;
+    position: relative;
+    width: 100%;
+
+    &,
+    * {
+        transition: 500ms ease all;
+        // border: 1px solid red;
+    }
+
+    &:hover {
+        border:1px solid $color-secondary;
+    }
+
+    &.focus {
+        border:1px solid $color-secondary;
+
+        span.holder {
+            font-size: 14px;
+            font-weight: 600;
+            top: 0;
+        }
+    }
+
+    &.no-icon {
+        padding-left: 47px;
+    }
+
+    .label-ico,
+    .view-pass {
+        @include center-flex-xy;
+        $size: 46px;
+
+        height: inherit;
+        width: $size;
+
+        .icon {
+            @include center-flex-xy;
+            font-size: 20px;
+            color: $color-secondary;
+        }
+    }
+
+    input {
+        background-color: transparent;
+        border: none;
+        font-size: 18px;
+        font-weight: 600;
+        height: 100%;
+        outline: none;
+        padding: 0 10px;
+        position: relative;
+        width: 100%;
+        color: $color-secondary;
+    }
+
+
+
+    span.holder {
+        background-color: transparent;
+        backdrop-filter: $blur;
+        color: $color-secondary;
+        font-size: 18px;
+        left: 40px;
+        padding: 0 10px;
+        pointer-events: none;
+        position: absolute;
+        top: 50%;
+        top: 23px;
+        transform: translateY(-50%);
+        transition: 0.3s;
+
+        &.has-content {
+            font-size: 15px;
+            font-weight: 600;
+            top: 0 !important;
+        }
+    }
+
+    input[type="date"] {
+        cursor: pointer;
+
+        &::-webkit-calendar-picker-indicator {
+            display: none;
+        }
+    
+        &::-ms-expand {
+            display: none;
+        }
+
+        &::before {
+            content: '';
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            width: 0;
+            height: 0;
+            pointer-events: none;
+        }
+    }
+}

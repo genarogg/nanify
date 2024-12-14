@@ -1,0 +1,31 @@
+import {
+    $,
+    $selectorAll,
+    $classList,
+    $style,
+    $styleText,
+    $alternalClass,
+    $fadeOut,
+    $fadeIn,
+    $toggleFade,
+    $contains,
+    $all,
+    $toggle,
+    $where,
+} from "./domUtils";
+
+export {
+    $,
+    $selectorAll,
+    $classList,
+    $style,
+    $styleText,
+    $alternalClass,
+    $fadeOut,
+    $fadeIn,
+    $toggleFade,
+    $contains,
+    $all,
+    $toggle,
+    $where,
+};

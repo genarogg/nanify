@@ -1,0 +1,18 @@
+.layout-main{
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
+    min-height: 100dvh;
+
+    .header-demo{
+        background-color: #227bff;
+    }
+
+    .main-demo{
+       /*  background-color: #22884d; */
+    }
+
+    .footer-demo{
+        background-color: #c9a0ff;
+    }
+}
