@@ -5,7 +5,7 @@ import { ImCheckboxUnchecked } from "react-icons/im";
 
 interface CheckBoxBasicProps {
   text: string;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 const CheckBoxBasic = forwardRef(({ text, onClick }: CheckBoxBasicProps, ref) => {
@@ -13,7 +13,7 @@ const CheckBoxBasic = forwardRef(({ text, onClick }: CheckBoxBasicProps, ref) =>
 
   const handleClick = () => {
     setIsClicked(!isClicked);
-    onClick();
+    onClick && onClick();
   };
 
   useImperativeHandle(ref, () => ({
