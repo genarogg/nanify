@@ -14,14 +14,22 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react",
     "incremental": true,
     "tsBuildInfoFile": "./dist/tsconfig.tsbuildinfo",
     "paths": {
-      "@components/*": ["./src/components/*"],
-      "@fn/*": ["./src/functions/*"],
-      "@nanify": ["./src/components"],
-      "@form": ["./src/components/form/index.tsx"],
+      "@components/*": [
+        "./src/components/*"
+      ],
+      "@fn/*": [
+        "./src/functions/*"
+      ],
+      "@nanify": [
+        "./src/components"
+      ],
+      "@form": [
+        "./src/components/form/index.tsx"
+      ]
     },
     "outDir": "./dist",
     "declaration": true,
@@ -31,7 +39,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "**/**/*.tsx",
+    "**/**/*.tsx"
   ],
   "exclude": [
     "node_modules"
