@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, forwardRef, useImperativeHandle } from "react";
 import { Icon } from "@components/nano";
 import { FaSquareCheck } from "react-icons/fa6";
 import { ImCheckboxUnchecked } from "react-icons/im";
@@ -8,13 +8,17 @@ interface CheckBoxBasicProps {
   onClick: () => void;
 }
 
-const CheckBoxBasic: React.FC<CheckBoxBasicProps> = ({ text, onClick }) => {
+const CheckBoxBasic = forwardRef(({ text, onClick }: CheckBoxBasicProps, ref) => {
   const [isClicked, setIsClicked] = useState(false);
 
   const handleClick = () => {
     setIsClicked(!isClicked);
     onClick();
   };
+
+  useImperativeHandle(ref, () => ({
+    isChecked: isClicked,
+  }));
 
   return (
     <div className="checkbox-basic" onClick={handleClick}>
@@ -26,6 +30,6 @@ const CheckBoxBasic: React.FC<CheckBoxBasicProps> = ({ text, onClick }) => {
       <span className="text">{text}</span>
     </div>
   );
-};
+});
 
 export default CheckBoxBasic;

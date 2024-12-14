@@ -28,7 +28,7 @@
         "./src/components/*"
       ],
       "@nanify": [
-        "./src/components/index.tsx"
+        "./src/components"
       ],
       "@assembled/*": [
         "./src/assembled/*"

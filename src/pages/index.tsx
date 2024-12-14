@@ -20,14 +20,18 @@ const home: React.FC<homeProps> = () => {
 
   return (
     <>
-      <Seccion titulo="basicos">
-        <A href='/nano'>nano</A>
-        <A href='/gravatar'>gravatar</A>
+      <Seccion titulo="basico">
+        <A href='/basico/nano'>nano</A>
+        <A href='/basico/gravatar'>gravatar</A>
+      </Seccion>
+
+      <Seccion titulo="formulario">
         <A href='/form/input'>inputs</A>
+        <A href='/form/checkbox'>checkbox</A>
       </Seccion>
 
       <Seccion titulo="btns">
-        <A href='/btns'>btns</A>
+        <A href='/btns/basico'>basico</A>
         <A href='/btns/hamburguesa'>hamburguesa</A>
       </Seccion>
 
