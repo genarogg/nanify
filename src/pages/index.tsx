@@ -1,13 +1,11 @@
 import React from 'react'
-import { A } from "../../dist/Index";
+import { A } from "nanify";
 
 interface homeProps {
 
 }
 
 const home: React.FC<homeProps> = () => {
-
-
   return (
     <>
       <A href='/nano'>nano</A>
