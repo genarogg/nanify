@@ -18,27 +18,10 @@
     "incremental": true,
     "tsBuildInfoFile": "./dist/tsconfig.tsbuildinfo",
     "paths": {
-      "@nano": [
-        "./src/components/nano/index.tsx"
-      ],
-      "@fn/*": [
-        "./src/functions/*"
-      ],
-      "@components/*": [
-        "./src/components/*"
-      ],
-      "@nanify": [
-        "./src/components"
-      ],
-      "@assembled/*": [
-        "./src/assembled/*"
-      ],
-      "@form": [
-        "./src/components/form/index.tsx"
-      ],
-      "@fn": [
-        "./src/functions/index.ts"
-      ]
+      "@components/*": ["./src/components/*"],
+      "@fn/*": ["./src/functions/*"],
+      "@nanify": ["./src/components"],
+      "@form": ["./src/components/form/index.tsx"],
     },
     "outDir": "./dist",
     "declaration": true,
@@ -47,8 +30,8 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
+    "**/*.tsx",
     "**/**/*.tsx",
-    "**/*.tsx"
   ],
   "exclude": [
     "node_modules"
