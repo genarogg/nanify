@@ -16,28 +16,6 @@ import {
     BtnRowCircle
 } from "./btns"
 
-
-import {
-    $,
-    $selectorAll,
-    $classList,
-    $style,
-    $styleText,
-    $alternalClass,
-    $fadeOut,
-    $fadeIn,
-    $toggleFade,
-    $contains,
-    $all,
-    $toggle,
-    $where,
-    random,
-    sortNumbers,
-    generateUUID,
-    quitarAcentos, regexUrl, isValidEmail,
-    cleanArray, log
-} from "../functions";
-
 export {
     Gravatar, A, Icon, notify,
 
@@ -47,24 +25,5 @@ export {
 
     CheckBoxBasic,
 
-    Input,
-
-    $,
-    $selectorAll,
-    $classList,
-    $style,
-    $styleText,
-    $alternalClass,
-    $fadeOut,
-    $fadeIn,
-    $toggleFade,
-    $contains,
-    $all,
-    $toggle,
-    $where,
-    random,
-    sortNumbers,
-    generateUUID,
-    quitarAcentos, regexUrl, isValidEmail,
-    cleanArray, log
+    Input
 };
