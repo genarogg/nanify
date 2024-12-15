@@ -1,7 +1,7 @@
 import Gravatar from "./gravatar/Gravatar";
-import { A, Icon, notify } from "./nano/index";
+import { A, Icon, notify } from "./nano";
 
-import { Input } from "./form/index"
+import { Input } from "./form"
 
 import {
     BtnLoki,
