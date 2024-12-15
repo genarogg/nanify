@@ -24,12 +24,6 @@
       "@fn/*": [
         "./src/functions/*"
       ],
-      "@nanify": [
-        "./src/components"
-      ],
-      "@form": [
-        "./src/components/form/index.tsx"
-      ]
     },
     "outDir": "./dist",
     "declaration": true,
@@ -38,8 +32,7 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx",
-    "**/**/*.tsx"
+    "**/*.tsx"
   ],
   "exclude": [
     "node_modules"
