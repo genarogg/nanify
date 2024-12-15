@@ -18,6 +18,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "movefile": "node movefile.js",
     "update:jsx": "node updateTsconfig.js",
     "clean-dist": "npm run update:jsx &&  rimraf dist",
     "build-lib": "npm run clean-dist && tsup src/components --format cjs,esm --dts",

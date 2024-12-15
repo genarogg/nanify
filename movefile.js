@@ -6,26 +6,28 @@ const readline = require('readline');
 const pathJoin = path.join(__dirname, 'src', 'styles', 'module',)
 const predefinedPaths = {
     /* btn Hamburguesa */
-    btnLoki: path.join(pathJoin, '_btnLoki.module.scss'),
-    btnFreya: path.join(pathJoin, '_btnFreya.module.scss'),
-    btnThor: path.join(pathJoin, '_btnThor.module.scss'),
+    btnLoki: path.join(pathJoin, 'btns', '_btnLoki.module.scss'),
+    btnFreya: path.join(pathJoin, 'btns', '_btnFreya.module.scss'),
+    btnThor: path.join(pathJoin, 'btns', '_btnThor.module.scss'),
 
     /* btn Basic */
-    btnNormalBasic: path.join(pathJoin, '_btnNormalBasic.module.scss'),
-    btnSubmitBasic: path.join(pathJoin, '_btnSubmitBasic.module.scss'),
-    btnText: path.join(pathJoin, '_btnText.module.scss'),
-    btnExpancion: path.join(pathJoin, '_expancion.module.scss'),
+    btnNormalBasic: path.join(pathJoin, 'btns', '_btnNormalBasic.module.scss'),
+    btnSubmitBasic: path.join(pathJoin, 'btns', '_btnSubmitBasic.module.scss'),
+    btnText: path.join(pathJoin, 'btns', '_btnText.module.scss'),
+    btnExpancion: path.join(pathJoin, 'btns', '_btnExpancion.module.scss'),
 
+    /* FORM */
     /* CheckBox */
-    checkboxBasic: path.join(pathJoin, '_checkboxBasic.module.scss'),
-
-
-    /* Layout */
-    simpleFooter: path.join(pathJoin, '_simpleFooter.module.scss'),
-    headerOneElementCenter: path.join(pathJoin, '_headerOneElementCenter.module.scss'),
+    checkboxBasic: path.join(pathJoin, 'form', '_checkboxBasic.module.scss'),
 
     /* Input */
-    inputBasic: path.join(pathJoin, '_input.module.scss'),
+    inputBasic: path.join(pathJoin, 'form', '_input.module.scss'),
+
+    /* Layout */
+    // simpleFooter: path.join(pathJoin, '_simpleFooter.module.scss'),
+    // headerOneElementCenter: path.join(pathJoin, '_headerOneElementCenter.module.scss'),
+
+
 };
 
 // Ruta de destino fija relativa al proyecto que usa el módulo
