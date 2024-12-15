@@ -1,0 +1,95 @@
+// centrar elementos
+@mixin center-grid-xy {
+  display: grid;
+  place-content: center;
+}
+
+@mixin center-flex-xy {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin center-x {
+  display: flex;
+  justify-content: center;
+}
+
+@mixin center-y {
+  display: flex;
+  align-items: center;
+}
+
+// width absoluto
+@mixin width($size) {
+  width: $size;
+  min-width: $size;
+  max-width: $size;
+}
+
+// height absoluto
+@mixin height($size) {
+  height: $size;
+  min-height: $size;
+  max-height: $size;
+}
+
+@mixin square($sizew, $sizeh: $sizew) {
+  height: $sizeh;
+  max-height: $sizeh;
+  min-height: $sizeh;
+  width: $sizew;
+  max-width: $sizew;
+  min-width: $sizew;
+}
+
+@mixin distribucion-responsiva($size: 360px, $cantidad-de-elementos: 1fr) {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax($size, $cantidad-de-elementos)
+  );
+
+  @media screen and (max-width: 360px) {
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(95vw, $cantidad-de-elementos)
+    );
+  }
+}
+
+@mixin between($min-width, $max-width) {
+  @media (min-width: $min-width) and (max-width: $max-width) {
+    @content;
+  }
+}
+
+@mixin max-width($size) {
+  @media screen and (max-width: $size) {
+    @content;
+  }
+}
+
+@mixin min-width($size) {
+  @media screen and (min-width: $size) {
+    @content;
+  }
+}
+
+@mixin scroll($color: #fff, $size: 6px, $bgColor: "#000") {
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: $color;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: $bgColor;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: $bgColor;
+  }
+}

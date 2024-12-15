@@ -1,0 +1,41 @@
+@import "../styles/init/style.scss";
+
+/* btns */
+@import "../styles/module/btnFrekya.module.scss";
+@import "../styles/module/btnLoki.module.scss";
+@import "../styles/module/btnThor.module.scss";
+
+@import "../styles/module/btnText.module.scss";
+@import "../styles/module/btnNormalBasic.module.scss";
+@import "../styles/module/btnSubmitBasic.module.scss";
+
+@import "../styles/module/checkboxBasic.module.scss";
+@import "../styles/module/expancion.module.scss";
+
+@import "../styles/module/headerOneElementCenter.module.scss";
+
+@import "../styles/module/simpleFooter.module.scss";
+
+@import "../styles/module/input.module.scss";
+
+@import "../styles/module/containerRowCircle.module.scss";
+
+@import "../assembled/formLoki/sass/formLoki.scss";
+
+// *{
+//     border: 1px solid red;
+// }
+
+code {
+    background-color: #9a00ff
+}
+
+body {
+    background-color: #f5e6ed;
+
+}
+
+a {
+    color: #000;
+    display: flex;
+}
