@@ -18,12 +18,27 @@
     "incremental": true,
     "tsBuildInfoFile": "./dist/tsconfig.tsbuildinfo",
     "paths": {
-      "@components/*": [
-        "./src/components/*"
+      "@nano": [
+        "./src/components/nano/index.tsx"
       ],
       "@fn/*": [
         "./src/functions/*"
       ],
+      "@components/*": [
+        "./src/components/*"
+      ],
+      "@nanify": [
+        "./src/components"
+      ],
+      "@assembled/*": [
+        "./src/assembled/*"
+      ],
+      "@form": [
+        "./src/components/form/index.tsx"
+      ],
+      "@fn": [
+        "./src/functions/index.ts"
+      ]
     },
     "outDir": "./dist",
     "declaration": true,
