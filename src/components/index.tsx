@@ -1,4 +1,5 @@
 import Gravatar from "./gravatar/Gravatar";
+import { LogoGenarogg } from "./imgSVG";
 import { A, Icon, notify } from "./nano";
 
 import { Input } from "./form"
@@ -17,7 +18,9 @@ import {
 } from "./btns"
 
 export {
-    Gravatar, A, Icon, notify,
+    Gravatar, LogoGenarogg,
+    
+    A, Icon, notify,
 
     BtnLoki, BtnFreya, BtnThor,
 
