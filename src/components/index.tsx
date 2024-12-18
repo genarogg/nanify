@@ -19,7 +19,7 @@ import {
 
 export {
     Gravatar, LogoGenarogg,
-    
+
     A, Icon, notify,
 
     BtnLoki, BtnFreya, BtnThor,
