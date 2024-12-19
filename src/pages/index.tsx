@@ -35,7 +35,9 @@ const home: React.FC<homeProps> = () => {
         <A href='/btns/hamburguesa'>hamburguesa</A>
       </Seccion>
 
-     
+      <Seccion titulo="Img">
+        <A href='/img'>Img</A>
+      </Seccion>
 
 
       {/* <A href='/layout/headers/header-one-element-center'>header-one-element-center</A>
