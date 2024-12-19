@@ -4,6 +4,8 @@ import { A, Icon, notify } from "./nano";
 
 import { Input } from "./form"
 
+import Img from "./imgs/Img";
+
 import {
     BtnLoki,
     BtnFreya,
@@ -28,5 +30,7 @@ export {
 
     CheckBoxBasic,
 
-    Input
+    Input,
+
+    Img
 };
