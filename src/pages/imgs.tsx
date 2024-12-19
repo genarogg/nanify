@@ -12,8 +12,6 @@ const imgs: React.FC<imgsProps> = () => {
                 src="/img.png"
                 alt="img"
                 fill
-                // width={500} 
-                // height={700} 
                 placeholder="blur"
             />
         </>
