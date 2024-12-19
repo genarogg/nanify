@@ -13,6 +13,7 @@ const imgs: React.FC<imgsProps> = () => {
                 alt="img"
                 fill
                 placeholder="blur"
+                
             />
         </>
     );
