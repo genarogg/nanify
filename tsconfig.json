@@ -42,13 +42,20 @@
     },
     "outDir": "./dist",
     "declaration": true,
-    "declarationDir": "./dist/types"
+    "declarationDir": "./dist/types",
+    "target": "ES2017",
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
   "include": [
-    "next-env.d.ts",
+    "**/**/*.ts",
     "**/*.ts",
     "**/*.tsx",
-    "**/**/*.ts"
+    "next-env.d.ts",
+    ".next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"

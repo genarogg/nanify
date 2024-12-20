@@ -1,7 +1,8 @@
 import React from 'react'
 import Image from 'next/image';
+import getBase64 from './getBase64';
 
-interface ImgLocalProps {
+interface ImgProps {
     src: string | any;
     alt: string;
     placeholder?: any;
@@ -13,15 +14,14 @@ interface ImgLocalProps {
     loading?: "lazy" | "eager" | undefined;
     priority?: boolean;
     quality?: number;
-
 }
 
-const ImgLocal: React.FC<ImgLocalProps> = (
+const Img: React.FC<ImgProps> = async(
     {
         src,
         alt,
         placeholder = 'blur',
-        blurDataURL = "",
+        blurDataURL = '',
         layout = 'responsive',
         width = 1920,
         height = 1080,
@@ -31,12 +31,15 @@ const ImgLocal: React.FC<ImgLocalProps> = (
         quality = 90
     }
 ) => {
+
+    const blurData = blurDataURL || await getBase64(src)
+
     return (
         <Image
             src={src}
             alt={alt}
             placeholder={placeholder}
-            blurDataURL={blurDataURL}
+            blurDataURL={blurData}
             layout={layout}
             width={width}
             height={height}
@@ -48,4 +51,4 @@ const ImgLocal: React.FC<ImgLocalProps> = (
     );
 }
 
-export default ImgLocal;
+export default Img;

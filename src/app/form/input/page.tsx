@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useRef } from 'react'
 import { Input } from '@form';
 import { BsEnvelopeFill } from 'react-icons/bs';

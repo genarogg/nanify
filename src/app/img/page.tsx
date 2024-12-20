@@ -1,6 +1,6 @@
 import React from 'react'
 import Img from "@components/imgs/Img"
-import imgLocak from "../../public/bg-home.jpg"
+import imgLocak from "../../../public/bg-home.jpg"
 
 interface imgProps {
 
