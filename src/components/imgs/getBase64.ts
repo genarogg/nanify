@@ -10,7 +10,7 @@ const getBase64 = async (url: string) => {
     );
 
     const { base64 } = await getPlaiceholder(buffer);
-
+    
     return base64;
 
   } catch (err) {

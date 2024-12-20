@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import Image from 'next/image';
 import getBase64 from './getBase64';
 
@@ -16,7 +16,7 @@ interface ImgProps {
     quality?: number;
 }
 
-const Img: React.FC<ImgProps> = async(
+const Img: React.FC<ImgProps> = async (
     {
         src,
         alt,
@@ -31,11 +31,11 @@ const Img: React.FC<ImgProps> = async(
         quality = 90
     }
 ) => {
-
-    const blurData = blurDataURL || await getBase64(src)
+    const blurData = blurDataURL || await getBase64(src);
 
     return (
         <Image
+            id="img"
             src={src}
             alt={alt}
             placeholder={placeholder}
