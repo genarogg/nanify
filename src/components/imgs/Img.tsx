@@ -5,13 +5,14 @@ import getBase64 from './getBase64';
 interface ImgProps {
     src: string | any;
     alt: string;
-    placeholder?: any;
+    id: string;
+    placeholder?: 'blur' | 'empty';
     blurDataURL?: string;
-    layout?: string;
+    layout?: 'fixed' | 'intrinsic' | 'responsive' | 'fill';
     width?: number;
     height?: number;
-    objectFit?: string;
-    loading?: "lazy" | "eager" | undefined;
+    loading?: 'lazy' | 'eager';
+    objectFit?: 'cover' | 'contain' | 'fill' | 'none' | 'scale-down';
     priority?: boolean;
     quality?: number;
 }
@@ -20,6 +21,7 @@ const Img: React.FC<ImgProps> = async (
     {
         src,
         alt,
+        id,
         placeholder = 'blur',
         blurDataURL = '',
         layout = 'responsive',
@@ -35,9 +37,9 @@ const Img: React.FC<ImgProps> = async (
 
     return (
         <Image
-            id="img"
-            src={src}
+            src={blurData}
             alt={alt}
+            id="img"
             placeholder={placeholder}
             blurDataURL={blurData}
             layout={layout}
@@ -47,6 +49,7 @@ const Img: React.FC<ImgProps> = async (
             loading={loading}
             priority={priority}
             quality={quality}
+            style={{ transition: "all ease 2s" }}
         />
     );
 }
