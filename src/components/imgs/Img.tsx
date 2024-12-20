@@ -1,71 +1,60 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import Image, { ImageProps } from 'next/image';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
+import Image, { ImageProps, StaticImageData } from 'next/image';
 
-interface ImgProps extends Omit<ImageProps, 'placeholder' | 'blurDataURL'> {
-    src: string;
+interface ImgProps {
+    src: string | StaticImageData;
+    alt: string;
+    id?: string;
     blurDataURL?: string;
     placeholder?: 'blur' | 'empty';
+    width?: number;
+    height?: number;
+    className?: string;
+    priority?: boolean;
+    loading?: ImageProps['loading'];
+    quality?: number;
 }
 
 const Img: React.FC<ImgProps> = ({
     src,
     alt,
-    blurDataURL = '',
+    id = "",
+    blurDataURL,
     placeholder = 'blur',
     width = 1920,
     height = 1080,
-    className = '',
+    className = "",
     priority = false,
     loading = 'lazy',
     quality = 90,
 }) => {
-    const [blurData, setBlurData] = useState<string | undefined>(blurDataURL);
-    const [isLoading, setIsLoading] = useState<boolean>(true);
 
-    useEffect(() => {
-        const fetchBlurData = async () => {
-            try {
-                const response = await fetch(`/api/getBase64?url=${encodeURIComponent(src)}`);
-                console.log(response)
-                if (!response.ok) {
-                    const errorText = await response.text();
-                    throw new Error(`Network response was not ok: ${errorText}`);
-                }
-                const data = await response.json();
-                setBlurData(data.base64);
-            } catch (error) {
-                console.error('Error fetching blur data:', error);
-            } finally {
-                setIsLoading(false);
-            }
-        };
+    let base64 = blurDataURL;
 
-        if (!blurDataURL) {
-            fetchBlurData();
-        } else {
-            setIsLoading(false);
-        }
-    }, [src, blurDataURL]);
-
+    if (src.toString().includes('http') && blurDataURL === undefined) {
+        base64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAIAAAA7ljmRAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAMElEQVR4nGPwd/db1VL//+Ot/2/vMqRFx86eN2/3xg1+FnYMptauJe29M5pbFRgYAI6CEfe240IDAAAAAElFTkSuQmCC"
+    }
 
     return (
-        <Image
-            src={src}
-            alt={alt}
-            id={id + "-monstrar"}
-            className={className}
-            placeholder={placeholder}
-            blurDataURL={blurData}
-            layout={layout}
-            width={width}
-            height={height}
-            objectFit={objectFit}
-            loading={loading}
-            priority={priority}
-            quality={quality}
-        />
+        <>
+            <Image
+                src={base64 || ""}
+                alt={alt}
+                id={id + "-monstrar"}
+                className={className}
+                placeholder={placeholder}
+                blurDataURL={base64}
+                layout="responsive"
+                width={width}
+                height={height}
+                objectFit="cover"
+                loading={loading}
+                priority={priority}
+                quality={quality}
+            />
+        </>
     );
 };
 

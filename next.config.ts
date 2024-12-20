@@ -15,7 +15,8 @@ const config = {
       "blogger.googleusercontent.com",
       "plus.unsplash.com",
       "encrypted-tbn0.gstatic.com",
-      "www.kupywrestlingwallpapers.info"
+      "www.kupywrestlingwallpapers.info",
+      "next-images.123rf.com"
     ],
   },
 };

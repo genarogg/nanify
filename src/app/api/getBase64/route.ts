@@ -15,7 +15,7 @@ export const GET = async (req: NextRequest) => {
     );
 
     const { base64 } = await getPlaiceholder(buffer);
-    console.log(base64)
+
     return NextResponse.json({ base64 }, { status: 200 });
   } catch (err) {
     return NextResponse.json({ error: 'Failed to fetch image' }, { status: 500 });
