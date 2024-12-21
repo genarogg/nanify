@@ -9,13 +9,14 @@ const Img: React.FC<ImgProps> = ({
     type,
     blurDataURL,
     placeholder = 'blur',
-    width = 1920,
-    height = 1080,
+    width = 1920 / 2,
+    height = 1080 / 2,
     className = "",
     priority = false,
     loading = 'lazy',
     quality = 90,
-    sizes
+    sizes,
+    style
 }) => {
 
     switch (type) {
@@ -34,6 +35,7 @@ const Img: React.FC<ImgProps> = ({
                     loading={loading}
                     quality={quality}
                     sizes={sizes}
+                    style={style}
                 />
             );
         default:

@@ -12,6 +12,7 @@ interface ImgProps {
     loading?: 'eager' | 'lazy';
     quality?: number;
     sizes?: string;
+    style?: any
 }
 
 export default ImgProps;

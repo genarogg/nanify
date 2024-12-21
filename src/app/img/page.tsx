@@ -12,8 +12,8 @@ const img: React.FC<imgProps> = () => {
     const base64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAACCAIAAADwyuo0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAI0lEQVR4nGN48H9K03L3M6/rGmZ4MDDwM/jnm07bmzJ5VRoAqwgL1RTPjO0AAAAASUVORK5CYII="
 
     return (<>
-        <Img type="remote" src={remote} alt="demo" id='demo' />
-        <Img type="remote" src={remote} alt="demo" id='demo' blurDataURL={base64} />
+        <Img type="remote" src={remote} alt="demo" id='demo' style={{ border: "1px solid red" }} />
+        <Img type="remote" src={remote} alt="demo" id='demo' blurDataURL={base64} style={{ border: "1px solid red" }} />
     </>);
 }
 

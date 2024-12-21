@@ -1,6 +1,8 @@
 'use client';
 
 import React, { useState, useInsertionEffect, useEffect } from 'react';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css'
 import Image from 'next/image';
 import { $ } from "../../functions"
 import styles from './img.module.css';
@@ -21,6 +23,7 @@ const Img: React.FC<ImgProps> = ({
     loading,
     quality,
     sizes,
+    style
 }) => {
 
 
@@ -32,10 +35,10 @@ const Img: React.FC<ImgProps> = ({
 
         if (typeof src === 'string' && src.startsWith('http') && !blurDataURL) {
             fetch(`/api/getBase64?url=${encodeURIComponent(src)}`)
-            .then(response => response.json())
-            .then(data => {
-                console.log(data)
-                if (data.data) {
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                    if (data.data) {
                         setSvgBackground(svg({ base64: data.data }));
                         setIsLoad(false);
                     }
@@ -63,44 +66,64 @@ const Img: React.FC<ImgProps> = ({
         }
     }, [isLoad]);
 
-    if (isLoad) {
-        return <></>
-    }
-
     return (
         <div
             style={{
-                backgroundImage: `url(${svgBackground})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
                 width,
                 height,
                 position: 'relative',
                 overflow: 'hidden',
+                ...style
             }}
             className={`${styles.responsiveImage}`}
             id={id + "Conteiner"}
         >
-            <Image
-                src={src}
-                alt={alt}
-                id={id + "Img"}
-                className={`${className} ${styles.responsiveImage} ${styles.fadeIn}`}
-                placeholder={placeholder}
-                blurDataURL={svgBackground}
-                width={width}
-                height={height}
-                loading={loading}
-                priority={priority}
-                quality={quality}
-                style={{ position: 'absolute' }}
-                sizes={sizes}
-            />
-            <div
-                className={`${styles.responsiveImage}`}
-                style={{ width, height }}
-                id={id + "ghost"} >
-            </div>
+            {isLoad ? (
+                <Skeleton
+                    width={width}
+                    height={height}
+                    baseColor="#f0f0f0"
+                    highlightColor="#000"
+                    duration={1.5}
+                />
+            ) : (
+                <>
+                    <div
+                        style={{
+                            backgroundImage: `url(${svgBackground})`,
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
+                            width,
+                            height,
+                            position: 'relative',
+                            overflow: 'hidden',
+                        }}
+                        className={`${styles.responsiveImage}`}
+                        id={id + "Conteiner"}
+                    >
+                        <Image
+                            src={src}
+                            alt={alt}
+                            id={id + "Img"}
+                            className={`${className} ${styles.responsiveImage} ${styles.fadeIn}`}
+                            placeholder={placeholder}
+                            blurDataURL={svgBackground}
+                            width={width}
+                            height={height}
+                            loading={loading}
+                            priority={priority}
+                            quality={quality}
+                            style={{ position: 'absolute' }}
+                            sizes={sizes}
+                        />
+                        <div
+                            className={`${styles.responsiveImage}`}
+                            style={{ width, height }}
+                            id={id + "ghost"} >
+                        </div>
+                    </div>
+                </>
+            )}
         </div>
     );
 };
