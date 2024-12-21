@@ -58,9 +58,9 @@ const Img: React.FC<ImgProps> = ({
         const img = $(id + "Img");
         const ghost = $(id + "ghost");
 
-      
+
         if (img && conteiner && ghost) {
-            
+
             conteiner.style.width = img.offsetWidth + "px";
             conteiner.style.height = img.offsetHeight + "px";
             ghost.style.width = img.offsetWidth + "px";
@@ -83,6 +83,7 @@ const Img: React.FC<ImgProps> = ({
                 width,
                 height,
                 position: 'relative',
+                overflow: 'hidden',
             }}
             className={`${styles.responsiveImage}`}
             id={id + "Conteiner"}
@@ -100,9 +101,13 @@ const Img: React.FC<ImgProps> = ({
                 priority={priority}
                 quality={quality}
                 style={{ position: 'absolute' }}
-                sizes={sizes}
+            // sizes={sizes}
             />
-            <div className={`${styles.responsiveImage}`} style={{ width, height }} id={id + "ghost"} ></div>
+            <div
+                className={`${styles.responsiveImage}`}
+                style={{ width, height }}
+                id={id + "ghost"} >
+            </div>
         </div>
     );
 };
