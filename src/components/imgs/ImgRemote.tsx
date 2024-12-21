@@ -3,7 +3,7 @@
 import React, { useState, useInsertionEffect, useEffect } from 'react';
 import Image from 'next/image';
 import { $ } from "../../functions"
-import styles from './Img.module.css';
+import styles from './img.module.css';
 import ImgProps from './ImgProps';
 
 import svg from "./svg"
