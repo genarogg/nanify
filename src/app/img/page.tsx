@@ -13,7 +13,7 @@ const img: React.FC<imgProps> = () => {
 
     return (<>
         <Img type="remote" src={remote} alt="demo" id='demo' style={{ border: "1px solid red" }} />
-        <Img type="remote" src={remote} alt="demo" id='demo' blurDataURL={base64} style={{ border: "1px solid red" }} />
+        <Img type="remote" src={remote} alt="demo" id='demo2' blurDataURL={base64} style={{ border: "1px solid red" }} />
     </>);
 }
 

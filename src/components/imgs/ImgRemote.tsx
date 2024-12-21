@@ -1,8 +1,7 @@
 'use client';
 
 import React, { useState, useInsertionEffect, useEffect } from 'react';
-import Skeleton from 'react-loading-skeleton';
-import 'react-loading-skeleton/dist/skeleton.css'
+import { Squeleto } from "../index"
 import Image from 'next/image';
 import { $ } from "../../functions"
 import styles from './img.module.css';
@@ -32,7 +31,6 @@ const Img: React.FC<ImgProps> = ({
 
 
     useInsertionEffect(() => {
-
         if (typeof src === 'string' && src.startsWith('http') && !blurDataURL) {
             fetch(`/api/getBase64?url=${encodeURIComponent(src)}`)
                 .then(response => response.json())
@@ -63,6 +61,11 @@ const Img: React.FC<ImgProps> = ({
             ghost.style.height = img.offsetHeight + "px";
 
             img.style.opacity = "1";
+
+            setTimeout(() => {
+                conteiner.style.backgroundImage = "initial";
+            }, 1500);
+
         }
     }, [isLoad]);
 
@@ -76,15 +79,12 @@ const Img: React.FC<ImgProps> = ({
                 ...style
             }}
             className={`${styles.responsiveImage}`}
-            id={id + "Conteiner"}
+
         >
             {isLoad ? (
-                <Skeleton
+                <Squeleto
                     width={width}
                     height={height}
-                    baseColor="#f0f0f0"
-                    highlightColor="#000"
-                    duration={1.5}
                 />
             ) : (
                 <>
