@@ -1,0 +1,17 @@
+.fadeIn {
+    opacity: 0;
+    transition: all 1s ease-in;
+    /* filter: blur(20px); */
+}
+
+.fadeIn.show {
+    opacity: 1;
+    /* filter: blur(0px); */
+}
+
+.responsiveImage {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    display: block;
+}
