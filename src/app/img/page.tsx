@@ -1,18 +1,19 @@
 import React from 'react'
 import Img from "@components/imgs/Img"
 import imgLocal from "../../../public/bg-home.jpg"
+import Image from 'next/image'
 
 interface imgProps { }
 
 const img: React.FC<imgProps> = () => {
 
-    const remote = "https://images.unsplash.com/photo-1540270776932-e72e7c2d11cd?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max"
+    const remote = "https://plus.unsplash.com/premium_photo-1661962958462-9e52fda9954d?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8dGhhaWxhbmR8ZW58MHx8MHx8fDA%3D"
 
     
 
     return (<>
-    <Img src={imgLocal} alt="demo" id='demo'  />
-    <Img src={remote} alt="demod" id='demos'  />
+    <Img src={remote} alt="demo" id='demo'  />
+    
     </>);
 }
 

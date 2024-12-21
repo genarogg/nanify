@@ -32,6 +32,7 @@
     "i": "^0.3.7",
     "nanify": "^0.2.9",
     "next": "15.1.2",
+    "next-blurhash-blurdataurl": "^0.0.4",
     "npm": "^11.0.0",
     "react": "^19.0.0",
     "react-blurhash": "^0.3.0",

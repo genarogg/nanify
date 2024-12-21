@@ -16,7 +16,8 @@ const config = {
       "plus.unsplash.com",
       "encrypted-tbn0.gstatic.com",
       "www.kupywrestlingwallpapers.info",
-      "next-images.123rf.com"
+      "next-images.123rf.com",
+      "picsvg.com",
     ],
   },
 };
