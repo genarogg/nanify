@@ -6,8 +6,6 @@ export const GET = async (req: NextRequest) => {
   const { searchParams } = new URL(req.url);
   const filePath = searchParams.get('filePath');
 
-  console.log(filePath)
-
   if (!filePath) {
     return NextResponse.json({ error: 'File path is required' }, { status: 400 });
   }

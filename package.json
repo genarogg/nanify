@@ -3,13 +3,14 @@
   "description": "Un kit de componentes para React basado en TypeScript.",
   "author": "Genaro Gonzalez",
   "license": "MIT",
-  "version": "0.2.10",
+  "version": "0.2.11",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist",
     "src/styles",
     "src/functions",
+    "src/app/api",
     "postinstall.js",
     "movefile.js"
   ],
@@ -27,9 +28,8 @@
   "dependencies": {
     "@plaiceholder/next": "^3.0.0",
     "crypto-js": "^4.2.0",
-    "nanify": "^0.2.9",
+    "nanify": "^0.2.11",
     "next": "15.1.2",
-    "npm": "^11.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-google-recaptcha": "^3.1.0",

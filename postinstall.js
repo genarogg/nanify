@@ -18,14 +18,32 @@ function copyFolderSync(from, to) {
 }
 
 // Define la carpeta de origen y la carpeta de destino
-const sourceDir = path.join(__dirname, 'src', 'styles', 'init');
-const targetDir = path.join(__dirname, '..', '..', 'src', 'sass');
+const sourceDirStyle = path.join(__dirname, 'src', 'styles', 'init');
+const targetDirStyle = path.join(__dirname, '..', '..', 'src', 'sass');
+
 
 // Verifica si la carpeta de destino ya existe
-if (!fs.existsSync(targetDir)) {
+if (!fs.existsSync(targetDirStyle)) {
     // Copia la carpeta de origen a la carpeta de destino
     try {
-        copyFolderSync(sourceDir, targetDir);
+        copyFolderSync(sourceDirStyle, targetDirStyle);
+        console.log('Carpeta copiada');
+    } catch (error) {
+        console.error('Error al copiar la carpeta', error);
+    }
+} else {
+    console.log('La carpeta de destino ya existe. No se copian los archivos.');
+}
+
+const sourceDirAPI = path.join(__dirname, 'src', 'app', 'api', );
+const targetDirAPI = path.join(__dirname, '..', '..', 'src', 'app', 'api');
+
+
+// Verifica si la carpeta de destino ya existe
+if (!fs.existsSync(targetDirAPI)) {
+    // Copia la carpeta de origen a la carpeta de destino
+    try {
+        copyFolderSync(sourceDirAPI, targetDirAPI);
         console.log('Carpeta copiada');
     } catch (error) {
         console.error('Error al copiar la carpeta', error);
