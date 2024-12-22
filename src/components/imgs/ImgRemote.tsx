@@ -22,7 +22,8 @@ const Img: React.FC<ImgProps> = ({
     loading,
     quality,
     sizes,
-    style
+    style,
+    children
 }) => {
 
 

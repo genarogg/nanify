@@ -33,7 +33,12 @@ const img: React.FC<imgProps> = () => {
                     <h1>normal</h1>
                     <Img type="local" src={imgLocal} alt="demo" id='demo' style={{ border: "1px solid red" }} width={width} height={height} />
                 </div>
-               
+                <div className="" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                    <h1>background</h1>
+                    <Img type="bg" src={imgLocal} alt="demo" id='dedasmo' style={{ border: "1px solid red", display: "flex", justifyContent: "center",  alignItems: "center" }} width={width} height={height} >
+                        <h1>hola</h1>
+                    </Img>
+                </div>
             </div>
         </>
     );

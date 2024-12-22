@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect } from 'react';
-
 import Image from 'next/image';
 import { $ } from "../../functions"
 import styles from './img.module.css';
@@ -20,9 +19,9 @@ const Img: React.FC<ImgProps> = ({
     loading,
     quality,
     sizes,
-    style
+    style,
+    children
 }) => {
-
     useEffect(() => {
         const conteiner = $(id + "Conteiner");
         const img = $(id + "Img");

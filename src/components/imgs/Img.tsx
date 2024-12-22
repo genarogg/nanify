@@ -1,6 +1,7 @@
 import React from 'react';
 import ImgRemote from './ImgRemote';
 import ImgLocal from './ImgLocal';
+import ImgBG from './ImgBG';
 import ImgProps from './ImgProps';
 
 const Img: React.FC<ImgProps> = ({
@@ -17,7 +18,8 @@ const Img: React.FC<ImgProps> = ({
     loading = 'lazy',
     quality = 90,
     sizes,
-    style
+    style,
+    children
 }) => {
 
     switch (type) {
@@ -42,23 +44,43 @@ const Img: React.FC<ImgProps> = ({
 
         case 'local':
             return (
-                    <ImgLocal
-                        src={src}
-                        alt={alt}
-                        id={id}
-                        width={width}
-                        height={height}
-                        className={className}
-                        blurDataURL={blurDataURL}
-                        placeholder={placeholder}
-                        priority={priority}
-                        loading={loading}
-                        quality={quality}
-                        sizes={sizes}
-                        style={style}
-                    />
-          
+                <ImgLocal
+                    src={src}
+                    alt={alt}
+                    id={id}
+                    width={width}
+                    height={height}
+                    className={className}
+                    blurDataURL={blurDataURL}
+                    placeholder={placeholder}
+                    priority={priority}
+                    loading={loading}
+                    quality={quality}
+                    sizes={sizes}
+                    style={style}
+                />
+
             );
+        case 'bg':
+            return (
+                <ImgBG
+                    src={src}
+                    alt={alt}
+                    id={id}
+                    width={width}
+                    height={height}
+                    className={className}
+                    blurDataURL={blurDataURL}
+                    placeholder={placeholder}
+                    priority={priority}
+                    loading={loading}
+                    quality={quality}
+                    sizes={sizes}
+                    style={style}
+                >
+                    {children}
+                </ImgBG>
+            )
         default:
             return <>sucedio un error en img switch</>;
     }

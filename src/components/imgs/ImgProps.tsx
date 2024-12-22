@@ -1,5 +1,5 @@
 interface ImgProps {
-    type?: 'remote' | 'local';
+    type?: 'remote' | 'local' | 'bg';
     src: string | any;
     alt: string;
     id?: string;
@@ -13,6 +13,7 @@ interface ImgProps {
     quality?: number;
     sizes?: string;
     style?: any
+    children?: React.ReactNode;
 }
 
 export default ImgProps;
