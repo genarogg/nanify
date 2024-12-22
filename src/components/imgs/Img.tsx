@@ -1,5 +1,6 @@
 import React from 'react';
 import ImgRemote from './ImgRemote';
+import ImgLocal from './ImgLocal';
 import ImgProps from './ImgProps';
 
 const Img: React.FC<ImgProps> = ({
@@ -37,6 +38,26 @@ const Img: React.FC<ImgProps> = ({
                     sizes={sizes}
                     style={style}
                 />
+            );
+
+        case 'local':
+            return (
+                    <ImgLocal
+                        src={src}
+                        alt={alt}
+                        id={id}
+                        width={width}
+                        height={height}
+                        className={className}
+                        blurDataURL={blurDataURL}
+                        placeholder={placeholder}
+                        priority={priority}
+                        loading={loading}
+                        quality={quality}
+                        sizes={sizes}
+                        style={style}
+                    />
+          
             );
         default:
             return <>sucedio un error en img switch</>;

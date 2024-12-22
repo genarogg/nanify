@@ -1,36 +1,6 @@
-/* .fadeIn {
-  opacity: 0;
-  transition: all 1s ease-in;
-}
-
-.fadeInshow {
-  opacity: 1;
-} */
-
 .fadeIn {
   opacity: 0;
-  transition: all 1s ease-in;
-}
-
-.fadeInshow {
-  animation: fadeIn 10s ease-in;
-  filter: blur(10px) brightness(4);
-}
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-    filter: blur(20px);
-  }
-
-  50% {
-    opacity: 0.5;
-    filter: blur(10px) brightness(2);
-  }
-  100% {
-    opacity: 1;
-    
-  }
+  transition: opacity 1s ease-in;
 }
 
 .responsiveImage {

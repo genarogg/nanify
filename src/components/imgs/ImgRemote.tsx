@@ -32,10 +32,9 @@ const Img: React.FC<ImgProps> = ({
 
     useInsertionEffect(() => {
         if (typeof src === 'string' && src.startsWith('http') && !blurDataURL) {
-            fetch(`/api/getBase64?url=${encodeURIComponent(src)}`)
+            fetch(`/api/getBase64/remote?url=${encodeURIComponent(src)}`)
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data)
                     if (data.data) {
                         setSvgBackground(svg({ base64: data.data }));
                         setIsLoad(false);
