@@ -1,0 +1,30 @@
+process.loadEnvFile()
+
+//saber si estoy en produccion
+const isProd = process.env.NODE_ENV === 'production'
+
+const {
+    DEBUG,
+    PUBLIC_NEXT_ALGOLIA_ID,
+    ALGOLIA_KEY,
+
+    PUBLIC_NEXT_URL_BACKEND_DEV,
+    PUBLIC_NEXT_URL_BACKEND_PROD,
+
+    PUBLIC_NEXT_URL_FRONTEND_DEV,
+    PUBLIC_NEXT_URL_FRONTEND_PROD,
+} = process.env
+
+
+const URL_BACKEND = isProd ? PUBLIC_NEXT_URL_BACKEND_PROD : PUBLIC_NEXT_URL_BACKEND_DEV
+const URL_FRONTEND = isProd ? PUBLIC_NEXT_URL_FRONTEND_PROD : PUBLIC_NEXT_URL_FRONTEND_DEV
+
+
+export {
+    DEBUG,
+    ALGOLIA_KEY,
+    PUBLIC_NEXT_ALGOLIA_ID,
+
+    URL_BACKEND,
+    URL_FRONTEND,
+}

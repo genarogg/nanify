@@ -56,7 +56,7 @@
     "**/*.tsx",
     "next-env.d.ts",
     ".next/types/**/*.ts"
-  ],
+, "src/components/algolia/indexDemo.js", "env.mjs"  ],
   "exclude": [
     "node_modules"
   ]
