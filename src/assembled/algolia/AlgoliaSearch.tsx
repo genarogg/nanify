@@ -16,28 +16,29 @@ if (!ALGOLIA_ID || !ALGOLIA_KEY) {
 
 const searchClient = algoliasearch(ALGOLIA_ID, ALGOLIA_KEY);
 
-
 const AlgoliaSearch: React.FC = () => {
     const [query, setQuery] = useState("");
     const [hasResults, setHasResults] = useState(true);
 
+    const handleQueryChange = (newQuery: string) => {
+        setQuery(newQuery);
+        setHasResults(newQuery.trim() !== ""); // Cambia según la lógica que determines.
+    };
+
     return (
         <div className="algolia-search">
             <InstantSearch indexName="movie" searchClient={searchClient}>
-
-                <SearchBox />
+                <SearchBox onQueryChange={handleQueryChange} />
                 <Configure hitsPerPage={5} />
-                <Hits hitComponent={Hit} />
-
                 {query && (
-                    <div className="hits-container">
+                    <>
                         <Hits hitComponent={Hit} />
-                        {!hasResults && <NoResults />}
-                    </div>
+                        {/* <NoResults />  */}
+                    </>
                 )}
             </InstantSearch>
         </div>
     );
-}
+};
 
 export default AlgoliaSearch;
