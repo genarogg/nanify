@@ -1,71 +1,130 @@
+/* Estilos generales */
 .algolia-search {
     padding: 20px;
-    max-width: 600px;
+    font-family: Arial, sans-serif;
+    max-width: 800px;
     margin: 0 auto;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
 
-    .search-box {
-        display: flex;
-        align-items: center;
-        margin-bottom: 20px;
-        position: relative;
+/* Estilos del SearchBox */
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
 
-        .search-icon {
-            position: absolute;
-            left: 10px;
-            font-size: 20px;
-            color: #888;
-        }
-
-        input {
-            width: 100%;
-            padding: 10px 10px 10px 40px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-        }
+    .search-icon {
+        font-size: 20px;
+        color: #888;
     }
 
-    .hit {
-        display: flex;
-        align-items: center;
-        margin-bottom: 15px;
-        border: 1px solid #eee;
-        padding: 10px;
-        border-radius: 5px;
+    .search-input {
+        flex: 1;
+        padding: 10px 15px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        transition: border-color 0.3s, box-shadow 0.3s;
         background-color: #fff;
 
-        &-image {
-            width: 50px;
-            height: 50px;
-            margin-right: 15px;
-            border-radius: 5px;
+        &:focus {
+            border-color: #555;
+            box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
         }
 
-        &-content {
-            h3 {
-                font-size: 18px;
-                margin: 0 0 5px;
-            }
-
-            p {
-                font-size: 14px;
-                color: #666;
-            }
+        &::placeholder {
+            color: #aaa;
+            font-style: italic;
         }
     }
 }
 
-.search-box input {
-    font-size: 16px;
-    color: #333;
-    transition: color 0.3s ease-in-out;
+/* Estilos de los resultados (Hits) */
+.hit {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 10px;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    background-color: #fff;
+    margin-bottom: 10px;
+    transition: transform 0.2s, box-shadow 0.2s;
 
-    &:focus {
-        color: #000;
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
-    &::placeholder {
-        color: #aaa;
-        font-style: italic;
+    .hit-image {
+        width: 60px;
+        height: 60px;
+        border-radius: 4px;
+        object-fit: cover;
+        background-color: #eee;
+    }
+
+    .hit-content {
+        flex: 1;
+
+        h3 {
+            font-size: 18px;
+            color: #333;
+            margin: 0;
+            margin-bottom: 5px;
+        }
+
+        p {
+            font-size: 14px;
+            color: #666;
+            margin: 0;
+        }
+    }
+}
+
+/* Estilos generales para títulos y secciones */
+.algolia-search h3 {
+    font-size: 20px;
+    color: #444;
+    margin-bottom: 15px;
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 600px) {
+    .algolia-search {
+        padding: 10px;
+    }
+
+    .search-box {
+        flex-direction: column;
+
+        .search-input {
+            width: 100%;
+        }
+    }
+
+    .hit {
+        flex-direction: column;
+        align-items: center;
+
+        .hit-image {
+            width: 100px;
+            height: 100px;
+        }
+
+        .hit-content {
+            text-align: center;
+
+            h3 {
+                font-size: 16px;
+            }
+
+            p {
+                font-size: 13px;
+            }
+        }
     }
 }
