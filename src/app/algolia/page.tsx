@@ -1,12 +1,12 @@
 import React from 'react'
-import AlgoliaSearchX from '@assembled/algolia/AlgoliaSearchX';
+import AlgoliaSearch from '@assembled/algolia/AlgoliaSearch';
 
 interface algoliaProps {
 
 }
 
 const algolia: React.FC<algoliaProps> = () => {
-    return (<AlgoliaSearchX />);
+    return (<AlgoliaSearch />);
 }
 
 export default algolia;

@@ -7,10 +7,10 @@ interface SearchBoxProps {
 const SearchBox: React.FC<SearchBoxProps> = () => {
     const { refine } = useSearchBox();
     const placeholders = [
-        "Busca películas...",
-        "¿Qué quieres ver hoy?",
-        "Encuentra tus favoritas...",
-        "Busca por género o título...",
+        "xsBusca películas...",
+        "x¿Qué quieres ver hoy?",
+        "xEncuentra tus favoritas...",
+        "xBusca por género o título...",
     ];
     const typingSpeed = 150; // Velocidad de escritura en ms
     const pauseBetweenPhrases = 2000; // Pausa entre frases en ms
