@@ -19,26 +19,29 @@
     "tsBuildInfoFile": "./dist/tsconfig.tsbuildinfo",
     "paths": {
       "@nano": [
-        "./src/components/nano/index.tsx"
+        "../nani/src/components/nano/index.tsx"
       ],
       "@fn/*": [
-        "./src/functions/*"
+        "../nani/src/functions/*"
       ],
       "@components/*": [
-        "./src/components/*"
+        "../nani/src/components/*"
       ],
       "@nanify": [
-        "./src/components"
+        "../nani/src/components"
       ],
       "@assembled/*": [
-        "./src/assembled/*"
+        "../nani/src/assembled/*"
       ],
       "@form": [
-        "./src/components/form/index.tsx"
+        "../nani/src/components/form/index.tsx"
       ],
       "@fn": [
-        "./src/functions/index.ts"
-      ]
+        "../nani/src/functions/index.ts"
+      ],
+      "@env": [
+        "./env.ts"
+      ],
     },
     "outDir": "./dist",
     "declaration": true,
@@ -56,7 +59,7 @@
     "**/*.tsx",
     "next-env.d.ts",
     ".next/types/**/*.ts"
-, "src/components/algolia/indexDemo.js", "env.mjs"  ],
+, "src/assembled/algolia/indexDemo.js", "env.ts"  ],
   "exclude": [
     "node_modules"
   ]
