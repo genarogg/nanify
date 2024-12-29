@@ -1,9 +1,10 @@
-"use client";
-
+"use client"
 import React, { useState } from "react";
 import { liteClient as algoliasearch } from "algoliasearch/lite";
 
 import { InstantSearch, Hits, Configure } from "react-instantsearch";
+import { AnimatePresence, motion } from "framer-motion";
+
 import { ALGOLIA_ID, ALGOLIA_KEY } from "@env";
 
 import SearchBox from "./SearchBox";
@@ -22,7 +23,7 @@ const AlgoliaSearch: React.FC = () => {
 
     const handleQueryChange = (newQuery: string) => {
         setQuery(newQuery);
-        setHasResults(newQuery.trim() !== ""); // Cambia según la lógica que determines.
+        setHasResults(newQuery.trim() !== "");
     };
 
     return (
@@ -30,12 +31,37 @@ const AlgoliaSearch: React.FC = () => {
             <InstantSearch indexName="movie" searchClient={searchClient}>
                 <SearchBox onQueryChange={handleQueryChange} />
                 <Configure hitsPerPage={5} />
-                {query && (
-                    <>
-                        <Hits hitComponent={Hit} />
-                        {/* <NoResults />  */}
-                    </>
-                )}
+                <motion.div
+                    initial={{ opacity: 1 }}
+                    animate={{ height: query ? "auto" : "0px" }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    style={{ overflow: "hidden" }}
+                >
+                    <AnimatePresence>
+                        {query && hasResults && (
+                            <motion.div
+                                key="results"
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                                transition={{ duration: 0.3 }}
+                            >
+                                <Hits hitComponent={Hit} />
+                            </motion.div>
+                        )}
+                        {query && !hasResults && (
+                            <motion.div
+                                key="no-results"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 0.3 }}
+                            >
+                                <NoResults />
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </motion.div>
             </InstantSearch>
         </div>
     );
