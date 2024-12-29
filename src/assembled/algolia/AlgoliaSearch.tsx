@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { liteClient as algoliasearch } from "algoliasearch/lite";
+import { algoliasearch } from "algoliasearch"; // Cambiar a importación por destructuración
 import { InstantSearch, Hits, Configure } from "react-instantsearch";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -15,6 +15,7 @@ if (!ALGOLIA_ID || !ALGOLIA_KEY) {
     throw new Error("Algolia credentials not provided");
 }
 
+// Configuración del cliente completo
 const searchClient = algoliasearch(ALGOLIA_ID, ALGOLIA_KEY);
 
 const AlgoliaSearch: React.FC = () => {
@@ -23,7 +24,7 @@ const AlgoliaSearch: React.FC = () => {
 
     const handleQueryChange = (newQuery: string) => {
         setQuery(newQuery);
-        setHasResults(newQuery.trim() !== ""); // Esto puede ser reemplazado con lógica más avanzada si se integra con Algolia.
+        setHasResults(newQuery.trim() !== "");
     };
 
     return (
