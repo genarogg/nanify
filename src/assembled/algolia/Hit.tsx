@@ -8,10 +8,7 @@ interface HitProps {
 
 const Hit: React.FC<HitProps> = ({ hit, addRecentSearch }) => {
     const handleClick = () => {
-
-        if (hit.title && hit.url) {
-            addRecentSearch(hit.title, hit.url);
-        }
+        addRecentSearch(hit.title, hit.url);
     };
 
     return (
