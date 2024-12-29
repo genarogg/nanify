@@ -10,7 +10,6 @@ import { ALGOLIA_ID, ALGOLIA_KEY } from "@env";
 
 import SearchBox from "./SearchBox";
 import Hit from "./Hit";
-import NoResults from "./NoResults";
 
 // Importar el reducer y el estado inicial
 import { searchReducer, initialState } from "./searchReducer";
@@ -73,18 +72,7 @@ const AlgoliaSearch: React.FC = () => {
                             </motion.div>
                         )}
 
-                        {/* Sin resultados */}
-                        {state.query && !state.hasResults && (
-                            <motion.div
-                                key="no-results"
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                exit={{ opacity: 0 }}
-                                transition={{ duration: 0.3 }}
-                            >
-                                <NoResults />
-                            </motion.div>
-                        )}
+
 
                         {state.recentSearches.length > 0 && (
                             <RecentSearches recentSearches={state.recentSearches} />
