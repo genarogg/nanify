@@ -8,10 +8,10 @@ interface SearchBoxProps {
 const SearchBox: React.FC<SearchBoxProps> = ({ onQueryChange }) => {
     const { refine } = useSearchBox();
     const placeholders = [
-        "Busca películas...",
-        "¿Qué quieres ver hoy?",
-        "Encuentra tus favoritas...",
-        "Busca por género o título...",
+        "Busca tu estilo perfecto...",
+        "¿Qué prenda estás buscando hoy?",
+        "Descubre tus favoritos...",
+        "Busca por categoría o tendencia...",
     ];
     const typingSpeed = 150; // Velocidad de escritura en ms
     const pauseBetweenPhrases = 2000; // Pausa entre frases en ms
@@ -29,20 +29,26 @@ const SearchBox: React.FC<SearchBoxProps> = ({ onQueryChange }) => {
         const typePlaceholder = () => {
             if (!isTyping && inputRef.current) {
                 const currentPhrase = placeholders[phraseIndex];
+                
                 if (charIndex < currentPhrase.length) {
-                    setPlaceholder((prev) => prev + currentPhrase[charIndex]);
-                    charIndex++;
-                    typingTimeout = setTimeout(typePlaceholder, typingSpeed);
+                    const nextChar = currentPhrase[charIndex];
+                    if (nextChar !== undefined) {
+                        // En lugar de concatenar, asigna directamente en la primera iteración
+                        setPlaceholder(currentPhrase.slice(0, charIndex + 1));
+                        charIndex++;
+                        typingTimeout = setTimeout(typePlaceholder, typingSpeed);
+                    }
                 } else {
                     pauseTimeout = setTimeout(() => {
                         charIndex = 0;
-                        setPlaceholder("");
+                        setPlaceholder(""); // Reinicia el placeholder
                         phraseIndex = (phraseIndex + 1) % placeholders.length;
                         typePlaceholder();
                     }, pauseBetweenPhrases);
                 }
             }
         };
+        
 
         typePlaceholder();
 
