@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
-import { algoliasearch } from "algoliasearch"; // Cambiar a importación por destructuración
+import React, { useState, useEffect } from "react";
+import { algoliasearch } from "algoliasearch";
+import RecentSearches from "./RecentSearches";
 import { InstantSearch, Hits, Configure } from "react-instantsearch";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -21,14 +22,20 @@ const searchClient = algoliasearch(ALGOLIA_ID, ALGOLIA_KEY);
 const AlgoliaSearch: React.FC = () => {
     const [query, setQuery] = useState("");
     const [hasResults, setHasResults] = useState(true);
+    const [recentSearches, setRecentSearches] = useState<{ title: string; url: string }[]>([]);
 
     const handleQueryChange = (newQuery: string) => {
         setQuery(newQuery);
         setHasResults(newQuery.trim() !== "");
     };
 
+    const searchRecent = () => {
+        const storedSearches = JSON.parse(localStorage.getItem('recentSearches') || '[]');
+        setRecentSearches(storedSearches);
+    }
+
     return (
-        <div className="algolia-search">
+        <div className="algolia-search" onClick={searchRecent}>
             <InstantSearch indexName="movie" searchClient={searchClient}>
                 {/* Barra de búsqueda */}
                 <SearchBox onQueryChange={handleQueryChange} />
@@ -66,6 +73,10 @@ const AlgoliaSearch: React.FC = () => {
                             >
                                 <NoResults />
                             </motion.div>
+                        )}
+
+                        {recentSearches.length > 0 && (
+                            <RecentSearches recentSearches={recentSearches} />
                         )}
                     </AnimatePresence>
                 </motion.div>

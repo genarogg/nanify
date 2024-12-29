@@ -1,12 +1,30 @@
 {
-  "name": "nani",
-  "version": "0.1.0",
-  "private": true,
+  "name": "nanify",
+  "description": "Un kit de componentes para React basado en TypeScript.",
+  "author": "Genaro Gonzalez",
+  "license": "MIT",
+  "version": "0.2.13",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src/styles",
+    "src/functions",
+    "src/app/api",
+    "postinstall.js",
+    "movefile.js"
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "movefile": "node movefile.js",
+    "update:jsx": "node updateTsconfig.js",
+    "clean-dist": "npm run update:jsx &&  rimraf dist",
+    "build-lib": "npm run clean-dist && tsup src/components --format cjs,esm --dts",
+    "publicar": "npm run build-lib && npm publish",
+    "algolia-index-demo": "node src/components/algolia/indexDemo.js"
   },
   "dependencies": {
     "@algolia/client-query-suggestions": "^5.18.0",
@@ -16,7 +34,7 @@
     "crypto-js": "^4.2.0",
     "dotenv": "^16.4.7",
     "motion": "^11.15.0",
-    "nanify": "^0.2.11",
+    "nanify": "^0.2.13",
     "next": "14.2.22",
     "react": "^18",
     "react-dom": "^18",

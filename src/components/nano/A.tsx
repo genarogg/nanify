@@ -4,13 +4,14 @@ import router from "next/router";
 
 interface AProps {
   href: string;
-  type?: string;
+  type?: "btn" | "mailto" | "a" | "push";
   children?: React.ReactNode;
   className?: string;
   style?: React.CSSProperties;
+  onClick?: () => void;
 }
 
-const A: React.FC<AProps> = ({ href, type, children, className = " ", style }) => {
+const A: React.FC<AProps> = ({ href, type, children, className = " ", onClick, style }) => {
   switch (type) {
     case undefined:
       return (
@@ -18,11 +19,11 @@ const A: React.FC<AProps> = ({ href, type, children, className = " ", style }) =
           {children}
         </Link>
       );
-    case "mailto":
+    case "btn":
       return (
-        <a href={`mailto:${href}`} className={className} style={style}>
+        <Link href={href} className={className} style={style} role="button" onClick={onClick}>
           {children}
-        </a>
+        </Link>
       );
     case "a":
       return (
@@ -32,7 +33,14 @@ const A: React.FC<AProps> = ({ href, type, children, className = " ", style }) =
       );
     case "push":
       router.push(href);
-      return null;
+      return
+    case "mailto":
+      return (
+        <a href={`mailto:${href}`} className={className} style={style}>
+          {children}
+        </a>
+      );
+
   }
 };
 

@@ -14,7 +14,7 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react",
     "incremental": true,
     "tsBuildInfoFile": "./dist/tsconfig.tsbuildinfo",
     "paths": {
@@ -41,7 +41,7 @@
       ],
       "@env": [
         "./env.ts"
-      ],
+      ]
     },
     "outDir": "./dist",
     "declaration": true,
@@ -58,8 +58,10 @@
     "**/*.ts",
     "**/*.tsx",
     "next-env.d.ts",
-    ".next/types/**/*.ts"
-, "src/assembled/algolia/indexDemo.js", "env.ts"  ],
+    ".next/types/**/*.ts",
+    "src/assembled/algolia/indexDemo.js",
+    "env.ts"
+  ],
   "exclude": [
     "node_modules"
   ]

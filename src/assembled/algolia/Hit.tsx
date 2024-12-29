@@ -1,21 +1,24 @@
 import React from 'react'
+import { A } from "nanify"
 
 interface HitProps {
     hit: any;
 }
 
-const Hit: React.FC<HitProps> = ({hit}) => {
+const Hit: React.FC<HitProps> = ({ hit }) => {
+    const handleClick = () => {
+        const recentSearches = JSON.parse(localStorage.getItem('recentSearches') || '[]');
+        recentSearches.push({ title: hit.title, url: hit.url });
+        localStorage.setItem('recentSearches', JSON.stringify(recentSearches));
+    };
+
     return (
         <>
             <div className="hit">
-                <img
-                    src={hit.image || "/placeholder.png"}
-                    alt={hit.title || "No Image"}
-                    className="hit-image"
-                />
                 <div className="hit-content">
-                    <h3>{hit.title}</h3>
-                    <p>{hit.description}</p>
+                    <A type='btn' href={`/${hit.url}`} onClick={handleClick}>
+                        <h3>{hit.title}</h3>
+                    </A>
                 </div>
             </div>
         </>
