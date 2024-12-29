@@ -1,7 +1,7 @@
-"use client"
+"use client";
+
 import React, { useState } from "react";
 import { liteClient as algoliasearch } from "algoliasearch/lite";
-
 import { InstantSearch, Hits, Configure } from "react-instantsearch";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -23,14 +23,17 @@ const AlgoliaSearch: React.FC = () => {
 
     const handleQueryChange = (newQuery: string) => {
         setQuery(newQuery);
-        setHasResults(newQuery.trim() !== "");
+        setHasResults(newQuery.trim() !== ""); // Esto puede ser reemplazado con lógica más avanzada si se integra con Algolia.
     };
 
     return (
         <div className="algolia-search">
             <InstantSearch indexName="movie" searchClient={searchClient}>
+                {/* Barra de búsqueda */}
                 <SearchBox onQueryChange={handleQueryChange} />
                 <Configure hitsPerPage={5} />
+
+                {/* Contenedor de resultados con animaciones */}
                 <motion.div
                     initial={{ opacity: 1 }}
                     animate={{ height: query ? "auto" : "0px" }}
@@ -38,6 +41,7 @@ const AlgoliaSearch: React.FC = () => {
                     style={{ overflow: "hidden" }}
                 >
                     <AnimatePresence>
+                        {/* Resultados encontrados */}
                         {query && hasResults && (
                             <motion.div
                                 key="results"
@@ -49,6 +53,8 @@ const AlgoliaSearch: React.FC = () => {
                                 <Hits hitComponent={Hit} />
                             </motion.div>
                         )}
+
+                        {/* Sin resultados */}
                         {query && !hasResults && (
                             <motion.div
                                 key="no-results"
