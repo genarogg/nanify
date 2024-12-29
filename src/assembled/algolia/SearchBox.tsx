@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useSearchBox } from "react-instantsearch";
 
 interface SearchBoxProps {
-    onQueryChange: (query: string) => void; // Nueva prop para pasar el estado.
+    onQueryChange: (query: string) => void;
 }
 
 const SearchBox: React.FC<SearchBoxProps> = ({ onQueryChange }) => {
@@ -13,8 +13,8 @@ const SearchBox: React.FC<SearchBoxProps> = ({ onQueryChange }) => {
         "Descubre tus favoritos...",
         "Busca por categoría o tendencia...",
     ];
-    const typingSpeed = 150; // Velocidad de escritura en ms
-    const pauseBetweenPhrases = 2000; // Pausa entre frases en ms
+    const typingSpeed = 150;
+    const pauseBetweenPhrases = 2000;
 
     const [placeholder, setPlaceholder] = useState("");
     const [isTyping, setIsTyping] = useState(false);
@@ -29,11 +29,10 @@ const SearchBox: React.FC<SearchBoxProps> = ({ onQueryChange }) => {
         const typePlaceholder = () => {
             if (!isTyping && inputRef.current) {
                 const currentPhrase = placeholders[phraseIndex];
-                
+
                 if (charIndex < currentPhrase.length) {
                     const nextChar = currentPhrase[charIndex];
                     if (nextChar !== undefined) {
-                        // En lugar de concatenar, asigna directamente en la primera iteración
                         setPlaceholder(currentPhrase.slice(0, charIndex + 1));
                         charIndex++;
                         typingTimeout = setTimeout(typePlaceholder, typingSpeed);
@@ -41,14 +40,14 @@ const SearchBox: React.FC<SearchBoxProps> = ({ onQueryChange }) => {
                 } else {
                     pauseTimeout = setTimeout(() => {
                         charIndex = 0;
-                        setPlaceholder(""); // Reinicia el placeholder
+                        setPlaceholder("");
                         phraseIndex = (phraseIndex + 1) % placeholders.length;
                         typePlaceholder();
                     }, pauseBetweenPhrases);
                 }
             }
         };
-        
+
 
         typePlaceholder();
 
@@ -60,8 +59,8 @@ const SearchBox: React.FC<SearchBoxProps> = ({ onQueryChange }) => {
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
-        refine(value); // Algolia refine para la búsqueda.
-        onQueryChange(value); // Propagar el estado al componente padre.
+        refine(value);
+        onQueryChange(value);
     };
 
     return (
@@ -70,9 +69,9 @@ const SearchBox: React.FC<SearchBoxProps> = ({ onQueryChange }) => {
                 ref={inputRef}
                 type="text"
                 placeholder={placeholder}
-                onFocus={() => setIsTyping(true)} // Pausa animación
-                onBlur={() => setIsTyping(false)} // Reanuda animación
-                onChange={handleInputChange} // Llama a la nueva función
+                onFocus={() => setIsTyping(true)}
+                onBlur={() => setIsTyping(false)}
+                onChange={handleInputChange}
                 className="search-input"
             />
         </div>
