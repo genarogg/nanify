@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useReducer } from "react";
 import { algoliasearch } from "algoliasearch";
 import RecentSearches from "./RecentSearches";
 import { InstantSearch, Hits, Configure } from "react-instantsearch";
@@ -12,6 +12,9 @@ import SearchBox from "./SearchBox";
 import Hit from "./Hit";
 import NoResults from "./NoResults";
 
+// Importar el reducer y el estado inicial
+import { searchReducer, initialState } from "./searchReducer";
+
 if (!ALGOLIA_ID || !ALGOLIA_KEY) {
     throw new Error("Algolia credentials not provided");
 }
@@ -20,19 +23,23 @@ if (!ALGOLIA_ID || !ALGOLIA_KEY) {
 const searchClient = algoliasearch(ALGOLIA_ID, ALGOLIA_KEY);
 
 const AlgoliaSearch: React.FC = () => {
-    const [query, setQuery] = useState("");
-    const [hasResults, setHasResults] = useState(true);
-    const [recentSearches, setRecentSearches] = useState<{ title: string; url: string }[]>([]);
+    const [state, dispatch] = useReducer(searchReducer, initialState);
 
     const handleQueryChange = (newQuery: string) => {
-        setQuery(newQuery);
-        setHasResults(newQuery.trim() !== "");
+        dispatch({ type: "SET_QUERY", payload: newQuery });
     };
 
     const searchRecent = () => {
-        const storedSearches = JSON.parse(localStorage.getItem('recentSearches') || '[]');
-        setRecentSearches(storedSearches);
-    }
+        const storedSearches = JSON.parse(localStorage.getItem("recentSearches") || "[]");
+        dispatch({ type: "SET_RECENT_SEARCHES", payload: storedSearches });
+    };
+
+    const addRecentSearch = (title: string, url: string) => {
+        const newSearch = { title, url };
+        dispatch({ type: "ADD_RECENT_SEARCH", payload: newSearch });
+        const updatedSearches = [...state.recentSearches, newSearch];
+        localStorage.setItem("recentSearches", JSON.stringify(updatedSearches));
+    };
 
     return (
         <div className="algolia-search" onClick={searchRecent}>
@@ -44,13 +51,13 @@ const AlgoliaSearch: React.FC = () => {
                 {/* Contenedor de resultados con animaciones */}
                 <motion.div
                     initial={{ opacity: 1 }}
-                    animate={{ height: query ? "auto" : "0px" }}
+                    animate={{ height: state.query ? "auto" : "0px" }}
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                     style={{ overflow: "hidden" }}
                 >
                     <AnimatePresence>
                         {/* Resultados encontrados */}
-                        {query && hasResults && (
+                        {state.query && state.hasResults && (
                             <motion.div
                                 key="results"
                                 initial={{ opacity: 0, y: -10 }}
@@ -58,12 +65,16 @@ const AlgoliaSearch: React.FC = () => {
                                 exit={{ opacity: 0, y: -10 }}
                                 transition={{ duration: 0.3 }}
                             >
-                                <Hits hitComponent={Hit} />
+                                <Hits
+                                    hitComponent={(hitProps) => (
+                                        <Hit {...hitProps} addRecentSearch={addRecentSearch} />
+                                    )}
+                                />
                             </motion.div>
                         )}
 
                         {/* Sin resultados */}
-                        {query && !hasResults && (
+                        {state.query && !state.hasResults && (
                             <motion.div
                                 key="no-results"
                                 initial={{ opacity: 0 }}
@@ -75,8 +86,8 @@ const AlgoliaSearch: React.FC = () => {
                             </motion.div>
                         )}
 
-                        {recentSearches.length > 0 && (
-                            <RecentSearches recentSearches={recentSearches} />
+                        {state.recentSearches.length > 0 && (
+                            <RecentSearches recentSearches={state.recentSearches} />
                         )}
                     </AnimatePresence>
                 </motion.div>

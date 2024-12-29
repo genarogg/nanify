@@ -1,18 +1,11 @@
-import React from 'react'
+import React from 'react';
 
-interface NoResultsProps {
-
-}
-
-const NoResults: React.FC<NoResultsProps> = () => {
+const NoResults: React.FC = () => {
     return (
-        <>
-            <div className="no-results">
-                <p>No se encontraron resultados</p>
-            </div>
-        </>
-
+        <div className="no-results">
+            <p>No se encontraron resultados</p>
+        </div>
     );
-}
+};
 
 export default NoResults;

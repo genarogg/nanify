@@ -21,22 +21,18 @@ const SearchBox: React.FC<SearchBoxProps> = ({ onQueryChange }) => {
     const inputRef = useRef<HTMLInputElement | null>(null);
 
     useEffect(() => {
-        let charIndex = 0;
-        let phraseIndex = 0;
         let typingTimeout: NodeJS.Timeout;
         let pauseTimeout: NodeJS.Timeout;
+        let charIndex = 0;
+        let phraseIndex = 0;
 
         const typePlaceholder = () => {
             if (!isTyping && inputRef.current) {
                 const currentPhrase = placeholders[phraseIndex];
-
                 if (charIndex < currentPhrase.length) {
-                    const nextChar = currentPhrase[charIndex];
-                    if (nextChar !== undefined) {
-                        setPlaceholder(currentPhrase.slice(0, charIndex + 1));
-                        charIndex++;
-                        typingTimeout = setTimeout(typePlaceholder, typingSpeed);
-                    }
+                    setPlaceholder(currentPhrase.slice(0, charIndex + 1));
+                    charIndex++;
+                    typingTimeout = setTimeout(typePlaceholder, typingSpeed);
                 } else {
                     pauseTimeout = setTimeout(() => {
                         charIndex = 0;
@@ -47,7 +43,6 @@ const SearchBox: React.FC<SearchBoxProps> = ({ onQueryChange }) => {
                 }
             }
         };
-
 
         typePlaceholder();
 

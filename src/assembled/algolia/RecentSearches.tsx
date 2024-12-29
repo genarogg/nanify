@@ -16,8 +16,8 @@ const RecentSearches: React.FC<RecentSearchesProps> = ({ recentSearches }) => {
         <div className="recent-searches">
             <h4>Búsquedas Recientes</h4>
             <ul>
-                {recentSearches.map((search, index) => (
-                    <li key={index}>
+                {recentSearches.map((search) => (
+                    <li key={search.url}>
                         <a href={`/${search.url}`}>
                             {search.title}
                         </a>

@@ -1,27 +1,29 @@
-import React from 'react'
-import { A } from "nanify"
+import React from 'react';
+import { A } from "nanify";
 
+// Definimos un tipo para las propiedades de hit
 interface HitProps {
-    hit: any;
+    hit: {
+        title: string;
+        url: string;
+    };
+    addRecentSearch: (title: string, url: string) => void; // Función para añadir búsqueda reciente
 }
 
-const Hit: React.FC<HitProps> = ({ hit }) => {
+const Hit: React.FC<HitProps> = ({ hit, addRecentSearch }) => {
     const handleClick = () => {
-        const recentSearches = JSON.parse(localStorage.getItem('recentSearches') || '[]');
-        recentSearches.push({ title: hit.title, url: hit.url });
-        localStorage.setItem('recentSearches', JSON.stringify(recentSearches));
+        // Llamamos a la función para agregar a las búsquedas recientes
+        addRecentSearch(hit.title, hit.url);
     };
 
     return (
-        <>
-            <div className="hit">
-                <div className="hit-content">
-                    <A type='btn' href={`/${hit.url}`} onClick={handleClick}>
-                        <h3>{hit.title}</h3>
-                    </A>
-                </div>
+        <div className="hit">
+            <div className="hit-content">
+                <A type='btn' href={`/${hit.url}`} onClick={handleClick}>
+                    <h3>{hit.title}</h3>
+                </A>
             </div>
-        </>
+        </div>
     );
 }
 
