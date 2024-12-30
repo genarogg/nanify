@@ -27,8 +27,6 @@
     "algolia-index-demo": "node src/components/algolia/indexDemo.js"
   },
   "dependencies": {
-    "@algolia/client-query-suggestions": "^5.18.0",
-    "@algolia/client-search": "^5.18.0",
     "@plaiceholder/next": "^3.0.0",
     "algoliasearch": "^5.18.0",
     "crypto-js": "^4.2.0",

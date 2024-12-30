@@ -1,11 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSearchBox } from "react-instantsearch";
+import { FaSearch } from "react-icons/fa";
+import { Icon } from "nanify";
 
 interface SearchBoxProps {
     onQueryChange: (query: string) => void;
+    typingSpeed?: number;  // Tiempo de escritura por cada caracter
+    pauseBetweenPhrases?: number;  // Tiempo de pausa entre frases
 }
 
-const SearchBox: React.FC<SearchBoxProps> = ({ onQueryChange }) => {
+const SearchBox: React.FC<SearchBoxProps> = ({
+    onQueryChange,
+    typingSpeed = 150,  // Valor por defecto
+    pauseBetweenPhrases = 2000,  // Valor por defecto
+}) => {
     const { refine } = useSearchBox();
     const placeholders = [
         "Busca tu estilo perfecto...",
@@ -13,27 +21,27 @@ const SearchBox: React.FC<SearchBoxProps> = ({ onQueryChange }) => {
         "Descubre tus favoritos...",
         "Busca por categoría o tendencia...",
     ];
-    const typingSpeed = 150;
-    const pauseBetweenPhrases = 2000;
 
     const [placeholder, setPlaceholder] = useState("");
     const [isTyping, setIsTyping] = useState(false);
     const inputRef = useRef<HTMLInputElement | null>(null);
 
     useEffect(() => {
-        let typingTimeout: NodeJS.Timeout;
-        let pauseTimeout: NodeJS.Timeout;
         let charIndex = 0;
         let phraseIndex = 0;
+        let typingTimeout: NodeJS.Timeout;
+        let pauseTimeout: NodeJS.Timeout;
 
+        // Función de tipo animación que utiliza setTimeout para escribir letra por letra
         const typePlaceholder = () => {
             if (!isTyping && inputRef.current) {
                 const currentPhrase = placeholders[phraseIndex];
                 if (charIndex < currentPhrase.length) {
                     setPlaceholder(currentPhrase.slice(0, charIndex + 1));
                     charIndex++;
-                    typingTimeout = setTimeout(typePlaceholder, typingSpeed);
+                    typingTimeout = setTimeout(typePlaceholder, typingSpeed);  // Espera antes de escribir el siguiente carácter
                 } else {
+                    // Pausa antes de continuar con la siguiente frase
                     pauseTimeout = setTimeout(() => {
                         charIndex = 0;
                         setPlaceholder("");
@@ -44,13 +52,14 @@ const SearchBox: React.FC<SearchBoxProps> = ({ onQueryChange }) => {
             }
         };
 
-        typePlaceholder();
+        typePlaceholder();  // Inicia la animación
 
         return () => {
+            // Limpia los temporizadores al desmontar el componente
             clearTimeout(typingTimeout);
             clearTimeout(pauseTimeout);
         };
-    }, [isTyping]);
+    }, [typingSpeed, pauseBetweenPhrases]);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
@@ -60,6 +69,7 @@ const SearchBox: React.FC<SearchBoxProps> = ({ onQueryChange }) => {
 
     return (
         <div className="search-box">
+            <Icon icon={<FaSearch />} />
             <input
                 ref={inputRef}
                 type="text"
