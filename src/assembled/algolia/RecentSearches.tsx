@@ -1,4 +1,8 @@
 import React from 'react';
+import { Icon, A } from 'nanify';
+import { TbReload } from "react-icons/tb";
+import { IoTimerOutline } from "react-icons/io5";
+
 
 interface SearchItem {
     title: string;
@@ -14,13 +18,23 @@ const RecentSearches: React.FC<RecentSearchesProps> = ({ recentSearches }) => {
 
     return (
         <div className="recent-searches">
-            <h4>Búsquedas Recientes</h4>
+            <div className="title algolia-box">
+                <Icon icon={<IoTimerOutline />} className="box-one" />
+                <h3 className="box-two">Búsquedas Recientes</h3>
+            </div>
             <ul>
                 {recentSearches.map((search) => (
-                    <li key={search.url}>
-                        <a href={`/${search.url}`}>
-                            {search.title}
-                        </a>
+                    <li key={search.url} className='algolia-box'>
+                        <>
+                            <Icon icon={<TbReload />} className="box-one" />
+                            <A
+                                className="box-two"
+                                type='btn'
+                                href={`/${search.url}`}
+                            >
+                                <h3> {search.title}</h3>
+                            </A>
+                        </>
                     </li>
                 ))}
             </ul>

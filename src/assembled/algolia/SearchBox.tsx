@@ -11,8 +11,8 @@ interface SearchBoxProps {
 
 const SearchBox: React.FC<SearchBoxProps> = ({
     onQueryChange,
-    typingSpeed = 150,  // Valor por defecto
-    pauseBetweenPhrases = 2000,  // Valor por defecto
+    typingSpeed = 150000,  // Valor por defecto
+    pauseBetweenPhrases = 20000000,  // Valor por defecto
 }) => {
     const { refine } = useSearchBox();
     const placeholders = [
@@ -68,16 +68,17 @@ const SearchBox: React.FC<SearchBoxProps> = ({
     };
 
     return (
-        <div className="search-box">
-            <Icon icon={<FaSearch />} />
+        <div className="search-box algolia-box">
+            <Icon icon={<FaSearch />} className="box-one" />
             <input
+                className="search-input box-two"
+                id="serach"
                 ref={inputRef}
                 type="text"
                 placeholder={placeholder}
                 onFocus={() => setIsTyping(true)}
                 onBlur={() => setIsTyping(false)}
                 onChange={handleInputChange}
-                className="search-input"
             />
         </div>
     );

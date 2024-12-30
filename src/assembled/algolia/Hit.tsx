@@ -1,5 +1,6 @@
 import React from 'react'
-import { A } from 'nanify';
+import { A, Icon } from 'nanify';
+import { IoFlash } from "react-icons/io5";
 
 interface HitProps {
     hit: any;
@@ -12,16 +13,16 @@ const Hit: React.FC<HitProps> = ({ hit, addRecentSearch }) => {
     };
 
     return (
-        <div className="hit">
-            <div className="hit-content">
-                <div className="hit">
-                    <div className="hit-content">
-                        <A type='btn' href={`/${hit.url}`} onClick={handleClick}>
-                            <h3>{hit.title}</h3>
-                        </A>
-                    </div>
-                </div>
-            </div>
+        <div className="hit algolia-box">
+            <Icon icon={<IoFlash />} className="box-one" />
+            <A
+                className="box-two"
+                type='btn'
+                href={`/${hit.url}`}
+                onClick={handleClick}
+            >
+                <h3>{hit.title}</h3>
+            </A>
         </div>
     );
 };
