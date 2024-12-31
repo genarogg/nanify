@@ -11,8 +11,8 @@ interface SearchBoxProps {
 
 const SearchBox: React.FC<SearchBoxProps> = ({
     onQueryChange,
-    typingSpeed = 150000,  // Valor por defecto
-    pauseBetweenPhrases = 20000000,  // Valor por defecto
+    typingSpeed = 150,  // Valor por defecto
+    pauseBetweenPhrases = 2000,  // Valor por defecto
 }) => {
     const { refine } = useSearchBox();
     const placeholders = [

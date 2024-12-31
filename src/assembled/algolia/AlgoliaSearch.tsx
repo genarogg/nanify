@@ -2,7 +2,8 @@
 
 import React, { useReducer } from "react";
 import { algoliasearch } from "algoliasearch";
-import { InstantSearch, Hits, Configure } from "react-instantsearch";
+import { Hits, Configure } from "react-instantsearch";
+import { InstantSearchNext } from 'react-instantsearch-nextjs';
 import RecentSearches from "./RecentSearches";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -54,8 +55,7 @@ const AlgoliaSearch: React.FC = () => {
 
     return (
         <div className="algolia-search" onClick={searchRecent}>
-            <p>hola</p>
-            <InstantSearch indexName="movie" searchClient={searchClient}>
+            <InstantSearchNext indexName="movie" searchClient={searchClient}>
 
                 {/* Barra de búsqueda */}
                 <SearchBox onQueryChange={handleQueryChange} />
@@ -84,16 +84,13 @@ const AlgoliaSearch: React.FC = () => {
                                     )}
                                 />
                             </motion.div>
-                        )}
-
-
-
+                        )} 
                         {state.recentSearches.length > 0 && (
                             <RecentSearches recentSearches={state.recentSearches} />
                         )}
                     </AnimatePresence>
                 </motion.div>
-            </InstantSearch>
+            </InstantSearchNext>
         </div>
     );
 };

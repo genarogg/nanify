@@ -6,7 +6,7 @@ interface algoliaProps {
 }
 
 const algolia: React.FC<algoliaProps> = () => {
-    return (<><AlgoliaSearch /><p>hola</p></>);
+    return (<><AlgoliaSearch /></>);
 }
 
 export default algolia;
