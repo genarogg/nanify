@@ -17,27 +17,28 @@
     "jsx": "preserve",
     "incremental": true,
     "tsBuildInfoFile": "./dist/tsconfig.tsbuildinfo",
+
     "paths": {
       "@nano": [
-        "../nani/src/components/nano/index.tsx"
+        "./src/components/nano/index.tsx"
       ],
       "@fn/*": [
-        "../nani/src/functions/*"
+        "./src/functions/*"
       ],
       "@components/*": [
-        "../nani/src/components/*"
+        "./src/components/*"
       ],
       "@nanify": [
-        "../nani/src/components"
+        "./src/components"
       ],
       "@assembled/*": [
-        "../nani/src/assembled/*"
+        "./src/assembled/*"
       ],
       "@form": [
-        "../nani/src/components/form/index.tsx"
+        "./src/components/form/index.tsx"
       ],
       "@fn": [
-        "../nani/src/functions/index.ts"
+        "./src/functions/index.ts"
       ],
       "@env": [
         "./env.ts"
