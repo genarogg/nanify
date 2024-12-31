@@ -18,7 +18,7 @@ const Hit: React.FC<HitProps> = ({ hit, addRecentSearch }) => {
             <A
                 className="box-two"
                 type='btn'
-                href={`/${hit.url}`}
+                href={`/${hit.title}`}
                 onClick={handleClick}
             >
                 <h3>{hit.title}</h3>
