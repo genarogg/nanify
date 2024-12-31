@@ -2,8 +2,8 @@
 
 import React, { useReducer } from "react";
 import { algoliasearch } from "algoliasearch";
-import RecentSearches from "./RecentSearches";
 import { InstantSearch, Hits, Configure } from "react-instantsearch";
+import RecentSearches from "./RecentSearches";
 import { AnimatePresence, motion } from "framer-motion";
 
 
@@ -36,26 +36,27 @@ const AlgoliaSearch: React.FC = () => {
 
     const addRecentSearch = (title: string, url: string) => {
         const newSearch = { title, url };
-    
+
         // Obtener búsquedas actuales desde localStorage
-        const storedSearches: { title: string; url: string }[] = 
+        const storedSearches: { title: string; url: string }[] =
             JSON.parse(localStorage.getItem("recentSearches") || "[]");
-    
+
         // Filtrar duplicados
         const filteredSearches = storedSearches.filter(search => search.title !== title);
-    
-        // Agregar el nuevo elemento y limitar a 5
+
+        // Agregar el nuevo elemento y limitar a 5 
         const updatedSearches = [newSearch, ...filteredSearches].slice(0, 5);
-    
+
         // Actualizar estado y localStorage
         dispatch({ type: "SET_RECENT_SEARCHES", payload: updatedSearches });
         localStorage.setItem("recentSearches", JSON.stringify(updatedSearches));
     };
-    
 
     return (
         <div className="algolia-search" onClick={searchRecent}>
+            <p>hola</p>
             <InstantSearch indexName="movie" searchClient={searchClient}>
+
                 {/* Barra de búsqueda */}
                 <SearchBox onQueryChange={handleQueryChange} />
                 <Configure hitsPerPage={5} />
