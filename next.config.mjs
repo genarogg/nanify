@@ -10,6 +10,7 @@ const config = {
   images: {
     domains: [
       "images.unsplash.com",
+      "www.gravatar.com"
     ],
   },
 };

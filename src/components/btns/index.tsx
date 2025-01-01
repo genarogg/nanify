@@ -10,7 +10,7 @@ import BtnText from "./basic/BtnText";
 
 import CheckBoxBasic from "./checkbox/CheckboxBasic";
 
-import BtnRowCircle from "./animte/BtnRowCircle";
+import BtnRowCircle from "./animate/BtnRowCircle";
 
 export {
   BtnLoki,

@@ -18,6 +18,16 @@ export default function RootLayout({
     <html lang="es">
       <head>
         {/* <script src="https://unpkg.com/react-scan/dist/auto.global.js"></script> */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&family=Poppins:wght@400;600&display=swap"
+          rel="stylesheet"
+        />
       </head>
       <body >
         {children}
