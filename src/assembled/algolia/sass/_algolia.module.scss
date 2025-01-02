@@ -13,24 +13,18 @@
     input {
         border: none;
         outline: none;
+        background-color: transparent;
     }
 
     h3 {
         font-size: 14px;
-  
-    }
 
-    .notHover{
-        background-color: #fff !important;
     }
-
 
     .algoliaBox {
         display: flex;
         align-items: center;
         background-color: #fff;
-
-        
 
         &.title {
             background-color: #eee;
@@ -40,7 +34,7 @@
             background-color: #eee;
         }
 
-        
+
         .boxOne {
             display: flex;
             align-items: center;

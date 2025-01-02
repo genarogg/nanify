@@ -1,0 +1,42 @@
+.headerUp {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    align-items: center;
+    height: 70px;
+    padding: 5px 10px;
+
+    .logo {
+        display: flex;
+        justify-content: flex-start;
+        width: 180px;
+    }
+
+    .search {
+        display: flex;
+        justify-content: center;
+
+        .algolia {
+            border-radius: $border-radius;
+            width: 90%;
+
+            .searchBox {
+                background-color: transparent;
+
+                box-shadow: none;
+                border-radius: none;
+
+
+            }
+
+            >div {
+                box-shadow: 0px -20px 0px 0px #fff;
+                border-radius: $border-radius;
+            }
+        }
+    }
+
+    .user {
+        display: flex;
+        justify-content: flex-end;
+    }
+}

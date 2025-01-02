@@ -4,16 +4,20 @@ import { FaSearch } from "react-icons/fa";
 import { Icon } from "nanify";
 import style from './sass/_algolia.module.scss';
 
+import { isProd } from "@env"
+
 interface SearchBoxProps {
     onQueryChange: (query: string) => void;
-    typingSpeed?: number;  // Tiempo de escritura por cada caracter
-    pauseBetweenPhrases?: number;  // Tiempo de pausa entre frases
+    typingSpeed?: number;
+    pauseBetweenPhrases?: number;
+    styleSearchBox?: any;
 }
 
 const SearchBox: React.FC<SearchBoxProps> = ({
     onQueryChange,
     typingSpeed = 150,  // Valor por defecto
     pauseBetweenPhrases = 2000,  // Valor por defecto
+    styleSearchBox = {},
 }) => {
     const { refine } = useSearchBox();
     const placeholders = [
@@ -32,6 +36,11 @@ const SearchBox: React.FC<SearchBoxProps> = ({
         let phraseIndex = 0;
         let typingTimeout: NodeJS.Timeout;
         let pauseTimeout: NodeJS.Timeout;
+
+        if (!isProd) {
+            setPlaceholder("desarrollo")
+            return
+        }
 
         // Función de tipo animación que utiliza setTimeout para escribir letra por letra
         const typePlaceholder = () => {
@@ -53,7 +62,7 @@ const SearchBox: React.FC<SearchBoxProps> = ({
             }
         };
 
-        typePlaceholder();  // Inicia la animación
+        typePlaceholder();
 
         return () => {
             // Limpia los temporizadores al desmontar el componente
@@ -69,10 +78,14 @@ const SearchBox: React.FC<SearchBoxProps> = ({
     };
 
     return (
-        <div className={`${style.algoliaBox} ${style.notHover}`}>
+        <div className={`
+        ${style.algoliaBox} 
+        ${style.notHover}
+        ${styleSearchBox}
+        `}>
             <Icon icon={<FaSearch />} className={style.boxOne} />
             <input
-                className={`${style.searchInput} ${style.boxTwo}`}
+                className={`${style.boxTwo}`}
                 id="serach"
                 ref={inputRef}
                 type="text"

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useReducer } from "react";
+import React, { useReducer, useState, useRef } from "react";
 import { algoliasearch } from "algoliasearch";
 import { Hits, Configure } from "react-instantsearch";
 import { InstantSearchNext } from 'react-instantsearch-nextjs';
@@ -23,7 +23,14 @@ if (!ALGOLIA_ID || !ALGOLIA_KEY) {
 // Configuración del cliente completo
 const searchClient = algoliasearch(ALGOLIA_ID, ALGOLIA_KEY);
 
-const AlgoliaSearch: React.FC = () => {
+interface SearchItem {
+    className?: string;
+    styleSearchBox?: string;
+}
+
+const AlgoliaSearch: React.FC<SearchItem> = ({
+    className = "",
+    styleSearchBox }) => {
     const [state, dispatch] = useReducer(searchReducer, initialState);
 
     const handleQueryChange = (newQuery: string) => {
@@ -53,41 +60,63 @@ const AlgoliaSearch: React.FC = () => {
         localStorage.setItem("recentSearches", JSON.stringify(updatedSearches));
     };
 
+    const [isSearchFocused, setIsSearchFocused] = useState(false);
+    const searchRef = useRef<HTMLDivElement>(null);
+
+    const handleFocus = () => {
+        setIsSearchFocused(true);
+    };
+
+    const handleBlur = () => {
+        setIsSearchFocused(false);
+    };
+
     return (
-        <div className={style.algoliaSearch} onClick={searchRecent}>
-          <InstantSearchNext indexName="movie" searchClient={searchClient}>
-            <SearchBox onQueryChange={handleQueryChange} />
-            <Configure hitsPerPage={5} />
-            <motion.div
-              initial={{ opacity: 1 }}
-              animate={{ height: state.query ? 'auto' : '0px' }}
-              transition={{ duration: 0.3, ease: 'easeInOut' }}
-              style={{ overflow: 'hidden' }}
-            >
-              <AnimatePresence>
-                {state.query && state.hasResults && (
-                  <motion.div
-                    key="results"
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <Hits
-                      hitComponent={(hitProps) => (
-                        <Hit {...hitProps} addRecentSearch={addRecentSearch} />
-                      )}
-                    />
-                  </motion.div>
-                )}
-                {state.recentSearches.length > 0 && (
-                  <RecentSearches recentSearches={state.recentSearches} />
-                )}
-              </AnimatePresence>
-            </motion.div>
-          </InstantSearchNext>
+        <div
+            className={`${style.algoliaSearch} ${className}`} onClick={searchRecent}
+            ref={searchRef}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+        >
+            <InstantSearchNext indexName="movie" searchClient={searchClient}>
+                <SearchBox
+                    onQueryChange={handleQueryChange}
+                    styleSearchBox={styleSearchBox}
+                />
+                <Configure hitsPerPage={5} />
+                <motion.div
+                    initial={{ opacity: 1 }}
+                    animate={{
+                        height: state.query && isSearchFocused ? 'auto' : '0px'
+                    }}
+                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    style={{ overflow: 'hidden' }}
+                >
+                    <AnimatePresence>
+                        {state.query && state.hasResults && (
+                            <motion.div
+                                key="results"
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                                transition={{ duration: 0.3 }}
+                                className="animatedResults"
+                            >
+                                <Hits
+                                    hitComponent={(hitProps) => (
+                                        <Hit {...hitProps} addRecentSearch={addRecentSearch} />
+                                    )}
+                                />
+                            </motion.div>
+                        )}
+                        {state.recentSearches.length > 0 && (
+                            <RecentSearches recentSearches={state.recentSearches} />
+                        )}
+                    </AnimatePresence>
+                </motion.div>
+            </InstantSearchNext>
         </div>
-      );
+    );
 };
 
 export default AlgoliaSearch;
