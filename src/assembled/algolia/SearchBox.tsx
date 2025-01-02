@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useSearchBox } from "react-instantsearch";
 import { FaSearch } from "react-icons/fa";
 import { Icon } from "nanify";
+import style from './sass/_algolia.module.scss';
 
 interface SearchBoxProps {
     onQueryChange: (query: string) => void;
@@ -68,10 +69,10 @@ const SearchBox: React.FC<SearchBoxProps> = ({
     };
 
     return (
-        <div className="search-box algolia-box">
-            <Icon icon={<FaSearch />} className="box-one" />
+        <div className={`${style.algoliaBox} ${style.notHover}`}>
+            <Icon icon={<FaSearch />} className={style.boxOne} />
             <input
-                className="search-input box-two"
+                className={`${style.searchInput} ${style.boxTwo}`}
                 id="serach"
                 ref={inputRef}
                 type="text"

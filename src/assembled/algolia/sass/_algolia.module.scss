@@ -1,14 +1,14 @@
-.algolia-search {
-    margin: 0 auto;
-}
+@use "../../../styles/init/global/variables" as var;
 
-.algolia-search {
+
+.algoliaSearch {
+    @include var.colorScheme();
     position: relative;
     max-width: 600px;
     height: 40px;
 
-    color: #333;
-    padding: 2px 5px;
+    background-color: #fff;
+
 
     input {
         border: none;
@@ -17,33 +17,44 @@
 
     h3 {
         font-size: 14px;
+  
+    }
+
+    .notHover{
+        background-color: #fff !important;
     }
 
 
-    .algolia-box {
+    .algoliaBox {
         display: flex;
         align-items: center;
         background-color: #fff;
+
+        
 
         &.title {
             background-color: #eee;
         }
 
-        .box-one {
+        &:hover {
+            background-color: #eee;
+        }
+
+        
+        .boxOne {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 30px;
+            width: 42px;
             height: 30px;
             color: #aaa;
         }
 
-        .box-two {
+        .boxTwo {
             width: 100%;
             height: 36px;
             display: flex;
             align-items: center;
         }
     }
-
 }

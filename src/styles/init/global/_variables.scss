@@ -17,7 +17,23 @@ $blur: blur(10px);
 
 
 $transition: 600ms all ease;
-$tex-color-back: $color-quaternary;
+
+$bg-color-black: #1c1c1c;
+$text-color-black: #1c1c1c;
+
+$bg-color-white: #fff;
 $text-color-white: #fff;
 
 
+
+@mixin colorScheme() {
+    body.dark & {
+        color: $text-color-white;
+        background-color: $bg-color-black;
+    }
+
+    body:not(.dark) & {
+        color: $text-color-black;
+        background-color: $bg-color-white;
+    }
+}

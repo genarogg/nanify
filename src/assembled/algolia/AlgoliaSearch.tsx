@@ -6,7 +6,7 @@ import { Hits, Configure } from "react-instantsearch";
 import { InstantSearchNext } from 'react-instantsearch-nextjs';
 import RecentSearches from "./RecentSearches";
 import { AnimatePresence, motion } from "framer-motion";
-
+import style from "./sass/_algolia.module.scss";
 
 import { ALGOLIA_ID, ALGOLIA_KEY } from "@env";
 
@@ -54,45 +54,40 @@ const AlgoliaSearch: React.FC = () => {
     };
 
     return (
-        <div className="algolia-search" onClick={searchRecent}>
-            <InstantSearchNext indexName="movie" searchClient={searchClient}>
-
-                {/* Barra de búsqueda */}
-                <SearchBox onQueryChange={handleQueryChange} />
-                <Configure hitsPerPage={5} />
-
-                {/* Contenedor de resultados con animaciones */}
-                <motion.div
-                    initial={{ opacity: 1 }}
-                    animate={{ height: state.query ? "auto" : "0px" }}
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
-                    style={{ overflow: "hidden" }}
-                >
-                    <AnimatePresence>
-                        {/* Resultados encontrados */}
-                        {state.query && state.hasResults && (
-                            <motion.div
-                                key="results"
-                                initial={{ opacity: 0, y: -10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -10 }}
-                                transition={{ duration: 0.3 }}
-                            >
-                                <Hits
-                                    hitComponent={(hitProps) => (
-                                        <Hit {...hitProps} addRecentSearch={addRecentSearch} />
-                                    )}
-                                />
-                            </motion.div>
-                        )} 
-                        {state.recentSearches.length > 0 && (
-                            <RecentSearches recentSearches={state.recentSearches} />
-                        )}
-                    </AnimatePresence>
-                </motion.div>
-            </InstantSearchNext>
+        <div className={style.algoliaSearch} onClick={searchRecent}>
+          <InstantSearchNext indexName="movie" searchClient={searchClient}>
+            <SearchBox onQueryChange={handleQueryChange} />
+            <Configure hitsPerPage={5} />
+            <motion.div
+              initial={{ opacity: 1 }}
+              animate={{ height: state.query ? 'auto' : '0px' }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              style={{ overflow: 'hidden' }}
+            >
+              <AnimatePresence>
+                {state.query && state.hasResults && (
+                  <motion.div
+                    key="results"
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <Hits
+                      hitComponent={(hitProps) => (
+                        <Hit {...hitProps} addRecentSearch={addRecentSearch} />
+                      )}
+                    />
+                  </motion.div>
+                )}
+                {state.recentSearches.length > 0 && (
+                  <RecentSearches recentSearches={state.recentSearches} />
+                )}
+              </AnimatePresence>
+            </motion.div>
+          </InstantSearchNext>
         </div>
-    );
+      );
 };
 
 export default AlgoliaSearch;

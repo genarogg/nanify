@@ -23,9 +23,7 @@ const predefinedPaths = {
     /* Input */
     inputBasic: path.join(pathJoin, 'form', '_input.module.scss'),
 
-    /* search */
-    inputBasic: path.join(pathJoin, 'search', '_algolia.module.scss'),
-
+   
     /* Layout */
     // simpleFooter: path.join(pathJoin, '_simpleFooter.module.scss'),
     // headerOneElementCenter: path.join(pathJoin, '_headerOneElementCenter.module.scss'),
