@@ -3,7 +3,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import { $ } from "../../functions";
-import styles from './img.module.css';
+
 import ImgProps from './ImgProps';
 
 const Img: React.FC<ImgProps> = ({
@@ -81,7 +81,7 @@ const Img: React.FC<ImgProps> = ({
                 overflow: 'hidden',
                 ...style
             }}
-            className={`${styles.responsiveImage}`}
+            className={`responsiveImage`}
         >
             {isVisible && (
                 <>
@@ -95,14 +95,14 @@ const Img: React.FC<ImgProps> = ({
                             position: 'relative',
                             overflow: 'hidden',
                         }}
-                        className={`${styles.responsiveImage}`}
+                        className={`responsiveImage`}
                         id={id + "Conteiner"}
                     >
                         <Image
                             src={src}
                             alt={alt}
                             id={id + "Img"}
-                            className={`${className} ${styles.responsiveImage} ${styles.fadeIn}`}
+                            className={`${className} responsiveImage fadeIn`}
                             placeholder={placeholder}
                             blurDataURL={src.blurDataURL}
                             width={width}
@@ -114,7 +114,7 @@ const Img: React.FC<ImgProps> = ({
                             sizes={sizes}
                         />
                         <div
-                            className={`${styles.responsiveImage}`}
+                            className={`responsiveImage`}
                             style={{ width, height }}
                             id={id + "ghost"}
                         >

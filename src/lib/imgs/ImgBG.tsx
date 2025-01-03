@@ -1,7 +1,7 @@
 "use client";
 import React from 'react'
 import Image from 'next/image';
-import styles from './img.module.css';
+
 import ImgProps from './ImgProps';
 
 const ImgBG: React.FC<ImgProps> = ({
@@ -59,7 +59,7 @@ const ImgBG: React.FC<ImgProps> = ({
                 onLoad={() => { loadend() }}
             />
             <div
-                className={`${styles.responsiveImage}`}
+                className={`responsiveImage`}
                 style={{
                     backgroundImage: `url(${src.blurDataURL})`,
                     backgroundSize: 'cover',
@@ -73,7 +73,7 @@ const ImgBG: React.FC<ImgProps> = ({
                 }}>
                 <div
                     id={id + "Conteiner"}
-                    className={`${className} ${styles.responsiveImage} ${styles.fadeIn}`}
+                    className={`${className} responsiveImage fadeIn`}
                     style={{
                         backgroundImage: `url(${src.blurDataURL})`,
                         backgroundSize: 'cover',

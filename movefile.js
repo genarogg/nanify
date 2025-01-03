@@ -23,6 +23,8 @@ const predefinedPaths = {
     /* Input */
     inputBasic: path.join(pathJoin, 'form', '_input.module.scss'),
 
+    /* VANILLA */
+
     /* TooTip */
     tooltipBasic: path.join(pathJoin, 'toolTip', '_menuToolTip.module.scss.scss'),
 
