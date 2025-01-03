@@ -18,25 +18,33 @@
     "incremental": true,
     "tsBuildInfoFile": "./dist/tsconfig.tsbuildinfo",
     "paths": {
-      "@components/*": ["./src/components/*"],
-      "@nanify": ["./src/lib/index.tsx"],
-      "@fn/*": ["./src/functions/*"],
-      "@env": ["./env.ts"]
+      "@components/*": [
+        "./src/components/*"
+      ],
+      "@nanify": [
+        "./src/lib/index.tsx"
+      ],
+      "@fn/*": [
+        "./src/functions/*"
+      ],
+      "@env": [
+        "./env.ts"
+      ]
     },
     "outDir": "./dist",
     "declaration": true,
     "declarationDir": "./dist/types",
     "target": "ES2017",
-    "plugins": [ {"name": "next"} ]
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
   "include": [
     "**/**/*.ts",
     "**/*.ts",
-    "**/*.tsx",
-    "next-env.d.ts",
-    ".next/types/**/*.ts",
-    "src/components/algolia/indexDemo.js",
-    "env.ts",
+    "**/*.tsx"
   ],
   "exclude": [
     "node_modules"
