@@ -21,7 +21,7 @@ const Img: React.FC<ImgProps> = ({
     sizes,
     style,
     children,
-    visible = true
+    visible
 }) => {
     const [isVisible, setIsVisible] = useState(visible);
     const imgRef = useRef<HTMLDivElement>(null);
@@ -55,8 +55,6 @@ const Img: React.FC<ImgProps> = ({
             const conteiner = $(id + "Conteiner");
             const img = $(id + "Img");
             const ghost = $(id + "ghost");
-
-            console.log(conteiner, img, ghost);
 
             if (img && conteiner && ghost) {
                 conteiner.style.width = img.offsetWidth + "px";

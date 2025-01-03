@@ -1,5 +1,5 @@
 import React from 'react'
-import Layout from '@assembled/layout/ecommerce/alana/public/Layout';
+import Layout from '../../../components/layout/ecommerce/alana/public/Layout';
     
 interface alanaProps {
     

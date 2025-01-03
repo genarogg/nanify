@@ -1,5 +1,5 @@
 import React from 'react'
-import Layout from '@assembled/layout/layoutExample/Layout';
+import Layout from '../../../components/layout/layoutExample/Layout';
 
 interface exampleProps {
 

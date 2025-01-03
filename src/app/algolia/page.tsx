@@ -1,5 +1,5 @@
 import React from 'react'
-import AlgoliaSearch from '@assembled/algolia/AlgoliaSearch';
+import AlgoliaSearch from '../../components/algolia/AlgoliaSearch';
 
 interface algoliaProps {
 

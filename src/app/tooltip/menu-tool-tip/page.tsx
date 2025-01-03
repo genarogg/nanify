@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react'
-import { MenuToolTip } from '@components/index';
+import { MenuToolTip } from '../../../lib/index';
 import { FaUser, FaCog, FaSignOutAlt } from "react-icons/fa";
 
 interface menuToolTipProps {

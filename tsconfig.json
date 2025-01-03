@@ -14,44 +14,20 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react",
     "incremental": true,
     "tsBuildInfoFile": "./dist/tsconfig.tsbuildinfo",
     "paths": {
-      "@nano": [
-        "./src/components/nano/index.tsx"
-      ],
-      "@fn/*": [
-        "./src/functions/*"
-      ],
-      "@components/*": [
-        "./src/components/*"
-      ],
-      "@nanify": [
-        "./src/components"
-      ],
-      "@assembled/*": [
-        "./src/assembled/*"
-      ],
-      "@form": [
-        "./src/components/form/index.tsx"
-      ],
-      "@fn": [
-        "./src/functions/index.ts"
-      ],
-      "@env": [
-        "./env.ts"
-      ]
+      "@components/*": ["./src/components/*"],
+      "@nanify": ["./src/lib/index.tsx"],
+      "@fn/*": ["./src/functions/*"],
+      "@env": ["./env.ts"]
     },
     "outDir": "./dist",
     "declaration": true,
     "declarationDir": "./dist/types",
     "target": "ES2017",
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ]
+    "plugins": [ {"name": "next"} ]
   },
   "include": [
     "**/**/*.ts",
@@ -59,9 +35,8 @@
     "**/*.tsx",
     "next-env.d.ts",
     ".next/types/**/*.ts",
-    "src/assembled/algolia/indexDemo.js",
+    "src/components/algolia/indexDemo.js",
     "env.ts",
-    "../nano/src/components/layout/headers/Navs/Nav.tsx"
   ],
   "exclude": [
     "node_modules"

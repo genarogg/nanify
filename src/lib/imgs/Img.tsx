@@ -19,7 +19,8 @@ const Img: React.FC<ImgProps> = ({
     quality = 90,
     sizes,
     style,
-    children
+    children,
+    visible = true
 }) => {
 
     switch (type) {
@@ -58,6 +59,7 @@ const Img: React.FC<ImgProps> = ({
                     quality={quality}
                     sizes={sizes}
                     style={style}
+                    visible={visible}
                 />
 
             );

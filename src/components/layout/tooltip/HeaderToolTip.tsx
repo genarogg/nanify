@@ -1,5 +1,5 @@
 import React from 'react'
-import { UltimateTooTip, Icon } from '@components/index';
+import { UltimateTooTip, Icon } from '../../../lib/index';
 import { IoIosArrowDown } from "react-icons/io";
 
 interface HeaderToolTipProps {

@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useRef } from 'react'
-import { Input } from '@form';
+import { Input } from '../../../lib/form';
 import { BsEnvelopeFill } from 'react-icons/bs';
 
 interface inputProps { }

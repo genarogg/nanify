@@ -3,7 +3,7 @@
   "description": "Un kit de componentes para React basado en TypeScript.",
   "author": "Genaro Gonzalez",
   "license": "MIT",
-  "version": "0.2.15",
+  "version": "0.2.16",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -22,7 +22,7 @@
     "movefile": "node movefile.js",
     "update:jsx": "node updateTsconfig.js",
     "clean-dist": "npm run update:jsx &&  rimraf dist",
-    "build-lib": "npm run clean-dist && tsup src/components --format cjs,esm --dts",
+    "build-lib": "npm run clean-dist && tsup src/components --format cjs,esm --dts --exclude '**/*.md'",
     "publicar": "npm run build-lib && npm publish",
     "algolia-index-demo": "node src/components/algolia/indexDemo.js"
   },

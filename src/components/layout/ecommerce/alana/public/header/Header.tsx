@@ -1,12 +1,12 @@
 "use client"
 
 import React from 'react'
-import { LogoGenarogg, Img } from '@components/index';
+import { LogoGenarogg, Img } from '../../../../../../lib/index';
 import { v4 as uuid } from 'uuid';
 
 import { RiUser3Fill } from "react-icons/ri";
 import HeaderUp from './HeaderUp';
-import HeaderToolTip from '@assembled/layout/tooltip/HeaderToolTip';
+import HeaderToolTip from '../../../../tooltip/HeaderToolTip';
 
 import imgMen from "/public/men.jpg"
 
@@ -35,10 +35,9 @@ const Header: React.FC<HeaderProps> = () => {
                     src={imgMen} width={150} height={150} alt="demo"
                     className='imgCategoria'
                     id={`demo${uuid()}`}
+                    visible={false}
                 />
 
-                <Img type="local" src={imgMen} alt="demo" id='demo' style={{ border: "1px solid red" }} width={150} height={150} />
-                <a href="">camisas</a>
             </li>
         )
     }
@@ -67,7 +66,8 @@ const Header: React.FC<HeaderProps> = () => {
                         <div className="imgContainer">
                             {/* <Img src={imgMen}> */}
                             <Img type="local" src={imgMen} alt="demo2" id="demoad" width={200}
-                                height={200} />
+                                height={200}
+                                visible={false} />
                         </div>
                         <div className="categoria">
                             <SubCategoria />
