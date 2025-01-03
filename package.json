@@ -3,7 +3,7 @@
   "description": "Un kit de componentes para React basado en TypeScript.",
   "author": "Genaro Gonzalez",
   "license": "MIT",
-  "version": "0.2.13",
+  "version": "0.2.15",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -28,11 +28,12 @@
   },
   "dependencies": {
     "@plaiceholder/next": "^3.0.0",
+    "@tippyjs/react": "^4.2.6",
     "algoliasearch": "^5.18.0",
     "crypto-js": "^4.2.0",
     "dotenv": "^16.4.7",
     "motion": "^11.15.0",
-    "nanify": "^0.2.13",
+    "nanify": "^0.2.15",
     "next": "14.2.22",
     "react": "^18",
     "react-dom": "^18",
@@ -42,7 +43,8 @@
     "react-loading-skeleton": "^3.5.0",
     "react-toastify": "^11.0.2",
     "sass": "^1.83.0",
-    "sharp": "^0.33.5"
+    "sharp": "^0.33.5",
+    "uuid": "^11.0.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",

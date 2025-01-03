@@ -21,7 +21,6 @@ const ImgBG: React.FC<ImgProps> = ({
     children
 }) => {
 
-
     const loadend = () => {
         console.log("loadend");
         const img = document.getElementById(id + "Img");

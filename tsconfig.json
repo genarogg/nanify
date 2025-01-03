@@ -17,7 +17,6 @@
     "jsx": "preserve",
     "incremental": true,
     "tsBuildInfoFile": "./dist/tsconfig.tsbuildinfo",
-
     "paths": {
       "@nano": [
         "./src/components/nano/index.tsx"
@@ -61,7 +60,8 @@
     "next-env.d.ts",
     ".next/types/**/*.ts",
     "src/assembled/algolia/indexDemo.js",
-    "env.ts"
+    "env.ts",
+    "../nano/src/components/layout/headers/Navs/Nav.tsx"
   ],
   "exclude": [
     "node_modules"

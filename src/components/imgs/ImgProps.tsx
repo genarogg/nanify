@@ -14,6 +14,7 @@ interface ImgProps {
     sizes?: string;
     style?: any
     children?: React.ReactNode;
+    visible?: boolean;
 }
 
 export default ImgProps;

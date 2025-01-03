@@ -1,7 +1,8 @@
 import React from 'react'
-import Header from "./Header"
+import Header from "./header/Header"
 import Footer from './Footer'
 import style from "./sass/layout.module.scss"
+
 
 
 interface LayoutProps {

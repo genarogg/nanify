@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
-import { $ } from "../../functions"
+import { $ } from "../../functions";
 import styles from './img.module.css';
 import ImgProps from './ImgProps';
 
@@ -20,31 +20,62 @@ const Img: React.FC<ImgProps> = ({
     quality,
     sizes,
     style,
-    children
+    children,
+    visible = true
 }) => {
+    const [isVisible, setIsVisible] = useState(visible);
+    const imgRef = useRef<HTMLDivElement>(null);
+
     useEffect(() => {
-        const conteiner = $(id + "Conteiner");
-        const img = $(id + "Img");
-        const ghost = $(id + "ghost");
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        setIsVisible(true);
+                        observer.disconnect();
+                    }
+                });
+            },
+            { threshold: 0.1 }
+        );
 
-        if (img && conteiner && ghost) {
-
-            conteiner.style.width = img.offsetWidth + "px";
-            conteiner.style.height = img.offsetHeight + "px";
-            ghost.style.width = img.offsetWidth + "px";
-            ghost.style.height = img.offsetHeight + "px";
-
-            img.style.opacity = "1";
-
-            setTimeout(() => {
-                conteiner.style.backgroundImage = "initial";
-            }, 1500);
-
+        if (imgRef.current) {
+            observer.observe(imgRef.current);
         }
+
+        return () => {
+            if (imgRef.current) {
+                observer.unobserve(imgRef.current);
+            }
+        };
     }, []);
+
+    useEffect(() => {
+        if (isVisible) {
+            const conteiner = $(id + "Conteiner");
+            const img = $(id + "Img");
+            const ghost = $(id + "ghost");
+
+            console.log(conteiner, img, ghost);
+
+            if (img && conteiner && ghost) {
+                conteiner.style.width = img.offsetWidth + "px";
+                conteiner.style.height = img.offsetHeight + "px";
+                ghost.style.width = img.offsetWidth + "px";
+                ghost.style.height = img.offsetHeight + "px";
+
+                img.style.opacity = "1";
+
+                setTimeout(() => {
+                    conteiner.style.backgroundImage = "initial";
+                }, 1500);
+            }
+        }
+    }, [isVisible, id]);
 
     return (
         <div
+            ref={imgRef}
             style={{
                 width,
                 height,
@@ -53,24 +84,23 @@ const Img: React.FC<ImgProps> = ({
                 ...style
             }}
             className={`${styles.responsiveImage}`}
-
         >
-
-            <>
-                <div
-                    style={{
-                        backgroundImage: `url(${src.blurDataURL})`,
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
-                        width,
-                        height,
-                        position: 'relative',
-                        overflow: 'hidden',
-                    }}
-                    className={`${styles.responsiveImage}`}
-                    id={id + "Conteiner"}
-                >
-                    <Image
+            {isVisible && (
+                <>
+                    <div
+                        style={{
+                            backgroundImage: `url(${src.blurDataURL})`,
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
+                            width,
+                            height,
+                            position: 'relative',
+                            overflow: 'hidden',
+                        }}
+                        className={`${styles.responsiveImage}`}
+                        id={id + "Conteiner"}
+                    >
+                        <Image
                             src={src}
                             alt={alt}
                             id={id + "Img"}
@@ -85,14 +115,15 @@ const Img: React.FC<ImgProps> = ({
                             style={{ position: 'absolute' }}
                             sizes={sizes}
                         />
-                    <div
-                        className={`${styles.responsiveImage}`}
-                        style={{ width, height }}
-                        id={id + "ghost"} >
+                        <div
+                            className={`${styles.responsiveImage}`}
+                            style={{ width, height }}
+                            id={id + "ghost"}
+                        >
+                        </div>
                     </div>
-                </div>
-            </>
-
+                </>
+            )}
         </div>
     );
 };

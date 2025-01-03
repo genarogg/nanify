@@ -19,6 +19,8 @@ import {
     BtnRowCircle
 } from "./btns"
 
+import { MenuToolTip, UltimateTooTip } from "./tooltip/ToolTip";
+
 export {
     Gravatar, LogoGenarogg,
 
@@ -32,5 +34,7 @@ export {
 
     Input,
 
-    Img
+    Img,
+
+    MenuToolTip, UltimateTooTip
 };

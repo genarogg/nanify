@@ -39,6 +39,14 @@ const home: React.FC<homeProps> = () => {
         <A href='/img'>Img</A>
       </Seccion>
 
+      <Seccion titulo="Search">
+        <A href='/algolia'>Algolia</A>
+      </Seccion>
+
+      {/* <Seccion titulo="Search">
+        <A href='/algolia'>Algolia</A>
+      </Seccion> */}
+
 
       {/* <A href='/layout/headers/header-one-element-center'>header-one-element-center</A>
 
