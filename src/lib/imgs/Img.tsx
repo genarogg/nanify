@@ -4,10 +4,12 @@ import ImgLocal from './ImgLocal';
 import ImgBG from './ImgBG';
 import ImgProps from './ImgProps';
 
+import { generateUUID } from '../../functions';
+
 const Img: React.FC<ImgProps> = ({
     src,
     alt,
-    id = "",
+    id = "id" + generateUUID(),
     type,
     blurDataURL,
     placeholder = 'blur',

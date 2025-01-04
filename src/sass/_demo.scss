@@ -193,9 +193,10 @@
                     // @include border(blue);
 
                     width: 100%;
-                    transform: translateY(100px) !important;
+                    transform: translate(0px,100px) !important;
                     background-color: #fff;
                     padding: 10px 20px;
+                    max-width: 100%;
 
                     .tooltip {
                         background-color: transparent;
@@ -333,5 +334,121 @@
                 }
             }
         }
+    }
+}
+
+@media (min-width: 1220px) and (max-width: 1630px) {
+
+    // @include border();
+    .navToolTip .tippy-content>div .containerCategoria .categorias .subCategoria h5 {
+        margin-bottom: 10px;
+    }
+
+    .navToolTip .tippy-content>div .containerCategoria .categorias .subCategoria nav ul li>.containerCategori .icon,
+    .navToolTip .tippy-content>div .containerCategoria .categorias .subCategoria nav ul li>.responsiveImage {
+        width: 70px !important;
+        height: 70px !important;
+    }
+
+}
+
+@media (min-width: 1220px) and (max-width: 1600px) {
+
+    // @include border();
+
+    .navToolTip .tippy-content>div .containerCategoria .categorias .subCategoria nav ul li>.containerCategori .icon,
+    .navToolTip .tippy-content>div .containerCategoria .categorias .subCategoria nav ul li>.responsiveImage {
+        width: 70px !important;
+        height: 70px !important;
+    }
+
+
+
+
+
+}
+
+@media (min-width: 1300px) and (max-width: 1500px) {
+
+    .navToolTip .tippy-content>div .containerCategoria {
+        gap: 30px;
+    }
+
+    .navToolTip .tippy-content>div .containerCategoria .categorias {
+        gap: 15px 25px;
+    }
+
+    .navToolTip .tippy-content>div .containerCategoria .categorias .subCategoria nav ul li>.containerCategori .icon,
+    .navToolTip .tippy-content>div .containerCategoria .categorias .subCategoria nav ul li>.responsiveImage {
+        width: 60px !important;
+        height: 60px !important;
+    }
+
+    .navToolTip ul li .container-menu-tooltip>div {
+        padding: 10px 0px;
+    }
+}
+
+@media (min-width: 1220px) and (max-width: 1500px) {
+
+    // @include border();
+    .navToolTip .tippy-content>div .containerCategoria .categorias .subCategoria nav ul li>.containerCategori .icon,
+    .navToolTip .tippy-content>div .containerCategoria .categorias .subCategoria nav ul li>.responsiveImage {
+        width: 60px !important;
+        height: 60px !important;
+    }
+
+}
+
+@media (min-width: 1200px) and (max-width: 1300px) {
+    // @include border();
+
+
+    .navToolTip ul li .container-menu-tooltip>div {
+        padding: 7px 10px;
+    }
+
+    .navToolTip .tippy-content>div .containerCategoria {
+        gap: 30px;
+    }
+
+    .navToolTip .tippy-content>div .containerCategoria .categorias {
+        gap: 15px 25px;
+    }
+
+    .navToolTip .tippy-content>div .containerCategoria .categorias .subCategoria nav ul li>.containerCategori .icon,
+    .navToolTip .tippy-content>div .containerCategoria .categorias .subCategoria nav ul li>.responsiveImage {
+        width: 50px !important;
+        height: 50px !important;
+    }
+
+    .navToolTip .tippy-content>div .containerCategoria .containerLeft {
+
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+
+    }
+
+    .navToolTip .tippy-content>div .containerCategoria .categorias .subCategoria nav ul li h6 {
+        font-size: 12px;
+    }
+
+    .navToolTip .tippy-content>div .containerCategoria .categorias .subCategoria nav ul {
+        gap: 5px;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+
+    .navToolTip .tippy-content>div .containerCategoria {
+        max-width: 1000px;
+    }
+
+    .navToolTip .tippy-content>div .containerCategoria .categorias {
+        grid-template-columns: 1fr;
+
     }
 }

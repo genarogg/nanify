@@ -48,7 +48,6 @@ const Header: React.FC<HeaderProps> = () => {
                     type="local"
                     src={imgMen} width={80} height={80} alt="demo"
                     className='imgCategoria'
-                    id={`demo${uuid()}`}
                     visible={false}
                 />
                 <h6>ropa</h6>
