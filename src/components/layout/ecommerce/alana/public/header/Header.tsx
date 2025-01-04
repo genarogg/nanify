@@ -36,13 +36,41 @@ const Header: React.FC<HeaderProps> = () => {
         { href: "#", icon: <FaHeartCircleBolt /> },
     ]
 
-    const navHeaderDown = [
+
+
+    const categoryData = [
         {
-            type: "local",
-            src: imgMen,
-            alt: "demo"
-        }
-    ]
+            title: 'Hombres',
+            containerLeft: {
+                type: 'local',
+                src: imgMen,
+                alt: 'Imagen de hombres',
+            },
+
+            subcategories: [
+                {
+                    name: 'Ropa',
+                    items: [
+                        {
+                            imgSrc: imgMen,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        }
+                    ]
+                }
+            ]
+        },
+
+        // Agrega más categorías según sea necesario
+    ];
+
+
+
 
     return (
         <header className='header'>
@@ -52,7 +80,7 @@ const Header: React.FC<HeaderProps> = () => {
                 navLogin={navLogin}
                 login={login}
             />
-            <HeaderDown />
+            <HeaderDown data={categoryData} />
         </header>
     );
 }
