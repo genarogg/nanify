@@ -1,14 +1,15 @@
 import React from 'react'
-import { A } from 'nanify';
+import { Icon, A } from 'nanify';
 import AlgoliaSearch from '../../../../../algolia/AlgoliaSearch';
 import Nav from '../../../../nav/Nav';
 
 interface HeaderUpProps {
     logo: any
-    nav: any
+    navOuth: any
+    navLogin: any
     login: boolean;
 }
-const HeaderUp: React.FC<HeaderUpProps> = ({ logo, nav, login }) => {
+const HeaderUp: React.FC<HeaderUpProps> = ({ logo, navOuth, navLogin, login }) => {
     return (
         <>
             <div className="headerUp">
@@ -26,8 +27,13 @@ const HeaderUp: React.FC<HeaderUpProps> = ({ logo, nav, login }) => {
                 <div className="user">
                     {login ?
                         <Nav
-                            menuItems={nav} className='sign-up' />
-                        : <p>icons</p>}
+                            menuItems={navOuth} className='sign-in'
+                        />
+                        :
+                        <Nav
+                            menuItems={navLogin} className='sign-login'
+                        />
+                    }
                 </div>
             </div>
         </>
