@@ -2,7 +2,6 @@
 
 import React from 'react'
 import { LogoGenarogg, Img, Icon, A } from 'nanify';
-import { v4 as uuid } from 'uuid';
 
 import { RiUser3Fill } from "react-icons/ri";
 import HeaderUp from './HeaderUp';

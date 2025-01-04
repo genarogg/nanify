@@ -193,7 +193,7 @@
                     // @include border(blue);
 
                     width: 100%;
-                    transform: translate(0px,100px) !important;
+                    transform: translate(0px, 100px) !important;
                     background-color: #fff;
                     padding: 10px 20px;
                     max-width: 100%;
@@ -450,5 +450,35 @@
     .navToolTip .tippy-content>div .containerCategoria .categorias {
         grid-template-columns: 1fr;
 
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .navToolTip .tippy-content>div .containerCategoria .containerLeft {
+        display: none;
+    }
+
+    .navToolTip .tippy-content>div .containerCategoria {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .navToolTip .tippy-content>div .containerCategoria .categorias .subCategoria nav ul li>.containerCategori .icon,
+    .navToolTip .tippy-content>div .containerCategoria .categorias .subCategoria nav ul li>.responsiveImage {
+        width: 70px !important;
+        height: 70px !important;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .navToolTip ul li .container-menu-tooltip>div {
+        padding: 10px 10px;
+    }
+
+    .navToolTip .tippy-content>div .containerCategoria .categorias .subCategoria nav ul li>.containerCategori .icon,
+    .navToolTip .tippy-content>div .containerCategoria .categorias .subCategoria nav ul li>.responsiveImage {
+        width: 60px !important;
+        height: 60px !important;
     }
 }
