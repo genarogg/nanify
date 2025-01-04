@@ -59,7 +59,7 @@ const Header: React.FC<HeaderProps> = () => {
     const SubCategoria = () => {
         return (
             <div className="subCategoria">
-                <h5>ropa</h5>
+                <h5 className='slideIn'>ropa</h5>
                 <nav>
                     <ul>
                         <li className='slideIn'>
@@ -75,18 +75,23 @@ const Header: React.FC<HeaderProps> = () => {
         )
     }
 
+    const ContainerLeft = () => {
+        return (
+            <div className="containerLeft">
+                <Img type="local" src={imgMen} alt="demo2" id="demoad" width={400}
+                    height={400}
+                    visible={false} />
+            </div>
+        )
+    }
+
     const NavToolTip = () => {
         return (
             <li>
                 <HeaderToolTip title='hombres'>
                     <div className="containerCategoria">
-                        <div className="imgContainer">
-                            {/* <Img src={imgMen}> */}
-                            <Img type="local" src={imgMen} alt="demo2" id="demoad" width={340}
-                                height={340}
-                                visible={false} />
-                        </div>
-                        <div className="categoria">
+                        <ContainerLeft />
+                        <div className="categorias">
                             <SubCategoria />
                             <SubCategoria />
                             <SubCategoria />
@@ -117,10 +122,10 @@ const Header: React.FC<HeaderProps> = () => {
                     <ul>
 
                         <NavToolTip />
-                        {/* <NavToolTip />
                         <NavToolTip />
                         <NavToolTip />
-                        <NavToolTip /> */}
+                        <NavToolTip />
+                        <NavToolTip />
 
                     </ul>
                 </nav>

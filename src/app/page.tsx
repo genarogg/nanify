@@ -43,6 +43,10 @@ const home: React.FC<homeProps> = () => {
         <A href='/algolia'>Algolia</A>
       </Seccion>
 
+      <Seccion titulo="Layout">
+        <A href='/layout/alana'>Alana</A>
+      </Seccion>
+
       {/* <Seccion titulo="Search">
         <A href='/algolia'>Algolia</A>
       </Seccion> */}
