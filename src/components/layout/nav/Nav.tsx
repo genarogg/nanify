@@ -8,7 +8,7 @@ interface NavProps {
   setIsActive?: React.Dispatch<React.SetStateAction<boolean>>;
   menuItems: {
     href: string;
-    label: string;
+    label?: string;
     icon?: React.ReactNode;
   }[];
 

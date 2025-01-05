@@ -2,7 +2,7 @@ import React from 'react';
 import { Img, Icon, A } from 'nanify';
 import { FaRegHeart } from "react-icons/fa";
 import { regexUrl } from "@fn/index"
-import HeaderToolTip from '../../../../tooltip/HeaderToolTip';
+import HeaderToolTip from '@components/layout/tooltip/HeaderToolTip';
 
 interface HeaderDownProps {
     data: any;

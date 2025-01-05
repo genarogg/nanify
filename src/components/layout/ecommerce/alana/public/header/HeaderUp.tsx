@@ -1,7 +1,7 @@
 import React from 'react'
-import { Icon, A } from 'nanify';
-import AlgoliaSearch from '../../../../../algolia/AlgoliaSearch';
-import Nav from '../../../../nav/Nav';
+import { A } from 'nanify';
+import AlgoliaSearch from '@components/algolia/AlgoliaSearch';
+import Nav from '@components/layout//nav/Nav';
 
 interface HeaderUpProps {
     logo: any

@@ -1,8 +1,7 @@
 "use client"
 
-import React from 'react'
-import { LogoGenarogg } from 'nanify';
-
+import React, { useEffect, useState } from 'react';
+import { LogoGenarogg, Icon } from 'nanify';
 
 import { RiUser3Fill } from "react-icons/ri";
 import { FaHeartCircleBolt } from "react-icons/fa6";
@@ -12,6 +11,9 @@ import HeaderDown from './HeaderDown';
 
 
 import imgMen from "/public/men.jpg"
+
+import { A, BtnLoki, BtnNormalBasic } from "nanify";
+import Nav from '@components/layout//nav/Nav';
 
 interface HeaderProps {
 
@@ -29,7 +31,6 @@ const Header: React.FC<HeaderProps> = () => {
     ]
 
     const navLogin = [
-        { href: "#", icon: <FaHeartCircleBolt /> },
         { href: "#", icon: <FaHeartCircleBolt /> },
         { href: "#", icon: <FaHeartCircleBolt /> },
         { href: "#", icon: <FaHeartCircleBolt /> },
@@ -976,15 +977,97 @@ const Header: React.FC<HeaderProps> = () => {
 
     ];
 
+    const [windowWidth, setWindowWidth] = useState<any>(null);
+
+
+
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth >= 1024) {
+                setWindowWidth(true);
+            } else {
+                setWindowWidth(false);
+            }
+        };
+
+        handleResize();
+    }, []);
+
+    const HeaderDesktop = () => {
+        return (
+            <>
+                <HeaderUp
+                    logo={logo}
+                    navOuth={navOuth}
+                    navLogin={navLogin}
+                    login={login}
+                />
+                <HeaderDown data={categoryData} />
+            </>
+        );
+    }
+
+
+
+    const HeaderMobile = () => {
+        const [isActive, setIsActive] = useState(false);
+
+        return (
+            <>
+                <div className="headerMovile">
+                    <nav>
+                        <ul className='container'>
+
+                            <li>
+                                <div className="logo">
+                                    <A href={logo.href} >
+                                        {logo.logo}
+                                    </A>
+                                </div>
+                            </li>
+                            <li>
+                                <div className='btn-mobile'>
+                                    <ul>
+
+                                        <li>
+                                            <A href='#'>
+                                                <Icon icon={<FaHeartCircleBolt />} />
+                                            </A>
+                                        </li>
+                                        <li>
+                                            <A href='#'>
+                                                <Icon icon={<FaHeartCircleBolt />} />
+                                            </A>
+                                        </li>
+                                        <li>
+                                            <A href='/usuario'>
+                                                <Icon icon={<FaHeartCircleBolt />} />
+                                            </A>
+                                        </li>
+                                        <li>
+                                            <BtnNormalBasic >
+                                                <Icon icon={<FaHeartCircleBolt />} />
+                                            </BtnNormalBasic>
+                                        </li>
+                                        <li>
+                                            <BtnLoki
+                                                isActive={isActive}
+                                                setIsActive={setIsActive}
+                                            />
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
+                </div >
+            </>
+        )
+    }
+
     return (
         <header className='header'>
-            <HeaderUp
-                logo={logo}
-                navOuth={navOuth}
-                navLogin={navLogin}
-                login={login}
-            />
-            <HeaderDown data={categoryData} />
+            {windowWidth ? <HeaderDesktop /> : <HeaderMobile />}
         </header>
     );
 }
