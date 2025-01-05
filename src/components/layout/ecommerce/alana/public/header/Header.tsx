@@ -1046,8 +1046,11 @@ const Header: React.FC<HeaderProps> = () => {
                             <li>
                                 <div className='btn-mobile'>
                                     <ul className='right'>
-
-
+                                        <li className='hidden-xs'>
+                                            <A href='/deseado'>
+                                                <Icon icon={<FiHeart />} />
+                                            </A>
+                                        </li>
 
                                         <li>
                                             <A href='/card'>
