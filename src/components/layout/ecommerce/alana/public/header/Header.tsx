@@ -4,16 +4,18 @@ import React, { useEffect, useState } from 'react';
 import { LogoGenarogg, Icon } from 'nanify';
 
 import { RiUser3Fill } from "react-icons/ri";
-import { FaHeartCircleBolt } from "react-icons/fa6";
 
 import HeaderUp from './HeaderUp';
 import HeaderDown from './HeaderDown';
 
-
+import { FiHeart } from "react-icons/fi";
+import { FiShoppingBag } from "react-icons/fi";
+import { LuUserRound } from "react-icons/lu";
+import { FaSearch } from "react-icons/fa";
+import { AiOutlineSearch } from "react-icons/ai";
 import imgMen from "/public/men.jpg"
 
 import { A, BtnLoki, BtnNormalBasic } from "nanify";
-import Nav from '@components/layout//nav/Nav';
 
 interface HeaderProps {
 
@@ -31,10 +33,9 @@ const Header: React.FC<HeaderProps> = () => {
     ]
 
     const navLogin = [
-        { href: "#", icon: <FaHeartCircleBolt /> },
-        { href: "#", icon: <FaHeartCircleBolt /> },
-        { href: "#", icon: <FaHeartCircleBolt /> },
-        { href: "#", icon: <FaHeartCircleBolt /> },
+        { href: "/usuario", icon: <LuUserRound /> },
+        { href: "/deseado", icon: <FiHeart /> },
+        { href: "/card", icon: <FiShoppingBag /> },
     ]
 
     const categoryData = [
@@ -1017,7 +1018,24 @@ const Header: React.FC<HeaderProps> = () => {
                 <div className="headerMovile">
                     <nav>
                         <ul className='container'>
-
+                            <li>
+                                <div className='btn-mobile'>
+                                    <ul className='left'>
+                                        <li>
+                                            <BtnLoki
+                                                className='btnHamburguesa'
+                                                isActive={isActive}
+                                                setIsActive={setIsActive}
+                                            />
+                                        </li>
+                                        <li>
+                                            <A href='/usuario'>
+                                                <Icon icon={<LuUserRound />} />
+                                            </A>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
                             <li>
                                 <div className="logo">
                                     <A href={logo.href} >
@@ -1027,33 +1045,19 @@ const Header: React.FC<HeaderProps> = () => {
                             </li>
                             <li>
                                 <div className='btn-mobile'>
-                                    <ul>
+                                    <ul className='right'>
+
+
 
                                         <li>
-                                            <A href='#'>
-                                                <Icon icon={<FaHeartCircleBolt />} />
-                                            </A>
-                                        </li>
-                                        <li>
-                                            <A href='#'>
-                                                <Icon icon={<FaHeartCircleBolt />} />
-                                            </A>
-                                        </li>
-                                        <li>
-                                            <A href='/usuario'>
-                                                <Icon icon={<FaHeartCircleBolt />} />
+                                            <A href='/card'>
+                                                <Icon icon={<FiShoppingBag />} />
                                             </A>
                                         </li>
                                         <li>
                                             <BtnNormalBasic >
-                                                <Icon icon={<FaHeartCircleBolt />} />
+                                                <Icon icon={<AiOutlineSearch />} />
                                             </BtnNormalBasic>
-                                        </li>
-                                        <li>
-                                            <BtnLoki
-                                                isActive={isActive}
-                                                setIsActive={setIsActive}
-                                            />
                                         </li>
                                     </ul>
                                 </div>
