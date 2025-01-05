@@ -11,6 +11,7 @@ interface UltimateTooTipProps {
     animation?: "shift-away" | "shift-away-extreme" | "fade";
     interactive?: boolean;
     arrow?: boolean;
+    trigger?: "mouseenter" | "click" | "focus";
 }
 
 const UltimateTooTip: React.FC<UltimateTooTipProps> = ({
@@ -20,7 +21,8 @@ const UltimateTooTip: React.FC<UltimateTooTipProps> = ({
     placement = "bottom",
     animation = "shift-away",
     interactive = true,
-    arrow = true
+    arrow = true,
+    trigger = "mouseenter"
 }) => {
     return (
         <div className={`container-menu-tooltip ${className}`}>
@@ -31,7 +33,7 @@ const UltimateTooTip: React.FC<UltimateTooTipProps> = ({
                 className="tooltip"
                 arrow={arrow}
                 placement={placement}
-                trigger="click"
+                trigger={trigger}
             >
                 <span>{title}</span>
             </Tippy>

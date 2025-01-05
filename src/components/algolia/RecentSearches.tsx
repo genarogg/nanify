@@ -23,8 +23,8 @@ const RecentSearches: React.FC<RecentSearchesProps> = ({ recentSearches }) => {
                 <h3 className={style.boxTwo}>Búsquedas Recientes</h3>
             </div>
             <ul>
-                {recentSearches.map((search) => (
-                    <li key={search.url} className={style.algoliaBox}>
+                {recentSearches.map((search, index) => (
+                    <li key={index} className={style.algoliaBox}>
 
                         <Icon icon={<TbReload />} className={style.boxOne} />
                         <A

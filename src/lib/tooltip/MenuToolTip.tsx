@@ -37,7 +37,7 @@ const MenuToolTip: React.FC<MenuToolTipProps> = ({
         className="tooltip"
         arrow={true}
         placement={placement}
-        animation={"shift-away"}
+        animation={animation}
       >
         <span>{children}</span>
       </Tippy>

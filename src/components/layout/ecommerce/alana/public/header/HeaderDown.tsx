@@ -1,65 +1,48 @@
 import React from 'react';
 import { Img, Icon, A } from 'nanify';
 import { FaRegHeart } from "react-icons/fa";
-import imgMen from "/public/men.jpg";
-
+import { regexUrl } from "@fn/index"
 import HeaderToolTip from '../../../../tooltip/HeaderToolTip';
 
 interface HeaderDownProps {
-    // data: Array<{
-    //     title: string;
-    //     type: string;
-    //     src: string;
-    //     alt: string;
-    //     subcategories: Array<{
-    //         name: string;
-    //         items: Array<{
-    //             imgSrc: string;
-    //             imgAlt: string;
-    //             label: string;
-    //         }>
-    //     }>
-    // }>;
     data: any;
 }
 
 const HeaderDown: React.FC<HeaderDownProps> = ({ data }) => {
-    const MoreCategories = () => (
-        <A href="#" className="containerCategori">
-            <Icon icon={<FaRegHeart />} />
-            <h6>Ver más!</h6>
-        </A>
-    );
 
-    const Li = ({ imgSrc, imgAlt, label }: { imgSrc: string; imgAlt: string; label: string }) => (
-        <li className='slideIn'>
-            <Img
-                type="local"
-                src={imgSrc}
-                width={80}
-                height={80}
-                alt={imgAlt}
-                className='imgCategoria'
-                visible={false}
-            />
-            <h6>{label}</h6>
-        </li>
-    );
 
-    const SubCategoria = ({ name, items }: { name: string; items: Array<{ imgSrc: string; imgAlt: string; label: string }> }) => (
+    const SubCategoria = ({ name, items, itemType }: any) => (
         <div className="subCategoria">
             <h5 className='slideIn'>{name}</h5>
             <nav>
                 <ul>
                     <li className='slideIn'>
-                        <MoreCategories />
+                        <A href={`/categoria/${regexUrl(name)}`} >
+                            <div className="viewmore">
+                                <Icon icon={<FaRegHeart />} />
+                            </div>
+                            <h6>Ver más!</h6>
+                        </A>
                     </li>
-                    {items.map((item, index) => (
-                        <Li key={index} imgSrc={item.imgSrc} imgAlt={item.imgAlt} label={item.label} />
+                    {items.map((item: any, index: any) => (
+                        <li className='slideIn' key={index}>
+                            <A href={`/categoria/${regexUrl(item.label)}`}>
+                                <Img
+                                    type={itemType}
+                                    src={item.imgSrc}
+                                    width={80}
+                                    height={80}
+                                    alt={item.imgAlt}
+                                    className='imgCategoria'
+                                    visible={false}
+                                />
+                                <h6>{item.label}</h6>
+                            </A>
+                        </li>
                     ))}
                 </ul>
             </nav>
-        </div>
+        </div >
     );
 
     const ContainerLeft = ({ containerLeft }: any) => (
@@ -67,10 +50,12 @@ const HeaderDown: React.FC<HeaderDownProps> = ({ data }) => {
             <Img
                 type={containerLeft.type}
                 src={containerLeft.src}
+                blurDataURL={containerLeft.blurDataURL}
                 alt={containerLeft.alt}
                 width={400}
                 height={400}
                 visible={false}
+
             />
         </div>
     );
@@ -80,11 +65,15 @@ const HeaderDown: React.FC<HeaderDownProps> = ({ data }) => {
             <HeaderToolTip title={title}>
                 <div className="containerCategoria">
                     <ContainerLeft containerLeft={containerLeft} />
-                    {/* <div className="categorias">
-                        {subcategories.map((sub, index): any => (
-                            <SubCategoria key={index} name={sub.name} items={sub.items} />
+                    <div className="categorias">
+                        {subcategories.map((sub: any, index: any) => (
+                            <SubCategoria
+                                key={index}
+                                name={sub.name}
+                                itemType={sub.itemType}
+                                items={sub.items} />
                         ))}
-                    </div> */}
+                    </div>
                 </div>
             </HeaderToolTip>
         </li>

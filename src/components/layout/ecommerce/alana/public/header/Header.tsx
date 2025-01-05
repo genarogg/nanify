@@ -36,8 +36,6 @@ const Header: React.FC<HeaderProps> = () => {
         { href: "#", icon: <FaHeartCircleBolt /> },
     ]
 
-
-
     const categoryData = [
         {
             title: 'Hombres',
@@ -45,32 +43,938 @@ const Header: React.FC<HeaderProps> = () => {
                 type: 'local',
                 src: imgMen,
                 alt: 'Imagen de hombres',
+                blurDataURL: undefined
             },
 
             subcategories: [
                 {
                     name: 'Ropa',
+                    itemType: "local",
                     items: [
                         {
                             imgSrc: imgMen,
+                            blurDataURL: undefined,
                             imgAlt: 'Jeans',
                             label: 'Jeans'
                         },
                         {
                             imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
                             imgAlt: 'Jeans',
                             label: 'Jeans'
                         }
                     ]
-                }
+                },
+                {
+                    name: 'Ropa',
+                    itemType: "local",
+                    items: [
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        }
+                    ]
+                },
+                {
+                    name: 'Ropa',
+                    itemType: "local",
+                    items: [
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        }
+                    ]
+                },
+                {
+                    name: 'Ropa',
+                    itemType: "local",
+                    items: [
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        }
+                    ]
+                },
+                {
+                    name: 'Ropa',
+                    itemType: "local",
+                    items: [
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        }
+                    ]
+                },
+                {
+                    name: 'Ropa',
+                    itemType: "local",
+                    items: [
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        }
+                    ]
+                },
+                {
+                    name: 'Ropa',
+                    itemType: "local",
+                    items: [
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        }
+                    ]
+                },
+                {
+                    name: 'Ropa',
+                    itemType: "local",
+                    items: [
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        }
+                    ]
+                },
+                {
+                    name: 'Ropa',
+                    itemType: "local",
+                    items: [
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        }
+                    ]
+                },
+                {
+                    name: 'Ropa',
+                    itemType: "local",
+                    items: [
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        }
+                    ]
+                },
+            ]
+        },
+        {
+            title: 'Hombres',
+            containerLeft: {
+                type: 'local',
+                src: imgMen,
+                alt: 'Imagen de hombres',
+                blurDataURL: undefined
+            },
+
+            subcategories: [
+                {
+                    name: 'Ropa',
+                    itemType: "local",
+                    items: [
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        }
+                    ]
+                },
+                {
+                    name: 'Ropa',
+                    itemType: "local",
+                    items: [
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        }
+                    ]
+                },
+                {
+                    name: 'Ropa',
+                    itemType: "local",
+                    items: [
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        }
+                    ]
+                },
+                {
+                    name: 'Ropa',
+                    itemType: "local",
+                    items: [
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        }
+                    ]
+                },
+                {
+                    name: 'Ropa',
+                    itemType: "local",
+                    items: [
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        }
+                    ]
+                },
+                {
+                    name: 'Ropa',
+                    itemType: "local",
+                    items: [
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        }
+                    ]
+                },
+                {
+                    name: 'Ropa',
+                    itemType: "local",
+                    items: [
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        }
+                    ]
+                },
+                {
+                    name: 'Ropa',
+                    itemType: "local",
+                    items: [
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        }
+                    ]
+                },
+                {
+                    name: 'Ropa',
+                    itemType: "local",
+                    items: [
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        }
+                    ]
+                },
+                {
+                    name: 'Ropa',
+                    itemType: "local",
+                    items: [
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        }
+                    ]
+                },
+            ]
+        },
+        {
+            title: 'Hombres',
+            containerLeft: {
+                type: 'local',
+                src: imgMen,
+                alt: 'Imagen de hombres',
+                blurDataURL: undefined
+            },
+
+            subcategories: [
+                {
+                    name: 'Ropa',
+                    itemType: "local",
+                    items: [
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        }
+                    ]
+                },
+                {
+                    name: 'Ropa',
+                    itemType: "local",
+                    items: [
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        }
+                    ]
+                },
+                {
+                    name: 'Ropa',
+                    itemType: "local",
+                    items: [
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        }
+                    ]
+                },
+                {
+                    name: 'Ropa',
+                    itemType: "local",
+                    items: [
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        }
+                    ]
+                },
+                {
+                    name: 'Ropa',
+                    itemType: "local",
+                    items: [
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        }
+                    ]
+                },
+                {
+                    name: 'Ropa',
+                    itemType: "local",
+                    items: [
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        }
+                    ]
+                },
+                {
+                    name: 'Ropa',
+                    itemType: "local",
+                    items: [
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        }
+                    ]
+                },
+                {
+                    name: 'Ropa',
+                    itemType: "local",
+                    items: [
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        }
+                    ]
+                },
+                {
+                    name: 'Ropa',
+                    itemType: "local",
+                    items: [
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        }
+                    ]
+                },
+                {
+                    name: 'Ropa',
+                    itemType: "local",
+                    items: [
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        },
+                        {
+                            imgSrc: imgMen,
+                            blurDataURL: undefined,
+                            imgAlt: 'Jeans',
+                            label: 'Jeans'
+                        }
+                    ]
+                },
             ]
         },
 
-        // Agrega más categorías según sea necesario
     ];
-
-
-
 
     return (
         <header className='header'>
