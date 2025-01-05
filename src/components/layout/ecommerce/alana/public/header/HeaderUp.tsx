@@ -26,12 +26,13 @@ const HeaderUp: React.FC<HeaderUpProps> = ({ logo, navOuth, navLogin, login }) =
                 </div>
                 <div className="user">
                     {login ?
+
                         <Nav
-                            menuItems={navOuth} className='sign-in'
+                            menuItems={navLogin} className='sign-login'
                         />
                         :
                         <Nav
-                            menuItems={navLogin} className='sign-login'
+                            menuItems={navOuth} className='sign-in'
                         />
                     }
                 </div>
