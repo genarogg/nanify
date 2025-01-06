@@ -8,7 +8,7 @@ import { LuUserRound } from "react-icons/lu";
 import AlgoliaSearch from '@components/algolia/AlgoliaSearch';
 import { regexUrl } from "@fn/index"
 import { FaRegHeart } from "react-icons/fa";
-import "./sass/_headerMobile.scss";
+
 
 import activeAside from "./fn/activeAside";
 interface HeaderMobileProps {

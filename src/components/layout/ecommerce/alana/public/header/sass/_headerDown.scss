@@ -1,3 +1,5 @@
+@use "/src/sass/global/variables" as var;
+
 .headerDown {
     display: flex;
     justify-content: center;
@@ -182,7 +184,7 @@
                             flex-direction: column;
 
                             * {
-                                transition: $transition;
+                                transition: var.$transition;
                             }
 
                             &:hover {
