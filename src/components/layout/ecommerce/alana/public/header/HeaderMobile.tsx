@@ -5,7 +5,11 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { FiHeart } from "react-icons/fi";
 import { FiShoppingBag } from "react-icons/fi";
 import { LuUserRound } from "react-icons/lu";
+import AlgoliaSearch from '@components/algolia/AlgoliaSearch';
 
+import "./sass/_headerMobile.scss";
+
+import  activeAside from "./fn/activeAside";
 
 interface HeaderMobileProps {
     login: boolean;
@@ -75,9 +79,9 @@ const HeaderMobile: React.FC<HeaderMobileProps> = ({ login }) => {
                                                 </A>
                                             </li>
                                     }
-                                  
+
                                     <li>
-                                        <BtnNormalBasic >
+                                        <BtnNormalBasic onClick={() => activeAside('asideSearch')} id='btnSearch'>
                                             <Icon icon={<AiOutlineSearch />} />
                                         </BtnNormalBasic>
                                     </li>
@@ -86,6 +90,15 @@ const HeaderMobile: React.FC<HeaderMobileProps> = ({ login }) => {
                         </li>
                     </ul>
                 </nav>
+                <div className="mobileSearch search" id='asideSearch'>
+                    <AlgoliaSearch
+                        className='algolia'
+                        styleSearchBox={"searchBoxMovile"}
+                    />
+                </div>
+                <div className="mobileCategoria">
+
+                </div>
             </div >
         </>
     )

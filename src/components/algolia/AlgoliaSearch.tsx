@@ -6,7 +6,7 @@ import { Hits, Configure } from "react-instantsearch";
 import { InstantSearchNext } from 'react-instantsearch-nextjs';
 import RecentSearches from "./RecentSearches";
 import { AnimatePresence, motion } from "framer-motion";
-import style from "./sass/_algolia.module.scss";
+import "./sass/_algolia.scss";
 
 import { ALGOLIA_ID, ALGOLIA_KEY } from "@env";
 
@@ -73,7 +73,7 @@ const AlgoliaSearch: React.FC<SearchItem> = ({
 
     return (
         <div
-            className={`${style.algoliaSearch} ${className}`} onClick={searchRecent}
+            className={`algoliaSearch ${className}`} onClick={searchRecent}
             ref={searchRef}
             onFocus={handleFocus}
             onBlur={handleBlur}

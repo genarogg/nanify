@@ -17,18 +17,18 @@ const RecentSearches: React.FC<RecentSearchesProps> = ({ recentSearches }) => {
     if (!recentSearches.length) return null;
 
     return (
-        <div className={style.recentSearches}>
-            <div className={`${style.title} ${style.algoliaBox}`}>
-                <Icon icon={<IoTimerOutline />} className={style.boxOne} />
-                <h3 className={style.boxTwo}>Búsquedas Recientes</h3>
+        <div className="recentSearches">
+            <div className={`title algoliaBox`}>
+                <Icon icon={<IoTimerOutline />} className="boxOne" />
+                <h3 className="boxTwo">Búsquedas Recientes</h3>
             </div>
             <ul>
                 {recentSearches.map((search, index) => (
-                    <li key={index} className={style.algoliaBox}>
+                    <li key={index} className="algoliaBox">
 
-                        <Icon icon={<TbReload />} className={style.boxOne} />
+                        <Icon icon={<TbReload />} className="boxOne"/>
                         <A
-                            className={style.boxTwo}
+                            className="boxTwo"
                             type='btn'
                             href={`/${search.url}`}
                         >

@@ -986,13 +986,16 @@ const Header: React.FC<HeaderProps> = () => {
         const handleResize = () => {
             if (window.innerWidth >= 1024) {
                 setWindowWidth(true);
-            } else {
+            } 
+            else if (window.innerWidth <= 1024) {
                 setWindowWidth(false);
             }
         };
 
         handleResize();
     }, []);
+
+    if(windowWidth === null) return null;
 
     const HeaderDesktop = () => {
         return (
@@ -1007,10 +1010,6 @@ const Header: React.FC<HeaderProps> = () => {
             </>
         );
     }
-
-
-
-    
 
     return (
         <header className='header'>

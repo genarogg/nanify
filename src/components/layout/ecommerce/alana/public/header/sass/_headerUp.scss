@@ -1,5 +1,33 @@
 .header {
     z-index: 1000000;
+    position: fixed;
+    width: 100%;
+
+    .search {
+        display: flex;
+        justify-content: center;
+        height: 40px;
+        position: relative;
+
+        .algolia {
+            border-radius: $border-radius;
+            width: 90%;
+
+            .searchBox {
+                background-color: transparent;
+
+                box-shadow: none;
+                border-radius: none;
+
+
+            }
+
+            >div {
+                box-shadow: 0px -20px 0px 0px #fff;
+                border-radius: $border-radius;
+            }
+        }
+    }
 }
 
 
@@ -22,35 +50,13 @@
                 color: $color-secondary;
             }
 
-            
+
         }
 
-        
+
     }
 
-    .search {
-        display: flex;
-        justify-content: center;
 
-        .algolia {
-            border-radius: $border-radius;
-            width: 90%;
-
-            .searchBox {
-                background-color: transparent;
-
-                box-shadow: none;
-                border-radius: none;
-
-
-            }
-
-            >div {
-                box-shadow: 0px -20px 0px 0px #fff;
-                border-radius: $border-radius;
-            }
-        }
-    }
 
     .user {
         display: flex;

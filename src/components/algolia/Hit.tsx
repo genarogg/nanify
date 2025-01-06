@@ -1,7 +1,6 @@
 import React from 'react'
 import { A, Icon } from 'nanify';
 import { IoFlash } from "react-icons/io5";
-import style from './sass/_algolia.module.scss';
 
 interface HitProps {
     hit: any;
@@ -14,10 +13,10 @@ const Hit: React.FC<HitProps> = ({ hit, addRecentSearch }) => {
     };
 
     return (
-        <div className={`${style.algoliaBox}`}>
-            <Icon icon={<IoFlash />} className={style.boxOne} />
+        <div className={`algoliaBox`}>
+            <Icon icon={<IoFlash />} className="boxOne" />
             <A
-                className={style.boxTwo}
+                className="boxTwo"
                 type='btn'
                 href={`/${hit.title}`}
                 onClick={handleClick}

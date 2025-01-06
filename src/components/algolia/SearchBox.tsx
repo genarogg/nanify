@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { useSearchBox } from "react-instantsearch";
 import { FaSearch } from "react-icons/fa";
 import { Icon } from "nanify";
-import style from './sass/_algolia.module.scss';
 
 import { isProd } from "@env"
 
@@ -17,7 +16,7 @@ const SearchBox: React.FC<SearchBoxProps> = ({
     onQueryChange,
     typingSpeed = 150,  // Valor por defecto
     pauseBetweenPhrases = 2000,  // Valor por defecto
-    styleSearchBox = {},
+    styleSearchBox = "",
 }) => {
     const { refine } = useSearchBox();
     const placeholders = [
@@ -78,14 +77,12 @@ const SearchBox: React.FC<SearchBoxProps> = ({
     };
 
     return (
-        <div className={`
-        ${style.algoliaBox} 
-        ${style.notHover}
+        <div className={`algoliaBox notHover
         ${styleSearchBox}
         `}>
-            <Icon icon={<FaSearch />} className={style.boxOne} />
+            <Icon icon={<FaSearch />} className="boxOne" />
             <input
-                className={`${style.boxTwo}`}
+                className={`boxTwo`}
                 id="serach"
                 ref={inputRef}
                 type="text"
