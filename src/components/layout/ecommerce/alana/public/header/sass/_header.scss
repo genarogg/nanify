@@ -1,3 +1,24 @@
 @use "./headerUp";
 @use "./headerDown";
 @use "./headerMobile";
+
+@media screen and (max-width: 1024px) {
+     .header{
+        height: 60px;
+    }
+
+    .headerUp {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+   
+    .header{
+        height: 100px;
+    }
+    .headerMovile {
+        display: none;
+    }
+
+}
