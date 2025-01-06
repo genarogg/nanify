@@ -120,6 +120,20 @@
                     }
                 }
             }
+
+            .mobileCategoria {
+                position: fixed;
+                left: -100%;
+                min-width: 360px;
+                height: 100vh;
+                background-color: #282828;
+                transition: 600ms all ease;
+                z-index: 1000;
+        
+                &.active {
+                    left: 0;
+                }
+            }
         }
     }
 
@@ -143,6 +157,10 @@
             .algolia {
                 top: 25px;
         }
+    }
+
+    .containerCategoria{
+        grid-template-columns: 1fr !important;
     }
 }
 

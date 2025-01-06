@@ -122,110 +122,114 @@
             justify-content: center;
             cursor: initial;
 
-            .containerCategoria {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                justify-items: center;
-                width: 100%;
-                max-width: 1600px;
-                justify-content: center;
-                gap: 50px;
 
-                overflow-x: hidden;
+        }
+    }
+}
 
-                .containerLeft {
-                    position: relative;
-                    width: 400px;
-                    height: 400px;
+.header {
+    .containerCategoria {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        justify-items: center;
+        width: 100%;
+        max-width: 1600px;
+        justify-content: center;
+        gap: 50px;
+
+        overflow-x: hidden;
+
+        .containerLeft {
+            position: relative;
+            width: 400px;
+            height: 400px;
 
 
-                    >div {
-                        position: fixed !important;
-                    }
+            >div {
+                position: fixed !important;
+            }
+        }
+
+        .categorias {
+            // @include border(blue);
+            display: grid;
+            gap: 20px 40px;
+
+            grid-template-columns: 1fr 1fr;
+
+            .subCategoria {
+
+
+                h5 {
+                    font-size: 18px;
+                    margin: 0 0 20px 10px;
+                    //text-transform: uppercase;
                 }
 
-                .categorias {
-                    // @include border(blue);
-                    display: grid;
-                    gap: 20px 40px;
-
-                    grid-template-columns: 1fr 1fr;
-
-                    .subCategoria {
-
-
-                        h5 {
-                            font-size: 18px;
-                            margin: 0 0 20px 10px;
-                            //text-transform: uppercase;
-                        }
-
-                        nav {
-                            ul {
-                                display: grid;
-                                /* grid-auto-columns: auto; */
-                                grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-                                grid-gap: 10px;
-                                gap: 10px;
+                nav {
+                    ul {
+                        display: grid;
+                        /* grid-auto-columns: auto; */
+                        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+                        grid-gap: 10px;
+                        gap: 10px;
 
 
-                                li {
-                                    margin: 0 10px;
-                                    display: flex;
-                                    align-items: center;
-                                    flex-direction: column;
+                        li {
+                            margin: 0 10px;
+                            display: flex;
+                            align-items: center;
+                            flex-direction: column;
 
-                                    * {
-                                        transition: $transition;
-                                    }
+                            * {
+                                transition: $transition;
+                            }
 
-                                    &:hover {
-                                        cursor: pointer;
+                            &:hover {
+                                cursor: pointer;
 
-                                        .viewmore,
-                                        .responsiveImage {
-                                            transform: scale(1.1);
-                                            box-shadow: 0 0 4px 0px #1c1c1c;
-                                        }
-                                    }
-
-                                    a {
-
-                                        display: flex;
-                                        flex-direction: column;
-                                        align-items: center;
-
-
-                                        .icon {
-                                            font-size: 30px;
-                                        }
-
-                                        >.responsiveImage,
-                                        .viewmore {
-                                            border-radius: 50%;
-                                            border: 3px solid #ffac32;
-                                            width: 80px;
-                                            height: 80px;
-                                            display: flex;
-                                            justify-content: center;
-                                            align-items: center;
-
-                                            >.responsiveImage,
-                                            svg {
-                                                display: flex;
-                                                align-items: center;
-                                                justify-content: center;
-                                            }
-
-                                        }
-
-
-                                    }
-
-                                    h6 {
-                                        font-size: 14px;
-                                    }
+                                .viewmore,
+                                .responsiveImage {
+                                    transform: scale(1.1);
+                                    box-shadow: 0 0 4px 0px #1c1c1c;
                                 }
+                            }
+
+                            a {
+
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+
+
+                                .icon {
+                                    font-size: 30px;
+                                }
+
+                                >.responsiveImage,
+                                .viewmore {
+                                    border-radius: 50%;
+                                    border: 3px solid #ffac32;
+                                    width: 80px;
+                                    height: 80px;
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+
+                                    >.responsiveImage,
+                                    svg {
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                    }
+
+                                }
+
+
+                            }
+
+                            h6 {
+                                font-size: 14px;
                             }
                         }
                     }
@@ -238,13 +242,13 @@
 @media (min-width: 1220px) and (max-width: 1630px) {
 
     // @include border();
-    .navToolTip .tippy-content>div .containerCategoria .categorias .subCategoria h5 {
+    .header .containerCategoria .categorias .subCategoria h5 {
         margin-bottom: 10px;
 
     }
 
 
-    .navToolTip .tippy-content>div .containerCategoria .categorias .subCategoria nav ul li>a {
+    .header .containerCategoria .categorias .subCategoria nav ul li>a {
 
         .responsiveImage,
         .viewmore {
@@ -259,15 +263,15 @@
 
 @media (min-width: 1300px) and (max-width: 1500px) {
 
-    .navToolTip .tippy-content>div .containerCategoria {
+    .header .containerCategoria {
         gap: 30px;
     }
 
-    .navToolTip .tippy-content>div .containerCategoria .categorias {
+    .header .containerCategoria .categorias {
         gap: 15px 25px;
     }
 
-    .navToolTip .tippy-content>div .containerCategoria .categorias .subCategoria nav ul li>a {
+    .header .containerCategoria .categorias .subCategoria nav ul li>a {
 
         .responsiveImage,
         .viewmore {
@@ -284,7 +288,7 @@
 @media (min-width: 1220px) and (max-width: 1500px) {
 
     // @include border();
-    .navToolTip .tippy-content>div .containerCategoria .categorias .subCategoria nav ul li>a {
+    .header .containerCategoria .categorias .subCategoria nav ul li>a {
 
         .responsiveImage,
         .viewmore {
@@ -295,7 +299,7 @@
 
 }
 
-@media (min-width: 1200px) and (max-width: 1300px) {
+@media screen and (max-width: 1300px) {
     // @include border();
 
 
@@ -303,15 +307,15 @@
         padding: 7px 10px;
     }
 
-    .navToolTip .tippy-content>div .containerCategoria {
+    .header .containerCategoria {
         gap: 30px;
     }
 
-    .navToolTip .tippy-content>div .containerCategoria .categorias {
+    .header .containerCategoria .categorias {
         gap: 15px 25px;
     }
 
-    .navToolTip .tippy-content>div .containerCategoria .categorias .subCategoria nav ul li>a {
+    .header .containerCategoria .categorias .subCategoria nav ul li>a {
 
         .responsiveImage,
         .viewmore {
@@ -320,7 +324,7 @@
         }
     }
 
-    .navToolTip .tippy-content>div .containerCategoria .containerLeft {
+    .header .containerCategoria .containerLeft {
 
 
         display: flex;
@@ -330,28 +334,28 @@
 
     }
 
-    .navToolTip .tippy-content>div .containerCategoria .categorias .subCategoria nav ul li h6 {
+    .header .containerCategoria .categorias .subCategoria nav ul li h6 {
         font-size: 12px;
     }
 
-    .navToolTip .tippy-content>div .containerCategoria .categorias .subCategoria nav ul {
+    .header .containerCategoria .categorias .subCategoria nav ul {
         gap: 5px;
     }
 }
 
 @media screen and (max-width: 1300px) {
-    .navToolTip .tippy-content>div .containerCategoria .categorias .subCategoria nav ul li a .viewmore svg {
+    .header .containerCategoria .categorias .subCategoria nav ul li a .viewmore svg {
         font-size: 20px;
     }
 }
 
 @media screen and (max-width: 1200px) {
 
-    .navToolTip .tippy-content>div .containerCategoria {
+    .header .containerCategoria {
         max-width: 1000px;
     }
 
-    .navToolTip .tippy-content>div .containerCategoria .categorias {
+    .header .containerCategoria .categorias {
         grid-template-columns: 1fr;
 
     }
