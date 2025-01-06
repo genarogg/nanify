@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { A, Img, BtnLoki, BtnNormalBasic } from "nanify";
-import { Icon, LogoGenarogg } from "nanify";
+import { Icon } from "nanify";
 import { AiOutlineSearch } from "react-icons/ai";
 import { FiHeart } from "react-icons/fi";
 import { FiShoppingBag } from "react-icons/fi";
@@ -14,15 +14,14 @@ import activeAside from "./fn/activeAside";
 interface HeaderMobileProps {
     login: boolean;
     data: any;
+    logo: any;
 }
 
-const HeaderMobile: React.FC<HeaderMobileProps> = ({ login, data }) => {
-    const logo = { href: "/", logo: <LogoGenarogg />, alt: "Logo" };
+const HeaderMobile: React.FC<HeaderMobileProps> = ({ login, logo, data }) => {
+
     const [isActive, setIsActive] = useState(false);
 
-
     const SubCategoria = ({ name, items, itemType }: any) => {
-        console.log(items)
         return (
             <div className="subCategoria">
                 <h5 className='slideIn'>{name}</h5>

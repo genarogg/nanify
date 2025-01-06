@@ -991,7 +991,7 @@ const Header: React.FC<HeaderProps> = () => {
                     navLogin={navLogin}
                     login={login}
                 />
-                <HeaderDown data={categoryData} />
+                <HeaderDown data={categoryData}  />
             </>
         );
     }
@@ -999,7 +999,7 @@ const Header: React.FC<HeaderProps> = () => {
     return (
         <header className='header'>
             {windowWidth >= 1024 ? <HeaderDesktop /> : null}
-            {windowWidth <= 1024 ? <HeaderMobile login={login} data={categoryData} /> : null}
+            {windowWidth <= 1024 ? <HeaderMobile login={login} data={categoryData} logo={logo} /> : null}
         </header>
     );
 }
