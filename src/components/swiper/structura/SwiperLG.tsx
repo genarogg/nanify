@@ -49,9 +49,10 @@ const SwiperLG: React.FC<SwiperLGProps> = ({ children, effect = "random" }) => {
                 const containerInfo = activeSlide.querySelector('.containerInfo');
                 if (containerInfo) {
                     containerInfo.classList.add('fade-in');
+                    containerInfo.style.opacity = '1';
                     setTimeout(() => {
                         containerInfo.classList.remove('fade-in');
-                    }, 1000); // Duración de la animación
+                    }, 2000); // Duración de la animación
                 }
             });
         }
@@ -60,7 +61,7 @@ const SwiperLG: React.FC<SwiperLGProps> = ({ children, effect = "random" }) => {
     return (
         <div className='containerSlider'>
             <Swiper
- ref={swiperRef}
+                ref={swiperRef}
                 style={{ height: '100dvh' }}
 
                 effect="gl"
