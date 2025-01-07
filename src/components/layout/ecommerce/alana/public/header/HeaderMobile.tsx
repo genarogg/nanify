@@ -15,9 +15,11 @@ interface HeaderMobileProps {
     login: boolean;
     data: any;
     logo: any;
+    navOuth: any;
+    navLogin: any;
 }
 
-const HeaderMobile: React.FC<HeaderMobileProps> = ({ login, logo, data }) => {
+const HeaderMobile: React.FC<HeaderMobileProps> = ({ login, logo, data, navOuth, navLogin }) => {
 
     const [isActive, setIsActive] = useState(false);
 
@@ -74,7 +76,7 @@ const HeaderMobile: React.FC<HeaderMobileProps> = ({ login, logo, data }) => {
             </div>
         </li>
     );
-
+    console.log(navOuth)
 
     return (
         <>
@@ -95,8 +97,8 @@ const HeaderMobile: React.FC<HeaderMobileProps> = ({ login, logo, data }) => {
                                     {
                                         login ?
                                             <li>
-                                                <A href='/usuario'>
-                                                    <Icon icon={<LuUserRound />} />
+                                                <A href={navLogin[0].href}>
+                                                    <Icon icon={navLogin[0].icon} />
                                                 </A>
                                             </li>
                                             :
@@ -125,15 +127,16 @@ const HeaderMobile: React.FC<HeaderMobileProps> = ({ login, logo, data }) => {
                                                 </li>
 
                                                 <li>
-                                                    <A href='/card'>
-                                                        <Icon icon={<FiShoppingBag />} />
+                                                    
+                                                    <A href={navLogin[2].href}>
+                                                        <Icon icon={navLogin[2].icon} />
                                                     </A>
                                                 </li>
                                             </>
                                             :
                                             <li>
                                                 <A href='/login'>
-                                                    <Icon icon={<LuUserRound />} />
+                                                    <Icon icon={navLogin[0].icon} />
                                                 </A>
                                             </li>
                                     }
