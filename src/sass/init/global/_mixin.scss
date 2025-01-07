@@ -45,16 +45,12 @@
 
 @mixin distribucion-responsiva($size: 360px, $cantidad-de-elementos: 1fr) {
   display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax($size, $cantidad-de-elementos)
-  );
+  grid-template-columns: repeat(auto-fit,
+      minmax($size, $cantidad-de-elementos));
 
   @media screen and (max-width: 360px) {
-    grid-template-columns: repeat(
-      auto-fit,
-      minmax(95vw, $cantidad-de-elementos)
-    );
+    grid-template-columns: repeat(auto-fit,
+        minmax(95vw, $cantidad-de-elementos));
   }
 }
 
@@ -92,4 +88,23 @@
   ::-webkit-scrollbar-thumb:hover {
     background: $bgColor;
   }
+}
+
+@mixin text-gradient($start-color: blue, $end-color: red, $fallback-color: white) {
+  background: -webkit-linear-gradient($start-color, $end-color);
+
+  background: -moz-linear-gradient($start-color, $end-color);
+
+  background: -o-linear-gradient($start-color, $end-color);
+
+  background: linear-gradient($start-color, $end-color);
+
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+
+  color: $fallback-color;
+ 
 }
