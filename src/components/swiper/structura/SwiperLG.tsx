@@ -35,21 +35,25 @@ interface SwiperLGProps {
     "stretch" |
     "wave-x" |
     "wind";
+
 }
 
 const SwiperLG: React.FC<SwiperLGProps> = ({ children, effect = "random" }) => {
     return (
         <div className='containerSlider'>
             <Swiper
+                style={{height: '100dvh'}}
+
                 effect="gl"
-                onBeforeInit={(swiper: any) => (swiper.params.gl.shader = effect)}
+                onBeforeInit={(swiper: any) => {
+                    swiper.params.gl.shader = effect
+                }}
                 direction={'horizontal'}
                 speed={1500}
                 autoplay={{
                     delay: 2500,
                     disableOnInteraction: false,
                 }}
-
 
                 spaceBetween={0}
                 touchReleaseOnEdges={true}

@@ -30,8 +30,8 @@
       "@env": [
         "./env.ts"
       ],
-      "@public": [
-        "./public"
+      "@public/*": [
+        "./public/*"
       ],
     },
     "outDir": "./dist",

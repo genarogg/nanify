@@ -51,6 +51,7 @@ const Img: React.FC<ImgProps> = ({
     }, []);
 
     useEffect(() => {
+        console.log(isVisible, "id");
         if (isVisible) {
             const conteiner = $(id + "Conteiner");
             const img = $(id + "Img");
