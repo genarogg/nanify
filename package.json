@@ -21,7 +21,6 @@
     "start": "next start",
     "lint": "next lint",
     "movefile": "node movefile.js",
-    
     "update:jsx": "node updateTsconfig.js",
     "clean-dist": "npm run update:jsx &&  rimraf dist",
     "build-lib": "npm run clean-dist && tsup",
@@ -45,6 +44,7 @@
     "react-toastify": "^11.0.2",
     "sass": "^1.83.0",
     "sharp": "^0.33.5",
+    "swiper": "^11.2.0",
     "uuid": "^11.0.3"
   },
   "devDependencies": {
