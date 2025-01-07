@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react'
+import React, { useEffect, useRef } from 'react';
 import { Swiper } from 'swiper/react';
 import { Mousewheel, Pagination, EffectFade, Autoplay, } from 'swiper/modules';
 
@@ -39,10 +39,29 @@ interface SwiperLGProps {
 }
 
 const SwiperLG: React.FC<SwiperLGProps> = ({ children, effect = "random" }) => {
+    const swiperRef = useRef<any>(null);
+
+    useEffect(() => {
+        if (swiperRef.current && swiperRef.current.swiper) {
+            const swiperInstance = swiperRef.current.swiper;
+            swiperInstance.on('slideChange', () => {
+                const activeSlide = swiperInstance.slides[swiperInstance.activeIndex];
+                const containerInfo = activeSlide.querySelector('.containerInfo');
+                if (containerInfo) {
+                    containerInfo.classList.add('fade-in');
+                    setTimeout(() => {
+                        containerInfo.classList.remove('fade-in');
+                    }, 1000); // Duración de la animación
+                }
+            });
+        }
+    }, []);
+
     return (
         <div className='containerSlider'>
             <Swiper
-                style={{height: '100dvh'}}
+ ref={swiperRef}
+                style={{ height: '100dvh' }}
 
                 effect="gl"
                 onBeforeInit={(swiper: any) => {
@@ -50,11 +69,11 @@ const SwiperLG: React.FC<SwiperLGProps> = ({ children, effect = "random" }) => {
                 }}
                 direction={'horizontal'}
                 speed={1500}
-                autoplay={{
-                    delay: 2500,
-                    disableOnInteraction: false,
-                }}
-
+                // autoplay={{
+                //     delay: 2500,
+                //     disableOnInteraction: false,
+                // }}
+                loop={true}
                 spaceBetween={0}
                 touchReleaseOnEdges={true}
                 mousewheel={{

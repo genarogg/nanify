@@ -7,7 +7,7 @@ interface IconProps {
 }
 
 const Icon: React.FC<IconProps> = ({ icon, className = " ", style }) => {
-  return <span className={`icon ${className}`} style={style}>{icon}</span>;
+  return <i className={`icon ${className}`} style={style}>{icon}</i>;
 };
 
 export default Icon;

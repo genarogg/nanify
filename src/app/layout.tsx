@@ -28,6 +28,9 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&family=Poppins:wght@400;600&display=swap"
           rel="stylesheet"
         />
+
+        <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+
       </head>
       <body>
         {children}
