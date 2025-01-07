@@ -1,70 +1,32 @@
 "use client";
+import React from 'react';
+import SwiperLG from '@components/swiper/SwiperLG';
+import { SwiperSlide } from 'swiper/react';
 
-import React from "react"
-
-
-
+import img1 from "@public/swiper/01.jpg";
+import img2 from "@public/swiper/02.jpg";
+import img3 from "@public/swiper/03.jpg";
+import img4 from "@public/swiper/04.jpg";
+import img5 from "@public/swiper/05.jpg";
 // Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react"
-
-import "swiper/css"
-import "swiper/css/effect-coverflow"
-
-import { EffectCoverflow, Autoplay } from "swiper/modules"
-// Import Swiper styles
-import "swiper/css"
 
 
+const Characters = () => {
 
-interface TeamProps { }
-
-const Team: React.FunctionComponent<TeamProps> = () => {
-
+    const elements = [{ img: img1 }, { img: img2 }, { img: img3 }, { img: img4 }, { img: img5 }];
 
     return (
-        <>
-            <section className="containerTeam">
-                <Swiper
-                    autoplay={{
-                        delay: 3000,
-                        disableOnInteraction: false,
-                    }}
-                    loop
-                    effect={"coverflow"}
-                    grabCursor={true}
-                    centeredSlides={true}
-                    slidesPerView={"auto"}
-                    coverflowEffect={{
-                        rotate: 10,
-                        stretch: 0,
-                        depth: 500,
-                        modifier: 1,
-                        slideShadows: true,
-                    }}
-                    modules={[EffectCoverflow, Autoplay]}
-                    className="mySwiper"
-                >
-                    <SwiperSlide >
-                        <div className="">
-                            <img src="/bg-home.jpg" alt="" />
-                        </div>
-                    </SwiperSlide>
-                    <SwiperSlide >
-                        <div className="">
-                            <img src="/bg-home.jpg" alt="" />
-                        </div>
-                    </SwiperSlide>
-                    <SwiperSlide >
-                        <div className="">
-                            <img src="/bg-home.jpg" alt="" />
-                        </div>
-                    </SwiperSlide>
-                </Swiper>
-
-
-            </section >
-        </>
-    )
+        <div>
+            <SwiperLG>
+                <SwiperSlide>
+                    <img className="swiper-gl-image" src='/bg-home.jpg' />
+                </SwiperSlide>
+                <SwiperSlide>
+                    <img className="swiper-gl-image" src='/bg-home.jpg' />
+                </SwiperSlide>
+            </SwiperLG>
+        </div>
+    );
 }
 
-export default Team
+export default Characters

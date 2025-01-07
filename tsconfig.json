@@ -29,7 +29,10 @@
       ],
       "@env": [
         "./env.ts"
-      ]
+      ],
+      "@public": [
+        "./public"
+      ],
     },
     "outDir": "./dist",
     "declaration": true,
