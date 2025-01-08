@@ -1,30 +1,4 @@
-@import "/src/sass/style.scss";
-
-/* btns */
-
-
-// @import "../sass/module/btns/btnExpancion.module.scss";
-// @import "../sass/module/btns/btnRowCircle.module.scss";
-
-// @import "../sass/module/form/checkboxBasic.module.scss";
-// @import "../sass/module/form/input.module.scss";
-// @import "../sass/module/toolTip/_menuToolTip.module.scss";
-// @import "demo.scss";
-// @import "../components/layout/nav/nav.module";
-
-
-
-// @import "../styles/module/headerOneElementCenter.module.scss";
-
-// @import "../styles/module/simpleFooter.module.scss";
-
-
-
-// @import "../assembled/formLoki/sass/formLoki.scss";
-
-// *{
-//     border: 1px solid red;
-// }
+@use "/src/sass/style.scss";
 
 code {
     background-color: #9a00ff

@@ -83,7 +83,7 @@ const Input: React.FC<InputProps> = ({
                 disabled={disabled}
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setIsFocused(false)}
-                onChange={handleChange} // Usar handleChange
+                onChange={handleChange}
                 {...(min ? { min } : {})}
                 {...(max ? { max } : {})}
             />

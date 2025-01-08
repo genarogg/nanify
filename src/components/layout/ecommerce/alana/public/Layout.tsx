@@ -1,9 +1,7 @@
 import React from 'react'
 import Header from "./header/Header"
 import Footer from './footer/Footer'
-import style from "./sass/layout.module.scss"
-
-
+import "./sass/_layout.scss"
 
 interface LayoutProps {
     children: React.ReactNode;
@@ -14,12 +12,12 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({
     children,
-    where="",
+    where = "",
     header,
     footer
 }) => {
     return (
-        <div className={`${where} ${style.containerAll}`}>
+        <div className={`${where} containerAll`}>
             {header ? header : <Header />}
             <main>
                 {children}
