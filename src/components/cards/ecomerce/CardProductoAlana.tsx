@@ -6,11 +6,10 @@ import SwiperLG from '@components/swiper/structura/SwiperLG'
 import { SwiperSlide } from 'swiper/react'
 
 import { FaRegHeart } from "react-icons/fa";
-import { AiOutlineSearch } from "react-icons/ai";
-import { FiHeart } from "react-icons/fi";
-
-
+import { FiShoppingBag } from "react-icons/fi";
 import { regexUrl } from "@fn/regexUtils"
+import { FaRegEye } from "react-icons/fa6";
+import { MdOutlineCompareArrows } from "react-icons/md";
 
 interface CardProductoAlanaProps { }
 
@@ -18,32 +17,39 @@ const CardProductoAlana: React.FC<CardProductoAlanaProps> = () => {
 
     const data = {
         url: regexUrl("afd adsf"),
-        color: "#fff",
         titulo: "Producto 1",
-        precio: 100,
-        tallas: ["S", "M", "L", "XL"],
-        mainImg: "https://themesflat.co/html/ecomus/images/products/white-4.jpg",
-        imgs: [
-            {
-                src: "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg",
-                alt: "imagen 1"
-            },
-            {
-                src: "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg",
-                alt: "imagen 2"
-            },
-            {
-                src: "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg",
-                alt: "imagen 2"
-            }
-        ]
+        colores: [{
+            color: "#000",
+            mainImg: "https://themesflat.co/html/ecomus/images/products/white-4.jpg",
+            imgs: [
+                {
+                    src: "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg",
+                    alt: "imagen 1"
+                },
+                {
+                    src: "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg",
+                    alt: "imagen 2"
+                },
+                {
+                    src: "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg",
+                    alt: "imagen 2"
+                }
+            ],
+            precio: 100,
+            tallas: ["S", "M", "L", "XL"],
+        }],
+       
+        
+       
+       
+        
     }
 
     const quickActions = [
+        { items: ['Buscar'], icon: <MdOutlineCompareArrows /> },
+        { items: ['Buscar'], icon: <FaRegEye /> },
         { items: ['Buscar'], icon: <FaRegHeart /> },
-        { items: ['Buscar'], icon: <FaRegHeart /> },
-        { items: ['Buscar'], icon: <FaRegHeart /> },
-        { items: ['Buscar'], icon: <FaRegHeart /> }
+        { items: ['Buscar'], icon: <FiShoppingBag /> },
     ];
 
     return (
@@ -87,9 +93,13 @@ const CardProductoAlana: React.FC<CardProductoAlanaProps> = () => {
                         }
                     </ul>
                 </nav>
+
+
             </div>
-
-
+            <div className="container-info">
+                <h3>{data.titulo}</h3>
+                <p>${data.precio}</p>
+            </div>
         </div>
     );
 }
