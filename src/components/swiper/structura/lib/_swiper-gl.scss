@@ -41,8 +41,10 @@
     opacity: 1;
   }
 }
-
-.fade-in {
-  opacity: 0;
-  animation: fadeIn 2s ease-in-out;
+.containerInfo{
+  
+  &.fade-in {
+    opacity: 0;
+    animation: fadeIn 2s ease-in-out;
+  }
 }

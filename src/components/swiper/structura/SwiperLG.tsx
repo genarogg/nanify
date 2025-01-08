@@ -6,7 +6,7 @@ import { Mousewheel, Pagination, EffectFade, Autoplay, } from 'swiper/modules';
 
 /* lib */
 // @ts-ignore
-import SwiperGL from './lib/swiper-gl.min.js/index.js';
+import SwiperGL from './lib/swiper-gl.min.js';
 import "./lib/_swiper-gl.scss";
 
 // Import Swiper styles
@@ -36,7 +36,6 @@ interface SwiperLGProps {
     "stretch" |
     "wave-x" |
     "wind";
-
 }
 
 const SwiperLG: React.FC<SwiperLGProps> = ({ children, effect = "random" }) => {
@@ -70,7 +69,7 @@ const SwiperLG: React.FC<SwiperLGProps> = ({ children, effect = "random" }) => {
                     swiper.params.gl.shader = effect
                 }}
                 direction={'horizontal'}
-                speed={1500}
+                // speed={1500}
                 // autoplay={{
                 //     delay: 2500,
                 //     disableOnInteraction: false,

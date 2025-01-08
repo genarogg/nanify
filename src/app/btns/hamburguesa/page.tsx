@@ -1,23 +1,21 @@
 "use client"
 
-import React, { useState } from 'react'
+import React from 'react'
 
-import { BtnLoki, BtnFreya, BtnThor } from 'nanify';
+import BtnLoki from "@components/btns/hamburguesa/btnLoki"
+import BtnFreya from "@components/btns/hamburguesa/btnFreya"
+import BtnThor from "@components/btns/hamburguesa/btnThor"
 
 
 interface hamburguesaProps { }
 
 const hamburguesa: React.FC<hamburguesaProps> = () => {
 
-    const [isActive1, setIsActive1] = useState(false);
-    const [isActive2, setIsActive2] = useState(false);
-    const [isActive3, setIsActive3] = useState(false);
-
     return (
         <>
             <h3>BtnLoki</h3>
             <p>Componente BtnLoki</p>
-            <BtnLoki isActive={isActive1} setIsActive={setIsActive1} />
+            <BtnLoki />
             <br />
             Uso del componente <code>{'<BtnLoki isActive={isActive1} setIsActive={setIsActive1} />'}</code>
             <ul>
@@ -31,7 +29,7 @@ const hamburguesa: React.FC<hamburguesaProps> = () => {
 
             <h3>BtnFreya</h3>
             <p>Componente BtnFreya</p>
-            <BtnFreya isActive={isActive3} setIsActive={setIsActive3} />
+            <BtnFreya/>
             <br />
             Uso del componente <code>{'<BtnFreya isActive={isActive3} setIsActive={setIsActive3} />'}</code>
             <ul>
@@ -45,7 +43,7 @@ const hamburguesa: React.FC<hamburguesaProps> = () => {
 
             <h3>BtnThor</h3>
             <p>Componente BtnThor</p>
-            <BtnThor isActive={isActive2} setIsActive={setIsActive2} />
+            <BtnThor />
             <br />
             Uso del componente <code>{'<BtnThor isActive={isActive2} setIsActive={setIsActive2} />'}</code>
             <ul>

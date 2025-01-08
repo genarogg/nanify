@@ -92,19 +92,42 @@
 
 @mixin text-gradient($start-color: blue, $end-color: red, $fallback-color: white) {
   background: -webkit-linear-gradient($start-color, $end-color);
-
   background: -moz-linear-gradient($start-color, $end-color);
-
   background: -o-linear-gradient($start-color, $end-color);
-
   background: linear-gradient($start-color, $end-color);
 
   -webkit-background-clip: text;
   -moz-background-clip: text;
-
   -webkit-text-fill-color: transparent;
   -moz-text-fill-color: transparent;
-
   color: $fallback-color;
- 
+
+}
+
+@mixin border-gradient(
+  $border-top: #09f,
+  $border-bottom: #2e886d,
+  $border-width: 2px,
+  $bg-color: rgb(26, 26, 26),
+  $bg-top: $bg-color,
+  $bg-bottom: $bg-color,
+  $animation-duration: 5s
+) {
+  border: $border-width solid transparent;
+  background: linear-gradient($bg-top, $bg-bottom) padding-box,
+              linear-gradient($border-top, $border-bottom) border-box;
+  background-size: 200% 200%;
+  animation: border-gradient-animation $animation-duration infinite linear;
+}
+
+@keyframes border-gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }

@@ -1,16 +1,14 @@
 "use client";
 
-import {
-    BtnSubmitBasic,
-    BtnNormalBasic,
-    BtnText
-} from "nanify";
-
+import React from "react";
+import BtnSubmitBasic from "@components/btns/basic/btnSubmitBasic"
+import BtnNormalBasic from "@components/btns/basic/btnNormalBasic"
+import BtnText from "@components/btns/basic/btnText"
 interface btsProps { }
 
 const bts: React.FC<btsProps> = () => {
 
-  
+
     return (
         <>
             <h1>Documentación</h1>
@@ -20,7 +18,7 @@ const bts: React.FC<btsProps> = () => {
 
             <h3>BtnText</h3>
             <p>Componente BtnText</p>
-            <BtnText text="Hola" onClick={() => { console.log("Hola") }} />
+            <BtnText onClick={() => { console.log("Hola") }} ><label htmlFor="">sadsad</label></BtnText>
             <br />
             Uso del componente <code>{'<BtnText text="Hola" onClick={() => { console.log("Hola") }} />'}</code>
             <ul>
@@ -33,7 +31,7 @@ const bts: React.FC<btsProps> = () => {
             </ul>
             <h3>BtnSubmitBasic</h3>
             <p>Componente BtnSubmitBasic</p>
-            <BtnSubmitBasic text="Submit" />
+            <BtnSubmitBasic onClick={() => { console.log("Hola") }}><p>Textdsafasd</p></BtnSubmitBasic>
             <br />
             Uso del componente <code>{'<BtnSubmitBasic text="Submit" />'}</code>
             <ul>
