@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { Gravatar } from "nanify";
+import Gravatar  from "@components/gravatar";
 
 interface gravatarProps { }
 

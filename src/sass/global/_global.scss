@@ -1,3 +1,6 @@
+@use "./variables" as var;
+@use "./mixin" as fn;
+
 * {
   margin: 0;
   padding: 0;
@@ -12,7 +15,7 @@ body {
 
 a {
   text-decoration: none;
-  color: $text-color-white;
+  color: var.$text-color-white;
 }
 
 button {
@@ -25,4 +28,4 @@ ul {
   list-style: none;
 }
 
-@include scroll($color: $color-quaternary, $bgColor: $color-secondary);
+@include fn.scroll($color: var.$color-quaternary, $bgColor: var.$color-secondary);

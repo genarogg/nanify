@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
-import { A, Img, BtnLoki, BtnNormalBasic } from "nanify";
-import { Icon } from "nanify";
+import React from 'react';
+import { A, Img, Icon } from "nanify";
+
+import BtnLoki from "@components/btns/hamburguesa/btnLoki";
+import BtnNormalBasic from "@components/btns/basic/btnNormalBasic";
+import AlgoliaSearch from '@components/algolia/AlgoliaSearch';
+
+import { regexUrl } from "@fn/index"
+
+import { FaRegHeart } from "react-icons/fa";
 import { AiOutlineSearch } from "react-icons/ai";
 import { FiHeart } from "react-icons/fi";
-import { FiShoppingBag } from "react-icons/fi";
-import { LuUserRound } from "react-icons/lu";
-import AlgoliaSearch from '@components/algolia/AlgoliaSearch';
-import { regexUrl } from "@fn/index"
-import { FaRegHeart } from "react-icons/fa";
-
 
 import activeAside from "./fn/activeAside";
+
 interface HeaderMobileProps {
     login: boolean;
     data: any;
@@ -21,7 +23,7 @@ interface HeaderMobileProps {
 
 const HeaderMobile: React.FC<HeaderMobileProps> = ({ login, logo, data, navOuth, navLogin }) => {
 
-    const [isActive, setIsActive] = useState(false);
+
 
     const SubCategoria = ({ name, items, itemType }: any) => {
         return (
@@ -89,9 +91,7 @@ const HeaderMobile: React.FC<HeaderMobileProps> = ({ login, logo, data, navOuth,
                                     <li>
                                         <BtnLoki
                                             className='btnHamburguesa'
-                                            isActive={isActive}
-                                            setIsActive={setIsActive}
-                                            fn={() => activeAside('asideCategoria')}
+                                            onClick={() => activeAside('asideCategoria')}
                                         />
                                     </li>
                                     {
@@ -127,7 +127,7 @@ const HeaderMobile: React.FC<HeaderMobileProps> = ({ login, logo, data, navOuth,
                                                 </li>
 
                                                 <li>
-                                                    
+
                                                     <A href={navLogin[2].href}>
                                                         <Icon icon={navLogin[2].icon} />
                                                     </A>

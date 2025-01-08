@@ -1,5 +1,5 @@
 import React from "react";
-import { $ } from "@fn/index";
+import { $ } from "../../../../functions/index";
 import "./_btnThor.scss";
 
 interface BtnThorProps {

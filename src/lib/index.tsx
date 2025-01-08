@@ -2,7 +2,7 @@
 import { LogoGenarogg } from "./imgSVG";
 import { A, Icon, notify, Squeleto } from "./nano";
 
-import { Input } from "./form"
+import { Input,CheckBoxBasic } from "./form"
 
 import Img from "./imgs/Img";
 
@@ -13,7 +13,7 @@ export {
 
     A, Icon, notify, Squeleto,
     
-    Input,
+    Input, CheckBoxBasic,
 
     Img,
 

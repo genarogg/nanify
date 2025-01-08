@@ -1,6 +1,6 @@
 import React from 'react'
 import "./_btnFreya.scss"
-import { $ } from "@fn/index"
+import { $ } from "../../../../functions/index"
 
 interface BtnFreyaProps {
     onClick?: () => void;

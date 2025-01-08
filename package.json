@@ -3,7 +3,7 @@
   "description": "Un kit de componentes para React basado en TypeScript.",
   "author": "Genaro Gonzalez",
   "license": "MIT",
-  "version": "0.2.21",
+  "version": "0.2.22",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [

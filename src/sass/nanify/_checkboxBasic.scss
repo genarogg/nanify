@@ -1,5 +1,8 @@
+@use "/src/sass/global/variables" as var;
+@use "/src/sass/global/mixin" as fn;
+
 .checkbox-basic {
-  @include center-y;
+  @include fn.center-y;
   cursor: pointer;
   max-width: 190px;
 
@@ -8,7 +11,7 @@
 
   &:hover {
     span {
-      color: $color-secondary;
+      color: var.$color-secondary;
     }
   }
 
@@ -17,13 +20,13 @@
   }
 
   .icon {
-    @include center-flex-xy;
-    color: $color-secondary;
+    @include fn.center-flex-xy;
+    color: var.$color-secondary;
     margin-left: 10px;
   }
 
   .text {
-    color: $color-secondary;
+    color: var.$color-secondary;
     margin-left: 24px;
     font-size: 18px;
     font-weight: 600;
@@ -36,7 +39,7 @@
     }
     50% {
       transform: scale(1.3);
-      color: $color-secondary;
+      color: var.$color-secondary;
       opacity: 1;
     }
     100% {

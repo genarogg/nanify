@@ -2,7 +2,7 @@ import React from "react";
 import md5 from "crypto-js/md5";
 import Image from "next/image";
 
-import { isValidEmail } from "@fn/regexUtils";
+import { isValidEmail } from "../../functions/regexUtils";
 
 interface GravatarProps {
   email: string;

@@ -71,7 +71,7 @@ const nano: React.FC<nanoProps> = () => {
                         react-toastify
                     </A>
                     <br />
-                    Uso del componente <code>{'notify({type: "pust", message: "message"})'}</code>
+                    Uso del componente <code>{'notify({type: "success", message: "message"})'}</code>
                     <p><strong>type:</strong> 'success' | 'error' | 'warning';</p>
                     <p><strong>message:</strong> cualquiera</p>
                 </li>
