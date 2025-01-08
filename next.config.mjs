@@ -10,7 +10,9 @@ const config = {
   images: {
     domains: [
       "images.unsplash.com",
-      "www.gravatar.com"
+      "www.gravatar.com",
+      "cdn.pixabay.com",
+      "themesflat.co"
     ],
   },
 };

@@ -36,9 +36,12 @@ interface SwiperLGProps {
     "stretch" |
     "wave-x" |
     "wind";
+    autoplay?: any;
 }
 
-const SwiperLG: React.FC<SwiperLGProps> = ({ children, effect = "random" }) => {
+const SwiperLG: React.FC<SwiperLGProps> = ({ children, effect = "random", autoplay = {
+    delay: 3000, disableOnInteraction: false,
+} }) => {
     const swiperRef = useRef<any>(null);
 
     useEffect(() => {
@@ -52,7 +55,7 @@ const SwiperLG: React.FC<SwiperLGProps> = ({ children, effect = "random" }) => {
                     containerInfo.style.opacity = '1';
                     setTimeout(() => {
                         containerInfo.classList.remove('fade-in');
-                    }, 2000); 
+                    }, 2000);
                 }
             });
         }
@@ -70,10 +73,7 @@ const SwiperLG: React.FC<SwiperLGProps> = ({ children, effect = "random" }) => {
                 }}
                 direction={'horizontal'}
                 speed={3000}
-                autoplay={{
-                    delay: 3000,
-                    disableOnInteraction: false,
-                }}
+                autoplay={autoplay}
                 loop={true}
                 spaceBetween={0}
                 touchReleaseOnEdges={true}
