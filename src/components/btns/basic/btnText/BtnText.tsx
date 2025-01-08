@@ -1,15 +1,15 @@
 import React from 'react'
 
 interface BtnTextProps {
-  text: string;
+  children: React.ReactNode;
   onClick: () => void;
 }
 
-const BtnText: React.FC<BtnTextProps> = ({ text, onClick }) => {
+const BtnText: React.FC<BtnTextProps> = ({ children, onClick }) => {
   return (
     <div className="btn-text">
       <button type="button" onClick={onClick}>
-        <span>{text}</span>
+        <span>{children}</span>
       </button>
     </div>
   );

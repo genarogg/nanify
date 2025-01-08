@@ -1,3 +1,6 @@
+@use "/src/sass/global/variables" as var;
+@use "/src/sass/global/mixin" as fn;
+
 .container-row-circle {
     color: #fff;
     position: relative;
@@ -13,12 +16,12 @@
                 position: absolute;
                 transform: translate(-50%, -50%);
                 width: 24px;
-                color: $color-secondary;
+                color: var.$color-secondary;
 
             }
 
             .icon {
-                color: $color-secondary;
+                color: var.$color-secondary;
             }
         }
     }
@@ -34,7 +37,7 @@
         outline: none;
         transform: translateY(50%);
 
-        @include center-flex-xy;
+        @include fn.center-flex-xy;
         align-items: flex-end;
 
 

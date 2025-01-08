@@ -1,9 +1,12 @@
 "use client";
 import React from 'react';
-import SwiperLG from '../../components/swiper/structura/SwiperLG';
 import { SwiperSlide } from 'swiper/react';
+import { A, Icon } from 'nanify';
+
 import { IoIosArrowForward } from "react-icons/io";
-import { BtnNormalBasic, A, Icon } from '@nanify';
+
+import SwiperLG from '@components/swiper/structura/SwiperLG';
+import BtnNormalBasic from "@components/btns/basic/btnNormalBasic";
 
 import img1 from "@public/swiper/01.jpg";
 import img2 from "@public/swiper/02.jpg";

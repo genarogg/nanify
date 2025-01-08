@@ -1,4 +1,5 @@
 import React from 'react'
+import "./_btnNormalBasic.scss"
 
 interface BtnNormalBasicProps {
     children: React.ReactNode;
@@ -11,7 +12,7 @@ const BtnNormalBasic: React.FC<BtnNormalBasicProps> = ({
     children,
     onClick,
     className = "",
-    id,
+    id="",
 }) => {
     return (
         <div className={`btn-normal-basic ${className}`} id={id}>

@@ -1,6 +1,8 @@
 import React from 'react'
 import { FaArrowLeft } from 'react-icons/fa';
-import { Icon } from '../../index';
+import { Icon } from 'nanify';
+
+import "./_btnRowCircle.scss";
 
 interface BtnRowCircleProps {
     icon?: React.ReactNode;

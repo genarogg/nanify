@@ -5,8 +5,9 @@ import { Swiper } from 'swiper/react';
 import { Mousewheel, Pagination, EffectFade, Autoplay, } from 'swiper/modules';
 
 /* lib */
+// @ts-ignore
 import SwiperGL from './lib/swiper-gl.min.js';
-import "./lib/swiper-gl.scss";
+import "./lib/_swiper-gl.scss";
 
 // Import Swiper styles
 import 'swiper/css';

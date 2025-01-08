@@ -1,32 +1,37 @@
 import React from "react";
+import { $ } from "@fn/index";
+import "./_btnThor.scss";
 
 interface BtnThorProps {
-  fn?: () => void;
-  setIsActive: React.Dispatch<React.SetStateAction<boolean>>;
-  isActive: boolean;
+  onClick?: () => void;
   className?: string;
 }
 
 const BtnThor: React.FC<BtnThorProps> = ({
-  fn,
-  isActive,
-  setIsActive,
+  onClick,
   className = " ",
 }) => {
+
+  const active = () => {
+    $("#btn-hamburguer-thor")?.classList.toggle("active")
+  }
+
   return (
     <button
       onClick={() => {
-        setIsActive(!isActive);
-        fn && fn();
+        active();
+        onClick && onClick();
       }}
-      className={`btn-thor ${className} ${isActive ? "active" : ""}`}
+      className={`btn-thor ${className} `}
+      id="btn-hamburguer-thor"
+
     >
       <span className="hamburguer">
         <span className="bar bar-1"></span>
         <span className="bar bar-2"></span>
         <span className="bar bar-3"></span>
       </span>
-    </button>
+    </button >
   );
 };
 

@@ -32,7 +32,7 @@
       ],
       "@public/*": [
         "./public/*"
-      ],
+      ]
     },
     "outDir": "./dist",
     "declaration": true,
@@ -49,7 +49,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-  ],
+, "src/components/swiper/structura/lib/swiper-gl.min.js"  ],
   "exclude": [
     "node_modules"
   ]

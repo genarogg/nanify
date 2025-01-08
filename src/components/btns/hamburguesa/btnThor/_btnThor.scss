@@ -1,7 +1,9 @@
+@use "/src/sass/global/variables" as var;
+
 $hamburguer-size: 50px;
 $bar-width: 32px;
 $bar-height: 3px;
-$bar-color: $color-secondary;
+$bar-color: var.$color-secondary;
 $transition-duration: 0.2s;
 $hover-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
 

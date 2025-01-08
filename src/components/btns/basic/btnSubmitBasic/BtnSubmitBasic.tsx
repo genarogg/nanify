@@ -1,25 +1,28 @@
 import React from 'react'
+import "./_btnSubmitBasic.scss"
 
 interface BtnSubmitBasicProps {
-  text: string;
+  children: React.ReactNode;
   className?: string;
   id?: string;
   disable?: boolean;
-  onClick?: () => void;
+  onClick: () => void;
 }
 
 const BtnSubmitBasic: React.FC<BtnSubmitBasicProps> = ({
-  text,
+  children,
   className = "",
-  id,
+  id = "",
   disable = false,
   onClick,
 }) => {
   return (
     <div className={`btn-submit-basic ${className}`} id={id}>
-      <button disabled={disable} onClick={
-        onClick && (() => onClick())
-      }>{text}</button>
+      <button
+        disabled={disable}
+        onClick={onClick}>
+        {children}
+      </button>
     </div>
   );
 };
