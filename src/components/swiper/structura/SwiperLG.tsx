@@ -69,11 +69,11 @@ const SwiperLG: React.FC<SwiperLGProps> = ({ children, effect = "random" }) => {
                     swiper.params.gl.shader = effect
                 }}
                 direction={'horizontal'}
-                // speed={1500}
-                // autoplay={{
-                //     delay: 2500,
-                //     disableOnInteraction: false,
-                // }}
+                speed={3000}
+                autoplay={{
+                    delay: 3000,
+                    disableOnInteraction: false,
+                }}
                 loop={true}
                 spaceBetween={0}
                 touchReleaseOnEdges={true}
