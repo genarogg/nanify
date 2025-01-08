@@ -18,7 +18,7 @@ function copyFolderSync(from, to) {
 }
 
 // Define la carpeta de origen y la carpeta de destino
-const sourceDirStyle = path.join(__dirname, 'src', 'styles', 'init');
+const sourceDirStyle = path.join(__dirname, 'src', 'sass', 'init');
 const targetDirStyle = path.join(__dirname, '..', '..', 'src', 'sass');
 
 

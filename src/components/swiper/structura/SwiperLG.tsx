@@ -52,7 +52,7 @@ const SwiperLG: React.FC<SwiperLGProps> = ({ children, effect = "random" }) => {
                     containerInfo.style.opacity = '1';
                     setTimeout(() => {
                         containerInfo.classList.remove('fade-in');
-                    }, 2000); // Duración de la animación
+                    }, 2000); 
                 }
             });
         }

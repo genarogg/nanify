@@ -1,24 +1,20 @@
-@import "../styles/init/style.scss";
+@import "../sass/init/style.scss";
 
 /* btns */
-@import "../styles/module/btns/btnFreya.module.scss";
-@import "../styles/module/btns/btnLoki.module.scss";
-@import "../styles/module/btns/btnThor.module.scss";
+@import "../sass/module/btns/btnFreya.module.scss";
+@import "../sass/module/btns/btnLoki.module.scss";
+@import "../sass/module/btns/btnThor.module.scss";
 
-@import "../styles/module/btns/btnText.module.scss";
-@import "../styles/module/btns/btnNormalBasic.module.scss";
-@import "../styles/module/btns/btnSubmitBasic.module.scss";
-@import "../styles/module/btns/btnExpancion.module.scss";
-@import "../styles/module/btns/btnRowCircle.module.scss";
+@import "../sass/module/btns/btnText.module.scss";
+@import "../sass/module/btns/btnNormalBasic.module.scss";
+@import "../sass/module/btns/btnSubmitBasic.module.scss";
+@import "../sass/module/btns/btnExpancion.module.scss";
+@import "../sass/module/btns/btnRowCircle.module.scss";
 
-@import "../styles/module/form/checkboxBasic.module.scss";
-@import "../styles/module/form/input.module.scss";
-
-@import "../styles/module/toolTip/_menuToolTip.module.scss";
-
+@import "../sass/module/form/checkboxBasic.module.scss";
+@import "../sass/module/form/input.module.scss";
+@import "../sass/module/toolTip/_menuToolTip.module.scss";
 @import "demo.scss";
-
-
 @import "../components/layout/nav/nav.module";
 
 

@@ -1,9 +1,7 @@
 import React from 'react'
 import { A } from 'nanify';
 
-interface homeProps {
-
-}
+interface homeProps { }
 
 const home: React.FC<homeProps> = () => {
 
@@ -46,21 +44,6 @@ const home: React.FC<homeProps> = () => {
       <Seccion titulo="Layout">
         <A href='/layout/alana'>Alana</A>
       </Seccion>
-
-      {/* <Seccion titulo="Search">
-        <A href='/algolia'>Algolia</A>
-      </Seccion> */}
-
-
-      {/* <A href='/layout/headers/header-one-element-center'>header-one-element-center</A>
-
-      <br />
-      <A href='/layout/footers/simple-footer'>simple-footer</A>
-
-
-
-      <br />
-      <A href='/assembled/loki-login'>loki-login</A> */}
     </>
   );
 }
