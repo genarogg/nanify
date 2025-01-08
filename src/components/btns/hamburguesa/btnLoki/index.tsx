@@ -13,7 +13,7 @@ const BtnLoki: React.FC<BtnLokiProps> = ({
 }) => {
 
   const active = () => {
-    $("#btn-hamburguer-loki")?.classList.toggle("active");
+    $("btn-hamburguer-loki")?.classList.toggle("active");
   }
 
   return (

@@ -114,8 +114,13 @@
         .sign-login {
             nav {
                 ul {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
                     li {
                         a {
+                            margin-right: 20px;
                             .container-icono {
                                 .icon {
                                     svg {

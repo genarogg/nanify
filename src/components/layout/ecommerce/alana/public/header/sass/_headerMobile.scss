@@ -63,13 +63,20 @@
                             align-items: center;
 
 
-                            span {
+                            .icon {
                                 font-size: 22px;
                                 color: #fff;
 
                                 display: flex;
                                 justify-content: center;
                                 align-items: center;
+                                transition: all ease 600ms;
+
+                                &:hover {
+                                    color: var.$color-secondary;
+                                }
+
+
 
                             }
 

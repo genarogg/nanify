@@ -13,7 +13,7 @@ const BtnThor: React.FC<BtnThorProps> = ({
 }) => {
 
   const active = () => {
-    $("#btn-hamburguer-thor")?.classList.toggle("active")
+    $("btn-hamburguer-thor")?.classList.toggle("active")
   }
 
   return (

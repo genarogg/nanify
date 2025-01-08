@@ -69,14 +69,14 @@
 
                     h6 {
                         font-size: 14px;
-
+                        display: flex;
                         label {
                             cursor: pointer;
                         }
 
                         .icon {
                             position: relative;
-                            top: 3px;
+                            // top: 3px;
                             margin-left: 2px;
                         }
                     }
@@ -232,6 +232,9 @@
 
                             h6 {
                                 font-size: 14px;
+                                
+
+                                
                             }
                         }
                     }

@@ -21,15 +21,13 @@ main {
                         color: #fff;
                     }
 
-                    span {
-                        margin-right: 8px;
-                    }
 
 
                     .icon {
                         display: inline-flex;
                         justify-content: center;
                         align-items: center;
+                        margin-right: 8px;
                     }
                 }
             }
@@ -83,7 +81,7 @@ main {
                 justify-content: flex-end;
 
                 li {
-                    span {
+                    .icon {
                         border: 1px solid #fff;
                         margin-right: 20px;
                         padding: 10px;

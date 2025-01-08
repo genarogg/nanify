@@ -13,7 +13,7 @@ const BtnFreya: React.FC<BtnFreyaProps> = ({
 }) => {
 
     const active = () => {
-        $("#btn-hamburguer-freya")?.classList.toggle("active");
+        $("btn-hamburguer-freya")?.classList.toggle("active");
     }
 
     return (
