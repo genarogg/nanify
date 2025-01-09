@@ -11,25 +11,13 @@ import { regexUrl } from "@fn/regexUtils"
 import { FaRegEye } from "react-icons/fa6";
 import { MdOutlineCompareArrows } from "react-icons/md";
 
-import img1 from "@public/swiper/people-1.jpg";
-import img2 from "@public/swiper/people-2.jpg";
+interface CardProductoAlanaProps {
+    data: any
+}
 
-interface CardProductoAlanaProps { }
+const CardProductoAlana: React.FC<CardProductoAlanaProps> = ({ data }) => {
 
-const CardProductoAlana: React.FC<CardProductoAlanaProps> = () => {
 
-    const data = {
-        url: regexUrl("afd adsf"),
-        titulo: "Producto 1",
-        colores: [{
-            color: "#000",
-            primaryImg: "https://esprit.vteximg.com.br/arquivos/ids/1370194/34_432F001_GRI180403_0.jpg?v=638561621764400000?1735430400011",
-            secundaryImg: "https://esprit.vteximg.com.br/arquivos/ids/1370625/34_432F014_VER190516_0.jpg?v=638561624971700000?1735689600011",
-            precio: 100,
-            tallas: ["S", "M", "L", "XL"],
-        }],
-
-    }
 
     const quickActions = [
         { items: ['Comparar'], icon: <MdOutlineCompareArrows /> },
@@ -42,7 +30,7 @@ const CardProductoAlana: React.FC<CardProductoAlanaProps> = () => {
 
     return (
         <div className="card-alana-producto">
-            {data.colores.map((color, colorIndex) => (
+            {data.colores.map((color: any, colorIndex: any) => (
                 <div key={colorIndex} className="container-img">
                     <A href={data.url}>
                         <SwiperLGTwoElements
@@ -86,7 +74,7 @@ const CardProductoAlana: React.FC<CardProductoAlanaProps> = () => {
                     </nav>
                     <nav className="tallas">
                         <ul>
-                            {color.tallas.map((talla, index) => (
+                            {color.tallas.map((talla: any, index: any) => (
                                 <li key={index}>
                                     <A href={`${data.url}#talla=${talla}`} className="talla">
                                         {talla}
@@ -101,6 +89,7 @@ const CardProductoAlana: React.FC<CardProductoAlanaProps> = () => {
                 <h3>{data.titulo}</h3>
                 <p>${data.colores[0]?.precio}</p>
             </div>
+
         </div>
     );
 }
