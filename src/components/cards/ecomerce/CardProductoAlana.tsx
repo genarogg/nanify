@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useRef } from 'react';
+import React, { useRef,useEffect } from 'react';
 import { A, MenuToolTip, Icon } from "@nanify"
 
 import SwiperLGTwoElements from '@components/swiper/structura/SwiperLGTwoElements'
@@ -80,6 +80,26 @@ const CardProductoAlana: React.FC<CardProductoAlanaProps> = ({ data }) => {
             </nav>
         )
     }
+    useEffect(() => {
+        if (swiperRef.current && swiperRef.current.swiper) {
+            const swiperInstance = swiperRef.current.swiper;
+            swiperInstance.on('slideChange', () => {
+                const slides = swiperInstance.slides;
+                slides.forEach((slide: any) => {
+                    const containerImg = slide.querySelector('.container-img');
+                    if (containerImg) {
+                        containerImg.classList.remove('active-slide');
+                    }
+                });
+                const activeSlide = slides[swiperInstance.activeIndex];
+                const activeContainerImg = activeSlide.querySelector('.container-img');
+                if (activeContainerImg) {
+                    activeContainerImg.classList.add('active-slide');
+                }
+            });
+        }
+    }, []);
+
     return (
         <div className="card-alana-producto">
             <Swiper
@@ -107,7 +127,7 @@ const CardProductoAlana: React.FC<CardProductoAlanaProps> = ({ data }) => {
                             className="swiper-gl-image primary-img GG"
                             alt={data.titulo}
                         />
-                        <div className="container-img hola">
+                        <div className="container-img fade-in">
                             <A href={data.url}>
                                 <SwiperLGTwoElements
                                     effect='polygons-wind'
