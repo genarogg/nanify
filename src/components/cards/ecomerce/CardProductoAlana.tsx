@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useRef,useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { A, MenuToolTip, Icon } from "@nanify"
 
 import SwiperLGTwoElements from '@components/swiper/structura/SwiperLGTwoElements'
@@ -80,25 +80,16 @@ const CardProductoAlana: React.FC<CardProductoAlanaProps> = ({ data }) => {
             </nav>
         )
     }
-    useEffect(() => {
-        if (swiperRef.current && swiperRef.current.swiper) {
-            const swiperInstance = swiperRef.current.swiper;
-            swiperInstance.on('slideChange', () => {
-                const slides = swiperInstance.slides;
-                slides.forEach((slide: any) => {
-                    const containerImg = slide.querySelector('.container-img');
-                    if (containerImg) {
-                        containerImg.classList.remove('active-slide');
-                    }
-                });
-                const activeSlide = slides[swiperInstance.activeIndex];
-                const activeContainerImg = activeSlide.querySelector('.container-img');
-                if (activeContainerImg) {
-                    activeContainerImg.classList.add('active-slide');
-                }
-            });
-        }
-    }, []);
+
+    const hiddenElement = () => {
+        const elements = document.querySelectorAll('.hiddenElement');
+        elements.forEach((element: any) => {
+            element.style.opacity = '0';
+            setTimeout(() => {
+                element.style.opacity = '1';
+            }, 1500); 
+        });
+    };
 
     return (
         <div className="card-alana-producto">
@@ -117,17 +108,17 @@ const CardProductoAlana: React.FC<CardProductoAlanaProps> = ({ data }) => {
                 simulateTouch={false}
                 loop={true}
                 modules={[
-                    EffectFade,SwiperGL
+                    EffectFade, SwiperGL
                 ]}
                 className="mySwiper-container"
             >
                 {data.colores.map((color: any, colorIndex: any) => (
                     <SwiperSlide key={colorIndex}>
                         <img src={color.primaryImg}
-                            className="swiper-gl-image primary-img GG"
+                            className="swiper-gl-image primary-img"
                             alt={data.titulo}
                         />
-                        <div className="container-img fade-in">
+                        <div className="container-img hiddenElement">
                             <A href={data.url}>
                                 <SwiperLGTwoElements
                                     effect='polygons-wind'
@@ -161,7 +152,12 @@ const CardProductoAlana: React.FC<CardProductoAlanaProps> = ({ data }) => {
                     {data.colores.map((color: any, colorIndex: any) => (
                         <span
                             key={colorIndex}
-                            onClick={() => handleColorClick(colorIndex)}
+                            onClick={
+                                () => {
+                                    handleColorClick(colorIndex)
+                                    hiddenElement()
+                                }
+                            }
                             style={{ cursor: 'pointer', marginRight: '10px' }}
                         >
                             {color.color}
