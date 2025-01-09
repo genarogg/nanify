@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import { A, MenuToolTip, Icon } from "@nanify"
 
 import SwiperLGTwoElements from '@components/swiper/structura/SwiperLGTwoElements'
@@ -26,10 +26,13 @@ import 'swiper/css/pagination';
 import 'swiper/css/effect-fade';
 
 interface CardProductoAlanaProps {
-    data: any
+    data: any;
+    id: string;
 }
 
-const CardProductoAlana: React.FC<CardProductoAlanaProps> = ({ data }) => {
+const CardProductoAlana: React.FC<CardProductoAlanaProps> = (
+    { data, id}
+) => {
     const swiperRef = useRef<any>(null);
 
     const quickActions = [
@@ -82,17 +85,20 @@ const CardProductoAlana: React.FC<CardProductoAlanaProps> = ({ data }) => {
     }
 
     const hiddenElement = () => {
-        const elements = document.querySelectorAll('.hiddenElement');
+        const elements = document.querySelectorAll(`#${id} .hiddenElement`);
+        console.log(`#${id} .hiddenElement`)
+        console.log(id);
+        console.log(elements);
         elements.forEach((element: any) => {
             element.style.opacity = '0';
             setTimeout(() => {
                 element.style.opacity = '1';
-            }, 1500); 
+            }, 1500);
         });
     };
 
     return (
-        <div className="card-alana-producto">
+        <div className="card-alana-producto" id={id} >
             <Swiper
                 ref={swiperRef}
                 style={{ height: 480, width: 360 }}
