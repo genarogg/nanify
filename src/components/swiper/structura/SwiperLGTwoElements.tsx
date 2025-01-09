@@ -6,8 +6,8 @@ import { EffectFade } from 'swiper/modules';
 
 /* lib */
 // @ts-ignore
-import SwiperGL from './lib/swiper-gl.min.js';
-import "./lib/_swiper-gl.scss";
+import SwiperGL from '@components/swiper/structura/lib/swiper-gl.min.js';
+import "@components/swiper/structura/lib/_swiper-gl.scss";
 
 // Import Swiper styles
 import 'swiper/css';
@@ -20,7 +20,10 @@ const SwiperLGTwoElements: React.FC<SwiperLGProps> = ({
     children,
     effect = "random",
     height = "100dvh",
-    width = "380px"
+    width = "380px",
+    autoplay = {
+        delay: 3000, disableOnInteraction: false,
+    }
 }) => {
     const swiperRef = useRef<any>(null);
 
@@ -52,15 +55,16 @@ const SwiperLGTwoElements: React.FC<SwiperLGProps> = ({
                         swiper.params.gl.shader = effect
                     }
                 }
-                
+               
                 direction={'horizontal'}
                 speed={1500}
                 allowTouchMove={false}
                 simulateTouch={false}
-                
+                loop={true}
+
                 modules={[
                     EffectFade,
-                    SwiperGL,
+                    SwiperGL
                 ]}
 
                 className="mySwiper"
