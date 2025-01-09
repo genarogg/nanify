@@ -1,13 +1,13 @@
 "use client"
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { A, MenuToolTip, Icon } from "@nanify"
 import { SwiperSlide } from 'swiper/react'
 import SwiperLGTwoElements from '@components/swiper/structura/SwiperLGTwoElements'
-import SliderTwoElements from '@components/swiper/SliderTwoElements'
+
 import { FaRegHeart } from "react-icons/fa";
 import { FiShoppingBag } from "react-icons/fi";
-import { regexUrl } from "@fn/regexUtils"
+
 import { FaRegEye } from "react-icons/fa6";
 import { MdOutlineCompareArrows } from "react-icons/md";
 
@@ -17,16 +17,12 @@ interface CardProductoAlanaProps {
 
 const CardProductoAlana: React.FC<CardProductoAlanaProps> = ({ data }) => {
 
-
-
     const quickActions = [
         { items: ['Comparar'], icon: <MdOutlineCompareArrows /> },
         { items: ['Vista Rapida'], icon: <FaRegEye /> },
         { items: ['Deseado'], icon: <FaRegHeart /> },
         { items: ['Comprar'], icon: <FiShoppingBag /> },
     ];
-
-
 
     return (
         <div className="card-alana-producto">
@@ -89,7 +85,6 @@ const CardProductoAlana: React.FC<CardProductoAlanaProps> = ({ data }) => {
                 <h3>{data.titulo}</h3>
                 <p>${data.colores[0]?.precio}</p>
             </div>
-
         </div>
     );
 }
