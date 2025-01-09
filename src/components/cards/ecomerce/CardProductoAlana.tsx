@@ -12,7 +12,8 @@ import { FaRegEye } from "react-icons/fa6";
 import { MdOutlineCompareArrows } from "react-icons/md";
 
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { EffectFade, Autoplay } from 'swiper/modules';
+import { EffectFade } from 'swiper/modules';
+
 
 /* lib */
 // @ts-ignore
@@ -64,8 +65,6 @@ const CardProductoAlana: React.FC<CardProductoAlanaProps> = ({ data }) => {
             </nav>
         )
     }
-
-
     const NavCard = ({ color }: any) => {
         return (
             <nav className="tallas">
@@ -89,7 +88,7 @@ const CardProductoAlana: React.FC<CardProductoAlanaProps> = ({ data }) => {
                 effect="gl"
                 onBeforeInit={
                     (swiper: any) => {
-                        swiper.params.gl.shader = "polygons-wind"
+                        swiper.params.gl.shader = "morph-y"
                     }
                 }
                 direction={'horizontal'}
@@ -98,15 +97,17 @@ const CardProductoAlana: React.FC<CardProductoAlanaProps> = ({ data }) => {
                 simulateTouch={false}
                 loop={true}
                 modules={[
-                    EffectFade,
-                    SwiperGL,
-                    Autoplay
+                    EffectFade,SwiperGL
                 ]}
                 className="mySwiper-container"
             >
                 {data.colores.map((color: any, colorIndex: any) => (
                     <SwiperSlide key={colorIndex}>
-                        <div className="container-img">
+                        <img src={color.primaryImg}
+                            className="swiper-gl-image primary-img GG"
+                            alt={data.titulo}
+                        />
+                        <div className="container-img hola">
                             <A href={data.url}>
                                 <SwiperLGTwoElements
                                     effect='polygons-wind'
@@ -129,7 +130,7 @@ const CardProductoAlana: React.FC<CardProductoAlanaProps> = ({ data }) => {
                                 </SwiperLGTwoElements>
                             </A>
                             <QuickActions />
-                            <NavCard color={color}/>
+                            <NavCard color={color} />
                         </div>
                     </SwiperSlide>
                 ))}
