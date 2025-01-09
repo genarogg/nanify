@@ -47,6 +47,7 @@ const home: React.FC<homeProps> = () => {
 
       <Seccion titulo="Slider">
         <A href='/slider/background'>background</A>
+        <A href='/slider/two-elements'>two-elements</A>
       </Seccion>
 
       <Seccion titulo="Cards">

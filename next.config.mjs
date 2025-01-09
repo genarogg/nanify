@@ -12,7 +12,9 @@ const config = {
       "images.unsplash.com",
       "www.gravatar.com",
       "cdn.pixabay.com",
-      "themesflat.co"
+      "themesflat.co",
+      "encrypted-tbn0.gstatic.com",
+      "esprit.vteximg.com.br",
     ],
   },
 };

@@ -6,7 +6,7 @@ import { A, Icon } from 'nanify';
 
 import { IoIosArrowForward } from "react-icons/io";
 
-import SwiperLG from '@components/swiper/structura/SwiperLG';
+import SwiperLGBackgroud from '@components/swiper/structura/SwiperLGBackgroud';
 import BtnNormalBasic from "@components/btns/basic/btnNormalBasic";
 
 import img1 from "@public/swiper/01.jpg";
@@ -83,7 +83,7 @@ const SliderBackground: React.FC<SliderBackgroundProps> = () => {
 
     return (
         <div className='containerSliderLg bg'>
-            <SwiperLG >
+            <SwiperLGBackgroud >
                 {elements.map((element, index) => (
                     <SwiperSlide key={index}>
                         <img src={element.img.src}
@@ -104,7 +104,7 @@ const SliderBackground: React.FC<SliderBackgroundProps> = () => {
                         </div>
                     </SwiperSlide>
                 ))}
-            </SwiperLG>
+            </SwiperLGBackgroud>
         </div>
     );
 }

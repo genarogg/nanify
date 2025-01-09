@@ -14,34 +14,12 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/effect-fade';
 
-interface SwiperLGProps {
-    children: React.ReactNode;
-    effect?:
-    "random" |
-    "dots" |
-    "flyeye" |
-    "morph-x" |
-    "morph-y" |
-    "page-curl" |
-    "peel-x" |
-    "peel-y" |
-    "polygons-fall" |
-    "polygons-morph" |
-    "polygons-wind" |
-    "pixelize" |
-    "ripple" |
-    "shutters" |
-    "slices" |
-    "squares" |
-    "stretch" |
-    "wave-x" |
-    "wind";
-    autoplay?: any;
-}
+import SwiperLGProps from './SwiperLGProps';
 
-const SwiperLG: React.FC<SwiperLGProps> = ({ children, effect = "random", autoplay = {
+const SwiperLGBackgroud: React.FC<SwiperLGProps> = ({ children, effect = "random", autoplay = {
     delay: 3000, disableOnInteraction: false,
-} }) => {
+},
+    height = "100dvh" }) => {
     const swiperRef = useRef<any>(null);
 
     useEffect(() => {
@@ -65,7 +43,7 @@ const SwiperLG: React.FC<SwiperLGProps> = ({ children, effect = "random", autopl
         <div className='containerSlider'>
             <Swiper
                 ref={swiperRef}
-                style={{ height: '100dvh' }}
+                style={{ height: height }}
 
                 effect="gl"
                 onBeforeInit={(swiper: any) => {
@@ -94,4 +72,4 @@ const SwiperLG: React.FC<SwiperLGProps> = ({ children, effect = "random", autopl
     );
 }
 
-export default SwiperLG;
+export default SwiperLGBackgroud;
