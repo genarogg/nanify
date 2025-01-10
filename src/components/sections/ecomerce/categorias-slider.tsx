@@ -2,15 +2,12 @@
 
 import React from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { EffectFade, Pagination, Autoplay } from 'swiper/modules';
-
-import SwiperGL from '@components/swiper/structura//lib/swiper-gl.min.js';
-import "@components/swiper/structura//lib/_swiper-gl.scss";
+import { EffectFade, Navigation, Pagination, Autoplay } from 'swiper/modules';
 
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/effect-fade';
-import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
 
 import { A } from "@nanify"
@@ -29,29 +26,50 @@ const CategoriasSlider: React.FC<CategoriasSliderProps> = ({ data }) => {
                 </div>
                 <div className="container-info">
                     <Swiper
-                        effect="gl"
-                        onBeforeInit={
-                            (swiper: any) => {
-                                swiper.params.gl.shader = "random"
-                            }
-                        }
-                        spaceBetween={20}
+
                         slidesPerView={4}
                         loop={true}
                         direction={'horizontal'}
                         speed={1500}
+                        centerInsufficientSlides={true}
+                        effect={'fade'}
+                        simulateTouch={true}
+                        autoplay={{
+                            delay: 2500,
+                            disableOnInteraction: false
+                        }}
+                        
+                        grabCursor={true}
                         pagination={{ clickable: true }}
-                        modules={[SwiperGL, EffectFade, Pagination, Autoplay]}
+                        modules={[Pagination, Autoplay, Navigation]}
                         className="mySwiper"
+
+                        breakpoints={{
+                            1500: {
+                                slidesPerView: 4,
+                            },
+                            1000: {
+                                slidesPerView: 3,
+                            },
+                            700: {
+                                slidesPerView: 2,
+                            },
+                            500: {
+                                slidesPerView: 1,
+                            },
+                        }}
                     >
                         {data.map((category, index) => (
                             <SwiperSlide key={index} >
                                 <div className="conainer-single-slider">
-                                    <div className="conainer-single-slider">
-                                        <img src={category.imgSrc} alt="img" className="swiper-gl-image" />
-                                        <h3>{category.name}</h3>
-                                    </div>
+                                    <img src={category.imgSrc} alt="img" />
+                                    <h3>
+                                        <A href='#'>
+                                            {category.name}
+                                        </A>
+                                    </h3>
                                 </div>
+
                             </SwiperSlide>
                         ))}
                     </Swiper>

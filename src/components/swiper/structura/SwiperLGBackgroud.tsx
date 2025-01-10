@@ -14,7 +14,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/effect-fade';
 
-import SwiperLGProps from './SwiperLGProps';
+import SwiperLGProps from './SwiperProps';
 
 const SwiperLGBackgroud: React.FC<SwiperLGProps> = ({ children, effect = "random", autoplay = {
     delay: 3000, disableOnInteraction: false,
