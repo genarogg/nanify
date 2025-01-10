@@ -45,67 +45,49 @@ const CardProductoAlana: React.FC<CardProductoAlanaProps> = ({ data }) => {
                         ))}
                     </SwiperLGTwoElements>
                 </A>
+                <nav className="quik-actions">
+                    <ul>
+                        {quickActions.map((action, index) => (
+                            <li key={index}>
+                                <MenuToolTip
+                                    interactive={false}
+                                    items={action.items}
+                                    placement="top"
+                                    classNameTooltip="card-producto-alana-quik-actions-tooltip"
+                                >
+                                    <Icon icon={action.icon} />
+                                </MenuToolTip>
+                            </li>
+                        ))}
+                    </ul>
+                </nav>
+                <nav className="tallas">
+                    <ul>
+                        {data.tallas.map((talla: any, index: any) => (
+                            <li key={index}>
+                                <A href={`${data.url}#talla=${talla}`} className="talla">
+                                    {talla}
+                                </A>
+                            </li>
+                        ))}
+                    </ul>
+                </nav>
+            </div>
+            <div className="container-info">
+                <h3>{data.titulo}</h3>
+                <p>${data.precio}</p>
+                <div className="colores">
+                    {data.colores.map((color: any, colorIndex: any) => (
+                        <span
+                            key={colorIndex}
+                            className="color-product"
+                            style={{ backgroundColor: color }}
+                        ></span>
+                    ))}
+                </div>
             </div>
         </div>
     )
-
-    return (
-        <div className="card-alana-producto">
-            {data.imgs.map((img: any, colorIndex: any) => (
-                <div key={colorIndex} className="container-img">
-                    <A href={data.url}>
-                        <SwiperLGTwoElements
-                            effect='polygons-wind'
-                            height="460px"
-                            width='360px'>
-                            <SwiperSlide>
-                                <img
-                                    src={img}
-                                    className="swiper-gl-image"
-                                    width={360}
-                                    height={460}
-                                    alt={data.titulo}
-                                />
-                            </SwiperSlide>
-                        </SwiperLGTwoElements>
-
-
-                    </A>
-                    {/* <nav className="quik-actions">
-                        <ul>
-                            {quickActions.map((action, index) => (
-                                <li key={index}>
-                                    <MenuToolTip
-                                        interactive={false}
-                                        items={action.items}
-                                        placement="top"
-                                        classNameTooltip="card-producto-alana-quik-actions-tooltip"
-                                    >
-                                        <Icon icon={action.icon} />
-                                    </MenuToolTip>
-                                </li>
-                            ))}
-                        </ul>
-                    </nav>
-                    <nav className="tallas">
-                        <ul>
-                            {color.tallas.map((talla: any, index: any) => (
-                                <li key={index}>
-                                    <A href={`${data.url}#talla=${talla}`} className="talla">
-                                        {talla}
-                                    </A>
-                                </li>
-                            ))}
-                        </ul>
-                    </nav> */}
-                </div>
-            ))}
-            {/* <div className="container-info">
-                <h3>{data.titulo}</h3>
-                <p>${data.colores[0]?.precio}</p>
-            </div> */}
-        </div>
-    );
 }
 
 export default CardProductoAlana;
