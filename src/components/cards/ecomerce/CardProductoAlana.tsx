@@ -1,6 +1,7 @@
 "use client"
 
 import React from 'react';
+import "./_cardProductoAlana.scss"
 import { A, MenuToolTip, Icon } from "@nanify"
 import { SwiperSlide } from 'swiper/react'
 import SwiperLGTwoElements from '@components/swiper/structura/SwiperLGTwoElements'
@@ -81,8 +82,11 @@ const CardProductoAlana: React.FC<CardProductoAlanaProps> = ({ data }) => {
                         <span
                             key={colorIndex}
                             className="color-product"
-                            style={{ backgroundColor: color }}
-                        ></span>
+
+                        >
+
+                            <span style={{ backgroundColor: color }}></span>
+                        </span>
                     ))}
                 </div>
             </div>

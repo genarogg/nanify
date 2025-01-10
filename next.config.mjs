@@ -15,6 +15,7 @@ const config = {
       "themesflat.co",
       "encrypted-tbn0.gstatic.com",
       "esprit.vteximg.com.br",
+      "w0.peakpx.com",
     ],
   },
 };
