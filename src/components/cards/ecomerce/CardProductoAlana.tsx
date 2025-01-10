@@ -31,7 +31,7 @@ interface CardProductoAlanaProps {
 }
 
 const CardProductoAlana: React.FC<CardProductoAlanaProps> = (
-    { data, id}
+    { data, id }
 ) => {
     const swiperRef = useRef<any>(null);
 
@@ -100,7 +100,6 @@ const CardProductoAlana: React.FC<CardProductoAlanaProps> = (
     return (
         <div className="card-alana-producto" id={id} >
             <Swiper
-                ref={swiperRef}
                 style={{ height: 480, width: 360 }}
                 effect="gl"
                 onBeforeInit={
@@ -108,15 +107,58 @@ const CardProductoAlana: React.FC<CardProductoAlanaProps> = (
                         swiper.params.gl.shader = "morph-y"
                     }
                 }
-                direction={'horizontal'}
-                speed={1500}
-                allowTouchMove={false}
-                simulateTouch={false}
+                // allowTouchMove={false}
+                // simulateTouch={false}
                 loop={true}
+                speed={1500}
+                className="mySwiper-container"
+
                 modules={[
                     EffectFade, SwiperGL
                 ]}
-                className="mySwiper-container"
+            >
+
+                {data.colores.map((color: any, colorIndex: any) => (
+                    <SwiperSlide key={colorIndex}>
+                        <img src={color.primaryImg}
+                            className="swiper-gl-image primary-img"
+                            alt={data.titulo}
+                        />
+                        <div className="container-img hiddenElement">
+                            <A href={data.url}>
+
+                                <SwiperSlide>
+                                    <img src={color.primaryImg}
+                                        className="swiper-gl-image primary-img"
+                                        alt={data.titulo}
+                                    />
+                                </SwiperSlide>
+                                <SwiperSlide>
+                                    <img src={color.secundaryImg}
+                                        alt={data.titulo}
+                                        className="swiper-gl-image secundary-img"
+                                    />
+                                </SwiperSlide>
+                            </A>
+                            <QuickActions />
+                            <NavCard color={color} />
+                        </div>
+                    </SwiperSlide>
+                ))}
+
+
+            </Swiper>
+        </div>
+    )
+
+    return (
+        <div className="card-alana-producto" id={id} >
+            <Swiper
+                ref={swiperRef}
+
+
+
+
             >
                 {data.colores.map((color: any, colorIndex: any) => (
                     <SwiperSlide key={colorIndex}>
