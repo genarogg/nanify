@@ -26,7 +26,32 @@ const CardProductoAlana: React.FC<CardProductoAlanaProps> = ({ data }) => {
 
     return (
         <div className="card-alana-producto">
-            {data.colores.map((color: any, colorIndex: any) => (
+            <div className="container-img">
+                <A href={data.url}>
+                    <SwiperLGTwoElements
+                        effect='morph-y'
+                        height="460px"
+                        width='360px'>
+                        {data.imgs.map((img: any, colorIndex: any) => (
+                            <SwiperSlide key={colorIndex}>
+                                <img
+                                    src={img}
+                                    className="swiper-gl-image"
+                                    width={360}
+                                    height={460}
+                                    alt={data.titulo}
+                                />
+                            </SwiperSlide>
+                        ))}
+                    </SwiperLGTwoElements>
+                </A>
+            </div>
+        </div>
+    )
+
+    return (
+        <div className="card-alana-producto">
+            {data.imgs.map((img: any, colorIndex: any) => (
                 <div key={colorIndex} className="container-img">
                     <A href={data.url}>
                         <SwiperLGTwoElements
@@ -34,15 +59,9 @@ const CardProductoAlana: React.FC<CardProductoAlanaProps> = ({ data }) => {
                             height="460px"
                             width='360px'>
                             <SwiperSlide>
-                                <img src={color.primaryImg}
-                                    className="swiper-gl-image primary-img"
-                                    alt={data.titulo}
-                                />
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <img src={color.secundaryImg}
-
-                                    className="swiper-gl-image secundary-img"
+                                <img
+                                    src={img}
+                                    className="swiper-gl-image"
                                     width={360}
                                     height={460}
                                     alt={data.titulo}
@@ -52,7 +71,7 @@ const CardProductoAlana: React.FC<CardProductoAlanaProps> = ({ data }) => {
 
 
                     </A>
-                    <nav className="quik-actions">
+                    {/* <nav className="quik-actions">
                         <ul>
                             {quickActions.map((action, index) => (
                                 <li key={index}>
@@ -78,13 +97,13 @@ const CardProductoAlana: React.FC<CardProductoAlanaProps> = ({ data }) => {
                                 </li>
                             ))}
                         </ul>
-                    </nav>
+                    </nav> */}
                 </div>
             ))}
-            <div className="container-info">
+            {/* <div className="container-info">
                 <h3>{data.titulo}</h3>
                 <p>${data.colores[0]?.precio}</p>
-            </div>
+            </div> */}
         </div>
     );
 }
