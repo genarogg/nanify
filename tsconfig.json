@@ -18,21 +18,11 @@
     "incremental": true,
     "tsBuildInfoFile": "./dist/tsconfig.tsbuildinfo",
     "paths": {
-      "@components/*": [
-        "./src/components/*"
-      ],
-      "@nanify": [
-        "./src/lib/index.tsx"
-      ],
-      "@fn/*": [
-        "./src/functions/*"
-      ],
-      "@env": [
-        "./env.ts"
-      ],
-      "@public/*": [
-        "./public/*"
-      ]
+      "@components/*": ["./src/components/*"],
+      "@nanify": ["./src/lib/index.tsx"],
+      "@fn/*": ["./src/functions/*"],
+      "@env": ["./env.ts"],
+      "@public/*": ["./public/*"]
     },
     "outDir": "./dist",
     "declaration": true,
