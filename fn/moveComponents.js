@@ -5,33 +5,11 @@ const readline = require('readline');
 // Rutas preestablecidas
 const pathJoin = path.join(__dirname, 'src', 'styles', 'module',)
 const predefinedPaths = {
-    /* btn Hamburguesa */
-    btnLoki: path.join(pathJoin, 'btns', '_btnLoki.module.scss'),
-    btnFreya: path.join(pathJoin, 'btns', '_btnFreya.module.scss'),
-    btnThor: path.join(pathJoin, 'btns', '_btnThor.module.scss'),
 
-    /* btn Basic */
-    btnNormalBasic: path.join(pathJoin, 'btns', '_btnNormalBasic.module.scss'),
-    btnSubmitBasic: path.join(pathJoin, 'btns', '_btnSubmitBasic.module.scss'),
-    btnText: path.join(pathJoin, 'btns', '_btnText.module.scss'),
-    btnExpancion: path.join(pathJoin, 'btns', '_btnExpancion.module.scss'),
-
-    /* FORM */
-    /* CheckBox */
-    checkboxBasic: path.join(pathJoin, 'form', '_checkboxBasic.module.scss'),
-
-    /* Input */
-    inputBasic: path.join(pathJoin, 'form', '_input.module.scss'),
-
-    /* VANILLA */
 
     /* TooTip */
     tooltipBasic: path.join(pathJoin, 'toolTip', '_menuToolTip.module.scss.scss'),
 
-
-    /* Layout */
-    // simpleFooter: path.join(pathJoin, '_simpleFooter.module.scss'),
-    // headerOneElementCenter: path.join(pathJoin, '_headerOneElementCenter.module.scss'),
 
 
 };
