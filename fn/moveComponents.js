@@ -2,46 +2,26 @@ const fs = require('fs');
 const path = require('path');
 const readline = require('readline');
 
+// Función para copiar recursivamente una carpeta
+function copyFolderSync(from, to) {
+    fs.mkdirSync(to, { recursive: true });
+    fs.readdirSync(from).forEach(element => {
+        const fromPath = path.join(from, element);
+        const toPath = path.join(to, element);
+        if (fs.lstatSync(fromPath).isFile()) {
+            if (!fs.existsSync(toPath)) {
+                fs.copyFileSync(fromPath, toPath);
+            }
+        } else {
+            copyFolderSync(fromPath, toPath);
+        }
+    });
+}
+
 // Rutas preestablecidas
-const pathJoin = path.join(__dirname, 'src', 'styles', 'module',)
 const predefinedPaths = {
-
-
-    /* TooTip */
-    tooltipBasic: path.join(pathJoin, 'toolTip', '_menuToolTip.module.scss.scss'),
-
-
-
+    alanaLayout: path.join(__dirname, "..", 'src', 'components', 'layout', "ecommerce", "alana"),
 };
-
-// Ruta de destino fija relativa al proyecto que usa el módulo
-const destinationDir = path.join(__dirname, '..', '..', 'src', 'sass', 'module');
-const styleFilePath = path.join(__dirname, '..', '..', 'src', 'sass', '_style.module.scss');
-
-
-// Función para copiar un archivo de un punto A a un punto B
-function copyFile(from, to) {
-    fs.copyFileSync(from, to);
-    console.log(`Archivo copiado de ${from} a ${to}`);
-}
-
-// Función para actualizar el archivo _style.module.scss
-function updateStyleFile(importPath) {
-    const importStatement = `@import "${importPath}";\n`;
-    let content = '';
-
-    // Leer el contenido existente del archivo
-    if (fs.existsSync(styleFilePath)) {
-        content = fs.readFileSync(styleFilePath, 'utf8');
-    }
-
-    // Agregar la nueva ruta de importación al contenido existente
-    content += importStatement;
-
-    // Escribir el contenido actualizado de vuelta al archivo
-    fs.writeFileSync(styleFilePath, content, 'utf8');
-    console.log(`Archivo ${styleFilePath} actualizado con: ${importStatement}`);
-}
 
 // Configura readline para leer la entrada del usuario
 const rl = readline.createInterface({
@@ -56,34 +36,31 @@ Object.keys(predefinedPaths).forEach(key => {
 });
 
 // Pregunta al usuario por la opción
-rl.question('Introduce la opción del archivo a copiar: ', (option) => {
-    const from = predefinedPaths[option];
-    if (!from) {
+rl.question('Introduce la opción del directorio a copiar: ', (option) => {
+    const source = predefinedPaths[option];
+    if (!source) {
         console.error('Opción no válida');
         rl.close();
         return;
     }
 
-    const fileName = path.basename(from);
-    const to = path.join(destinationDir, fileName);
+    // Pregunta al usuario por el nombre del directorio de destino
+    rl.question('Introduce el nombre del directorio de destino (deja en blanco para usar la opción): ', (destDir) => {
+        const targetDir = destDir || option;
+        const target = path.join(__dirname, "..", '..', '..', 'src', "components", targetDir);
+        const dirName = targetDir.toUpperCase();
 
-    // Verifica si el directorio de destino existe, si no, créalo
-    if (!fs.existsSync(destinationDir)) {
-        fs.mkdirSync(destinationDir, { recursive: true });
-    }
-
-    // Verifica si el archivo ya existe en el destino
-    if (fs.existsSync(to)) {
-        console.log(`El archivo ${fileName} ya existe en el destino.`);
-    } else {
-        try {
-            copyFile(from, to);
-            // Actualiza el archivo _style.module.scss con la nueva ruta de importación
-            const relativeImportPath = `./module/${fileName}`;
-            updateStyleFile(relativeImportPath);
-        } catch (error) {
-            console.error('Error al copiar el archivo', error);
+        // Verifica si la carpeta de destino ya existe
+        if (!fs.existsSync(target)) {
+            try {
+                copyFolderSync(source, target);
+                console.log(`Carpeta copiada ${dirName}`);
+            } catch (error) {
+                console.error(`Error al copiar la carpeta ${dirName}`, error);
+            }
+        } else {
+            console.log(`La carpeta de destino ${dirName} ya existe. No se copian los archivos.`);
         }
-    }
-    rl.close();
+        rl.close();
+    });
 });
