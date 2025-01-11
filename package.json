@@ -3,7 +3,7 @@
   "description": "Un kit de componentes para React basado en TypeScript.",
   "author": "Genaro Gonzalez",
   "license": "MIT",
-  "version": "0.2.23",
+  "version": "0.2.24",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -12,6 +12,7 @@
     "src/sass",
     "src/functions",
     "src/app/api",
+    "env.ts",
     "postinstall.js",
     "movefile.js"
   ],
@@ -21,10 +22,12 @@
     "start": "next start",
     "lint": "next lint",
     "movefile": "node movefile.js",
+
     "update:jsx": "node updateTsconfig.js",
     "clean-dist": "npm run update:jsx &&  rimraf dist",
     "build-lib": "npm run clean-dist && tsup",
-    "publicar": "npm run build-lib && npm publish"
+    "publicar": "npm run build-lib && npm publish",
+    "postinstall": "node postinstall.js"
   },
   "dependencies": {
     "@plaiceholder/next": "^3.0.0",
