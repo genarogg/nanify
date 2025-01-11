@@ -1,6 +1,7 @@
 "use client"
 
-import React, { useRef, useState } from 'react';
+import React from 'react';
+import "./_cardProductoAlana.scss"
 import { A, MenuToolTip, Icon } from "@nanify"
 
 import SwiperLGTwoElements from '@components/swiper/structura/SwiperLGTwoElements'
@@ -98,123 +99,17 @@ const CardProductoAlana: React.FC<CardProductoAlanaProps> = (
     };
 
     return (
-        <div className="card-alana-producto" id={id} >
-            <Swiper
-                style={{ height: 480, width: 360 }}
-                effect="gl"
-                onBeforeInit={
-                    (swiper: any) => {
-                        swiper.params.gl.shader = "morph-y"
-                    }
-                }
-                // allowTouchMove={false}
-                // simulateTouch={false}
-                loop={true}
-                speed={1500}
-                className="mySwiper-container"
+                <A href={data.url}>
 
-                modules={[
-                    EffectFade, SwiperGL
-                ]}
-            >
-
-                {data.colores.map((color: any, colorIndex: any) => (
-                    <SwiperSlide key={colorIndex}>
-                        <img src={color.primaryImg}
-                            className="swiper-gl-image primary-img"
-                            alt={data.titulo}
-                        />
-                        <div className="container-img hiddenElement">
-                            <A href={data.url}>
-
-                                <SwiperSlide>
-                                    <img src={color.primaryImg}
-                                        className="swiper-gl-image primary-img"
-                                        alt={data.titulo}
-                                    />
-                                </SwiperSlide>
-                                <SwiperSlide>
-                                    <img src={color.secundaryImg}
-                                        alt={data.titulo}
-                                        className="swiper-gl-image secundary-img"
-                                    />
-                                </SwiperSlide>
-                            </A>
-                            <QuickActions />
-                            <NavCard color={color} />
-                        </div>
-                    </SwiperSlide>
-                ))}
-
-
-            </Swiper>
-        </div>
-    )
-
-    return (
-        <div className="card-alana-producto" id={id} >
-            <Swiper
-                ref={swiperRef}
-
-
-
-
-            >
-                {data.colores.map((color: any, colorIndex: any) => (
-                    <SwiperSlide key={colorIndex}>
-                        <img src={color.primaryImg}
-                            className="swiper-gl-image primary-img"
-                            alt={data.titulo}
-                        />
-                        <div className="container-img hiddenElement">
-                            <A href={data.url}>
-                                <SwiperLGTwoElements
-                                    effect='polygons-wind'
-                                    height="460px"
-                                    width='360px'>
-                                    <SwiperSlide>
-                                        <img src={color.primaryImg}
-                                            className="swiper-gl-image primary-img"
-                                            alt={data.titulo}
-                                        />
-                                    </SwiperSlide>
-                                    <SwiperSlide>
-                                        <img src={color.secundaryImg}
-                                            className="swiper-gl-image secundary-img"
-                                            width={360}
-                                            height={460}
-                                            alt={data.titulo}
-                                        />
-                                    </SwiperSlide>
-                                </SwiperLGTwoElements>
-                            </A>
-                            <QuickActions />
-                            <NavCard color={color} />
-                        </div>
-                    </SwiperSlide>
-                ))}
-            </Swiper>
-            <div className="container-info">
-                <h3>{data.titulo}</h3>
-                <p>
-                    {data.colores.map((color: any, colorIndex: any) => (
-                        <span
-                            key={colorIndex}
-                            onClick={
-                                () => {
-                                    handleColorClick(colorIndex)
-                                    hiddenElement()
-                                }
-                            }
-                            style={{ cursor: 'pointer', marginRight: '10px' }}
                         >
-                            {color.color}
+
+                            <span style={{ backgroundColor: color }}></span>
                         </span>
                     ))}
-                </p>
+                </div>
             </div>
         </div>
-    );
+    )
 }
 
 export default CardProductoAlana;

@@ -7,24 +7,20 @@ interface cardProductoProps {
 
 const cardProducto: React.FC<cardProductoProps> = () => {
     const data = {
-        url: regexUrl("afd adsf"),
         titulo: "Producto 1",
-        tallas: ["S", "M", "L", "XL"],
-        colores: ["#000", "#fff"],
-        precios: [100],
+        url: regexUrl("afd adsf"),
         imgs: [
             "https://esprit.vteximg.com.br/arquivos/ids/1370194/34_432F001_GRI180403_0.jpg",
             "https://esprit.vteximg.com.br/arquivos/ids/1370625/34_432F014_VER190516_0.jpg"
         ],
-    }
+        precio: 100,
+        colores: ["#000", "#f0e"],
+        tallas: ["S", "M", "L", "XL"]
+        }
 
-
-
-    return (<>
-        <div className="dd">
-            <CardProductoAlana data={data} id={data.url}/>
-        </div>
-    </>);
+    return (<><CardProductoAlana data={data} />
+        <CardProductoAlana data={data} />
+        <CardProductoAlana data={data} /></>);
 }
 
 export default cardProducto;

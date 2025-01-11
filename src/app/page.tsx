@@ -53,6 +53,10 @@ const home: React.FC<homeProps> = () => {
       <Seccion titulo="Cards">
         <A href='/card/alana/producto'>CardProductoAlana</A>
       </Seccion>
+
+      <Seccion titulo="secction">
+        <A href='/secction/alana/categorias-slider'>categorias-slider</A>
+      </Seccion>
     </>
   );
 }

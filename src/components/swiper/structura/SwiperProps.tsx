@@ -1,4 +1,4 @@
-interface SwiperLGProps {
+interface SwiperProps {
     children: React.ReactNode;
     effect?:
     "random" |
@@ -23,6 +23,8 @@ interface SwiperLGProps {
     autoplay?: any;
     height?: string;
     width?: string;
+    slidesPerView?: number;
+    spaceBetween?: number;
 }
 
-export default SwiperLGProps;
+export default SwiperProps;
