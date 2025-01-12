@@ -8,6 +8,8 @@ import { Icon } from 'nanify';
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import { MdArrowOutward } from "react-icons/md";
+
+import { regexUrl } from "@fn/regexUtils"
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/effect-fade';
@@ -15,7 +17,7 @@ import 'swiper/css/navigation';
 
 import "./_categoriasSlider.scss";
 
-import { A } from "@nanify"
+import { A } from "nanify"
 
 interface CategoriasSliderProps {
     data: any[];
@@ -82,7 +84,7 @@ const CategoriasSlider: React.FC<CategoriasSliderProps> = ({ data }) => {
                                 <div className="conainer-single-slider">
                                     <img src={category.imgSrc} alt="img" />
                                     <h3>
-                                        <A href='#'>
+                                        <A href={`/categorias/${regexUrl(category.name)} `} >
                                             {category.name}
                                         </A>
                                     </h3>

@@ -1,5 +1,5 @@
 import React from 'react'
-import CategoriasSlider from "@components/sections/ecomerce/CategoriasSlider"
+import CategoriasSlider from "@components/sections/ecomerce/categoriaSlider/CategoriasSlider"
 
 interface categoriasProps {
 
