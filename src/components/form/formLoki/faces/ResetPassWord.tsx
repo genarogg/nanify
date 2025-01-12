@@ -1,10 +1,14 @@
 import React, { useRef, useState } from 'react'
+import "./sass/_resetPassword.scss"
 
-import { Input, BtnSubmitBasic, BtnRowCircle } from 'nanify';
+import { $ } from "@fn/index";
+import { Input } from 'nanify';
+
+import BtnSubmitBasic from '@components/btns/basic/btnSubmitBasic';
+import BtnRowCircle from "@components/btns/animate/btnRowCircle";
 
 import { BsFillEnvelopeHeartFill } from 'react-icons/bs';
 
-import { $ } from "../../../functions/index";
 
 interface ResetPassWordProps {
     cardState: (css: string) => void;
@@ -71,7 +75,9 @@ const ResetPassWord: React.FC<ResetPassWordProps> = ({ cardState }) => {
                     onChange={handleChange}
                 />
 
-                <BtnSubmitBasic text='Recuperar cuenta' disable={loading} onClick={(() => setLoading(true))} />
+                <BtnSubmitBasic disable={loading} onClick={(() => setLoading(true))} >
+                    Recuperar cuenta
+                </BtnSubmitBasic>
 
                 <div className="text-recovery">
                     <span>

@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react'
-import { Input, BtnSubmitBasic } from 'nanify';
+import { Input } from 'nanify';
+import BtnSubmitBasic from '@components/btns/basic/btnSubmitBasic';
 import { BsFillEnvelopeHeartFill, BsPersonFill } from 'react-icons/bs';
 import { MdLock } from 'react-icons/md';
 import { IoMdUnlock } from "react-icons/io";
@@ -33,7 +34,7 @@ const Register: React.FC<RegisterProps> = ({ cardState }) => {
     return (
 
         <div className="register right" id="register">
-            <HeadBtn cardState={cardState} register={true}/>
+            <HeadBtn cardState={cardState} register={true} />
             <form onSubmit={(e) => { e.preventDefault() }}>
                 <Input
                     type="text"
@@ -67,7 +68,9 @@ const Register: React.FC<RegisterProps> = ({ cardState }) => {
                     onChange={handleChange}
                 />
 
-                <BtnSubmitBasic text='Registrarse' disable={loading} onClick={(() => setLoading(true))}  />
+                <BtnSubmitBasic disable={loading} onClick={(() => setLoading(true))}  >
+                    Registrarse
+                </BtnSubmitBasic>
 
                 <div className="text-recovery">
                     <span>

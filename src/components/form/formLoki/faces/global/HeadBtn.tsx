@@ -1,5 +1,6 @@
-import { $ } from "../../../../functions/index";
-import { BtnText } from "nanify"
+import { $ } from "@fn/index";
+import BtnText from "@components/btns/basic/btnText";
+import "./_headBtn.scss"
 
 interface HeadBtnProps {
     cardState: (css: string) => void;
@@ -19,22 +20,24 @@ const HeadBtn: React.FC<HeadBtnProps> = ({ cardState, register }) => {
     return (
         <div className="btn-sesion">
             <BtnText
-                text="Iniciar sesión"
                 onClick={() => {
                     cardState("front-active");
                     btnActive();
                 }}
-            />
+            >
+                Iniciar sesión
+            </BtnText>
             {register && (
                 <>
                     <span className="span-sesion">|</span>
                     <BtnText
-                        text="Registrarse"
                         onClick={() => {
                             cardState("right-active");
                             btnActive();
                         }}
-                    />
+                    >
+                        Registrarse
+                    </BtnText>
                 </>
             )
             }

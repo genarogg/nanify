@@ -1,3 +1,5 @@
+@use "/src//sass/global/variables" as var;
+
 .btn-sesion {
   color: #fff;
   font-size: 18px;
@@ -12,7 +14,7 @@
   button {
     background-color: transparent;
     border: none;
-    color: $color-secondary;
+    color: var.$color-secondary;
     cursor: pointer;
     font-size: 18px;
     font-weight: 600;
@@ -21,7 +23,7 @@
     transition: 500ms all ease;
 
     &:hover {
-      color: $color-primary;
+      color: var.$color-primary;
     }
 
     &:active {

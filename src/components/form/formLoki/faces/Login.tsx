@@ -1,10 +1,13 @@
 import React, { useRef, useState } from 'react'
-import { Input, CheckBoxBasic, BtnSubmitBasic, BtnText } from 'nanify';
+import { Input, CheckBoxBasic } from 'nanify';
+
+import BtnSubmitBasic from '@components/btns/basic/btnSubmitBasic';
+import BtnText from '@components/btns/basic/btnText';
+import { $ } from "@fn/index";
 
 import { BsFillEnvelopeHeartFill } from 'react-icons/bs';
 import { MdLock } from "react-icons/md";
 
-import { $ } from "../../../functions/index";
 import HeadBtn from "./global/HeadBtn";
 
 interface LoginProps {
@@ -54,7 +57,7 @@ const Login: React.FC<LoginProps> = ({ cardState }) => {
     return (
         <>
             <div className="login front">
-                <HeadBtn cardState={cardState} register={true}/>
+                <HeadBtn cardState={cardState} register={true} />
                 <form onSubmit={handleSubmit} >
                     <Input
                         type="email"
@@ -77,12 +80,16 @@ const Login: React.FC<LoginProps> = ({ cardState }) => {
                         onClick={toogleChecked}
                     />
 
-                    <BtnSubmitBasic text='Acceder' disable={loading} onClick={(() => setLoading(true))} />
+                    <BtnSubmitBasic disable={loading} onClick={(() => setLoading(true))} >
+                        Iniciar sesión
+                    </BtnSubmitBasic>
 
-                    <BtnText text='¿Olvidaste tu contraseña?' onClick={() => {
+                    <BtnText onClick={() => {
                         active();
                         cardState("left-active");
-                    }} />
+                    }} >
+                        ¿Olvidaste tu contraseña?
+                    </BtnText>
 
                 </form>
             </div>
