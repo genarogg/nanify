@@ -70,7 +70,7 @@ const Register: React.FC<RegisterProps> = ({ cardState }) => {
                     formData={{
                         data: inputRef.current,
                     }}
-                    endpoint="/login"
+                    endpoint="/register"
                     push="/"
                 >
                     Registrarse

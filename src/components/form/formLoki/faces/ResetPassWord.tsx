@@ -78,8 +78,8 @@ const ResetPassWord: React.FC<ResetPassWordProps> = ({ cardState }) => {
                     formData={{
                         data: inputRef.current
                     }}
-                    endpoint="/login"
-                    push="/"
+                    endpoint="/recover"
+                    push="#"
                 >
                     Recuperar cuenta
                 </BtnSubmitBasic>
