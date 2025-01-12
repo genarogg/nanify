@@ -1,6 +1,6 @@
 "use client";
 import React from 'react';
-import SliderBackground from '@components/swiper/SliderBackgroud';
+import SliderBackground from '@components/swiper/sliderBackgroud/SliderBackgroud';
 
 import img1 from "@public/swiper/01.jpg";
 import img2 from "@public/swiper/02.jpg";

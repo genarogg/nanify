@@ -6,14 +6,13 @@ import { A, Icon } from 'nanify';
 
 import { IoIosArrowForward } from "react-icons/io";
 
-import SwiperLGBackgroud from '@components/swiper/structura/SwiperLGBackgroud';
+import SwiperLGBackgroud from '@components/swiper/estructura/SwiperLGBackgroud';
 import BtnNormalBasic from "@components/btns/basic/btnNormalBasic";
 
 
 interface SliderBackgroundProps { data: any }
 
 const SliderBackground: React.FC<SliderBackgroundProps> = ({ data }) => {
-
 
     return (
         <div className='containerSliderLg bg'>

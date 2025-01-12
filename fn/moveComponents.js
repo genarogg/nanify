@@ -32,11 +32,15 @@ const predefinedPaths = {
     btnLoki: transformPath('btns/hamburguesa/btnLoki'),
     btnNormalBasic: transformPath('btns/basic/btnNormalBasic'),
     navBasic: transformPath('layout/nav'),
+
+    sliderBackground: transformPath('swiper/sliderBackgroud'),
+    swiperStructure: transformPath('swiper/estructura'),
 };
 
 // Dependencias de cada opción
 const dependencies = {
     alanaLayout: ['algolia', 'headerToolTip', 'btnLoki', "btnNormalBasic", "navBasic"],
+    sliderBackground: ['btnNormalBasic', "swiperStructure",]
 };
 
 // Opciones disponibles (excluyendo dependencias)
