@@ -1,4 +1,4 @@
-import { $ } from "../../../../../../../functions/index"
+import { $ } from "@fn/index"
 
 const activeAside = (id: string) => {
     const asideSearch = $("asideSearch")

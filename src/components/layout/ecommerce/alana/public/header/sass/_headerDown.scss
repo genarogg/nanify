@@ -4,6 +4,11 @@
     display: flex;
     justify-content: center;
 
+    *,
+    & {
+        transition: 600 ease all;
+    }
+
     nav {
         ul {
             li {
@@ -70,6 +75,7 @@
                     h6 {
                         font-size: 14px;
                         display: flex;
+
                         label {
                             cursor: pointer;
                         }
@@ -232,9 +238,9 @@
 
                             h6 {
                                 font-size: 14px;
-                                
 
-                                
+
+
                             }
                         }
                     }

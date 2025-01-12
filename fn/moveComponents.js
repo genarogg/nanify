@@ -18,10 +18,29 @@ function copyFolderSync(from, to) {
     });
 }
 
+function transformPath(pathString) {
+    const transformedSegments = pathString.split('/');
+    const pathJoin = path.resolve(__dirname, "..", "src", "components", ...transformedSegments);
+    return pathJoin;
+}
+
 // Rutas preestablecidas
 const predefinedPaths = {
-    alanaLayout: path.join(__dirname, "..", 'src', 'components', 'layout', "ecommerce", "alana"),
+    alanaLayout: transformPath('layout/ecommerce/alana'),
+    algolia: transformPath('algolia'),
+    headerToolTip: transformPath('layout/tooltip'),
+    btnLoki: transformPath('btns/hamburguesa/btnLoki'),
+    btnNormalBasic: transformPath('btns/basic/btnNormalBasic'),
+    navBasic: transformPath('layout/nav/Nav'),
 };
+
+// Dependencias de cada opción
+const dependencies = {
+    alanaLayout: ['algolia', 'headerToolTip', 'btnLoki', "btnNormalBasic", "navBasic"],
+};
+
+// Opciones disponibles (excluyendo dependencias)
+const availableOptions = Object.keys(predefinedPaths).filter(key => !Object.values(dependencies).flat().includes(key));
 
 // Configura readline para leer la entrada del usuario
 const rl = readline.createInterface({
@@ -31,7 +50,7 @@ const rl = readline.createInterface({
 
 // Muestra las opciones al usuario
 console.log('Opciones disponibles:');
-Object.keys(predefinedPaths).forEach(key => {
+availableOptions.forEach(key => {
     console.log(`- ${key}`);
 });
 
@@ -46,6 +65,7 @@ rl.question('Introduce la opción del directorio a copiar: ', (option) => {
 
     // Pregunta al usuario por el nombre del directorio de destino
     rl.question('Introduce el nombre del directorio de destino (deja en blanco para usar la opción): ', (destDir) => {
+        console.log('Copiando archivos...');
         const targetDir = destDir || option;
         const target = path.join(__dirname, "..", '..', '..', 'src', "components", targetDir);
         const dirName = targetDir.toUpperCase();
@@ -55,6 +75,20 @@ rl.question('Introduce la opción del directorio a copiar: ', (option) => {
             try {
                 copyFolderSync(source, target);
                 console.log(`Carpeta copiada ${dirName}`);
+
+                // Copia las dependencias si existen
+                if (dependencies[option]) {
+                    dependencies[option].forEach(dep => {
+                        const depSource = predefinedPaths[dep];
+                        const depTarget = path.join(__dirname, "..", '..', '..', 'src', "components", path.relative(path.join(__dirname, "..", 'src', 'components'), depSource));
+                        if (!fs.existsSync(depTarget)) {
+                            copyFolderSync(depSource, depTarget);
+                            console.log(`Dependencia copiada ${dep.toUpperCase()}`);
+                        } else {
+                            console.log(`La carpeta de destino ${dep.toUpperCase()} ya existe. No se copian los archivos.`);
+                        }
+                    });
+                }
             } catch (error) {
                 console.error(`Error al copiar la carpeta ${dirName}`, error);
             }
