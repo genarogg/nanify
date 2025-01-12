@@ -31,7 +31,7 @@ const predefinedPaths = {
     headerToolTip: transformPath('layout/tooltip'),
     btnLoki: transformPath('btns/hamburguesa/btnLoki'),
     btnNormalBasic: transformPath('btns/basic/btnNormalBasic'),
-    navBasic: transformPath('layout/nav/Nav'),
+    navBasic: transformPath('layout/nav'),
 };
 
 // Dependencias de cada opción
