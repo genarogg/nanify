@@ -14,7 +14,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/effect-fade';
 
-import SwiperLGProps from './SwiperLGProps';
+import SwiperLGProps from './SwiperProps';
 
 const SwiperLGTwoElements: React.FC<SwiperLGProps> = ({
     children,
