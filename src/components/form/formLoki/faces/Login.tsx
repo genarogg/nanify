@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { Input, CheckBoxBasic } from 'nanify';
 
-import BtnSubmitBasic from '@components/btns/basic/btnSubmitBasic';
+import BtnSubmitBasic from './btnSubmitBasic';
 import BtnText from '@components/btns/basic/btnText';
 import { $ } from "@fn/index";
 
@@ -9,6 +9,7 @@ import { BsFillEnvelopeHeartFill } from 'react-icons/bs';
 import { MdLock } from "react-icons/md";
 
 import HeadBtn from "./global/HeadBtn";
+
 
 interface LoginProps {
     cardState: (css: string) => void;
@@ -18,7 +19,7 @@ const Login: React.FC<LoginProps> = ({ cardState }) => {
 
     const inputRef = useRef({
         email: "",
-        password: "",
+        password: ""
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,14 +28,14 @@ const Login: React.FC<LoginProps> = ({ cardState }) => {
     };
 
     const [isChecked, setIsChecked] = useState(false);
+
     const toogleChecked = () => {
         setIsChecked(!isChecked);
     }
 
-    const [loading, setLoading] = useState(false);
-
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+
         console.log(inputRef.current);
     };
 
@@ -53,6 +54,8 @@ const Login: React.FC<LoginProps> = ({ cardState }) => {
             reset.style.display = "flex";
         }
     };
+
+
 
     return (
         <>
@@ -80,7 +83,7 @@ const Login: React.FC<LoginProps> = ({ cardState }) => {
                         onClick={toogleChecked}
                     />
 
-                    <BtnSubmitBasic disable={loading} onClick={(() => setLoading(true))} >
+                    <BtnSubmitBasic data={{ data: inputRef.current, check: isChecked }} >
                         Iniciar sesión
                     </BtnSubmitBasic>
 
@@ -92,7 +95,7 @@ const Login: React.FC<LoginProps> = ({ cardState }) => {
                     </BtnText>
 
                 </form>
-            </div>
+            </div >
         </>
     );
 }

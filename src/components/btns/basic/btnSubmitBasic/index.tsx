@@ -6,7 +6,7 @@ interface BtnSubmitBasicProps {
   className?: string;
   id?: string;
   disable?: boolean;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 const BtnSubmitBasic: React.FC<BtnSubmitBasicProps> = ({
@@ -14,7 +14,7 @@ const BtnSubmitBasic: React.FC<BtnSubmitBasicProps> = ({
   className = "",
   id = "",
   disable = false,
-  onClick,
+  onClick = (() => { }),
 }) => {
   return (
     <div className={`btn-submit-basic ${className}`} id={id}>
