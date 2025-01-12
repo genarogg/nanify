@@ -35,12 +35,16 @@ const predefinedPaths = {
 
     sliderBackground: transformPath('swiper/sliderBackgroud'),
     swiperStructure: transformPath('swiper/estructura'),
+    sectionCategoriaSlider: transformPath('sections/ecomerce/categoriaSlider'),
+
 };
 
 // Dependencias de cada opción
 const dependencies = {
     alanaLayout: ['algolia', 'headerToolTip', 'btnLoki', "btnNormalBasic", "navBasic"],
-    sliderBackground: ['btnNormalBasic', "swiperStructure",]
+    sliderBackground: ['btnNormalBasic', "swiperStructure"],
+
+
 };
 
 // Opciones disponibles (excluyendo dependencias)

@@ -12,7 +12,7 @@ const swiper = () => {
 
     const data = [
         {
-            img: img1,
+            img: img1.src,
             info: {
                 title: "Simple Style",
                 description: "From casual to formal, we've got you covered",
@@ -23,7 +23,7 @@ const swiper = () => {
             }
         },
         {
-            img: img2,
+            img: img2.src,
             info: {
                 title: "Simple Style2",
                 description: "From casual to formal, we've got you covered",
@@ -34,7 +34,7 @@ const swiper = () => {
             }
         },
         {
-            img: img3,
+            img: img3.src,
             info: {
                 title: "Simple Style3",
                 description: "From casual to formal, we've got you covered",
@@ -46,7 +46,7 @@ const swiper = () => {
         },
 
         {
-            img: img4,
+            img: img4.src,
             info: {
                 title: "Simple Style4",
                 description: "From casual to formal, we've got you covered",
@@ -57,7 +57,7 @@ const swiper = () => {
             }
         },
         {
-            img: img5,
+            img: img5.src,
             info: {
                 title: "Simple Style5",
                 description: "From casual to formal, we've got you covered",

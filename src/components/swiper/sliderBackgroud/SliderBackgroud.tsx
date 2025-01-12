@@ -19,7 +19,7 @@ const SliderBackground: React.FC<SliderBackgroundProps> = ({ data }) => {
             <SwiperLGBackgroud >
                 {data.map((element: any, index: any) => (
                     <SwiperSlide key={index}>
-                        <img src={element.img.src}
+                        <img src={element.img}
                             alt="img"
                             className="swiper-gl-image"
                         />
