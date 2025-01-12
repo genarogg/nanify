@@ -20,7 +20,6 @@ const input: React.FC<inputProps> = () => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        console.log(inputRef.current);
     };
 
     return (

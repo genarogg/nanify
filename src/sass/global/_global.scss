@@ -28,4 +28,11 @@ ul {
   list-style: none;
 }
 
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
 @include fn.scroll($color: var.$color-quaternary, $bgColor: var.$color-secondary);

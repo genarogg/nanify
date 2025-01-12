@@ -78,7 +78,7 @@ const HeaderMobile: React.FC<HeaderMobileProps> = ({ login, logo, data, navOuth,
             </div>
         </li>
     );
-    console.log(navOuth)
+
 
     return (
         <>

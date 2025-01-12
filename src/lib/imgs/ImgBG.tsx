@@ -22,7 +22,7 @@ const ImgBG: React.FC<ImgProps> = ({
 }) => {
 
     const loadend = () => {
-        console.log("loadend");
+
         const img = document.getElementById(id + "Img");
         const conteiner = document.getElementById(id + "Conteiner");
 
@@ -30,7 +30,6 @@ const ImgBG: React.FC<ImgProps> = ({
 
             const srcImg = img.getAttribute("src");
 
-            console.log(srcImg);
             conteiner.style.backgroundImage = `url(${srcImg})`;
             conteiner.style.opacity = '1';
 
