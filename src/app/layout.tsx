@@ -1,8 +1,11 @@
 import React from 'react'
 
 import type { Metadata } from "next";
-import "../sass/style.scss"
 import "../style/nanify.scss"
+
+import "../sass/style.scss"
+import 'tippy.js/dist/tippy.css';
+import 'tippy.js/animations/shift-away.css';
 
 
 export const metadata: Metadata = {
@@ -30,6 +33,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
 
+        <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
 
 
       </head>
