@@ -3,7 +3,7 @@
   "description": "Un kit de componentes para React basado en TypeScript.",
   "author": "Genaro Gonzalez",
   "license": "MIT",
-  "version": "0.2.35",
+  "version": "0.2.36",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -24,7 +24,8 @@
     "clean-dist": "npm run update:jsx &&  rimraf dist",
     "build-lib": "npm run clean-dist && tsup",
     "publicar": "npm run build-lib && npm publish",
-    "postinstall": "node ./fn/postinstall.js"
+    "postinstall": "node ./fn/postinstall.js",
+    "nanify": "node ./node_modules/nanify/fn/moveComponents.js"
   },
   "dependencies": {
     "@plaiceholder/next": "^3.0.0",
@@ -33,7 +34,7 @@
     "crypto-js": "^4.2.0",
     "dotenv": "^16.4.7",
     "motion": "^11.15.0",
-    "nanify": "^0.2.21",
+    "nanify": "^0.2.36",
     "next": "14.2.22",
     "react": "^18",
     "react-dom": "^18",
