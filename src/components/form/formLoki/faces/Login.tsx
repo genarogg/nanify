@@ -83,7 +83,14 @@ const Login: React.FC<LoginProps> = ({ cardState }) => {
                         onClick={toogleChecked}
                     />
 
-                    <BtnSubmitBasic data={{ data: inputRef.current, check: isChecked }} >
+                    <BtnSubmitBasic
+                        formData={{
+                            data: inputRef.current,
+                            check: isChecked
+                        }}
+                        endpoint="/login"
+                        push="/"
+                    >
                         Iniciar sesión
                     </BtnSubmitBasic>
 

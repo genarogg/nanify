@@ -1,33 +1,69 @@
 import React, { useState } from 'react'
 import "./_btnSubmitBasic.scss"
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
-import { RECAPTCHA_KEY } from "@env";
+import { RECAPTCHA_KEY, URL_BACKEND } from "@env";
 
+import { notify, A } from "nanify"
 
-interface BtnSubmitBasicProps {
+interface BtnSubmitBasicProps<T> {
   children: React.ReactNode;
   className?: string;
   id?: string;
   disable?: boolean;
-  data: any
+  formData: T;
+  endpoint: string;
+  push: string
 }
 
-const BtnSubmitBasic: React.FC<BtnSubmitBasicProps> = ({
+const BtnSubmitBasic = <T,>({
   children,
   className = "",
   id = "",
-  data
-}) => {
+  formData,
+  endpoint,
+  push = "/"
+}: BtnSubmitBasicProps<T>) => {
 
   const [loading, setLoading] = useState(false);
   const { executeRecaptcha } = useGoogleReCaptcha();
 
+  let token = "";
+
   const handleSubmit = async () => {
-    if (executeRecaptcha) {
-      const token = await executeRecaptcha("submit");
-      console.log(token);
-      console.log(data);
+
+    if (RECAPTCHA_KEY && executeRecaptcha) {
+      token = await executeRecaptcha("submit");
     }
+
+    const data = {
+      ...formData,
+      token,
+    }
+
+    fetch(`${URL_BACKEND}/auth${endpoint}`, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+
+        if (data.error) {
+          notify({ type: "error", message: data.message })
+          return;
+        }
+
+        localStorage.setItem("token", data.token);
+
+        notify({ type: "success", message: data.message })
+
+        //redireccionar el usuario con el api de nextjs
+        A({ type: "push", href: push })
+      })
+      .catch((error) => console.error(error)
+      ).finally(() => setLoading(false));
   }
 
   return (

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useRef } from 'react'
 import { Input } from 'nanify';
 import BtnSubmitBasic from './btnSubmitBasic';
 import { BsFillEnvelopeHeartFill, BsPersonFill } from 'react-icons/bs';
@@ -23,8 +23,6 @@ const Register: React.FC<RegisterProps> = ({ cardState }) => {
         const { name, value } = e.target;
         inputRef.current = { ...inputRef.current, [name]: value };
     };
-
-    const [loading, setLoading] = useState(false);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -68,9 +66,15 @@ const Register: React.FC<RegisterProps> = ({ cardState }) => {
                     onChange={handleChange}
                 />
 
-                {/* <BtnSubmitBasic disable={loading}>
+                <BtnSubmitBasic
+                    formData={{
+                        data: inputRef.current,
+                    }}
+                    endpoint="/login"
+                    push="/"
+                >
                     Registrarse
-                </BtnSubmitBasic> */}
+                </BtnSubmitBasic>
 
                 <div className="text-recovery">
                     <span>

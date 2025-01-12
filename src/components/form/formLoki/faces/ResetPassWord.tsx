@@ -24,8 +24,6 @@ const ResetPassWord: React.FC<ResetPassWordProps> = ({ cardState }) => {
         inputRef.current = { ...inputRef.current, [name]: value };
     };
 
-    const [loading, setLoading] = useState(false);
-
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         console.log(inputRef.current);
@@ -75,10 +73,16 @@ const ResetPassWord: React.FC<ResetPassWordProps> = ({ cardState }) => {
                     icon={<BsFillEnvelopeHeartFill />}
                     onChange={handleChange}
                 />
-{/* 
-                <BtnSubmitBasic disable={loading} >
+
+                <BtnSubmitBasic
+                    formData={{
+                        data: inputRef.current
+                    }}
+                    endpoint="/login"
+                    push="/"
+                >
                     Recuperar cuenta
-                </BtnSubmitBasic> */}
+                </BtnSubmitBasic>
 
                 <div className="text-recovery">
                     <span>
