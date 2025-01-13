@@ -57,6 +57,12 @@ const home: React.FC<homeProps> = () => {
       <Seccion titulo="secction">
         <A href='/secction/alana/categorias-slider'>categorias-slider</A>
       </Seccion>
+
+      <Seccion titulo="view">
+        <A href='/view/alana/auth'>auth alana</A>
+      </Seccion>
+
+  
     </>
   );
 }

@@ -3,7 +3,7 @@ import React from 'react';
 import "./sass/_sliderBackgroud.scss";
 import { SwiperSlide } from 'swiper/react';
 
-import SwiperLGTwoElements from '@components/swiper/structura/SwiperLGTwoElements';
+import SwiperLGTwoElements from '@components/swiper/estructura/SwiperLGTwoElements';
 
 import img1 from "@public/swiper/people-1.jpg";
 import img2 from "@public/swiper/people-2.jpg";
