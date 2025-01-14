@@ -19,7 +19,6 @@
     "tsBuildInfoFile": "./dist/tsconfig.tsbuildinfo",
     "paths": {
       "@components/*": ["./src/components/*"],
-      "@nanify": ["./src/components/nano/index.tsx"],
       "@fn/*": ["./src/functions/*"],
       "@env": ["./env.ts"],
       "@public/*": ["./public/*"],

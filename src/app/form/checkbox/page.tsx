@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef } from 'react';
-import { CheckBoxBasic } from '@nanify';
+import { CheckBoxBasic } from '@nano';
 
 interface checkboxProps {}
 
