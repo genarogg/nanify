@@ -2,7 +2,7 @@
 
 import React from 'react';
 import "./_cardProductoAlana.scss"
-import { A, MenuToolTip, Icon } from "@nanify"
+import { A, MenuToolTip, Icon } from ""
 import { SwiperSlide } from 'swiper/react'
 import SwiperLGTwoElements from '@components/swiper/structura/SwiperLGTwoElements'
 

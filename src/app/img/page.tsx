@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react'
-import Img from "../../lib/imgs/Img"
+import Img from "../../components/nano/imgs/Img"
 import imgLocal from "../../../public/bg-home.jpg"
 
 interface imgProps { }
