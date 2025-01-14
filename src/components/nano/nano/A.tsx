@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from "next/link";
-import router from "next/router";
+import { useRouter } from "next/navigation";
 
 interface AProps {
   href: string;
@@ -12,6 +12,8 @@ interface AProps {
 }
 
 const A: React.FC<AProps> = ({ href, type, children, className = " ", onClick, style }) => {
+  const router = useRouter();
+
   switch (type) {
     case undefined:
       return (
@@ -33,14 +35,9 @@ const A: React.FC<AProps> = ({ href, type, children, className = " ", onClick, s
       );
     case "push":
       router.push(href);
-      return
-    case "mailto":
-      return (
-        <a href={`mailto:${href}`} className={className} style={style}>
-          {children}
-        </a>
-      );
-
+      return null;
+    default:
+      return null;
   }
 };
 
