@@ -7,7 +7,6 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
-    "dist",
     "src/components",
     "src/sass",
     "src/functions",
@@ -21,9 +20,7 @@
     "start": "next start",
     "lint": "next lint",
     "update:jsx": "node ./fn/updateTsconfig.js",
-    "clean-dist": "npm run update:jsx &&  rimraf dist",
-    "build-lib": "npm run clean-dist && tsup",
-    "publicar": "npm run build-lib && npm publish",
+    "publicar": "npm run update:jsx && npm publish",
     "postinstall": "node ./fn/postinstall.js",
     "nanify": "node ./node_modules/nanify/fn/moveComponents.js"
   },

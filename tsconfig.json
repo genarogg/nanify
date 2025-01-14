@@ -32,7 +32,10 @@
       ],
       "@public/*": [
         "./public/*"
-      ]
+      ],
+      "@nano": [
+        "./src/components/nano/index.tsx"
+      ],
     },
     "outDir": "./dist",
     "declaration": true,

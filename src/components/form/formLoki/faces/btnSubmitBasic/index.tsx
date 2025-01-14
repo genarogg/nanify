@@ -3,7 +3,7 @@ import "./_btnSubmitBasic.scss"
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { RECAPTCHA_KEY, URL_BACKEND } from "@env";
 
-import { notify, A } from "nanify"
+import { notify, A } from "@nano"
 
 interface BtnSubmitBasicProps<T> {
   children: React.ReactNode;

@@ -1,0 +1,22 @@
+.auth-loki {
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+
+    .container-form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .container-slider {
+
+        .containerSlider {
+            max-width: 600px;
+            min-width: 600px;
+        }
+
+        .swiper-pagination-bullet {
+            display: none;
+        }
+    }
+}

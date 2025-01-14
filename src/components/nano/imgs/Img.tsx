@@ -4,7 +4,7 @@ import ImgLocal from './ImgLocal';
 import ImgBG from './ImgBG';
 import ImgProps from './ImgProps';
 
-import { generateUUID } from '../../functions';
+import { generateUUID } from '../../../functions';
 
 const Img: React.FC<ImgProps> = ({
     src,

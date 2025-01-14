@@ -1,10 +1,12 @@
 'use client';
 
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useState, useInsertionEffect, useEffect } from 'react';
+import { Squeleto } from "../index"
 import Image from 'next/image';
-import { $ } from "../../functions";
-
+import { $ } from "../../../functions"
 import ImgProps from './ImgProps';
+
+import svg from "./svg"
 
 const Img: React.FC<ImgProps> = ({
     src,
@@ -20,61 +22,54 @@ const Img: React.FC<ImgProps> = ({
     quality,
     sizes,
     style,
-    children,
-    visible
+    children
 }) => {
-    const [isVisible, setIsVisible] = useState(visible);
-    const imgRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        setIsVisible(true);
-                        observer.disconnect();
+
+    const [svgBackground, setSvgBackground] = useState<string | null | any>(blurDataURL ? svg({ base64: blurDataURL }) : null);
+    const [isLoad, setIsLoad] = useState<boolean>(blurDataURL ? false : true);
+
+
+    useInsertionEffect(() => {
+        if (typeof src === 'string' && src.startsWith('http') && !blurDataURL) {
+            fetch(`/api/getBase64/remote?url=${encodeURIComponent(src)}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.data) {
+                        setSvgBackground(svg({ base64: data.data }));
+                        setIsLoad(false);
                     }
+                })
+                .catch(error => {
+                    console.error('Error fetching SVG:', error);
                 });
-            },
-            { threshold: 0.1 }
-        );
-
-        if (imgRef.current) {
-            observer.observe(imgRef.current);
         }
-
-        return () => {
-            if (imgRef.current) {
-                observer.unobserve(imgRef.current);
-            }
-        };
-    }, []);
+    }, [src]);
 
     useEffect(() => {
+        const conteiner = $(id + "Conteiner");
+        const img = $(id + "Img");
+        const ghost = $(id + "ghost");
 
-        if (isVisible) {
-            const conteiner = $(id + "Conteiner");
-            const img = $(id + "Img");
-            const ghost = $(id + "ghost");
 
-            if (img && conteiner && ghost) {
-                conteiner.style.width = img.offsetWidth + "px";
-                conteiner.style.height = img.offsetHeight + "px";
-                ghost.style.width = img.offsetWidth + "px";
-                ghost.style.height = img.offsetHeight + "px";
+        if (img && conteiner && ghost) {
 
-                img.style.opacity = "1";
+            conteiner.style.width = img.offsetWidth + "px";
+            conteiner.style.height = img.offsetHeight + "px";
+            ghost.style.width = img.offsetWidth + "px";
+            ghost.style.height = img.offsetHeight + "px";
 
-                setTimeout(() => {
-                    conteiner.style.backgroundImage = "initial";
-                }, 1500);
-            }
+            img.style.opacity = "1";
+
+            setTimeout(() => {
+                conteiner.style.backgroundImage = "initial";
+            }, 1500);
+
         }
-    }, [isVisible, id]);
+    }, [isLoad]);
 
     return (
         <div
-            ref={imgRef}
             style={{
                 width,
                 height,
@@ -83,12 +78,18 @@ const Img: React.FC<ImgProps> = ({
                 ...style
             }}
             className={`responsiveImage`}
+
         >
-            {isVisible && (
+            {isLoad ? (
+                <Squeleto
+                    width={width}
+                    height={height}
+                />
+            ) : (
                 <>
                     <div
                         style={{
-                            backgroundImage: `url(${src.blurDataURL})`,
+                            backgroundImage: `url(${svgBackground})`,
                             backgroundSize: 'cover',
                             backgroundPosition: 'center',
                             width,
@@ -105,7 +106,7 @@ const Img: React.FC<ImgProps> = ({
                             id={id + "Img"}
                             className={`${className} responsiveImage fadeIn`}
                             placeholder={placeholder}
-                            blurDataURL={src.blurDataURL}
+                            blurDataURL={svgBackground}
                             width={width}
                             height={height}
                             loading={loading}
@@ -117,8 +118,7 @@ const Img: React.FC<ImgProps> = ({
                         <div
                             className={`responsiveImage`}
                             style={{ width, height }}
-                            id={id + "ghost"}
-                        >
+                            id={id + "ghost"} >
                         </div>
                     </div>
                 </>

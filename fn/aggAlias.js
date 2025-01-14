@@ -9,7 +9,8 @@ const updateTsconfigPaths = () => {
         "@components/*": ["./src/components/*"],
         "@fn/*": ["./src/functions/*"],
         "@env": ["./env.ts"],
-        "@public/*": ["./public/*"]
+        "@public/*": ["./public/*"],
+        "@nano": ["./src/components/nano/index.tsx"],
     };
 
     fs.writeFileSync(tsconfigPath, JSON.stringify(tsconfig, null, 2), 'utf8');

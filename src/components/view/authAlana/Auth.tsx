@@ -1,5 +1,6 @@
 "use client";
 import React from 'react'
+import "./sass/_auth.scss";
 import { SwiperSlide } from 'swiper/react'
 import LokiLogin from '@components/form/formLoki/LokiLogin';
 import SwiperLGBackgroud from '@components/swiper/estructura/SwiperLGBackgroud';
@@ -8,13 +9,7 @@ import img1 from "@public/authAlana/fashion1.png";
 import img2 from "@public/authAlana/fashion2.png";
 import img3 from "@public/authAlana/fashion3.png";
 
-// import img1 from "@public/swiper/01.jpg";
-// import img2 from "@public/swiper/02.jpg";
-// import img3 from "@public/swiper/03.jpg";
-
-interface AuthProps {
-
-}
+interface AuthProps { }
 
 const Auth: React.FC<AuthProps> = () => {
 

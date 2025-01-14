@@ -17,7 +17,7 @@ import 'swiper/css/navigation';
 
 import "./_categoriasSlider.scss";
 
-import { A } from "nanify"
+import { A } from "@nano"
 
 interface CategoriasSliderProps {
     data: any[];
