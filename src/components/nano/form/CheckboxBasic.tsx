@@ -1,5 +1,5 @@
 import React, { useState, forwardRef, useImperativeHandle } from "react";
-import { Icon } from "";
+import { Icon } from "@nanify";
 import { FaSquareCheck } from "react-icons/fa6";
 import { ImCheckboxUnchecked } from "react-icons/im";
 
