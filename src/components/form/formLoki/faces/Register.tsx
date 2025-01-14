@@ -45,6 +45,7 @@ const Register: React.FC<RegisterProps> = ({ cardState }) => {
                 <Input
                     type="email"
                     name="email"
+                    id='emailRegister'
                     placeholder="Email"
                     icon={<BsFillEnvelopeHeartFill />}
                     onChange={handleChange}

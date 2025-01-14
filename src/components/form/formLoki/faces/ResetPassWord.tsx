@@ -69,6 +69,7 @@ const ResetPassWord: React.FC<ResetPassWordProps> = ({ cardState }) => {
                 <Input
                     type="email"
                     name="email"
+                    id="emailReset"
                     placeholder="Email"
                     icon={<BsFillEnvelopeHeartFill />}
                     onChange={handleChange}

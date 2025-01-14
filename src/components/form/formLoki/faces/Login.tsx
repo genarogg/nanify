@@ -65,6 +65,7 @@ const Login: React.FC<LoginProps> = ({ cardState }) => {
                     <Input
                         type="email"
                         name="email"
+                        id="emailLogin"
                         placeholder="Email"
                         icon={<BsFillEnvelopeHeartFill />}
                         onChange={handleChange}
