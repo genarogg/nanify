@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useState, useRef, useEffect } from 'react'
 import { Icon } from '../index'
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
