@@ -22,7 +22,7 @@
         "./src/components/*"
       ],
       "@nanify": [
-        "./src/lib/index.tsx"
+        "./src/components/nano/index.tsx"
       ],
       "@fn/*": [
         "./src/functions/*"
