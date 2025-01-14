@@ -13,9 +13,11 @@ import HeadBtn from "./global/HeadBtn";
 
 interface LoginProps {
     cardState: (css: string) => void;
+    register: boolean;
+    reset: boolean;
 }
 
-const Login: React.FC<LoginProps> = ({ cardState }) => {
+const Login: React.FC<LoginProps> = ({ cardState, register, reset }) => {
 
     const inputRef = useRef({
         email: "",
@@ -60,7 +62,7 @@ const Login: React.FC<LoginProps> = ({ cardState }) => {
     return (
         <>
             <div className="login front">
-                <HeadBtn cardState={cardState} register={true} />
+                <HeadBtn cardState={cardState} register={register} />
                 <form onSubmit={handleSubmit} >
                     <Input
                         type="email"
@@ -95,12 +97,14 @@ const Login: React.FC<LoginProps> = ({ cardState }) => {
                         Iniciar sesión
                     </BtnSubmitBasic>
 
-                    <BtnText onClick={() => {
-                        active();
-                        cardState("left-active");
-                    }} >
-                        ¿Olvidaste tu contraseña?
-                    </BtnText>
+                    {reset && (
+                        <BtnText onClick={() => {
+                            active();
+                            cardState("left-active");
+                        }} >
+                            ¿Olvidaste tu contraseña?
+                        </BtnText>
+                    )}
 
                 </form>
             </div >

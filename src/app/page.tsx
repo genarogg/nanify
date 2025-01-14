@@ -60,6 +60,7 @@ const home: React.FC<homeProps> = () => {
 
       <Seccion titulo="view">
         <A href='/view/alana/auth'>auth alana</A>
+        <A href="/view/basico/authOutRegister">auth authOutRegister</A>
       </Seccion>
 
   

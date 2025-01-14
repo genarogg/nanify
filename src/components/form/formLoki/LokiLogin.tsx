@@ -10,9 +10,15 @@ import Register from './faces/Register';
 
 import "./faces/sass/_styleGeneral.scss"
 
-interface LokiLoginProps { }
+interface LokiLoginProps {
+    register?: boolean;
+    reset?: boolean
+}
 
-const LokiLogin: React.FC<LokiLoginProps> = () => {
+const LokiLogin: React.FC<LokiLoginProps> = ({
+    register = true,
+    reset = true
+}) => {
     const [formState, setFormState] = useState("initial");
 
     const cardState = (css: string) => {
@@ -22,9 +28,9 @@ const LokiLogin: React.FC<LokiLoginProps> = () => {
     return (
         <div className={`container-form-loki ${formState}`} id='containerFormLoki'>
             <GoogleReCaptchaProvider reCaptchaKey={RECAPTCHA_KEY}>
-                <ResetPassWord cardState={setFormState} />
-                <Login cardState={cardState} />
-                <Register cardState={setFormState} />
+                {reset && <ResetPassWord cardState={cardState} />}
+                <Login cardState={cardState} register={register} reset={reset} />
+                {register && <Register cardState={cardState} />}
             </GoogleReCaptchaProvider>
         </div>
     );

@@ -1,10 +1,12 @@
+"use client"
+
 import React from 'react';
 import ImgRemote from './ImgRemote';
 import ImgLocal from './ImgLocal';
 import ImgBG from './ImgBG';
 import ImgProps from './ImgProps';
 
-import { generateUUID } from '../../../functions';
+import { generateUUID } from '@fn/index';
 
 const Img: React.FC<ImgProps> = ({
     src,

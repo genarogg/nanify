@@ -5,8 +5,8 @@ interface ImgProps {
     id?: string;
     blurDataURL?: string;
     placeholder?: 'blur' | 'empty';
-    width?: number;
-    height?: number;
+    width?: number | string| any;
+    height?: number | string| any;
     className?: string;
     priority?: boolean;
     loading?: 'eager' | 'lazy';
