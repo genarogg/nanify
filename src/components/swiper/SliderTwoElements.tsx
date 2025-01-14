@@ -1,6 +1,6 @@
 "use client";
 import React from 'react';
-import "./sass/_sliderBackgroud.scss";
+import "./sliderBackgroud/sass/_sliderBackgroud.scss";
 import { SwiperSlide } from 'swiper/react';
 
 import SwiperLGTwoElements from '@components/swiper/estructura/SwiperLGTwoElements';

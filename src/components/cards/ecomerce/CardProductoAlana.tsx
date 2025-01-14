@@ -2,9 +2,9 @@
 
 import React from 'react';
 import "./_cardProductoAlana.scss"
-import { A, MenuToolTip, Icon } from ""
+import { A, MenuToolTip, Icon } from "@nano"
 import { SwiperSlide } from 'swiper/react'
-import SwiperLGTwoElements from '@components/swiper/structura/SwiperLGTwoElements'
+import SwiperLGTwoElements from '@components/swiper/estructura/SwiperLGTwoElements'
 
 import { FaRegHeart } from "react-icons/fa";
 import { FiShoppingBag } from "react-icons/fi";

@@ -52,7 +52,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/components/swiper/structura/lib/swiper-gl.min.js"
+    "src/components/swiper/estructura/lib/swiper-gl.min.js"
   ],
   "exclude": [
     "node_modules"
