@@ -14,28 +14,16 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react",
     "incremental": true,
     "tsBuildInfoFile": "./dist/tsconfig.tsbuildinfo",
     "paths": {
-      "@components/*": [
-        "./src/components/*"
-      ],
-      "@nanify": [
-        "./src/components/nano/index.tsx"
-      ],
-      "@fn/*": [
-        "./src/functions/*"
-      ],
-      "@env": [
-        "./env.ts"
-      ],
-      "@public/*": [
-        "./public/*"
-      ],
-      "@nano": [
-        "./src/components/nano/index.tsx"
-      ]
+      "@components/*": ["./src/components/*"],
+      "@nanify": ["./src/components/nano/index.tsx"],
+      "@fn/*": ["./src/functions/*"],
+      "@env": ["./env.ts"],
+      "@public/*": ["./public/*"],
+      "@nano": ["./src/components/nano/index.tsx"]
     },
     "outDir": "./dist",
     "declaration": true,

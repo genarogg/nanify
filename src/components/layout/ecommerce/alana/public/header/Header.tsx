@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 
-import { LogoGenarogg } from 'nanify';
+import { LogoGenarogg } from "@nano";
 
 import HeaderUp from './HeaderUp';
 import HeaderDown from './HeaderDown';

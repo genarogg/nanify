@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useRef } from 'react'
-import { Input } from 'nanify';
+import { Input } from "@nano";
 import { BsEnvelopeFill } from 'react-icons/bs';
 
 interface inputProps { }

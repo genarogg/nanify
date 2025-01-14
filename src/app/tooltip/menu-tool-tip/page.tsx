@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react'
-import { MenuToolTip } from 'nanify';
+import { MenuToolTip } from "@nano";
 import { FaUser, FaCog, FaSignOutAlt } from "react-icons/fa";
 
 interface menuToolTipProps {

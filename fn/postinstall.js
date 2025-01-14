@@ -63,4 +63,4 @@ function addScriptToPackageJson(scriptName, scriptCommand) {
 }
 
 // Agrega el script moveComponents a package.json
-addScriptToPackageJson('nanify', 'node ./node_modules/nanify/fn/moveComponents.js');
+addScriptToPackageJson("@nano", 'node ./node_modules/nanify/fn/moveComponents.js');

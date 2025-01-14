@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Autoplay } from 'swiper/modules';
 
-import { Icon } from 'nanify';
+import { Icon } from "@nano";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import { MdArrowOutward } from "react-icons/md";

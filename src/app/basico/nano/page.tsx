@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react'
-import { A } from 'nanify';
+import { A } from "@nano";
 
 interface nanoProps { }
 
