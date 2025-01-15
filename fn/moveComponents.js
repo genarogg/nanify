@@ -45,6 +45,9 @@ const predefinedPaths = {
 
     nano: transformPath('nano'),
 
+    tabletExample: transformPath('view/example/agTablet'),
+    tabletAg: transformPath('tablet'),
+
 };
 
 // Dependencias de cada opción
@@ -57,6 +60,7 @@ const dependencies = {
     formLoki: ["btnText", "btnRowCircle"],
     /* view */
     viewLoginLoki: ["formLoki", "swiperStructure", "btnText"],
+    tabletExample:["tabatAg"]
 
 
 };

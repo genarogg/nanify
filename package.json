@@ -3,7 +3,7 @@
   "description": "Un kit de componentes para React basado en TypeScript.",
   "author": "Genaro Gonzalez",
   "license": "MIT",
-  "version": "0.2.44",
+  "version": "0.2.45",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -27,6 +27,8 @@
   "dependencies": {
     "@plaiceholder/next": "^3.0.0",
     "@tippyjs/react": "^4.2.6",
+    "ag-grid-community": "^33.0.3",
+    "ag-grid-react": "^33.0.3",
     "algoliasearch": "^5.18.0",
     "crypto-js": "^4.2.0",
     "dotenv": "^16.4.7",
