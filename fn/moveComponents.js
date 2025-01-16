@@ -48,6 +48,8 @@ const predefinedPaths = {
     tabletExample: transformPath('view/example/agTablet'),
     tabletAg: transformPath('tablet'),
 
+    mentorBasicImgcomponent: transformPath('mentor/basico/bentorgrid'),
+
 };
 
 // Dependencias de cada opción
@@ -60,8 +62,9 @@ const dependencies = {
     formLoki: ["btnText", "btnRowCircle"],
     /* view */
     viewLoginLoki: ["formLoki", "swiperStructure", "btnText"],
-    tabletExample:["tabatAg"]
+    tabletExample:["tabletAg"],
 
+    mentorBasicImgcomponent: [''],
 
 };
 

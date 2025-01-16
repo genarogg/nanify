@@ -1,14 +1,15 @@
 'use client'
 import React from 'react'
 import { Img, A } from "@nano"
-import imgDemo from "@public/bg-home.jpg"
+
 import "./sass/_mentorBasico.scss"
 
 interface MentorBasicoProps {
     reverse?: boolean
+    data: any
 }
 
-const MentorBasico: React.FC<MentorBasicoProps> = ({ reverse = false }) => {
+const MentorBasico: React.FC<MentorBasicoProps> = ({ reverse = false, data }) => {
     const MentorElement = ({ src, id, alt, width, height, href }: any) => {
         return (
             <A href={href}>
@@ -21,13 +22,8 @@ const MentorBasico: React.FC<MentorBasicoProps> = ({ reverse = false }) => {
         )
     }
 
-    const primerElemento = { src: imgDemo, id: 'img1', alt: 'Descripción de la imagen 1', width: 600, height: 600, href: '/ruta1' };
-    const segundoElemento = { src: imgDemo, id: 'de5mcoaf', alt: 'imagen de fondo', width: 600, height: 600, href: '/' };
-    const tercerElemento = { src: imgDemo, id: 'dae5moaf', alt: 'imagen de fondo', width: 160, height: 190, href: '/' };
-    const cuartoElemento = { src: imgDemo, id: 'daexZ5moaf', alt: 'imagen de fondo', width: 160, height: 190, href: '/' };
-    const quintoElemento = { src: imgDemo, id: 'de5mowaf', alt: 'imagen de fondo', width: 600, height: 600, href: '/' };
 
-
+    const [primerElemento, segundoElemento, tercerElemento, cuartoElemento, quintoElemento] = data;
 
     return (
         <div className={`bentor-container ${reverse ? 'reverse' : ''}`} >
