@@ -1,13 +1,15 @@
+'use client'
 import React from 'react'
 import CardProductoAlana from '@components/cards/ecomerce/CardProductoAlana'
 import { regexUrl } from '@fn/regexUtils'
-interface cardProductoProps {
+
+interface Demo2Props {
 
 }
 
-const cardProducto: React.FC<cardProductoProps> = () => {
+const Demo2: React.FC<Demo2Props> = () => {
     const data = {
-        titulo: "Producto 1",
+        titulo: "Producto 2",
         url: regexUrl("afd adsf"),
         imgs: [
             "https://esprit.vteximg.com.br/arquivos/ids/1370194/34_432F001_GRI180403_0.jpg",
@@ -18,11 +20,13 @@ const cardProducto: React.FC<cardProductoProps> = () => {
         tallas: ["S", "M", "L", "XL"]
     }
 
-    return (<>
-        <CardProductoAlana data={data} />
-        <CardProductoAlana data={data} />
-        <CardProductoAlana data={data} />
-    </>);
+    return (
+        <>
+            <CardProductoAlana data={data} />
+            <CardProductoAlana data={data} />
+            <CardProductoAlana data={data} />
+        </>
+    );
 }
 
-export default cardProducto;
+export default Demo2;
