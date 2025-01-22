@@ -12,12 +12,13 @@ import "./faces/sass/_styleGeneral.scss"
 
 interface LokiLoginProps {
     register?: boolean;
-    reset?: boolean
+    reset?: boolean;
+    social?: boolean;
 }
 
 const LokiLogin: React.FC<LokiLoginProps> = ({
     register = true,
-    reset = true
+    reset = true,
 }) => {
     const [formState, setFormState] = useState("initial");
 
@@ -25,12 +26,19 @@ const LokiLogin: React.FC<LokiLoginProps> = ({
         setFormState(css);
     };
 
+
+
     return (
         <div className={`container-form-loki ${formState}`} id='containerFormLoki'>
             <GoogleReCaptchaProvider reCaptchaKey={RECAPTCHA_KEY}>
                 {reset && <ResetPassWord cardState={cardState} />}
-                <Login cardState={cardState} register={register} reset={reset} />
-                {register && <Register cardState={cardState} />}
+                <Login
+                    cardState={cardState}
+                    register={register}
+                    reset={reset}
+                    social={true}
+                />
+                {register && <Register cardState={cardState} social={true} />}
             </GoogleReCaptchaProvider>
         </div>
     );

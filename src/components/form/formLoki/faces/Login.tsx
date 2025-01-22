@@ -9,15 +9,17 @@ import { BsFillEnvelopeHeartFill } from 'react-icons/bs';
 import { MdLock } from "react-icons/md";
 
 import HeadBtn from "./global/HeadBtn";
+import RedesLogin from './global/RedesLogin';
 
 
 interface LoginProps {
     cardState: (css: string) => void;
     register: boolean;
     reset: boolean;
+    social?: boolean;
 }
 
-const Login: React.FC<LoginProps> = ({ cardState, register, reset }) => {
+const Login: React.FC<LoginProps> = ({ cardState, register, reset, social = false }) => {
 
     const inputRef = useRef({
         email: "",
@@ -61,7 +63,7 @@ const Login: React.FC<LoginProps> = ({ cardState, register, reset }) => {
 
     return (
         <>
-            <div className="login front">
+            <div className={`login front ${social ? "social" : ""}`} id="login">
                 <HeadBtn cardState={cardState} register={register} />
                 <form onSubmit={handleSubmit} >
                     <Input
@@ -86,9 +88,11 @@ const Login: React.FC<LoginProps> = ({ cardState, register, reset }) => {
                         onClick={toogleChecked}
                     />
 
+                    {social && <RedesLogin />}
+
                     <BtnSubmitBasic
                         formData={{
-                            data: inputRef.current,
+                            data: inputRef,
                             check: isChecked
                         }}
                         endpoint="/login"

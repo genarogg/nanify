@@ -32,7 +32,10 @@
       ],
       "@nano": [
         "./src/components/nano/index.tsx"
-      ]
+      ],
+      "@hook/*": [
+        "./src/hook/*"
+      ],
     },
     "outDir": "./dist",
     "declaration": true,
