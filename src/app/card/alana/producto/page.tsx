@@ -22,6 +22,15 @@ const cardProducto: React.FC<cardProductoProps> = () => {
         <CardProductoAlana data={data} />
         <CardProductoAlana data={data} />
         <CardProductoAlana data={data} />
+        <CardProductoAlana data={data} />
+        <CardProductoAlana data={data} />
+        <CardProductoAlana data={data} />
+        <CardProductoAlana data={data} />
+        <CardProductoAlana data={data} />
+        <CardProductoAlana data={data} />
+        <CardProductoAlana data={data} />
+        <CardProductoAlana data={data} />
+        <CardProductoAlana data={data} />
     </>);
 }
 
