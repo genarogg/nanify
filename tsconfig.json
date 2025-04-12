@@ -1,60 +1,7 @@
 {
-  "compilerOptions": {
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "noEmit": false,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true,
-    "tsBuildInfoFile": "./dist/tsconfig.tsbuildinfo",
-    "paths": {
-      "@components/*": [
-        "./src/components/*"
-      ],
-      "@fn/*": [
-        "./src/functions/*"
-      ],
-      "@env": [
-        "./env.ts"
-      ],
-      "@public/*": [
-        "./public/*"
-      ],
-      "@nano": [
-        "./src/components/nano/index.tsx"
-      ],
-      "@hook/*": [
-        "./src/hook/*"
-      ],
-    },
-    "outDir": "./dist",
-    "declaration": true,
-    "declarationDir": "./dist/types",
-    "target": "ES2017",
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ]
-  },
-  "include": [
-    "**/**/*.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    "src/components/swiper/estructura/lib/swiper-gl.min.js"
-  ],
-  "exclude": [
-    "node_modules"
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
   ]
 }
