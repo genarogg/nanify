@@ -1,31 +1,37 @@
 {
-  "files": [],
-  "references": [
-    {
-      "path": "./tsconfig.app.json"
-    },
-    {
-      "path": "./tsconfig.node.json"
-    }
-  ],
   "compilerOptions": {
     "paths": {
-      "@components/*": [
-        "./src/components/*"
-      ],
-      "@fn/*": [
-        "./src/functions/*"
-      ],
-      "@env": [
-        "./env.ts"
-      ],
-      "@public/*": [
-        "./public/*"
-      ],
-      "@nano": [
-        "./src/components/nano/index.tsx"
-      ]
+      "@components/*": ["./src/components/*"],
+      "@fn": ["./src/functions/index.ts"],
+      "@env": ["./env.ts"],
+      "@public/*": ["./public/*"],
+      "@nano": ["./src/components/nano/index.tsx"]
     },
-    "jsx": "react"
-  }
+    "jsx": "react-jsx", 
+    "target": "ES2022",
+    "useDefineForClassFields": true,
+    "lib": [
+      "ES2020",
+      "DOM",
+      "DOM.Iterable",
+      "ES2023"
+    ],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true,
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.combined.tsbuildinfo"
+  },
+  "include": [
+    "src",
+    "vite.config.ts"
+  ]
 }
