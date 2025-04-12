@@ -6,7 +6,7 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<p>hola2</p>} />
+        <Route path="/" element={<p>hola22</p>} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,

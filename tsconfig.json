@@ -1,7 +1,31 @@
 {
   "files": [],
   "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ],
+  "compilerOptions": {
+    "paths": {
+      "@components/*": [
+        "./src/components/*"
+      ],
+      "@fn/*": [
+        "./src/functions/*"
+      ],
+      "@env": [
+        "./env.ts"
+      ],
+      "@public/*": [
+        "./public/*"
+      ],
+      "@nano": [
+        "./src/components/nano/index.tsx"
+      ]
+    },
+    "jsx": "react"
+  }
 }

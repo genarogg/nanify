@@ -1,13 +1,29 @@
 {
-  "name": "nanify-proyect",
-  "private": true,
-  "version": "0.0.0",
+  "name": "nanify",
+  "description": "Un kit de componentes para React basado en TypeScript.",
+  "author": "Genaro Gonzalez",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "license": "MIT",
+  "version": "0.2.48",
   "type": "module",
+  "files": [
+    "src/components",
+    "src/sass",
+    "src/functions",
+    "src/app/api",
+    "env.ts",
+    "fn"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "alias": "node ./fn/aggAlias.js",
+    "upVersion": "node ./fn/upVersion.js",
+    "update:jsx": "node ./fn/updateTsconfig.js",
+    "publicar": "npm run upVersion && npm run update:jsx && npm publish"
   },
   "dependencies": {
     "react": "^19.0.0",
