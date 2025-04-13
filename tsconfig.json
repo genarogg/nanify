@@ -5,7 +5,8 @@
       "@fn": ["./src/functions/index.ts"],
       "@env": ["./env.ts"],
       "@public/*": ["./public/*"],
-      "@nano": ["./src/components/nano/index.tsx"]
+      "@nano": ["./src/components/nano/index.tsx"],
+      "@form": ["./src/components/form/components/index.tsx"],
     },
     "jsx": "react-jsx", 
     "target": "ES2022",

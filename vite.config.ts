@@ -10,7 +10,8 @@ export default defineConfig({
       '@fn': path.resolve(__dirname, './src/functions/index.ts'),
       '@env': path.resolve(__dirname, './env.ts'),
       '@public': path.resolve(__dirname, './public'),
-      '@nano': path.resolve(__dirname, './src/components/nano/index.tsx')
+      '@nano': path.resolve(__dirname, './src/components/nano/index.tsx'),
+      '@form': path.resolve(__dirname, './src/components/form/components/index.tsx')
     }
   }
 })
