@@ -6,7 +6,7 @@ import { $ } from "@fn";
 import { Input } from "@form";
 
 import BtnSubmitBasic from './btn-submit';
-import BtnRowCircle from "@components/btns/animate/btnRowCircle";
+import BtnRowCircle from "@btn/btn-row-circle";
 
 
 interface ResetPassWordProps {
@@ -21,11 +21,6 @@ const ResetPassWord: React.FC<ResetPassWordProps> = ({ cardState }) => {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         inputRef.current = { ...inputRef.current, [name]: value };
-    };
-
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        console.log(inputRef.current);
     };
 
     const active = () => {
@@ -59,7 +54,6 @@ const ResetPassWord: React.FC<ResetPassWordProps> = ({ cardState }) => {
             <form
                 onSubmit={(e) => {
                     e.preventDefault();
-                    handleSubmit(e)
                 }}
             >
                 <Input
@@ -76,7 +70,6 @@ const ResetPassWord: React.FC<ResetPassWordProps> = ({ cardState }) => {
                         data: inputRef.current
                     }}
                     endpoint="/recover"
-                    push="#"
                 >
                     Recuperar cuenta
                 </BtnSubmitBasic>

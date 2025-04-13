@@ -27,11 +27,6 @@ const Register: React.FC<RegisterProps> = ({ cardState, social = false }) => {
         inputRef.current = { ...inputRef.current, [name]: value };
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        console.log(inputRef.current);
-    };
-
     return (
 
         <div className={`register right ${social ? "social" : ""}`} id="register">
@@ -77,7 +72,6 @@ const Register: React.FC<RegisterProps> = ({ cardState, social = false }) => {
                         data: inputRef,
                     }}
                     endpoint="/register"
-                    push="/"
                 >
                     Registrarse
                 </BtnSubmitBasic>

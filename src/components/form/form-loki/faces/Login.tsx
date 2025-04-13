@@ -4,7 +4,7 @@ import { MdLock } from "react-icons/md";
 import { Input, CheckBoxBasic } from "@form";
 import { $ } from "@fn";
 
-import BtnText from '@components/btns/basic/btnText';
+import BtnText from '@components/btns/btn-text';
 
 import BtnSubmitBasic from './btn-submit';
 import HeadBtn from "./global/HeadBtn";
@@ -92,7 +92,6 @@ const Login: React.FC<LoginProps> = ({ cardState, register, reset, social = fals
                             check: isChecked
                         }}
                         endpoint="/login"
-                        push="/"
                     >
                         Iniciar sesión
                     </BtnSubmitBasic>
