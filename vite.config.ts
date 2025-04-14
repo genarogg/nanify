@@ -13,6 +13,7 @@ export default defineConfig({
       '@nano': path.resolve(__dirname, './src/components/nano/index.tsx'),
       '@form': path.resolve(__dirname, './src/components/form/components/index.tsx'),
       "@btn": path.resolve(__dirname, './src/components/btns'),
+      "@slider": path.resolve(__dirname, './src/components/slider'),
     }
   }
 })
