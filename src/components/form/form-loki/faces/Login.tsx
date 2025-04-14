@@ -91,7 +91,7 @@ const Login: React.FC<LoginProps> = ({ cardState, register, reset, social = fals
                             data: inputRef,
                             check: isChecked
                         }}
-                        endpoint="/login"
+                        constext="/login"
                     >
                         Iniciar sesión
                     </BtnSubmitBasic>

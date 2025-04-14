@@ -1,64 +1,182 @@
 import React, { useState } from 'react'
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v4';
+import { print } from 'graphql';
 import { RECAPTCHA_KEY, URL_BACKEND } from "@env";
-import { notify} from "@nano"
+import { notify } from "@nano"
+import { isStrongPassword, isValidEmail } from "@fn"
 import "./_btnSubmitBasic.scss"
+import { useNavigate as useRouter } from 'react-router-dom';
 
-interface BtnSubmitBasicProps<T> {
+
+interface BtnSubmitBasicProps<> {
   children: React.ReactNode;
   className?: string;
   id?: string;
   disable?: boolean;
-  formData: T;
-  endpoint: string;
+  formData: any;
+  constext: string;
 }
 
-const BtnSubmitBasic = <T,>({
+const BtnSubmitBasic = ({
   children,
   className = "",
   id = "",
   formData,
-  endpoint,
-}: BtnSubmitBasicProps<T>) => {
+  constext,
+}: BtnSubmitBasicProps) => {
 
   const [loading, setLoading] = useState(false);
   const { executeRecaptcha } = useGoogleReCaptcha();
+  const router = useRouter();
 
-  let token = "";
+  let rebootToken: string | null;
+  let tokenCaptcha: string;
+  let response: any;
+  let data: any;
+  let queriesConfig: any;
+  const endpoint: string = URL_BACKEND + "/graphql"
 
   const handleSubmit = async () => {
 
+
     if (RECAPTCHA_KEY && executeRecaptcha) {
-      token = await executeRecaptcha("submit");
+      tokenCaptcha = await executeRecaptcha("submit");
     }
 
-    const data = {
-      ...formData,
-      token,
+    rebootToken = localStorage.getItem("reboot-token") || null;
+
+    data = {
+      ...formData.data.current,
+    };
+
+    if (constext === "login") {
+      queriesConfig = {
+        query: null,
+        variables: {
+          email: data.email,
+          password: data.password,
+        }
+      }
     }
 
-    fetch(`${URL_BACKEND}/auth${endpoint}`, {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
+    if (constext === "register") {
+      queriesConfig = {
+        query: null,
+        variables: {
+          name: data.name,
+          apellido: data.apellido,
+          email: data.email,
+          password: data.password,
+          confirmPassword: data.confirmPassword,
+        }
+      }
+    }
 
-        if (data.error) {
-          notify({ type: "error", message: data.message })
-          return;
+    if (constext === "recover-password") {
+      queriesConfig = {
+        query: null,
+        variables: {
+          email: data.email,
+        }
+      }
+    }
+
+    if (constext === "reboot-password") {
+      queriesConfig = {
+        query: null,
+        variables: {
+          password: data.password,
+          confirmPassword: data.confirmPassword,
+          tokenCaptcha,
+          rebootToken
+        }
+      }
+    }
+
+    try {
+      // validaciones
+      if (!data.email && constext !== "reboot-password") {
+        notify({ type: "error", message: "El email es requerido" })
+        return
+      }
+
+      if (!data.password && constext !== "recover-password") {
+        notify({ type: "error", message: "La contraseña es requerida" })
+        return
+      }
+
+      if (constext === "register" || constext === "reboot-password") {
+
+        if (!data.confirmPassword) {
+          notify({ type: "error", message: "La confirmación de la contraseña es requerida" })
+          return
         }
 
-        localStorage.setItem("token", data.token);
+        if (data.password !== data.confirmPassword) {
+          notify({ type: "error", message: "Las contraseñas no coinciden" })
+          return
+        }
 
-        notify({ type: "success", message: data.message })
+        if (!isStrongPassword(data.password)) {
+          notify({ type: "warning", message: "La contraseña debe tener al menos 8 caracteres, incluir letras, números y al menos un símbolo" })
+          return
+        }
+      }
 
-      })
-      .catch((error) => console.error(error)
-      ).finally(() => setLoading(false));
+      if (constext === "register") {
+
+        if (!isValidEmail(data.email)) {
+          notify({ type: "error", message: "El email no es válido" })
+          return
+        }
+
+        if (!data.name) {
+          notify({ type: "error", message: "El nombre es requerido" })
+          return
+        }
+
+        if (!data.apellido) {
+          notify({ type: "error", message: "El apellido es requerido" })
+          return
+        }
+      }
+
+      response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: print(queriesConfig.query),
+          variables: queriesConfig.variables,
+        }),
+      });
+
+      if (!response) {
+        notify({ type: "error", message: "Error al enviar la solicitud" });
+        return;
+      }
+
+      const responseData = await response.json();
+
+      const { data: datos, type, message } = responseData;
+
+      notify({ type, message });
+      
+      console.log(datos)
+
+      router("/dashboard");
+
+      return
+
+    }
+    catch (error) {
+      console.error("Error en las validaciones", error)
+    }
+    finally {
+      setLoading(false)
+    }
+
   }
 
   return (

@@ -71,7 +71,7 @@ const Register: React.FC<RegisterProps> = ({ cardState, social = false }) => {
                     formData={{
                         data: inputRef,
                     }}
-                    endpoint="/register"
+                    constext="/register"
                 >
                     Registrarse
                 </BtnSubmitBasic>
