@@ -1,23 +1,14 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
-import Gravatar from '@components/gravatar';
-
-
-const Demo = () => {
-  return (
-    <div>
-      <Gravatar email='genarrogg@gmail.com' alt='hola' />
-    </div>
-  );
-}
+import "./style.css"
+import Gravatar from '@view/gravatar/page';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Demo></Demo>} />
+        <Route path="/gravatar" element={<Gravatar />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,

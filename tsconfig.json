@@ -9,6 +9,7 @@
       "@form": ["./src/components/form/components/index.tsx"],
       "@btn/*": ["./src/components/btns/*"],
       "@slider/*": ["./src/components/slider/*"],
+      "@view/*": ["./src/pages/*"],
     },
     "jsx": "react-jsx", 
     "target": "ES2022",
