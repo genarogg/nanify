@@ -1,11 +1,17 @@
 @use "/src/sass/global/mixin" as fn;
 @use "/src/sass/global/variables" as var;
 
+@supports (-moz-appearance: none) {
+    .container-form-loki {
+        backface-visibility: hidden;
+    }
+}
+
 /* Logica para voltear la tarjeta */
 
 .container-form-loki {
     @include fn.center-x;
-    height: 570px;
+    height: 630px;
     position: relative;
     transform: rotateY(0deg);
     transform-style: preserve-3d;
@@ -33,7 +39,7 @@
             z-index: 4;
 
             &.social {
-                @include fn.height(600px);
+                @include fn.height(630px);
             }
         }
     }
@@ -108,12 +114,12 @@
     }
 
     .front {
-        @include fn.height(450px);
+        @include fn.height(480px);
         position: absolute;
         backface-visibility: hidden;
 
         &.social {
-            @include fn.height(500px);
+            @include fn.height(530px);
         }
     }
 
@@ -145,7 +151,7 @@
     form {
         @include fn.center-x;
         display: grid;
-        gap: 30px;
+        gap: 35px;
         grid-template-columns: 1fr;
     }
 }

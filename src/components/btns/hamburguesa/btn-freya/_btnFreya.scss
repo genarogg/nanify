@@ -1,10 +1,16 @@
 @use "/src/sass/global/variables" as var;
 
-.btn-freya span {
-    color: var.$color-secondary;
-    display: block;
-    border-top: 0.125rem solid;
-    width: 20px;
+.btn-freya {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    
+    span {
+        color: var.$color-secondary;
+        display: block;
+        border-top: 0.125rem solid;
+        width: 20px;
+    }
 }
 
 .btn-freya span::after,

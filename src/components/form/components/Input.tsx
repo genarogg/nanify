@@ -93,7 +93,7 @@ const Input: React.FC<InputProps> = ({
                 onChange={handleChange}
                 {...(min ? { min } : {})}
                 {...(max ? { max } : {})}
-                placeholder={placeholder}
+                // placeholder={placeholder}
             />
 
             {/* mostrar el password */}
