@@ -36,6 +36,7 @@
   },
   "include": [
     "src",
-    "vite.config.ts"
+    "vite.config.ts",
+    "src/types/declarations.d.ts"
   ]
 }
