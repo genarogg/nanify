@@ -24,14 +24,16 @@ const SliderBackground: React.FC<SliderBackgroundProps> = ({ data }) => {
                         />
                         <div className="containerInfo" key={index}>
                             <div className="content center">
-                                <h2>{element.info.title}</h2>
-                                <p>{element.info.description}</p>
-                                <BtnNormalBasic className="btnNormalBasic" >
-                                    <A href={element.info.btn.link}>
-                                        {element.info.btn.text}
-                                        <Icon icon={<IoIosArrowForward />} />
-                                    </A>
-                                </BtnNormalBasic>
+                                <h2 className="slide-title">{element.info.title}</h2>
+                                <p className="slide-description">{element.info.description}</p>
+                                <div className="button-wrapper">
+                                    <BtnNormalBasic className="btnNormalBasic">
+                                        <A href={element.info.btn.link} className="button-link">
+                                            <span>{element.info.btn.text}</span>
+                                            <Icon icon={<IoIosArrowForward className="arrow-icon" />} />
+                                        </A>
+                                    </BtnNormalBasic>
+                                </div>
                             </div>
                         </div>
                     </SwiperSlide>
