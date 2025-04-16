@@ -18,7 +18,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
+    "start": "vite preview",
     "alias": "node ./fn/aggAlias.js",
     "upVersion": "node ./fn/upVersion.js",
     "update:jsx": "node ./fn/updateTsconfig.js",
