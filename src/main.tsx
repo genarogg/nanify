@@ -4,6 +4,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import "./sass/style.scss"
 
+import Home from "@view/home/page";
+
 import Gravatar from '@view/gravatar/page';
 import Nano from "@view/nono/page"
 
@@ -17,8 +19,11 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<Home />} />
+        
         <Route path="/gravatar" element={<Gravatar />} />
         <Route path="/nano" element={<Nano />} />
+        
         <Route path="/btns/hamburguesa" element={<Hamburger />} />
         <Route path="/btns/basico" element={<BtnBasico />} />
 
