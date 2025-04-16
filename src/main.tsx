@@ -14,6 +14,8 @@ import BtnBasico from "@view/btns/basico/page"
 
 import FormLoki from "@view/form/form-loki/page"
 
+import SliderBG from "@view/slider/background/page";
+
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -28,6 +30,8 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/btns/basico" element={<BtnBasico />} />
 
         <Route path="/form/form-loki" element={<FormLoki />} />
+
+        <Route path="/slider/background" element={<SliderBG />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,

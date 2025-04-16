@@ -33,6 +33,7 @@
     "graphql": "^16.10.0",
     "lucide-react": "^0.488.0",
     "motion": "^12.7.2",
+    "ogl": "^1.0.11",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-google-recaptcha-v4": "^2.0.1",
@@ -44,6 +45,7 @@
     "react-router-dom": "^7.5.0",
     "react-toastify": "^11.0.5",
     "sass": "^1.86.3",
+    "simplex-noise": "^4.0.3",
     "swiper": "^11.2.6"
   },
   "devDependencies": {
