@@ -28,6 +28,7 @@
     "@nano": "node ./node_modules/nanify/fn/moveComponents.js"
   },
   "dependencies": {
+    "@tippyjs/react": "^4.2.6",
     "algoliasearch": "^5.23.3",
     "crypto-js": "^4.2.0",
     "graphql": "^16.10.0",

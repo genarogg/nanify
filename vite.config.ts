@@ -15,6 +15,7 @@ export default defineConfig({
       '@btn': path.resolve(__dirname, './src/components/btns'),
       '@slider': path.resolve(__dirname, './src/components/slider'),
       '@view': path.resolve(__dirname, './src/pages'),
+      '@tooltip': path.resolve(__dirname, './src/components/tooltip'),
     }
   }
 })

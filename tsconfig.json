@@ -10,6 +10,8 @@
       "@btn/*": ["./src/components/btns/*"],
       "@slider/*": ["./src/components/slider/*"],
       "@view/*": ["./src/pages/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@tooltip": ["./src/components/tooltip/index.tsx"],
     },
     "jsx": "react-jsx", 
     "target": "ES2022",
