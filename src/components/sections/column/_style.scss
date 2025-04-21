@@ -1,0 +1,14 @@
+.two-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+    gap: 120px;
+    padding: 20px 30px;
+
+    .box {
+        padding: 10px 20px;
+        border-radius: 10px;
+        max-width: 660px;
+    }
+}
