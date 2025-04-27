@@ -1,7 +1,7 @@
 
 "use client";
 
-import SliderBackground from '@components/slider/swiper/sliderBackgroud';
+import SliderBackground from '@components/slider/swiper/slider-background';
 
 // @ts-ignore
 import img1 from "/img/wallpaper/demo-1.jpg";
