@@ -53,7 +53,7 @@ const BtnSubmitBasic = ({
       queriesConfig = {
         query: null,
         variables: {
-          email: data.email,
+          email: data.email.toLowerCase(),
           password: data.password,
         }
       }
@@ -65,7 +65,7 @@ const BtnSubmitBasic = ({
         variables: {
           name: data.name,
           apellido: data.apellido,
-          email: data.email,
+          email: data.email.toLowerCase(),
           password: data.password,
           confirmPassword: data.confirmPassword,
         }
@@ -76,7 +76,7 @@ const BtnSubmitBasic = ({
       queriesConfig = {
         query: null,
         variables: {
-          email: data.email,
+          email: data.email.toLowerCase(),
         }
       }
     }
@@ -162,7 +162,7 @@ const BtnSubmitBasic = ({
       const { data: datos, type, message } = responseData;
 
       notify({ type, message });
-      
+
       console.log(datos)
 
       router("/dashboard");
