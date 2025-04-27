@@ -20,6 +20,8 @@ import CardProductoAlana from '@view/card/alana-ecomerce/page';
 
 import MainContent from '@components/sections/dinamicSection/index';
 
+import Youtube from '@view/youtube/page';
+
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -40,6 +42,8 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/card/alana-ecomerce" element={<CardProductoAlana />} />
         
         <Route path="/section/dinamicSection" element={<MainContent />} />
+
+        <Route path="/youtube" element={<Youtube />} />
 
       </Routes>
     </BrowserRouter>
