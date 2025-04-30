@@ -1,14 +1,43 @@
 .two-column {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    justify-items: center;
-    align-items: center;
-    gap: 120px;
-    padding: 20px 30px;
+    gap: 16px;
+    margin: 16px 0;
+
+
+    .simple-title {
+        grid-column: span 2;
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 16px;
+    }
 
     .box {
-        padding: 10px 20px;
-        border-radius: 10px;
-        max-width: 660px;
+        padding: 16px;
+        box-sizing: border-box;
+
+        &.left {
+            background-color: #f0f0f0;
+        }
+
+        &.right {
+            background-color: #e0e0e0;
+        }
+
+        // Orden dinámico
+        &.order-1 {
+            order: 1;
+        }
+
+        &.order-2 {
+            order: 2;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .two-column {
+        grid-template-columns: 1fr;
     }
 }
