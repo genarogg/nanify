@@ -1,50 +1,58 @@
 'use client';
 import React from 'react';
 
-import SimpleTitle from "@secctions/simple-title";
+import SimpleTitle from "@sections/simple-title";
 import "./_style.scss";
 
 interface ThreeColumnsProps {
-    left: React.ReactNode;
-    center: React.ReactNode;
-    right: React.ReactNode;
+    left?: React.ReactNode;
+    centerLeft?: React.ReactNode;
+    centerRight?: React.ReactNode;
+    right?: React.ReactNode;
     className?: string;
     leftClassName?: string;
-    centerClassName?: string;
+    centerLeftClassName?: string;
+    centerRightClassName?: string;
     rightClassName?: string;
     id?: string;
-    titleSection?: string;
+    title?: string;
     titleId?: string;
     titleClassName?: string;
 }
 
 const ThreeColumns: React.FC<ThreeColumnsProps> = ({
     left,
-    center,
+
     right,
     className = "",
     leftClassName = "",
-    centerClassName = "",
+    centerLeft,
+    centerLeftClassName = "",
+    centerRight,
+    centerRightClassName = "",
     rightClassName = "",
     id = "",
-    titleSection,
+    title,
     titleId,
     titleClassName,
 }) => {
     return (
-        <div className={`column-layout three-columns ${className}`} id={id}>
-            {titleSection && (
+        <div className={`column-layout three-column ${className}`} id={id}>
+            {title && (
                 <SimpleTitle
-                    titulo={titleSection}
+                    titulo={title}
                     id={titleId}
-                    className={`simple-title three-columns-title ${titleClassName}`}
+                    className={`simple-title ${titleClassName}`}
                 />
             )}
             <div className={`box left ${leftClassName}`}>
                 {left}
             </div>
-            <div className={`box center ${centerClassName}`}>
-                {center}
+            <div className={`box center-left ${centerLeftClassName}`}>
+                {centerLeft}
+            </div>
+            <div className={`box center-right ${centerRightClassName}`}>
+                {centerRight}
             </div>
             <div className={`box right ${rightClassName}`}>
                 {right}

@@ -12,7 +12,7 @@
       "@view/*": ["./src/pages/*"],
       "@hooks/*": ["./src/hooks/*"],
       "@tooltip": ["./src/components/tooltip/index.tsx"],
-      "@secctions/*": ["./src/components/sections/*"],
+      "@sections/*": ["./src/components/sections/*"],
     },
     "jsx": "react-jsx", 
     "target": "ES2022",

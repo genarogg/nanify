@@ -12,7 +12,10 @@ interface YoutubeProps {
 
 const Youtube: React.FC<YoutubeProps> = () => {
     return (
-        <YoutubeLite videoId='GyRq69v-NfA' posterImage="/img/nanify.webp"></YoutubeLite>
+        <YoutubeLite
+            videoId='GyRq69v-NfA'
+            posterImage="/img/nanify.webp"
+        />
     );
 }
 

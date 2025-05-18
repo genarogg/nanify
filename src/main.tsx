@@ -22,6 +22,8 @@ import MainContent from '@components/sections/dinamicSection/index';
 
 import Youtube from '@view/youtube/page';
 
+import ThreeColumns from '@view/three-colunm/page';
+
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -40,10 +42,14 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/slider/background" element={<SliderBG />} />
 
         <Route path="/card/alana-ecomerce" element={<CardProductoAlana />} />
-        
+
         <Route path="/section/dinamicSection" element={<MainContent />} />
 
         <Route path="/youtube" element={<Youtube />} />
+
+        <Route path="/columns/three" element={<ThreeColumns />} />
+
+        {/* <Route path="/card/alana-ecomerce" element={<CardProductoAlana />} /> */}
 
       </Routes>
     </BrowserRouter>
