@@ -26,6 +26,8 @@ import ThreeColumns from '@view/three-colunm/page';
 
 import TwoColumns from '@view/two-colunm/page';
 
+import LayoutExample from '@view/layout-example/page';
+
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -52,6 +54,8 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/columns/three" element={<ThreeColumns />} />
 
         <Route path="/columns/two" element={<TwoColumns />} />
+
+        <Route path="/layout/example" element={<LayoutExample />} />
 
         {/* <Route path="/card/alana-ecomerce" element={<CardProductoAlana />} /> */}
 
