@@ -24,6 +24,8 @@ import Youtube from '@view/youtube/page';
 
 import ThreeColumns from '@view/three-colunm/page';
 
+import TwoColumns from '@view/two-colunm/page';
+
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -48,6 +50,8 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/youtube" element={<Youtube />} />
 
         <Route path="/columns/three" element={<ThreeColumns />} />
+
+        <Route path="/columns/two" element={<TwoColumns />} />
 
         {/* <Route path="/card/alana-ecomerce" element={<CardProductoAlana />} /> */}
 

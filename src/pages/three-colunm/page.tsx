@@ -7,13 +7,19 @@ interface pageProps {
 }
 
 const page: React.FC<pageProps> = () => {
+
+    const left = <div>Left</div>;
+    const centerLeft = <div>Center Left</div>;
+    const centerRight = <div>Center Right</div>;
+    const right = <div>Right</div>;
+
     return (
         <ThreeColumns
             title="Nanify three columns"
-            left={<div>Left</div>}
-            centerLeft={<div>Center Left</div>}
-            centerRight={<div>Center Right</div>}
-            right={<div>Right</div>}
+            left={left}
+            centerLeft={centerLeft}
+            centerRight={centerRight}
+            right={right}
             className="three-columns"
             leftClassName="left-column"
             centerLeftClassName="center-left-column"

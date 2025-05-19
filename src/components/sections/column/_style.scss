@@ -1,5 +1,4 @@
-.two-column,
-.three-column {
+.column-layout {
     display: grid;
     // gap: 16px;
     // margin: 16px 0;
@@ -29,7 +28,7 @@
 
         &.right {
             background-color: #e0e0e0;
-            display: none;
+
         }
     }
 }
@@ -40,11 +39,31 @@
     .simple-title {
         grid-column: span 2;
     }
+
+
 }
 
-@media (max-width: 768px) {
+@media screen and (min-width: 768px) {
+    .two-column.reorder {
+        .box {
+            &:nth-child(1) {
+                order: 2;
+            }
+
+            &:nth-child(2) {
+                order: 1;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
     .two-column {
         grid-template-columns: 1fr;
+
+        .simple-title {
+            grid-column: span 1;
+        }
     }
 }
 
@@ -53,6 +72,10 @@
 
     .simple-title {
         grid-column: span 3;
+    }
+
+    .box.right {
+        display: none;
     }
 }
 
