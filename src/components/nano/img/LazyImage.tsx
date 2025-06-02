@@ -1,5 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 
+interface ResponsiveBreakpoint {
+    minWidth?: number;
+    maxWidth?: number;
+    width?: number;
+    height?: number;
+    aspectRatio?: number;
+}
+
 interface LazyImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
     src: string;
     alt?: string;
@@ -7,7 +15,12 @@ interface LazyImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
     className?: string;
     width?: number;
     height?: number;
-    aspectRatio?: number; // Nueva prop para relación de aspecto
+    aspectRatio?: number;
+    // Nuevas props para responsividad
+    responsive?: boolean;
+    maxWidth?: string | number;
+    breakpoints?: ResponsiveBreakpoint[];
+    objectFit?: 'cover' | 'contain' | 'fill' | 'none' | 'scale-down';
 }
 
 const LazyImage: React.FC<LazyImageProps> = ({
@@ -18,23 +31,39 @@ const LazyImage: React.FC<LazyImageProps> = ({
     width = 300,
     height,
     aspectRatio,
+    responsive = true,
+    maxWidth = '100%',
+    breakpoints = [],
+    objectFit = 'cover',
     ...props
 }) => {
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
     const [isInView, setIsInView] = useState<boolean>(false);
-    const [imgSrc, setImgSrc] = useState<string | null | any>(blurDataURL || null);
+    const [imgSrc, setImgSrc] = useState<string | any>(blurDataURL || null);
     const [dimensions, setDimensions] = useState<{ width: number; height: number }>({
         width,
-        height: height || width * (aspectRatio ? 1 / aspectRatio : 2 / 3) // Default 3:2 aspect ratio
+        height: height || width * (aspectRatio ? 1 / aspectRatio : 2 / 3)
     });
+
     const imgRef = useRef<HTMLDivElement>(null);
+
+    // Función para obtener el breakpoint actual
+    const getCurrentBreakpoint = (): ResponsiveBreakpoint | null => {
+        if (breakpoints.length === 0) return null;
+
+        const windowWidth = window.innerWidth;
+        return breakpoints.find(bp => {
+            const minMatch = !bp.minWidth || windowWidth >= bp.minWidth;
+            const maxMatch = !bp.maxWidth || windowWidth <= bp.maxWidth;
+            return minMatch && maxMatch;
+        }) || null;
+    };
 
     // Función para calcular dimensiones manteniendo proporción
     const calculateDimensions = (imgWidth: number, imgHeight: number, maxWidth: number, maxHeight?: number) => {
         const imgAspectRatio = imgWidth / imgHeight;
 
         if (maxHeight) {
-            // Si se proporciona tanto width como height, usar el que produzca una imagen más pequeña
             const widthBasedHeight = maxWidth / imgAspectRatio;
             const heightBasedWidth = maxHeight * imgAspectRatio;
 
@@ -44,11 +73,25 @@ const LazyImage: React.FC<LazyImageProps> = ({
                 return { width: heightBasedWidth, height: maxHeight };
             }
         } else {
-            // Solo width proporcionado, calcular height basado en la proporción de la imagen
             return { width: maxWidth, height: maxWidth / imgAspectRatio };
         }
     };
 
+    // Función para actualizar dimensiones según breakpoint
+    const updateDimensionsForBreakpoint = () => {
+        const breakpoint = getCurrentBreakpoint();
+
+        if (breakpoint) {
+            const newWidth = breakpoint.width || width;
+            const newHeight = breakpoint.height || (newWidth * (breakpoint.aspectRatio ? 1 / breakpoint.aspectRatio : (aspectRatio ? 1 / aspectRatio : 2 / 3)));
+            setDimensions({ width: newWidth, height: newHeight });
+        } else if (!isLoaded) {
+            const initialHeight = height || width * (aspectRatio ? 1 / aspectRatio : 2 / 3);
+            setDimensions({ width, height: initialHeight });
+        }
+    };
+
+    // Intersection Observer
     useEffect(() => {
         const observer = new IntersectionObserver(
             ([entry]) => {
@@ -70,27 +113,44 @@ const LazyImage: React.FC<LazyImageProps> = ({
         return () => observer.disconnect();
     }, []);
 
+    // Cargar imagen cuando está en vista
     useEffect(() => {
         if (isInView && src) {
             const img = new Image();
             img.onload = () => {
-                // Calcular dimensiones reales basadas en la imagen cargada
-                const newDimensions = calculateDimensions(img.naturalWidth, img.naturalHeight, width, height);
+                const currentBp = getCurrentBreakpoint();
+                const targetWidth = currentBp?.width || width;
+                const targetHeight = currentBp?.height || height;
+
+                const newDimensions = calculateDimensions(img.naturalWidth, img.naturalHeight, targetWidth, targetHeight);
                 setDimensions(newDimensions);
                 setImgSrc(src);
                 setIsLoaded(true);
             };
             img.onerror = () => {
-                // En caso de error, mantener dimensiones por defecto
                 console.error('Error loading image:', src);
             };
             img.src = src;
         }
     }, [isInView, src, width, height]);
 
-    // Actualizar dimensiones iniciales si cambian las props
+    // Listener para cambios de tamaño de ventana
     useEffect(() => {
-        if (!isLoaded) {
+        if (breakpoints.length > 0) {
+            const handleResize = () => {
+                updateDimensionsForBreakpoint();
+            };
+
+            window.addEventListener('resize', handleResize);
+            updateDimensionsForBreakpoint(); // Llamar inmediatamente
+
+            return () => window.removeEventListener('resize', handleResize);
+        }
+    }, [breakpoints, width, height, aspectRatio]);
+
+    // Actualizar dimensiones iniciales
+    useEffect(() => {
+        if (!isLoaded && breakpoints.length === 0) {
             const initialHeight = height || width * (aspectRatio ? 1 / aspectRatio : 2 / 3);
             setDimensions({ width, height: initialHeight });
         }
@@ -99,7 +159,10 @@ const LazyImage: React.FC<LazyImageProps> = ({
     const Skeleton: React.FC = () => (
         <div
             className="lazy-image__skeleton"
-            style={{ width: dimensions.width, height: dimensions.height }}
+            style={{
+                width: responsive ? '100%' : dimensions.width,
+                height: responsive ? '100%' : dimensions.height
+            }}
         >
             <div className="lazy-image__skeleton-content">
                 <svg
@@ -117,6 +180,17 @@ const LazyImage: React.FC<LazyImageProps> = ({
         </div>
     );
 
+    // Estilos del contenedor
+    const containerStyle: React.CSSProperties = responsive ? {
+        width: maxWidth,
+        maxWidth: '100%',
+        aspectRatio: aspectRatio ? `${aspectRatio}` : undefined,
+        height: aspectRatio ? 'auto' : dimensions.height,
+    } : {
+        width: dimensions.width,
+        height: dimensions.height,
+    };
+
     return (
         <>
             <style>{`
@@ -126,10 +200,21 @@ const LazyImage: React.FC<LazyImageProps> = ({
           display: inline-block;
         }
 
+        .lazy-image--responsive {
+          display: block;
+          width: 100%;
+        }
+
         .lazy-image__skeleton {
           background-color: #d1d5db;
           border-radius: 8px;
           animation: skeleton-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+          transition: opacity 3s ease-in-out;
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
         }
 
         .lazy-image__skeleton-content {
@@ -148,8 +233,9 @@ const LazyImage: React.FC<LazyImageProps> = ({
         .lazy-image__img {
           width: 100%;
           height: 100%;
-          object-fit: cover;
+          object-fit: ${objectFit};
           transition: opacity 3s ease-in-out, filter 3s ease-in-out, transform 3s ease-in-out;
+          display: block;
         }
 
         .lazy-image__img--loaded {
@@ -166,13 +252,6 @@ const LazyImage: React.FC<LazyImageProps> = ({
 
         .lazy-image__img--hidden {
           opacity: 0;
-        }
-
-        .lazy-image__skeleton {
-          background-color: #d1d5db;
-          border-radius: 8px;
-          animation: skeleton-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-          transition: opacity 3s ease-in-out;
         }
 
         .lazy-image__skeleton--fade-out {
@@ -202,42 +281,47 @@ const LazyImage: React.FC<LazyImageProps> = ({
           }
         }
 
-        /* Responsive */
+        /* Responsive breakpoints */
         @media (max-width: 768px) {
           .lazy-image__skeleton-icon {
             width: 24px;
             height: 24px;
           }
         }
+
+        @media (max-width: 480px) {
+          .lazy-image__skeleton-icon {
+            width: 20px;
+            height: 20px;
+          }
+        }
       `}</style>
 
             <div
                 ref={imgRef}
-                className={`lazy-image ${className}`}
-                style={{ width: dimensions.width, height: dimensions.height }}
+                className={`lazy-image ${responsive ? 'lazy-image--responsive' : ''} ${className}`}
+                style={containerStyle}
             >
-                {/* Skeleton - solo se muestra si no hay blurDataURL */}
+                {/* Skeleton */}
                 {!isInView && !blurDataURL && <Skeleton />}
-
-                {/* Skeleton que aparece incluso con imagen cargada y hace fade out */}
                 {isInView && !blurDataURL && !isLoaded && <Skeleton />}
 
-                {/* Imagen con blur o imagen real */}
+                {/* Imagen */}
                 {(imgSrc || blurDataURL) && (
                     <img
                         src={imgSrc}
                         alt={alt}
                         className={`lazy-image__img ${isLoaded
-                                ? 'lazy-image__img--loaded'
-                                : blurDataURL
-                                    ? 'lazy-image__img--blur'
-                                    : 'lazy-image__img--hidden'
+                            ? 'lazy-image__img--loaded'
+                            : blurDataURL
+                                ? 'lazy-image__img--blur'
+                                : 'lazy-image__img--hidden'
                             }`}
                         {...props}
                     />
                 )}
 
-                {/* Overlay para suavizar la transición del blur */}
+                {/* Overlay para transición de blur */}
                 {blurDataURL && !isLoaded && (
                     <div className={`lazy-image__overlay ${isLoaded ? 'lazy-image__overlay--fade-out' : ''}`} />
                 )}

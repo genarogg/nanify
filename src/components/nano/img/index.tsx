@@ -2,7 +2,15 @@ import React, { ReactNode } from 'react';
 import LazyImage from './LazyImage';
 import LazyBackgroundImage from './LazyBackgroundImage';
 
-// Unión de las props de ambos componentes
+interface ResponsiveBreakpoint {
+    minWidth?: number;
+    maxWidth?: number;
+    width?: number;
+    height?: number;
+    aspectRatio?: number;
+}
+
+// Unión de las props de ambos componentes con funcionalidad responsiva
 interface SmartLazyImageProps {
     src: string;
     alt?: string;
@@ -17,6 +25,11 @@ interface SmartLazyImageProps {
     backgroundPosition?: string;
     backgroundRepeat?: 'no-repeat' | 'repeat' | 'repeat-x' | 'repeat-y';
     style?: React.CSSProperties;
+    // Props responsivas
+    responsive?: boolean;
+    maxWidth?: string | number;
+    breakpoints?: ResponsiveBreakpoint[];
+    objectFit?: 'cover' | 'contain' | 'fill' | 'none' | 'scale-down';
     // Props adicionales de img para LazyImage
     [key: string]: any;
 }
@@ -27,6 +40,10 @@ const SmartLazyImage: React.FC<SmartLazyImageProps> = ({
     backgroundPosition,
     backgroundRepeat,
     style,
+    responsive = true,
+    maxWidth = '100%',
+    breakpoints = [],
+    objectFit = 'cover',
     ...props
 }) => {
     // Si tiene children, usar LazyBackgroundImage
@@ -38,6 +55,9 @@ const SmartLazyImage: React.FC<SmartLazyImageProps> = ({
                 backgroundPosition={backgroundPosition}
                 backgroundRepeat={backgroundRepeat}
                 style={style}
+                responsive={responsive}
+                maxWidth={maxWidth}
+                breakpoints={breakpoints}
             >
                 {children}
             </LazyBackgroundImage>
@@ -54,7 +74,15 @@ const SmartLazyImage: React.FC<SmartLazyImageProps> = ({
         ...lazyImageProps
     } = props;
 
-    return <LazyImage {...lazyImageProps} />;
+    return (
+        <LazyImage 
+            {...lazyImageProps} 
+            responsive={responsive}
+            maxWidth={maxWidth}
+            breakpoints={breakpoints}
+            objectFit={objectFit}
+        />
+    );
 };
 
 // Exportar el componente inteligente como default
@@ -65,6 +93,4 @@ export { default as LazyImage } from './LazyImage';
 export { default as LazyBackgroundImage } from './LazyBackgroundImage';
 
 // Exportar tipos
-export type { SmartLazyImageProps };
-export type { default as LazyImageProps } from './LazyImage';
-export type { default as LazyBackgroundImageProps } from './LazyBackgroundImage';
+export type { SmartLazyImageProps, ResponsiveBreakpoint };
