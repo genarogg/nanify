@@ -51,19 +51,19 @@
         }
 
         25% {
-            border-color: transparent #fff transparent transparent;
+            border-color: transparent #63459b transparent transparent;
         }
 
         50% {
-            border-color: transparent #fff #fff transparent;
+            border-color: transparent #63459b #63459b transparent;
         }
 
         75% {
-            border-color: transparent #fff #fff;
+            border-color: transparent #63459b #63459b;
         }
 
         to {
-            border-color: #fff;
+            border-color: #63459b;
             transform: rotate(-700deg);
         }
     }

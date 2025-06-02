@@ -4,33 +4,33 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import "./sass/style.scss"
 
-import Home from "@view/home/page";
+import Home from "./docs/home/page";
 
-import Gravatar from '@view/gravatar/page';
+import Gravatar from './docs/gravatar/page';
 
-import Nano from "@view/nono/page"
+import Nano from "./docs/nono/page"
 
-import Hamburger from "@view/btns/hamburguesa/page"
+import Hamburger from "./docs/btns/hamburguesa/page"
 
-import BtnBasico from "@view/btns/basico/page"
+import BtnBasico from "./docs/btns/basico/page"
 
-import FormLoki from "@view/form/form-loki/page"
+import FormLoki from "./docs/form/form-loki/page"
 
-import SliderBG from "@view/slider/background/page";
+import SliderBG from "./docs/slider/background/page";
 
-import CardProductoAlana from '@view/card/alana-ecomerce/page';
+import CardProductoAlana from './docs/card/alana-ecomerce/page';
 
 import MainContent from '@components/sections/dinamicSection/index';
 
-import Youtube from '@view/youtube/page';
+import Youtube from './docs/youtube/page';
 
-import ThreeColumns from '@view/three-colunm/page';
+import ThreeColumns from './docs/three-colunm/page';
 
-import TwoColumns from '@view/two-colunm/page';
+import TwoColumns from './docs/two-colunm/page';
 
-import LayoutExample from '@view/layout-example/page';
+import LayoutExample from './docs/layout-example/page';
 
-import Img from "@view/img/page";
+import Img from "./docs/img/page";
 
 
 

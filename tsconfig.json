@@ -9,7 +9,7 @@
       "@form": ["./src/components/form/components/index.tsx"],
       "@btn/*": ["./src/components/btns/*"],
       "@slider/*": ["./src/components/slider/*"],
-      "@view/*": ["./src/pages/*"],
+      "@view/*": ["src/docs/*"],
       "@hooks/*": ["./src/hooks/*"],
       "@tooltip": ["./src/components/tooltip/index.tsx"],
       "@sections/*": ["./src/components/sections/*"],

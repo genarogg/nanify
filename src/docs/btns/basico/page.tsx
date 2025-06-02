@@ -1,10 +1,12 @@
 "use client"
 
-import React from "react"
+import type React from "react"
 
 import BtnNormalBasic from "@components/btns/btn-normal-basic"
 import BtnText from "@components/btns/btn-text"
 import "./styles.css"
+import BtnRowCircle from "@components/btns/btn-row-circle"
+import BtnExpansion from "@components/btns/expansion"
 
 type DocumentationProps = {}
 
@@ -61,7 +63,6 @@ const Documentation: React.FC<DocumentationProps> = () => {
           </div>
         </div>
 
-
         {/* BtnNormalBasic Component */}
         <div className="component-card">
           <h3 className="component-title">BtnNormalBasic</h3>
@@ -91,6 +92,93 @@ const Documentation: React.FC<DocumentationProps> = () => {
               <li>
                 El componente <code className="inline-code">BtnNormalBasic</code> se utiliza para mostrar un botón
                 normal.
+              </li>
+              <li>Props:</li>
+              <ul className="props-list nested-list">
+                <li>
+                  <span className="props-name">onClick</span>: Función que se ejecutará al hacer clic en el botón.
+                </li>
+                <li>
+                  <span className="props-name">children</span>: Contenido del botón.
+                </li>
+              </ul>
+            </ul>
+          </div>
+        </div>
+
+        {/* BtnRowCircle Component */}
+        <div className="component-card">
+          <h3 className="component-title">BtnRowCircle</h3>
+          <p className="component-description">Componente BtnRowCircle</p>
+
+          <div className="component-preview">
+            <BtnRowCircle
+              className="active"
+              onClick={() => {
+                console.log("Row Circle")
+              }}
+            />
+
+
+          </div>
+
+          <div className="usage-section">
+            <p className="usage-title">Uso del componente:</p>
+            <div className="code-block">
+              <code className="code-text">
+                {'<BtnRowCircle onClick={() => { console.log("Row Circle") }} >Botón Circular</BtnRowCircle>'}
+              </code>
+            </div>
+          </div>
+
+          <div className="description-section">
+            <ul className="props-list">
+              <li>
+                El componente <code className="inline-code">BtnRowCircle</code> se utiliza para mostrar un botón con
+                estilo circular.
+              </li>
+              <li>Props:</li>
+              <ul className="props-list nested-list">
+                <li>
+                  <span className="props-name">onClick</span>: Función que se ejecutará al hacer clic en el botón.
+                </li>
+                <li>
+                  <span className="props-name">children</span>: Contenido del botón.
+                </li>
+              </ul>
+            </ul>
+          </div>
+        </div>
+
+        {/* BtnExpansion Component */}
+        <div className="component-card">
+          <h3 className="component-title">BtnExpansion</h3>
+          <p className="component-description">Componente BtnExpansion</p>
+
+          <div className="component-preview">
+            <BtnExpansion
+              onClick={() => {
+                console.log("Expansion")
+              }}
+            >
+              Botón Expansión
+            </BtnExpansion>
+          </div>
+
+          <div className="usage-section">
+            <p className="usage-title">Uso del componente:</p>
+            <div className="code-block">
+              <code className="code-text">
+                {'<BtnExpansion onClick={() => { console.log("Expansion") }} >Botón Expansión</BtnExpansion>'}
+              </code>
+            </div>
+          </div>
+
+          <div className="description-section">
+            <ul className="props-list">
+              <li>
+                El componente <code className="inline-code">BtnExpansion</code> se utiliza para mostrar un botón con
+                efecto de expansión.
               </li>
               <li>Props:</li>
               <ul className="props-list nested-list">

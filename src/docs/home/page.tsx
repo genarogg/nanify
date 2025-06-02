@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { A, Icon } from "@nano"
-import { ArrowRight, BoxIcon, UserCircle, Layout, FileText, Sliders } from 'lucide-react'
+import { ArrowRight, BoxIcon, UserCircle, Layout, FileText, Sliders, ImageIcon } from "lucide-react"
 import "./styles.css"
 
 type RouteProps = {}
@@ -16,8 +16,6 @@ const Routes: React.FC<RouteProps> = () => {
           Explora todos los componentes y páginas disponibles en la aplicación.
         </p>
       </header>
-
-  
 
       <section className="documentation-section">
         <h2 className="section-title">Componentes</h2>
@@ -48,6 +46,22 @@ const Routes: React.FC<RouteProps> = () => {
               <h3 className="route-title">Nano</h3>
               <p className="route-description">Componentes utilitarios y herramientas para el desarrollo rápido.</p>
               <A href="/nano" className="route-link">
+                Ver componente <Icon icon={<ArrowRight size={16} />} />
+              </A>
+            </div>
+          </div>
+
+          {/* Img Component */}
+          <div className="route-card">
+            <div className="route-icon">
+              <Icon icon={<ImageIcon size={32} />} />
+            </div>
+            <div className="route-content">
+              <h3 className="route-title">Img</h3>
+              <p className="route-description">
+                Componente de imagen optimizado con lazy loading, blur placeholder y contenido superpuesto.
+              </p>
+              <A href="/img" className="route-link">
                 Ver componente <Icon icon={<ArrowRight size={16} />} />
               </A>
             </div>
@@ -137,4 +151,3 @@ const Routes: React.FC<RouteProps> = () => {
 }
 
 export default Routes
-

@@ -8,11 +8,12 @@ interface BtnRowCircleProps {
     icon?: React.ReactNode;
     id?: string;
     onClick: () => void;
+    className?: string;
 }
 
-const BtnRowCircle: React.FC<BtnRowCircleProps> = ({ icon, id = "", onClick }) => {
+const BtnRowCircle: React.FC<BtnRowCircleProps> = ({ icon, id = "", onClick, className = "" }) => {
     return (
-        <div className='container-row-circle' id={id}>
+        <div className={`container-row-circle ${className}`} id={id}>
             <button onClick={() => { onClick && onClick() }}>
                 <Icon icon={icon ? icon : <FaArrowLeft />} />
             </button>
