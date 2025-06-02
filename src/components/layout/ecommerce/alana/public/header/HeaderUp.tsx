@@ -1,6 +1,6 @@
 import React from 'react'
 import { A } from "@nano";
-import AlgoliaSearch from '@components/algolia/AlgoliaSearch';
+import AlgoliaSearch from '@components/algolia';
 import Nav from '@components/layout/nav/Nav';
 
 interface HeaderUpProps {

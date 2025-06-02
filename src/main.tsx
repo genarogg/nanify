@@ -7,9 +7,11 @@ import "./sass/style.scss"
 import Home from "@view/home/page";
 
 import Gravatar from '@view/gravatar/page';
+
 import Nano from "@view/nono/page"
 
 import Hamburger from "@view/btns/hamburguesa/page"
+
 import BtnBasico from "@view/btns/basico/page"
 
 import FormLoki from "@view/form/form-loki/page"
@@ -29,6 +31,8 @@ import TwoColumns from '@view/two-colunm/page';
 import LayoutExample from '@view/layout-example/page';
 
 
+
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
@@ -41,6 +45,8 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/btns/hamburguesa" element={<Hamburger />} />
         
         <Route path="/btns/basico" element={<BtnBasico />} />
+
+     
 
         <Route path="/form/form-loki" element={<FormLoki />} />
 
@@ -57,8 +63,6 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/columns/two" element={<TwoColumns />} />
 
         <Route path="/layout/example" element={<LayoutExample />} />
-
-        {/* <Route path="/card/alana-ecomerce" element={<CardProductoAlana />} /> */}
 
       </Routes>
     </BrowserRouter>

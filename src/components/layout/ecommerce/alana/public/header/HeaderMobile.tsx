@@ -3,7 +3,7 @@ import { A, Img, Icon } from "@nano";
 
 import BtnLoki from "@components/btns/hamburguesa/btnLoki";
 import BtnNormalBasic from "@components/btns/basic/btnNormalBasic";
-import AlgoliaSearch from '@components/algolia/AlgoliaSearch';
+import AlgoliaSearch from '@components/algolia';
 
 import { regexUrl } from "@fn/index"
 
