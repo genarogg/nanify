@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { A, Icon } from "@nano"
-import { ArrowRight, BoxIcon, UserCircle, Layout, FileText, Home, Sliders } from 'lucide-react'
+import { ArrowRight, BoxIcon, UserCircle, Layout, FileText, Sliders } from 'lucide-react'
 import "./styles.css"
 
 type RouteProps = {}
@@ -17,27 +17,7 @@ const Routes: React.FC<RouteProps> = () => {
         </p>
       </header>
 
-      <section className="documentation-section">
-        <h2 className="section-title">Principal</h2>
-
-        <div className="routes-grid">
-          {/* Home */}
-          <div className="route-card">
-            <div className="route-icon">
-              <Icon icon={<Home size={32} />} />
-            </div>
-            <div className="route-content">
-              <h3 className="route-title">Inicio</h3>
-              <p className="route-description">
-                Página principal de la aplicación con resumen de componentes disponibles.
-              </p>
-              <A href="/" className="route-link">
-                Ir al inicio <Icon icon={<ArrowRight size={16} />} />
-              </A>
-            </div>
-          </div>
-        </div>
-      </section>
+  
 
       <section className="documentation-section">
         <h2 className="section-title">Componentes</h2>
