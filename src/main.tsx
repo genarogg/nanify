@@ -30,6 +30,8 @@ import TwoColumns from '@view/two-colunm/page';
 
 import LayoutExample from '@view/layout-example/page';
 
+import Img from "@view/img/page";
+
 
 
 
@@ -64,6 +66,9 @@ createRoot(document.getElementById('root')!).render(
 
         <Route path="/layout/example" element={<LayoutExample />} />
 
+        <Route path="/img" element={<Img />} />
+        
+        {/* Add more routes as needed */}
       </Routes>
     </BrowserRouter>
   </StrictMode>,
