@@ -1,0 +1,170 @@
+/* AnimatedBackground.css */
+
+.animated-background-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.animated-background-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.animated-background-content {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+.animated-background-content-inner {
+  min-height: 100%;
+  width: 100%;
+}
+
+/* Estilos para el panel de controles */
+.light-controls-panel {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 20;
+}
+
+.light-controls-toggle {
+  background-color: #2563eb;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.light-controls-toggle:hover {
+  background-color: #1d4ed8;
+}
+
+.light-controls-container {
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  width: 20rem;
+  max-height: 24rem;
+  overflow-y: auto;
+}
+
+.light-controls-title {
+  color: white;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.light-controls-description {
+  color: #d1d5db;
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.light-controls-empty {
+  color: #9ca3af;
+  font-size: 0.875rem;
+  font-style: italic;
+}
+
+.light-control-item {
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background-color: #374151;
+  border-radius: 0.5rem;
+}
+
+.light-control-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.light-control-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: white;
+}
+
+.light-control-remove {
+  color: #f87171;
+  background: none;
+  border: none;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.light-control-remove:hover {
+  color: #fca5a5;
+}
+
+.light-control-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.light-control-input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.light-control-input-label {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  margin-bottom: 0.25rem;
+}
+
+.light-control-input {
+  width: 100%;
+  margin-top: 0.25rem;
+}
+
+.light-control-value {
+  font-size: 0.75rem;
+  color: #d1d5db;
+}
+
+.light-controls-clear {
+  width: 100%;
+  background-color: #dc2626;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.light-controls-clear:hover {
+  background-color: #b91c1c;
+}
+
+/* Cursor especial para agregar luces */
+.canvas-crosshair {
+  cursor: crosshair;
+}
+
+.canvas-default {
+  cursor: default;
+}

@@ -1,7 +1,8 @@
 import React from 'react';
-import { Img, Icon, A } from "@nano";
+import { Img, A } from "@nano";
+import { Icon } from "@ui"
 import { FaRegHeart } from "react-icons/fa";
-import { regexUrl } from "@fn/index"
+import { regexUrl } from "@fn"
 import HeaderToolTip from '@components/layout/tooltip/HeaderToolTip';
 
 interface HeaderDownProps {

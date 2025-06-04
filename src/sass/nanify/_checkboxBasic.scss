@@ -32,6 +32,7 @@
     font-weight: 600;
   }
 
+  // Animación para marcar (check)
   @keyframes check-animation {
     0% {
       transform: scale(1);
@@ -44,10 +45,31 @@
     }
     100% {
       transform: scale(1);
+      opacity: 1;
     }
   }
 
-  .animate {
+  // Animación para desmarcar (uncheck)
+  @keyframes uncheck-animation {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(0.7);
+      opacity: 0.3;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  .animate-check {
     animation: check-animation 500ms forwards;
+  }
+
+  .animate-uncheck {
+    animation: uncheck-animation 500ms forwards;
   }
 }

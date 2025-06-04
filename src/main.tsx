@@ -32,8 +32,13 @@ import LayoutExample from './docs/layout-example/page';
 
 import Img from "./docs/img/page";
 
+import ParticleWrapper from "./docs/wrapper/particulas/page";
 
+import Grid from "./docs/wrapper/grid/page";
 
+import AnimatedBackgroundWrapper from './docs/wrapper/animated-background-wrapper/page';
+
+import ModalPage from './docs/modal/page';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -67,8 +72,19 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/layout/example" element={<LayoutExample />} />
 
         <Route path="/img" element={<Img />} />
+
+        <Route path="/wrapper/particulas" element={<ParticleWrapper />} />
+
+        <Route path="/wrapper/grid" element={<Grid />} />
+
+        <Route path="/wrapper/animated-background-wrapper" element={<AnimatedBackgroundWrapper />} />
+
+        {/* Catch-all route for 404 */}
         
-        {/* Add more routes as needed */}
+        <Route path="/ui/modal" element={<ModalPage />} />
+
+        {/* Fallback route for unknown paths */}
+
       </Routes>
     </BrowserRouter>
   </StrictMode>,
