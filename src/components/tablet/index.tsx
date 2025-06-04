@@ -10,7 +10,7 @@ import { useTable, type UseTableReturn } from "./useTable"
 import { type User } from "./fn/defaultUsers"
 import { useResponsiveView } from "./useResponsiveView"
 import TableHeader from "./table-header"
-import TablePagination from "./table-pagination"
+import TablePagination from "./pagination/table-pagination"
 import TableCardView from "./table-card-view"
 import UserCrudModal from "./user-crud-modal"
 

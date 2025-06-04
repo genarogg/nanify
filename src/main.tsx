@@ -41,6 +41,8 @@ import AnimatedBackgroundWrapper from './docs/wrapper/animated-background-wrappe
 import ModalPage from './docs/modal/page';
 import TabletPage from './docs/tablet/page';
 
+import SelectPage from './docs/ui/select/page';
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
@@ -51,10 +53,10 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/nano" element={<Nano />} />
 
         <Route path="/btns/hamburguesa" element={<Hamburger />} />
-        
+
         <Route path="/btns/basico" element={<BtnBasico />} />
 
-     
+
 
         <Route path="/form/form-loki" element={<FormLoki />} />
 
@@ -81,12 +83,14 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/wrapper/animated-background-wrapper" element={<AnimatedBackgroundWrapper />} />
 
         {/* Catch-all route for 404 */}
-        
+
         <Route path="/ui/modal" element={<ModalPage />} />
 
-         <Route path="/table" element={<TabletPage />} />
+        <Route path="/ui/select" element={<SelectPage />} />
 
-        
+        <Route path="/table" element={<TabletPage />} />
+
+
 
         {/* Fallback route for unknown paths */}
 

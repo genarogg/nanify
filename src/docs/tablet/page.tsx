@@ -1,7 +1,6 @@
 'use client'
 import React, { useState } from 'react'
 import Tablet from '@components/tablet';
-
 import { useTable } from "@components/tablet/useTable";
 
 
@@ -98,6 +97,7 @@ const page: React.FC<pageProps> = () => {
                     onSelectUser={handleSelectUser}
                     autoResponsive={true}
                     breakpoint={768}
+                    config={{ cuadricula: true }}
                 />
             </div>
 
