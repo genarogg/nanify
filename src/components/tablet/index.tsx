@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import "./user-management-table.css"
+import "./css/user-management-table.css"
 
 import { Edit, Eye, Check, Minus, Trash2 } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
