@@ -39,6 +39,7 @@ import Grid from "./docs/wrapper/grid/page";
 import AnimatedBackgroundWrapper from './docs/wrapper/animated-background-wrapper/page';
 
 import ModalPage from './docs/modal/page';
+import TabletPage from './docs/tablet/page';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -82,6 +83,10 @@ createRoot(document.getElementById('root')!).render(
         {/* Catch-all route for 404 */}
         
         <Route path="/ui/modal" element={<ModalPage />} />
+
+         <Route path="/table" element={<TabletPage />} />
+
+        
 
         {/* Fallback route for unknown paths */}
 

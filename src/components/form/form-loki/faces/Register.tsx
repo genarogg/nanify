@@ -3,7 +3,7 @@ import { MdLock } from 'react-icons/md';
 import { IoMdUnlock } from "react-icons/io";
 import { BsFillEnvelopeHeartFill, BsPersonFill } from 'react-icons/bs';
 
-import { Input } from "@form";
+import { Input } from "@ui";
 import BtnSubmitBasic from './btn-submit';
 
 import HeadBtn from "./global/HeadBtn";

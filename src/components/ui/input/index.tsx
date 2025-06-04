@@ -2,6 +2,7 @@
 import React, { useState, useRef, useEffect, forwardRef, useImperativeHandle } from 'react'
 import { Icon } from '@ui'
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
+import './input.scss';
 
 interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'type'> {
     className?: string;

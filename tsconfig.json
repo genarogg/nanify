@@ -6,7 +6,7 @@
       "@env": ["./env.ts"],
       "@public/*": ["./public/*"],
       "@nano": ["./src/components/nano/index.tsx"],
-      "@form": ["./src/components/form/components/index.tsx"],
+
       "@btn/*": ["./src/components/btns/*"],
       "@slider/*": ["./src/components/slider/*"],
 
