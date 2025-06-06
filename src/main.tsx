@@ -43,6 +43,13 @@ import TabletPage from './docs/tablet/page';
 
 import SelectPage from './docs/ui/select/page';
 
+import TabsPage from './docs/ui/tabs/page';
+
+import BtnPage from './docs/ui/btns/page'; // Import the buttons page to ensure it's included in the build
+
+
+import LayoutClean from './docs/layout/clean/page';
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
@@ -88,7 +95,15 @@ createRoot(document.getElementById('root')!).render(
 
         <Route path="/ui/select" element={<SelectPage />} />
 
+        <Route path="/ui/tabs" element={<TabsPage />} />
+
+        <Route path="/ui/btns" element={<BtnPage />} />
+
+        {/* Tablet page */}
+
         <Route path="/table" element={<TabletPage />} />
+
+        <Route path="/layout/clean" element={<LayoutClean />} />
 
 
 
