@@ -55,7 +55,6 @@ const Header: React.FC<HeaderProps> = () => {
                         <Nav
                             menuItems={menuItems}
                             onClick={() => { btnRemove(); toggleAside(); }}
-
                         />
                     </SideBar>
                 </nav>
