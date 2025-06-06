@@ -49,10 +49,13 @@ const Header: React.FC<HeaderProps> = () => {
                             <Title />
                         </li>
                     </ul>
-                    <SideBar>
+                    <SideBar
+                        logoutfn={() => { btnRemove(); toggleAside(); }}
+                    >
                         <Nav
                             menuItems={menuItems}
                             onClick={() => { btnRemove(); toggleAside(); }}
+
                         />
                     </SideBar>
                 </nav>

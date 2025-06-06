@@ -1,4 +1,4 @@
-import "./css/_sideBar.scss"
+import "./css/sideBar.scss"
 
 interface SideBarProps {
   children?: React.ReactNode;

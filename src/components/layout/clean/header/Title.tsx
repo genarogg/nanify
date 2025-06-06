@@ -8,7 +8,7 @@ interface TitleProps {
 
 const Title: React.FC<TitleProps> = () => {
     const Separador = () => {
-        return <span style={{ position: "relative", bottom: "1px" }}>|</span>
+        return <span style={{ position: "relative", bottom: "1px" }}> | </span>
     }
     return (
 
@@ -16,9 +16,7 @@ const Title: React.FC<TitleProps> = () => {
             <A href="#" className="titulo-link">
                 <h1>
                     <strong>
-                        UNERG
-                        <Separador />
-                        SOLICITUDES
+                        UNERG<Separador />SOLICITUDES
                     </strong>
                 </h1>
             </A>
