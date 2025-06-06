@@ -2,11 +2,10 @@
 
 import type React from "react"
 
-import BtnNormalBasic from "@components/btns/btn-normal-basic"
-import BtnText from "@components/btns/btn-text"
+import { BtnNormalBasic, BtnText, BtnRowCircle, BtnExpansion } from "@ui"
+
 import "./styles.css"
-import BtnRowCircle from "@components/btns/btn-row-circle"
-import BtnExpansion from "@components/btns/expansion"
+
 
 type DocumentationProps = {}
 

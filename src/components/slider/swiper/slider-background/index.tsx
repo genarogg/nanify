@@ -8,7 +8,7 @@ import { Icon } from "@ui"
 import { IoIosArrowForward } from "react-icons/io";
 
 import SwiperLGBackgroud from '@slider/swiper/estructura/SwiperLGBackgroud';
-import BtnNormalBasic from "@btn/btn-normal-basic";
+import {BtnNormalBasic} from "@ui";
 
 interface SliderBackgroundProps { data: any }
 

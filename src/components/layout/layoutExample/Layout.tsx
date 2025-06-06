@@ -17,7 +17,7 @@ const Layout: React.FC<LayoutProps> = ({
     footer
 }) => {
     return (
-        <div className={`containerAll ${where}`}>
+        <div className={`containerAll example ${where}`}>
             {header ? header : <Header />}
             <main>
                 {children}

@@ -1,11 +1,11 @@
 'use client';
 import React from 'react'
-import { A, Icon } from "@nano";
+import { A } from "@nano";
+import { Icon } from "@ui";
 
 interface NavProps {
   className?: string;
   isActive?: boolean;
-  setIsActive?: React.Dispatch<React.SetStateAction<boolean>>;
   menuItems: {
     href: string;
     label?: string;
@@ -31,7 +31,6 @@ const Nav: React.FC<NavProps> = ({
   menuItems,
   className = "",
   isActive,
-  setIsActive,
   right
 }) => {
   return (
@@ -44,12 +43,8 @@ const Nav: React.FC<NavProps> = ({
           {menuItems.map((item, index) => (
             <li
               key={index}
-              onClick={() => {
-                setIsActive && setIsActive(!isActive);
-              }}
               className={right ? "iconRight" : ""}
             >
-
               <A href={item.href}>
                 {item.icon && (
                   <div className="container-icono">

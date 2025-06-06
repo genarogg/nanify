@@ -1,5 +1,5 @@
 import React from 'react'
-import Header from "./Header"
+import Header from "./header"
 import Footer from './Footer'
 import "./sass/layout.scss"
 
@@ -19,7 +19,7 @@ const Layout: React.FC<LayoutProps> = ({
     footer
 }) => {
     return (
-        <div className={`containerAll ${where}`}>
+        <div className={`containerAll clean ${where}`}>
             {false ? (
                 <Spinner />
             ) : (

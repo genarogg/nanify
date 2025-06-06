@@ -6,7 +6,7 @@ import { $ } from "@fn";
 import { Input } from "@ui";
 
 import BtnSubmitBasic from './btn-submit';
-import BtnRowCircle from "@btn/btn-row-circle";
+import { BtnRowCircle } from "@ui";
 
 
 interface ResetPassWordProps {
