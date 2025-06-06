@@ -1,5 +1,5 @@
 interface SpinnerProps {}
-import "./sass/_spinner.scss";
+import "./sass/spinner.scss";
 
 const Spinner: React.FC<SpinnerProps> = () => {
   return (

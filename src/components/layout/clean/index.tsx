@@ -3,6 +3,8 @@ import Header from "./Header"
 import Footer from './Footer'
 import "./sass/layout.scss"
 
+import { Spinner } from '@ui';
+
 interface LayoutProps {
     children: React.ReactNode;
     where?: string;
@@ -12,18 +14,24 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({
     children,
-    where="",
+    where = "",
     header,
     footer
 }) => {
     return (
         <div className={`containerAll ${where}`}>
-            {header ? header : <Header />}
-            <main>
-                {children}
-            </main>
-            {footer ? footer : <Footer />}
-        </div>
+            {false ? (
+                <Spinner />
+            ) : (
+                <>
+                    {header ? header : <Header />}
+                    <main>
+                        {children}
+                    </main>
+                    {footer ? footer : <Footer />}
+                </>
+            )}
+        </div >
     );
 }
 

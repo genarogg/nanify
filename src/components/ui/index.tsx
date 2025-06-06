@@ -7,6 +7,8 @@ import CheckBox from "./btns/checkbox";
 import CheckboxGroup from "./btns/checkbox-group";
 import Switch from "./btns/switch";
 
+import Spinner from "./spinner/Spinner";
+
 export {
     Modal,
     Input,
@@ -14,5 +16,6 @@ export {
     Tabs,
     CheckBox,
     CheckboxGroup,
-    Switch
+    Switch,
+    Spinner
 }
