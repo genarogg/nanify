@@ -1,16 +1,12 @@
 import React from "react";
 import "./css/header.scss";
 
-
-import { TiHome } from "react-icons/ti";
-import { FaLightbulb } from "react-icons/fa";
-
 import { BtnLoki } from "@ui";
+
 import Title from "./Title";
 import SideBar from "./sidebar";
 
 import Nav from "@components/layout/nav/Nav";
-
 
 interface HeaderProps {
     children?: React.ReactNode;
@@ -20,6 +16,7 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = () => {
 
     const btnRemove = () => {
+        console.log("btnRemove");
         const btn = document.getElementById("btn-hamburguer-loki");
         btn?.classList.remove("active");
     }
@@ -30,8 +27,8 @@ const Header: React.FC<HeaderProps> = () => {
     }
 
     const menuItems = [
-        { href: "/", label: "Inicio", icon: <TiHome /> },
-        { href: "#servicios", label: "Servicios", icon: <FaLightbulb /> },
+        { href: "#inicio", label: "Inicio" },
+        { href: "#servicios", label: "Servicios" },
     ];
 
 
@@ -42,7 +39,7 @@ const Header: React.FC<HeaderProps> = () => {
                 <Nav menuItems={menuItems} />
             </div>
 
-            <div className={`movile-header`} >
+            <div className="movile-header">
                 <nav>
                     <ul className="elements">
                         <li>
@@ -53,7 +50,10 @@ const Header: React.FC<HeaderProps> = () => {
                         </li>
                     </ul>
                     <SideBar>
-
+                        <Nav
+                            menuItems={menuItems}
+                            onClick={() => { btnRemove(); toggleAside(); }}
+                        />
                     </SideBar>
                 </nav>
             </div>
