@@ -17,6 +17,7 @@ export default defineConfig({
       '@tooltip': path.resolve(__dirname, './src/components/tooltip'),
       '@sections': path.resolve(__dirname, './src/components/sections'),
       '@ui': path.resolve(__dirname, './src/components/ui'),
+      '@context': path.resolve(__dirname, './src/context'),
     }
   }
 })

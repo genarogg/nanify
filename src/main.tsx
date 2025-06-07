@@ -1,6 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import AuthProvider from '@context/AuthContext';
 
 import "./sass/style.scss"
 
@@ -47,69 +48,70 @@ import TabsPage from './docs/ui/tabs/page';
 
 import BtnPage from './docs/ui/btns/page'; // Import the buttons page to ensure it's included in the build
 
-
 import LayoutClean from './docs/layout/clean/page';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
+      <AuthProvider>
+        <Routes>
+          <Route path="/" element={<Home />} />
 
-        <Route path="/gravatar" element={<Gravatar />} />
-        <Route path="/nano" element={<Nano />} />
+          <Route path="/gravatar" element={<Gravatar />} />
+          <Route path="/nano" element={<Nano />} />
 
-        <Route path="/btns/hamburguesa" element={<Hamburger />} />
+          <Route path="/btns/hamburguesa" element={<Hamburger />} />
 
-        <Route path="/btns/basico" element={<BtnBasico />} />
-
-
-
-        <Route path="/form/form-loki" element={<FormLoki />} />
-
-        <Route path="/slider/background" element={<SliderBG />} />
-
-        <Route path="/card/alana-ecomerce" element={<CardProductoAlana />} />
-
-        <Route path="/section/dinamicSection" element={<MainContent />} />
-
-        <Route path="/youtube" element={<Youtube />} />
-
-        <Route path="/columns/three" element={<ThreeColumns />} />
-
-        <Route path="/columns/two" element={<TwoColumns />} />
-
-        <Route path="/layout/example" element={<LayoutExample />} />
-
-        <Route path="/img" element={<Img />} />
-
-        <Route path="/wrapper/particulas" element={<ParticleWrapper />} />
-
-        <Route path="/wrapper/grid" element={<Grid />} />
-
-        <Route path="/wrapper/animated-background-wrapper" element={<AnimatedBackgroundWrapper />} />
-
-        {/* Catch-all route for 404 */}
-
-        <Route path="/ui/modal" element={<ModalPage />} />
-
-        <Route path="/ui/select" element={<SelectPage />} />
-
-        <Route path="/ui/tabs" element={<TabsPage />} />
-
-        <Route path="/ui/btns" element={<BtnPage />} />
-
-        {/* Tablet page */}
-
-        <Route path="/table" element={<TabletPage />} />
-
-        <Route path="/layout/clean" element={<LayoutClean />} />
+          <Route path="/btns/basico" element={<BtnBasico />} />
 
 
 
-        {/* Fallback route for unknown paths */}
+          <Route path="/form/form-loki" element={<FormLoki />} />
 
-      </Routes>
+          <Route path="/slider/background" element={<SliderBG />} />
+
+          <Route path="/card/alana-ecomerce" element={<CardProductoAlana />} />
+
+          <Route path="/section/dinamicSection" element={<MainContent />} />
+
+          <Route path="/youtube" element={<Youtube />} />
+
+          <Route path="/columns/three" element={<ThreeColumns />} />
+
+          <Route path="/columns/two" element={<TwoColumns />} />
+
+          <Route path="/layout/example" element={<LayoutExample />} />
+
+          <Route path="/img" element={<Img />} />
+
+          <Route path="/wrapper/particulas" element={<ParticleWrapper />} />
+
+          <Route path="/wrapper/grid" element={<Grid />} />
+
+          <Route path="/wrapper/animated-background-wrapper" element={<AnimatedBackgroundWrapper />} />
+
+          {/* Catch-all route for 404 */}
+
+          <Route path="/ui/modal" element={<ModalPage />} />
+
+          <Route path="/ui/select" element={<SelectPage />} />
+
+          <Route path="/ui/tabs" element={<TabsPage />} />
+
+          <Route path="/ui/btns" element={<BtnPage />} />
+
+          {/* Tablet page */}
+
+          <Route path="/table" element={<TabletPage />} />
+
+          <Route path="/layout/clean" element={<LayoutClean />} />
+
+
+
+          {/* Fallback route for unknown paths */}
+
+        </Routes>
+      </AuthProvider>
     </BrowserRouter>
   </StrictMode>,
 );

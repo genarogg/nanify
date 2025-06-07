@@ -4,6 +4,9 @@ import Footer from './Footer'
 import "./sass/layout.scss"
 
 import { Spinner } from '@ui';
+import { useAuth } from '@context/AuthContext';
+
+
 
 interface LayoutProps {
     children: React.ReactNode;
@@ -18,9 +21,12 @@ const Layout: React.FC<LayoutProps> = ({
     header,
     footer
 }) => {
+
+    const { state: { loading } } = useAuth();
+
     return (
         <div className={`containerAll clean ${where}`}>
-            {false ? (
+            {loading ? (
                 <Spinner />
             ) : (
                 <>
@@ -31,7 +37,7 @@ const Layout: React.FC<LayoutProps> = ({
                     {footer ? footer : <Footer />}
                 </>
             )}
-        </div >
+        </div>
     );
 }
 

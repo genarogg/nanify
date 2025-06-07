@@ -1,22 +1,44 @@
 {
   "compilerOptions": {
     "paths": {
-      "@components/*": ["./src/components/*"],
-      "@fn": ["./src/functions/index.ts"],
-      "@env": ["./env.ts"],
-      "@public/*": ["./public/*"],
-      "@nano": ["./src/components/nano/index.tsx"],
-
-      "@btn/*": ["./src/components/btns/*"],
-      "@slider/*": ["./src/components/slider/*"],
-
-      "@hooks/*": ["./src/hooks/*"],
-      "@tooltip": ["./src/components/tooltip/index.tsx"],
-      "@sections/*": ["./src/components/sections/*"],
-
-      "@ui": ["./src/components/ui/index.tsx"],
+      "@components/*": [
+        "./src/components/*"
+      ],
+      "@fn": [
+        "./src/functions/index.ts"
+      ],
+      "@env": [
+        "./env.ts"
+      ],
+      "@public/*": [
+        "./public/*"
+      ],
+      "@nano": [
+        "./src/components/nano/index.tsx"
+      ],
+      "@btn/*": [
+        "./src/components/btns/*"
+      ],
+      "@slider/*": [
+        "./src/components/slider/*"
+      ],
+      "@hooks/*": [
+        "./src/hooks/*"
+      ],
+      "@tooltip": [
+        "./src/components/tooltip/index.tsx"
+      ],
+      "@sections/*": [
+        "./src/components/sections/*"
+      ],
+      "@ui": [
+        "./src/components/ui/index.tsx"
+      ],
+      "@context/*": [
+        "./src/context/*"
+      ],
     },
-    "jsx": "react-jsx", 
+    "jsx": "react-jsx",
     "target": "ES2022",
     "useDefineForClassFields": true,
     "lib": [
