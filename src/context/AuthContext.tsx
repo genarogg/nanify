@@ -198,11 +198,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const verifyAuth = async () => {
         try {
             // Obtener token desde localStorage (puede ser diferente del estado si se recargó la página)
+
             const storedToken = getTokenFromStorage();
 
-            if (isCurrentRoute('/')) return
+            console.log(isCurrentRoute('/'))
 
-            if (!storedToken) {
+            if (!storedToken && isCurrentRoute('/')) {
                 dispatch({ type: 'VERIFY_TOKEN_FAILURE' });
                 // Navegar al inicio si no hay token
 
@@ -233,19 +234,22 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
                 } else {
                     dispatch({ type: 'VERIFY_TOKEN_SUCCESS' });
+              
                 }
-            } else {
+            } 
+            else {
                 dispatch({ type: 'VERIFY_TOKEN_FAILURE' });
+
                 // Navegar al inicio si el token no es válido
-                // if (navigate) {
-                //     navigate('/');
-                // }
+                if (navigate && isCurrentRoute('/')) {
+                    navigate('/');
+                }
             }
         } catch (error) {
             console.error('Error verificando token:', error);
             dispatch({ type: 'VERIFY_TOKEN_FAILURE' });
             // Navegar al inicio en caso de error
-            if (navigate) {
+            if (navigate && isCurrentRoute('/')) {
                 navigate('/');
             }
         }
