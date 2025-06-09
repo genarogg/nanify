@@ -5,7 +5,7 @@ import { BsTwitterX } from "react-icons/bs";
 import { FaGoogle, FaFacebookF, FaInstagram } from "react-icons/fa";
 
 import { A } from "@nano"
-import { Icon } from "@ui"
+import { Icon } from "@components/ux"
 import "./_redesLogin.scss"
 
 interface RedesLoginProps {

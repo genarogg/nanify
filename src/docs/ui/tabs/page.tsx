@@ -1,4 +1,4 @@
-import { Tabs } from "@ui"
+import { Tabs } from "@components/ux"
 import { ButtonsContent, CardsContent, FormsContent, FeedbackContent } from "./sample-components"
 
 export default function Home() {

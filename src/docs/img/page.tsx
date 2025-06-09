@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { A, Img } from "@nano"
-import { Icon } from "@ui"
+import { Icon } from "@components/ux"
 import { ArrowLeft, ImageIcon, Code, Eye } from "lucide-react"
 import { bluorData } from "./data"
 import "./styles.css"

@@ -3,7 +3,7 @@ import Header from "./header"
 import Footer from './Footer'
 import "./sass/layout.scss"
 
-import { Spinner } from '@ui';
+import { Spinner } from '@components/ux';
 import { useAuth } from '@context/AuthContext';
 
 

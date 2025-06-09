@@ -1,6 +1,6 @@
 import React from 'react';
 import { Img, A } from "@nano";
-import { Icon } from "@ui"
+import { Icon } from "@components/ux"
 import { FaRegHeart } from "react-icons/fa";
 import { regexUrl } from "@fn"
 import HeaderToolTip from '@components/layout/tooltip/HeaderToolTip';

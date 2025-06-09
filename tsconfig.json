@@ -22,8 +22,8 @@
       "@slider/*": [
         "./src/components/slider/*"
       ],
-      "@hooks/*": [
-        "./src/hooks/*"
+      "@hook/*": [
+        "./src/hook/*"
       ],
       "@tooltip": [
         "./src/components/tooltip/index.tsx"
@@ -32,7 +32,7 @@
         "./src/components/sections/*"
       ],
       "@ui": [
-        "./src/components/ui/index.tsx"
+        "src/components/ux/index.tsx"
       ],
       "@context/*": [
         "./src/context/*"

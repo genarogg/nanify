@@ -19,6 +19,8 @@ import BtnLoki from "./btns/btn-loki";
 
 import Spinner from "./spinner/Spinner";
 
+import Badge from "./badge"
+
 export {
     Modal,
     Input,
@@ -32,5 +34,6 @@ export {
     BtnLoki,
     BtnNormalBasic,
     BtnText,
-    BtnRowCircle
+    BtnRowCircle,
+    Badge
 }

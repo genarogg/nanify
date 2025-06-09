@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { BtnNormalBasic, BtnText, BtnRowCircle, BtnExpansion } from "@ui"
+import { BtnNormalBasic, BtnText, BtnRowCircle, BtnExpansion } from "@components/ux"
 
 import "./styles.css"
 

@@ -7,7 +7,7 @@ import {
   CheckBox,
   CheckboxGroup,
   Switch
-} from "@ui"
+} from "@components/ux"
 
 export default function Home() {
   // Toggle states

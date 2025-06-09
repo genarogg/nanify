@@ -1,4 +1,4 @@
-import Modal from "@components/ui/modal"
+import Modal from "@components/ux/modal"
 
 // Iconos SVG simples
 const DocumentIcon = () => (

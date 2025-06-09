@@ -1,9 +1,9 @@
 "use client"
 
 import React from "react"
-import BtnLoki from "@components/ui/btns/btn-loki"
-import BtnFreya from "@components/ui/btns/btn-freya"
-import BtnThor from "@components/ui/btns/btn-thor"
+import BtnLoki from "@components/ux/btns/btn-loki"
+import BtnFreya from "@components/ux/btns/btn-freya"
+import BtnThor from "@components/ux/btns/btn-thor"
 
 import "./styles.css"
 

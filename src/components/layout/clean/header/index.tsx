@@ -1,7 +1,7 @@
 import React from "react";
 import "./css/header.scss";
 
-import { BtnLoki } from "@ui";
+import { BtnLoki } from "@components/ux";
 
 import Title from "./Title";
 import SideBar from "./sidebar";

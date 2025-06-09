@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { A } from "@nano"
-import { Icon } from "@ui"
+import { Icon } from "@components/ux"
 import { ArrowRight, BoxIcon, UserCircle, Layout, FileText, Sliders, ImageIcon } from "lucide-react"
 import "./styles.css"
 

@@ -2,7 +2,7 @@ import React, { createContext, useContext, useReducer, ReactNode, useEffect } fr
 import { NavigateFunction } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
-import useRouteDetector from '../hook/useLocation';
+import useRouteDetector from '@hook/useLocation';
 
 // Tipos para el estado de autenticación
 interface AuthState {

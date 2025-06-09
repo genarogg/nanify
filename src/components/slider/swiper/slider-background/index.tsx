@@ -3,12 +3,12 @@ import React from 'react';
 import "./sass/_sliderBackgroud.scss";
 import { SwiperSlide } from 'swiper/react';
 import { A } from "@nano";
-import { Icon } from "@ui"
+import { Icon } from "@components/ux"
 
 import { IoIosArrowForward } from "react-icons/io";
 
 import SwiperLGBackgroud from '@slider/swiper/estructura/SwiperLGBackgroud';
-import {BtnNormalBasic} from "@ui";
+import {BtnNormalBasic} from "@components/ux";
 
 interface SliderBackgroundProps { data: any }
 

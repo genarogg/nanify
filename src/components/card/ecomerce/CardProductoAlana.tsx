@@ -4,7 +4,7 @@ import React from 'react';
 import "./_cardProductoAlana.scss"
 import { MenuToolTip } from "@tooltip"
 import { A } from "@nano"
-import { Icon } from "@ui"
+import { Icon } from "@components/ux"
 import { SwiperSlide } from 'swiper/react'
 import SwiperLGTwoElements from '@slider/swiper/estructura/SwiperLGTwoElements'
 

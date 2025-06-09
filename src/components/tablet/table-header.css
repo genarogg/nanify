@@ -55,6 +55,7 @@
   position: relative;
   display: flex;
   align-items: center;
+  max-width: 360px;
   flex: 1;
   min-width: 280px;
 }

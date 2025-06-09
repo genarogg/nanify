@@ -10,7 +10,7 @@ import {
   SelectSeparator,
   SelectLabel,
   SelectTags,
-} from "@components/ui/select"
+} from "@components/ux/select"
 
 const frameworkOptions = [
   {
