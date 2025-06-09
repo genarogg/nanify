@@ -1,41 +1,113 @@
-/*
-Error: Invalid CSS after "    @include fn": expected "}", was ".center-flex-xy();"
-        on line 11 of A:\+\Usuario\Escritorio\nanify-proyect\src\components\ux\input\input.scss
+@keyframes border-gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+form {
+  display: grid;
+  gap: 41px;
+}
 
-6:     gap: 40px;
-7: }
-8: 
-9: 
-10: .container-input {
-11:     @include fn.center-flex-xy();
-12: 
-13:     border: var.$border;
-14:     border-radius: var.$border-radius;
-15: 
-16:     height: 46px;
-
-Backtrace:
-A:\+\Usuario\Escritorio\nanify-proyect\src\components\ux\input\input.scss:11
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/scss/parser.rb:1278:in `expected'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/scss/parser.rb:1208:in `expected'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/scss/parser.rb:1203:in `tok!'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/scss/parser.rb:679:in `block'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/scss/parser.rb:670:in `ruleset'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/scss/parser.rb:696:in `block_child'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/scss/parser.rb:689:in `block_contents'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/scss/parser.rb:137:in `stylesheet'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/scss/parser.rb:41:in `parse'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/engine.rb:414:in `_to_tree'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/engine.rb:290:in `render'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/exec/sass_scss.rb:400:in `run'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/exec/sass_scss.rb:63:in `process_result'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/exec/base.rb:52:in `parse'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/exec/base.rb:19:in `parse!'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/bin/sass:13:in `<top (required)>'
-C:/Program Files (x86)/Koala/bin/sass:22:in `load'
-C:/Program Files (x86)/Koala/bin/sass:22:in `<main>'
-*/
-body:before {
-  white-space: pre;
-  font-family: monospace;
-  content: "Error: Invalid CSS after \"    @include fn\": expected \"}\", was \".center-flex-xy();\"\A         on line 11 of A:\+\Usuario\Escritorio\nanify-proyect\src\components\ux\input\input.scss\A \A 6:     gap: 40px;\A 7: }\A 8: \A 9: \A 10: .container-input {\A 11:     @include fn.center-flex-xy();\A 12: \A 13:     border: var.$border;\A 14:     border-radius: var.$border-radius;\A 15: \A 16:     height: 46px;"; }
+.container-input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgba(28, 28, 28, 0.5);
+  border-radius: 10px;
+  height: 46px;
+  position: relative;
+  width: 100%;
+}
+.container-input,
+.container-input * {
+  transition: 500ms ease all;
+}
+.container-input:hover {
+  border: 1px solid #ffac32;
+}
+.container-input.focus {
+  border: 1px solid #ffac32;
+}
+.container-input.focus span.holder {
+  font-size: 14px;
+  font-weight: 600;
+  top: -15px !important;
+}
+.container-input.no-icon {
+  padding-left: 47px;
+}
+.container-input .label-ico,
+.container-input .view-pass {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: inherit;
+  width: 46px;
+}
+.container-input .label-ico .icon,
+.container-input .view-pass .icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  color: #ffac32;
+  cursor: pointer;
+}
+.container-input input {
+  background-color: transparent;
+  border: none;
+  font-size: 18px;
+  font-weight: 600;
+  height: 100%;
+  outline: none;
+  padding: 0 10px;
+  position: relative;
+  width: 100%;
+  color: #ffac32;
+}
+.container-input span.holder {
+  background-color: transparent;
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+  color: #ffac32;
+  font-size: 18px;
+  left: 40px;
+  padding: 0 10px;
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  top: 23px;
+  transform: translateY(-50%);
+  transition: 0.3s;
+}
+.container-input span.holder.has-content {
+  font-size: 15px;
+  font-weight: 600;
+  top: -15px !important;
+}
+.container-input input[type=date] {
+  cursor: pointer;
+}
+.container-input input[type=date]::-webkit-calendar-picker-indicator {
+  display: none;
+}
+.container-input input[type=date]::-ms-expand {
+  display: none;
+}
+.container-input input[type=date]::before {
+  content: "";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}/*# sourceMappingURL=input.css.map */

@@ -1,9 +1,9 @@
-@use "/src/sass/global/variables" as var;
-@use "/src/sass/global/mixin" as fn;
+@use "../../../sass/global/variables" as var;
+@use "../../../sass/global/mixin" as fn;
 
 form {
     display: grid;
-    gap: 40px;
+    gap: 41px;
 }
 
 

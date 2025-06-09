@@ -37,7 +37,8 @@
   right: 0;
   bottom: 0;
   background-color: rgba(243, 244, 246, 0.8);
-  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+          backdrop-filter: blur(2px);
   z-index: 1000;
   animation: overlayShow 300ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
@@ -203,19 +204,15 @@
     width: 95%;
     margin: 20px;
   }
-
   .modal-header {
     padding: 16px 20px 12px;
   }
-
   .modal-body {
     padding: 0 20px 12px;
   }
-
   .modal-footer {
     padding: 12px 20px 20px;
   }
-
   .modal-title {
     font-size: 16px;
   }
@@ -287,4 +284,4 @@
 
 .modal-input-group-button:hover {
   background-color: #cbd5e0;
-}
+}/*# sourceMappingURL=modal.css.map */
