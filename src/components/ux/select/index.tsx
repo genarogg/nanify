@@ -11,9 +11,8 @@ import {
   useMemo,
   memo
 } from "react"
-import { motion, AnimatePresence } from "framer-motion"
 import { ChevronDown, Check, X } from "lucide-react"
-import "./select.css"
+import "./select.css" // Import your styles here
 
 interface SelectContextType {
   value: string | string[]
@@ -43,7 +42,6 @@ interface SelectProps {
   onValueChange?: (value: string | string[]) => void
   children: React.ReactNode
   multiple?: boolean
-  openUpward?: boolean
 }
 
 export const Select = memo(function Select({
@@ -51,8 +49,7 @@ export const Select = memo(function Select({
   defaultValue,
   onValueChange,
   children,
-  multiple = false,
-  openUpward = false
+  multiple = false
 }: SelectProps) {
   const [internalValue, setInternalValue] = useState<string | string[]>(
     () => defaultValue || (multiple ? [] : "")
@@ -61,6 +58,7 @@ export const Select = memo(function Select({
     () => new Map()
   )
   const [open, setOpen] = useState(false)
+  const [openUpward, setOpenUpward] = useState(false)
 
   const currentValue = value !== undefined ? value : internalValue
 
@@ -130,11 +128,11 @@ export const SelectTrigger = memo(function SelectTrigger({ children }: SelectTri
   }, [open, onOpenChange])
 
   const handleBlur = useCallback((e: React.FocusEvent) => {
-    // Verificar si el foco se movió fuera del componente select
+    // Check if focus moved outside the select component
     const currentTarget = e.currentTarget
     const relatedTarget = e.relatedTarget as Node
 
-    // Si el nuevo foco está fuera del select root, cerrarlo
+    // If the new focus is outside the select root, close it
     setTimeout(() => {
       const selectRoot = currentTarget.closest('.select-root')
       if (selectRoot && relatedTarget && !selectRoot.contains(relatedTarget)) {
@@ -247,20 +245,59 @@ interface SelectContentProps {
 }
 
 export const SelectContent = memo(function SelectContent({ children }: SelectContentProps) {
-  const { open, onOpenChange, openUpward } = useSelectContext()
+  const { open, onOpenChange } = useSelectContext()
   const contentRef = useRef<HTMLDivElement>(null)
+  const [calculatedOpenUpward, setCalculatedOpenUpward] = useState(false)
+
+  // Mejorar el cálculo de posición cuando se abre
+  useEffect(() => {
+    if (open && contentRef.current) {
+      const content = contentRef.current
+      const selectRoot = content.closest('.select-root') as HTMLElement
+      const trigger = selectRoot?.querySelector('.select-trigger') as HTMLElement
+      
+      if (trigger) {
+        const triggerRect = trigger.getBoundingClientRect()
+        const viewportHeight = window.innerHeight
+        const scrollY = window.scrollY
+        
+        // Obtener la altura real del contenido o usar un estimado
+        const contentHeight = Math.min(240, content.scrollHeight || 240) // max-height es 240px
+        
+        // Calcular espacio disponible considerando el scroll
+        const spaceBelow = viewportHeight - (triggerRect.bottom - scrollY)
+        const spaceAbove = triggerRect.top - scrollY
+        
+        // Margen de seguridad para mejor UX
+        const safetyMargin = 20
+        
+        let shouldOpenUpward = false
+        
+        // Si no hay suficiente espacio abajo pero sí arriba
+        if (spaceBelow < contentHeight + safetyMargin && spaceAbove > contentHeight + safetyMargin) {
+          shouldOpenUpward = true
+        }
+        // Si hay poco espacio en ambos lados, elegir el que tenga más espacio
+        else if (spaceBelow < contentHeight + safetyMargin && spaceAbove < contentHeight + safetyMargin) {
+          shouldOpenUpward = spaceAbove > spaceBelow
+        }
+        
+        setCalculatedOpenUpward(shouldOpenUpward)
+      }
+    }
+  }, [open])
 
   useEffect(() => {
     if (open) {
       const timeoutId = setTimeout(() => {
-        // Mejorar la detección de clicks fuera del componente
+        // Mejorar la detección de clics fuera
         const handleClickOutside = (event: MouseEvent) => {
           const target = event.target as Node
 
-          // Buscar el contenedor raíz del select
+          // Encontrar el contenedor select root
           const selectRoot = contentRef.current?.closest('.select-root')
 
-          // Si el click está fuera del select completo, cerrarlo
+          // Si el clic está fuera del select completo, cerrarlo
           if (selectRoot && !selectRoot.contains(target)) {
             onOpenChange(false)
           }
@@ -274,7 +311,7 @@ export const SelectContent = memo(function SelectContent({ children }: SelectCon
         }
       }, 0)
 
-      // Manejar escape key
+      // Manejar tecla Escape
       const handleEscape = (event: KeyboardEvent) => {
         if (event.key === 'Escape') {
           onOpenChange(false)
@@ -290,30 +327,17 @@ export const SelectContent = memo(function SelectContent({ children }: SelectCon
     }
   }, [open, onOpenChange])
 
-  const motionProps = useMemo(() => {
-    const baseY = openUpward ? 10 : -10
-    return {
-      initial: { opacity: 0, y: baseY, scale: 0.95 },
-      animate: { opacity: 1, y: 0, scale: 1 },
-      exit: { opacity: 0, y: baseY, scale: 0.95 },
-      transition: { duration: 0.15, ease: "easeOut" }
-    }
-  }, [openUpward])
+  if (!open) return null
 
   return (
-    <AnimatePresence>
-      {open && (
-        <motion.div
-          ref={contentRef}
-          className="select-content"
-          data-open-upward={openUpward}
-          {...motionProps}
-          role="listbox"
-        >
-          {children}
-        </motion.div>
-      )}
-    </AnimatePresence>
+    <div
+      ref={contentRef}
+      className="select-content"
+      data-open-upward={calculatedOpenUpward}
+      role="listbox"
+    >
+      {children}
+    </div>
   )
 })
 
