@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { useState, useEffect, useRef } from "react"
-import "./modal.scss"
+import "./modal.css"
 
 interface ModalProps {
   title: string

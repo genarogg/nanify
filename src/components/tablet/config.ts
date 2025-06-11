@@ -17,7 +17,7 @@ export interface TableConfig {
 const defaultConfig: TableConfig = {
     // Props de configuración
     select: true,
-    cuadricula: false,
+    cuadricula: true,
 
     // Columnas de la tabla
     columns: [

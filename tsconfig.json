@@ -31,8 +31,8 @@
       "@sections/*": [
         "./src/components/sections/*"
       ],
-      "@ui": [
-        "src/components/ux/index.tsx"
+      "@ux": [
+        "./src/components/ux/index.tsx"
       ],
       "@context/*": [
         "./src/context/*"

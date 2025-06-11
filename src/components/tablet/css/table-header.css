@@ -11,8 +11,8 @@
 }
 
 .table-title {
-  font-size: 28px;
-  font-weight: 600;
+  font-size: 24px;
+  font-weight: 700;
   color: #3b82f6;
   margin: 0;
   padding: 0;
@@ -31,7 +31,6 @@
   border: 1px solid #bae6fd;
   border-radius: 4px;
   font-size: 12px;
-  font-weight: 500;
 }
 
 .table-header-divider {
@@ -41,14 +40,10 @@
 }
 
 .table-header-controls-section {
-  width: 100%;
-}
-
-.table-header-controls {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   gap: 16px;
-  flex-wrap: wrap;
 }
 
 .table-search-container {
@@ -87,9 +82,10 @@
   color: #9ca3af;
 }
 
-.table-date-container {
+.table-modal-buttons-container {
   display: flex;
-  align-items: center;
+  gap: 20px;
+  justify-content: space-around;
 }
 
 .table-date-input {
@@ -113,50 +109,49 @@
   align-items: center;
 }
 
-.table-status-select {
-  padding: 10px 12px;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  font-size: 14px;
-  background-color: #ffffff;
-  transition: border-color 0.2s ease;
-  min-width: 120px;
-  cursor: pointer;
-}
-
-.table-status-select:focus {
-  outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-}
-
 .table-view-toggle-container {
   display: flex;
   align-items: center;
 }
 
-.table-add-button-container {
-  margin-left: auto;
+/* Responsive stacking for header controls */
+@media (max-width: 768px) {
+  .table-header-controls-section {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .table-search-container {
+    width: 100%;
+    max-width: none;
+    min-width: auto;
+  }
+
+  .table-modal-buttons-container {
+    width: 100%;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  /* Make each button inside the container take full width */
+  .table-modal-buttons-container > * {
+    width: 100%;
+  }
 }
 
-.table-add-btn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 16px;
-  background-color: #1f2937;
-  color: #ffffff;
-  border: none;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  white-space: nowrap;
-}
+@media (max-width: 480px) {
+  .table-header-controls-section {
+    gap: 20px;
+  }
 
-.table-add-btn:hover {
-  background-color: #374151;
+  .table-search-container {
+    margin-bottom: 4px;
+  }
+
+  .table-modal-buttons-container {
+    gap: 16px;
+  }
 }
 
 /* Responsive Design */
@@ -176,12 +171,6 @@
     width: 100%;
   }
 
-  .table-header-controls {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 12px;
-  }
-
   .table-search-container {
     min-width: auto;
   }
@@ -190,36 +179,12 @@
     font-size: 16px; /* Prevents zoom on iOS */
   }
 
-  .table-date-input,
-  .table-status-select {
-    min-width: auto;
-    width: 100%;
-  }
-
-  .table-add-button-container {
-    margin-left: 0;
-  }
-
-  .table-add-btn {
-    justify-content: center;
-    width: 100%;
-  }
-
   .table-view-toggle-container {
     justify-content: center;
   }
 }
 
 @media (max-width: 640px) {
-  .table-header-controls {
-    gap: 8px;
-  }
-
-  .table-date-container,
-  .table-status-container {
-    width: 100%;
-  }
-
   .responsive-badge {
     font-size: 11px;
     padding: 3px 6px;
