@@ -19,7 +19,8 @@
   cursor: pointer;
   /* transition: all 0.2s ease; */
   outline: none;
-  min-height: 4px;
+  min-height: 40px;
+  max-height: 40px;
   /* box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); */
   /* transition: 600ms ease all; */
   outline: none;
@@ -28,13 +29,11 @@
 
 .select-trigger:hover {
   border-color: #e2e8f0;
-  /* box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); */
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #02081780;
 }
 
-.select-trigger:focus {
-  
-}
-
+.select-trigger:focus,
+.select-trigger:active,
 .select-trigger[data-state="open"] {
   outline: none;
   box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #020817;
@@ -78,6 +77,14 @@
   overflow: hidden;
   max-height: 240px;
   overflow-y: auto;
+}
+
+/* Upward positioning for select content */
+.select-content[data-open-upward="true"] {
+  bottom: 100%;
+  top: auto;
+  margin-top: 0;
+  margin-bottom: 7px;
 }
 
 .select-item {
@@ -239,4 +246,3 @@
   width: 10px;
   height: 10px;
 }
-
