@@ -1,5 +1,5 @@
 import Modal from "./modal";
-import Input from "./input";
+import Input from "./super-input";
 import Icon from "./icon";
 import Tabs from "./tabs";
 

@@ -44,6 +44,32 @@ export default function Home() {
                     onclick={handleSaveDocument}
                     buttonText="Agregar Documento"
                 >
+                      <div style={{ marginTop: "16px" }}>
+                        <label className="modal-label">Código</label>
+                        <input type="text" className="modal-input" placeholder="" />
+                    </div>
+                    <div>
+                        <label className="modal-label">Nombre del Documento</label>
+                        <input type="text" className="modal-input" placeholder="" />
+                    </div>
+                    <div>
+                        <label className="modal-label">Costo Actual Simple</label>
+                        <input type="text" className="modal-input" placeholder="" />
+                    </div>
+                    <div>
+                        <label className="modal-label">Costo Actual Seguridad</label>
+                        <input type="text" className="modal-input" placeholder="" />
+                    </div>
+                    <div>
+                        <label className="modal-label">Requisitos del Documento</label>
+                        <div className="modal-input-group">
+                            <input type="text" className="modal-input" placeholder="Agregar nuevo requisito..." />
+                            <button className="modal-input-group-button">
+                                <PlusIcon />
+                            </button>
+                        </div>
+                        <p className="modal-info-message">No hay requisitos agregados para este documento.</p>
+                    </div>
                     <div style={{ marginTop: "16px" }}>
                         <label className="modal-label">Código</label>
                         <input type="text" className="modal-input" placeholder="" />

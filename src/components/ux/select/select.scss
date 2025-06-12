@@ -1,5 +1,4 @@
-@import '../global/style.scss';
-
+@import "../global/style";
 
 .select-root {
   position: relative;
@@ -9,40 +8,48 @@
 }
 
 .select-trigger {
-  @include container;
+
+  background: $bg-container;
+  border: $border-container;
+  border-radius: $border-radius;
+  padding: $padding-container;
+  height: $height;
+  min-height: $height;
+  max-height: $height;
+  font-size: 15px;
+  line-height: 1.5;
+  cursor: pointer;
+  outline: none;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
+  font-weight: 500;
 }
 
-.select-trigger:hover {
-  @include container-hover;
-}
-
+// .select-trigger:hover,
 .select-trigger:focus,
 .select-trigger:active,
 .select-trigger[data-state="open"] {
-  outline: none;
-  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #020817;
+  @include focus-ring;
 }
 
 .select-value {
   flex: 1;
   text-align: left;
-  color: #1f2937;
-  font-weight: 400;
+  color: $color-text;
 }
 
 .select-value[data-placeholder] {
-  color: #111827;
-  font-weight: 300;
+  color: $color-text;
 }
 
 .select-icon {
-  width: 18px;
-  height: 18px;
-  color: #111827;
-  transition: transform 0.2s ease;
+  $size: 18px;
+  width: $size;
+  height: $size;
+  color: $color-text;
+  transition: transform 0.6s ease;
   flex-shrink: 0;
 }
 
@@ -57,8 +64,8 @@
   z-index: 50;
   margin-top: 7px;
   background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
+  border: $border-container;
+  border-radius: $border-radius;
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1),
     0 10px 10px -5px rgba(0, 0, 0, 0.04);
   overflow: hidden;
@@ -78,34 +85,34 @@
   align-items: center;
   padding: 9px 16px;
   margin: 5px;
-  border-radius: 6px;
+  border-radius: $border-radius;
   font-size: 14px;
   line-height: 1.5;
-  color: #374151;
+  color: $color-text;
   cursor: pointer;
   transition: all 0.15s ease;
   outline: none;
   position: relative;
-  font-weight: 400;
+
   height: 40px;
 }
 
 .select-item:hover {
-  background-color: #f1f5f9;
+  background-color: $bg-container-hover;
 }
 
 .select-item:focus {
-  background-color: #f1f5f9;
+  background-color: $bg-container-hover;
 }
 
 .select-item[data-highlighted] {
-  background-color: #f1f5f9;
+  background-color: $bg-container-hover;
 }
 
 .select-item[data-selected] {
-  background-color: #f3f4f6;
-  color: #1f2937;
-  font-weight: 500;
+  background-color: $bg-container-hover;
+  color: $color-text;
+
 }
 
 .select-item[data-disabled] {
@@ -137,8 +144,8 @@
 .select-label {
   padding: 12px 16px 6px;
   font-size: 11px;
-  font-weight: 600;
-  color: #9ca3af;
+
+  color: $color-text;
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }
@@ -152,8 +159,8 @@
   left: 16px;
   width: 18px;
   height: 18px;
-  border: 1px solid #e2e8f0;
-  border-radius: 4px;
+  border: $border-container;
+  border-radius: $border-radius;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -193,12 +200,12 @@
   align-items: center;
   gap: 6px;
   padding: 6px 12px;
-  background-color: #f1f5f9;
+  background-color: $bg-container-hover;
   color: #374151;
-  border: 1px solid #e2e8f0;
-  border-radius: 6px;
+  border: $border-container;
+  border-radius: $border-radius;
   font-size: 12px;
-  font-weight: 500;
+
   max-width: 100%;
 }
 
@@ -209,11 +216,12 @@
 }
 
 .select-tag-remove {
+  $size: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 16px;
-  height: 16px;
+  width: $size;
+  height: $size;
   border-radius: 50%;
   background: transparent;
   cursor: pointer;
@@ -230,6 +238,7 @@
 }
 
 .select-tag-remove svg {
-  width: 10px;
-  height: 10px;
+  $size: 10px;
+  width: $size;
+  height: $size;
 }

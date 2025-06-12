@@ -39,14 +39,14 @@ import Grid from "./docs/wrapper/grid/page";
 
 import AnimatedBackgroundWrapper from './docs/wrapper/animated-background-wrapper/page';
 
-import ModalPage from './docs/modal/page';
+import ModalPage from './docs/ux/modal/page';
 import TabletPage from './docs/tablet/page';
 
-import SelectPage from './docs/ui/select/page';
+import SelectPage from './docs/ux/select/page';
 
-import TabsPage from './docs/ui/tabs/page';
+import TabsPage from './docs/ux/tabs/page';
 
-import BtnPage from './docs/ui/btns/page'; // Import the buttons page to ensure it's included in the build
+import BtnPage from './docs/ux/btns/page'; // Import the buttons page to ensure it's included in the build
 
 import LayoutClean from './docs/layout/clean/page';
 
