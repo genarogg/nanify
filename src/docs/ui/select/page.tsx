@@ -167,7 +167,7 @@ export default function SelectDemo() {
         label="Tipo de trámite:"
         icon={<ProcedureIcon />}
       >
-        <Select multiple value={procedures} onValueChange={handleProceduresChange} openUpward={true}>
+        <Select multiple value={procedures} onValueChange={handleProceduresChange} >
           <SelectTrigger>
             <SelectValue placeholder="CARTA DE CULMINACION" />
           </SelectTrigger>

@@ -21,7 +21,6 @@ interface SelectContextType {
   onOpenChange: (open: boolean) => void
   placeholder?: string
   multiple?: boolean
-  openUpward?: boolean
   selectedLabels: Map<string, string>
   setSelectedLabel: (value: string, label: string) => void
 }
@@ -58,7 +57,6 @@ export const Select = memo(function Select({
     () => new Map()
   )
   const [open, setOpen] = useState(false)
-  const [openUpward, setOpenUpward] = useState(false)
 
   const currentValue = value !== undefined ? value : internalValue
 
@@ -88,10 +86,9 @@ export const Select = memo(function Select({
     open,
     onOpenChange: setOpen,
     multiple,
-    openUpward,
     selectedLabels,
     setSelectedLabel,
-  }), [currentValue, handleValueChange, open, multiple, openUpward, selectedLabels, setSelectedLabel])
+  }), [currentValue, handleValueChange, open, multiple, selectedLabels, setSelectedLabel])
 
   return (
     <SelectContext.Provider value={contextValue}>
