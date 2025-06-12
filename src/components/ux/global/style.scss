@@ -1,0 +1,34 @@
+$height: 40px;
+$border-radius: 6px;
+$padding-container: 0px 16px;
+$background-container: #fafafa;
+$height: 40px;
+
+$border-container: 1px solid #e2e8f0;
+$shadow-ring: 0 0 0 1px transparent, 0 0 0 3px transparent;
+
+$shadow-ring-hover: 0 0 0 2px #fafafa, 0 0 0 4px #02081780;
+$border-container-hover: 1px solid #020817b3;
+
+@mixin container {
+    box-shadow: $shadow-ring;
+    background: $background-container;
+    border: $border-container;
+    border-radius: $border-radius;
+    padding: $padding-container;
+    height: $height;
+    min-height: $height;
+    max-height: $height;
+
+    font-size: 15px;
+    line-height: 1.5;
+    width: 100%;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+}
+
+@mixin container-hover {
+    box-shadow: $shadow-ring-hover;
+    border: $border-container;
+}

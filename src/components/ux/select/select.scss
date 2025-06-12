@@ -1,3 +1,6 @@
+@import '../global/style.scss';
+
+
 .select-root {
   position: relative;
   display: inline-block;
@@ -6,33 +9,19 @@
 }
 
 .select-trigger {
-  box-shadow: 0 0 0 1px transparent, 0 0 0 3px transparent;
-  background: #fafafa;
-  border: 1px solid #e2e8f0;
-  border-radius: 6px;
-  padding: 0px 16px;
-  height: 40px;
-  min-height: 40px;
-  max-height: 40px;
-  font-size: 15px;
-  line-height: 1.5;
-  width: 100%;
-  font-weight: 600;
-  cursor: pointer;
-  outline: none;
+  @include container;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
 .select-trigger:hover {
-  box-shadow: 0 0 0 2px #fafafa, 0 0 0 4px rgba(2, 8, 23, 0.5019607843);
-  border: 1px solid #e2e8f0;
+  @include container-hover;
 }
 
 .select-trigger:focus,
 .select-trigger:active,
-.select-trigger[data-state=open] {
+.select-trigger[data-state="open"] {
   outline: none;
   box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #020817;
 }
@@ -57,7 +46,7 @@
   flex-shrink: 0;
 }
 
-.select-trigger[data-state=open] .select-icon {
+.select-trigger[data-state="open"] .select-icon {
   transform: rotate(180deg);
 }
 
@@ -70,13 +59,14 @@
   background: #ffffff;
   border: 1px solid #e2e8f0;
   border-radius: 8px;
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
   overflow: hidden;
   max-height: 240px;
   overflow-y: auto;
 }
 
-.select-content[data-open-upward=true] {
+.select-content[data-open-upward="true"] {
   bottom: 100%;
   top: auto;
   margin-top: 0;
@@ -242,4 +232,4 @@
 .select-tag-remove svg {
   width: 10px;
   height: 10px;
-}/*# sourceMappingURL=select.css.map */
+}

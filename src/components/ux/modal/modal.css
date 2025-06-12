@@ -1,4 +1,4 @@
-
+@charset "UTF-8";
 /* Estilos para el botón trigger */
 .modal-trigger {
   display: inline-flex;
@@ -284,4 +284,4 @@
 
 .modal-input-group-button:hover {
   background-color: #cbd5e0;
-}
+}/*# sourceMappingURL=modal.css.map */

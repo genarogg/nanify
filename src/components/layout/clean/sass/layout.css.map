@@ -1,0 +1,1 @@
+{"version":3,"sources":["layout.scss","schema.scss","layout.css"],"names":[],"mappings":"AAMA;EACI,aAAA;EACA,iBAAA;EACA,kBAAA;EACA,iCAAA;EAGA,yBCXa;EDYb,yBAAA;EACA,2CAAA;EACA,wBAAA;EACA,wBAAA;EACA,4BAAA;EACA,iCAAA;EACA,4BAAA;AEPJ;AFUI;EACI,yBCjBW;EDmBX,WCrBW;EDsBX,gBAAA;EACA,MAAA;EACA,aAAA;AETR;AFgBI;EACI,yBC9BW;EDgCX,WClCW;ACmBnB","file":"layout.css"}
