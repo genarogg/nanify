@@ -16,12 +16,73 @@
   border: 1px solid #e5e7eb;
   min-height: 400px;
   position: relative;
+  overflow: visible !important;
 }
 
+/* Add these styles to control column widths */
 .users-table {
   width: 100%;
   border-collapse: collapse;
   background-color: #ffffff;
+  position: relative;
+}
+
+/* Define specific column widths */
+.users-table th.select-column,
+.users-table td.select-column {
+  width: 40px;
+}
+
+.users-table th.id-column,
+.users-table td.id-column {
+  width: 60px;
+}
+
+.users-table th.nombre-column,
+.users-table td.nombre-column {
+  width: 18%;
+}
+
+.users-table th.correo-column,
+.users-table td.correo-column {
+  width: 22%;
+}
+
+.users-table th.telefono-column,
+.users-table td.telefono-column {
+  width: 12%;
+}
+
+.users-table th.cedula-column,
+.users-table td.cedula-column {
+  width: 10%;
+}
+
+.users-table th.rol-column,
+.users-table td.rol-column {
+  width: 12%;
+}
+
+/* Ensure the actions column has enough width */
+.users-table th.acciones-column,
+.users-table td.acciones-column {
+  width: 240px; /* Increased fixed width to ensure enough space */
+  min-width: 240px;
+  /* Important: Override overflow for the actions column */
+  overflow: visible !important;
+  position: relative;
+}
+
+/* Ensure content doesn't overflow cells */
+.users-table td {
+  padding: 18px 12px;
+  font-size: 14px;
+  color: #1f2937;
+  border-bottom: 1px solid #f3f4f6;
+  vertical-align: middle;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .users-table th {
@@ -35,14 +96,6 @@
   border-bottom: 1px solid #e5e7eb;
   white-space: nowrap;
   text-transform: uppercase;
-}
-
-.users-table td {
-  padding: 18px 12px;
-  font-size: 14px;
-  color: #1f2937;
-  border-bottom: 1px solid #f3f4f6;
-  vertical-align: middle;
 }
 
 /* Estilos para cuadrícula */
@@ -174,17 +227,57 @@
   color: #166534;
 }
 
+/* Add a container for the action buttons to ensure they stay together */
+.action-buttons-container {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+  flex-wrap: nowrap;
+}
+
+/* Adjust the actions cell to prevent overflow */
 .actions-cell {
   display: flex;
   gap: 8px;
   align-items: center;
   flex-wrap: nowrap;
-  min-width: 320px;
+  width: 100%;
+  justify-content: flex-start;
+  position: relative; /* Important for dropdown positioning */
 }
 
+/* Fix the action buttons to maintain square shape */
+.action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  min-width: 40px; /* Prevent width compression */
+  min-height: 40px; /* Prevent height compression */
+  flex-shrink: 0; /* Prevent shrinking */
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #020817;
+  background-color: #ffffff;
+  padding: 0; /* Remove any padding that might affect dimensions */
+  margin: 0; /* Remove any margin that might affect layout */
+}
+
+.action-btn:hover {
+  border-color: #9ca3af;
+  background-color: #f1f5f9;
+}
+
+/* Ensure the select dropdown doesn't grow too large */
 .actions-cell .select-root {
-  min-width: 140px;
-  max-width: 140px;
+  min-width: 120px;
+  max-width: 120px;
+  flex-shrink: 0;
+  flex-grow: 0;
+  position: relative; /* Important for dropdown positioning */
 }
 
 .actions-cell .select-trigger {
@@ -217,7 +310,6 @@
 
 .actions-cell .select-value {
   font-size: 14px !important;
-
   text-transform: uppercase;
   letter-spacing: 0.025em;
 }
@@ -227,33 +319,22 @@
   height: 14px !important;
 }
 
+/* Fix dropdown content positioning */
 .actions-cell .select-content {
   min-width: 140px;
   z-index: 1000;
+  position: absolute !important;
+  z-index: 9999 !important;
+}
+
+/* Ensure the dropdown content is visible */
+.select-content {
+  z-index: 9999 !important;
 }
 
 .actions-cell .select-item {
   font-size: 12px;
   padding: 8px 12px;
-}
-
-.action-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border: 1px solid #d1d5db;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  color: #020817;
-  background-color: #ffffff;
-}
-
-.action-btn:hover {
-  border-color: #9ca3af;
-  background-color: #f1f5f9;
 }
 
 .no-results {
@@ -297,6 +378,15 @@
   .action-btn {
     width: 28px;
     height: 28px;
+  }
+
+  .actions-cell {
+    gap: 6px;
+  }
+
+  .actions-cell .select-root {
+    min-width: 120px;
+    max-width: 120px;
   }
 }
 

@@ -247,7 +247,9 @@ export default function UserManagementTable({
                 {columns
                   .filter((column) => !column.hidden)
                   .map((column) => (
-                    <th key={column.id}>{column.header}</th>
+                    <th key={column.id} className={`${column.id}-column`}>
+                      {column.header}
+                    </th>
                   ))}
               </tr>
             </thead>
@@ -270,7 +272,7 @@ export default function UserManagementTable({
                     .map((column) => {
                       if (column.id === "acciones") {
                         return (
-                          <td key={column.id}>
+                          <td key={column.id} className="acciones-column">
                             <div className="actions-cell">
                               <Select
                                 value={user.rol}
@@ -280,64 +282,54 @@ export default function UserManagementTable({
                                   <SelectValue />
                                 </SelectTrigger>
                                 <SelectContent>
-                                  <SelectItem value="adsADMIN_DACE">afdsAdmin DACE</SelectItem>
-                                  <SelectItem value="dsaADMIN_FUNDESUR">fdsAdmin FUNDESUR</SelectItem>
-                                  <SelectItem value="adsSUPER_USUARIO">fdsSuper Usuario</SelectItem>
+                                  <SelectItem value="ADMIN_DACE">Admin DACE</SelectItem>
+                                  <SelectItem value="ADMIN_FUNDESUR">Admin FUNDESUR</SelectItem>
+                                  <SelectItem value="SUPER_USUARIO">Super Usuario</SelectItem>
                                 </SelectContent>
                               </Select>
-                              <button
-                                className="action-btn"
-                                onClick={() => handleEditUserClick(user)}
-                                title="Editar usuario"
-                              >
-                                <Edit size={16} />
-                              </button>
-                              <button
-                                className="action-btn"
-                                onClick={() => handleViewUserClick(user)}
-                                title="Ver usuario"
-                              >
-                                <Eye size={16} />
-                              </button>
-                              <button
-                                className="action-btn"
-                                onClick={() => handleDeleteUserClick(user)}
-                                title="Eliminar usuario"
-                              >
-                                <Trash2 size={16} />
-                              </button>
+                              <div className="action-buttons-container">
+                                <button
+                                  className="action-btn"
+                                  onClick={() => handleEditUserClick(user)}
+                                  title="Editar usuario"
+                                >
+                                  <Edit size={16} />
+                                </button>
+                                <button
+                                  className="action-btn"
+                                  onClick={() => handleViewUserClick(user)}
+                                  title="Ver usuario"
+                                >
+                                  <Eye size={16} />
+                                </button>
+                                <button
+                                  className="action-btn"
+                                  onClick={() => handleDeleteUserClick(user)}
+                                  title="Eliminar usuario"
+                                >
+                                  <Trash2 size={16} />
+                                </button>
+                              </div>
                             </div>
                           </td>
                         )
                       }
 
-                      if (column.id === "nombre") {
-                        return (
-                          <td key={column.id} className="name-cell">
-                            {user[column.accessor]}
-                          </td>
-                        )
-                      }
-
-                      if (column.id === "correo") {
-                        return (
-                          <td key={column.id} className="email-cell">
-                            {user[column.accessor]}
-                          </td>
-                        )
-                      }
-
-                      if (column.id === "rol") {
-                        return (
-                          <td key={column.id}>
+                      return (
+                        <td key={column.id} className={`${column.id}-column`}>
+                          {column.id === "nombre" && <span className="name-cell">{user[column.accessor]}</span>}
+                          {column.id === "correo" && <span className="email-cell">{user[column.accessor]}</span>}
+                          {column.id === "rol" && (
                             <span className={`role-badge role-${user.rol.toLowerCase().replace("_", "-")}`}>
                               {user.rol}
                             </span>
-                          </td>
-                        )
-                      }
-
-                      return <td key={column.id}>{user[column.accessor]}</td>
+                          )}
+                          {column.id !== "nombre" &&
+                            column.id !== "correo" &&
+                            column.id !== "rol" &&
+                            user[column.accessor]}
+                        </td>
+                      )
                     })}
                 </tr>
               ))}
