@@ -94,11 +94,12 @@
   padding: 20px 24px 16px;
   position: sticky;
   top: 0;
-  background-color: #fff; }
+  background-color: #fff;
+  z-index: 100; }
 
 .modal-title {
   margin: 0;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   color: #000;
   display: flex;

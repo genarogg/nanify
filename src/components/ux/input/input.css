@@ -18,7 +18,7 @@ form {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid rgba(28, 28, 28, 0.5);
+  border: 1px solid #e2e8f0;
   border-radius: 6px;
   height: 46px;
   position: relative;
@@ -39,13 +39,14 @@ form {
 .container-input.focus span.holder {
   font-size: 14px;
   font-weight: 600;
-  top: -15px !important;
+  top: -20px !important;
 }
 .container-input.no-icon span.holder {
-  left: -8px;
+  left: 0px;
 }
 .container-input.no-icon span.holder.has-content {
   font-size: 14px;
+  left: -8px;
 }
 .container-input .label-ico,
 .container-input .view-pass {
@@ -80,7 +81,7 @@ form {
   outline: none;
 }
 .container-input span.holder {
-  background-color: transparent;
+  background-color: #ffffff;
   backdrop-filter: blur(10px);
   color: #111827;
   font-size: 16px;
@@ -96,7 +97,7 @@ form {
 .container-input span.holder.has-content {
   font-size: 15px;
   font-weight: 500;
-  top: -15px !important;
+  top: -20px !important;
 }
 .container-input input[type="date"] {
   cursor: pointer;
