@@ -1,34 +1,42 @@
-@use "../../../sass/global/variables" as var;
-@use "../../../sass/global/mixin" as fn;
+@import "../../../sass/global/variables";
+@import "../../../sass/global/mixin";
+
+$color-secondary: #e5eaf1;
+$color-text: #111827;
 
 form {
     display: grid;
     gap: 41px;
 }
 
-
 .container-input {
-    @include fn.center-flex-xy();
+    @include center-flex-xy();
 
-    border: var.$border;
-    border-radius: var.$border-radius;
+    border: $border;
+    border-radius: $border-radius;
 
     height: 46px;
     position: relative;
     width: 100%;
 
-    &,
-    * {
-        transition: 500ms ease all;
-        // border: 1px solid red;
-    }
+    // &,
+    // * {
+    //     transition: 500ms ease all;
+    //     border: 1px solid red;
+    // }
 
     &:hover {
-        border: 1px solid var.$color-secondary;
+        border: 1px solid $color-secondary;
+    }
+
+    // Aplica focus-ring cuando el input interno tiene focus
+    &:focus-within {
+        @include focus-ring;
     }
 
     &.focus {
-        border: 1px solid var.$color-secondary;
+        border: 1px solid $color-secondary;
+        @include focus-ring; // También aplica el focus-ring cuando tiene la clase focus
 
         span.holder {
             font-size: 14px;
@@ -38,21 +46,27 @@ form {
     }
 
     &.no-icon {
-        padding-left: 47px;
+        span.holder {
+            left: -8px;
+
+            &.has-content {
+                font-size: 14px;
+            }
+        }
     }
 
     .label-ico,
     .view-pass {
-        @include fn.center-flex-xy();
+        @include center-flex-xy();
         $size: 46px;
 
         height: inherit;
         width: $size;
 
         .icon {
-            @include fn.center-flex-xy();
+            @include center-flex-xy();
             font-size: 20px;
-            color: var.$color-secondary;
+            color: $color-text;
             cursor: pointer;
         }
     }
@@ -60,23 +74,26 @@ form {
     input {
         background-color: transparent;
         border: none;
-        font-size: 18px;
-        font-weight: 600;
+        font-size: 16px;
+        font-weight: 500;
         height: 100%;
-        outline: none;
+        outline: none; // Importante: quita el outline del input para que solo el contenedor lo tenga
         padding: 0 10px;
         position: relative;
         width: 100%;
-        color: var.$color-secondary;
+        color: $color-text;
+
+        // Asegúrate de que el input no tenga su propio focus ring
+        &:focus {
+            outline: none;
+        }
     }
-
-
 
     span.holder {
         background-color: transparent;
-        backdrop-filter: var.$blur;
-        color: var.$color-secondary;
-        font-size: 18px;
+        backdrop-filter: $blur;
+        color: $color-text;
+        font-size: 16px;
         left: 40px;
         padding: 0 10px;
         pointer-events: none;
@@ -88,7 +105,7 @@ form {
 
         &.has-content {
             font-size: 15px;
-            font-weight: 600;
+            font-weight: 500;
             top: -15px !important;
         }
     }

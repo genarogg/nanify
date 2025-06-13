@@ -1,4 +1,9 @@
 import Modal from "@components/ux/modal"
+import { Input } from "@components/ux"
+
+import { useRef } from "react"
+
+import { BsFillEnvelopeHeartFill } from "react-icons/bs"
 
 // Iconos SVG simples
 const DocumentIcon = () => (
@@ -25,6 +30,18 @@ export default function Home() {
         // Aquí iría la lógica para guardar el documento
     }
 
+    const inputRef = useRef({
+        email: "",
+        password: ""
+    });
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        inputRef.current = { ...inputRef.current, [name]: value };
+    };
+
+
+
     return (
         <div
             style={{
@@ -44,7 +61,26 @@ export default function Home() {
                     onclick={handleSaveDocument}
                     buttonText="Agregar Documento"
                 >
-                      <div style={{ marginTop: "16px" }}>
+                    <Input
+                        type="date"
+                        name="email"
+                        id="emailLogin"
+                        placeholder="Email"
+                        icon={<BsFillEnvelopeHeartFill />}
+                        onChange={handleChange}
+                    />
+                    <br /><br /><br /><br />
+
+                     <Input
+                        type="password"
+                        name="pass"
+                        id="passLogin"
+                        placeholder="pass"
+                      
+                        onChange={handleChange}
+                    />
+
+                    <div style={{ marginTop: "16px" }}>
                         <label className="modal-label">Código</label>
                         <input type="text" className="modal-input" placeholder="" />
                     </div>

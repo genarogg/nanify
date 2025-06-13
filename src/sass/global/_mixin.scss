@@ -72,6 +72,11 @@
   }
 }
 
+@mixin focus-ring {
+  outline-offset: 2px;
+  outline: 2px solid #020817;
+}
+
 @mixin scroll($color: #fff, $size: 6px, $bgColor: "#000") {
   ::-webkit-scrollbar {
     width: 6px;
@@ -104,18 +109,16 @@
 
 }
 
-@mixin border-gradient(
-  $border-top: #09f,
+@mixin border-gradient($border-top: #09f,
   $border-bottom: #2e886d,
   $border-width: 2px,
   $bg-color: rgb(26, 26, 26),
   $bg-top: $bg-color,
   $bg-bottom: $bg-color,
-  $animation-duration: 5s
-) {
+  $animation-duration: 5s) {
   border: $border-width solid transparent;
   background: linear-gradient($bg-top, $bg-bottom) padding-box,
-              linear-gradient($border-top, $border-bottom) border-box;
+    linear-gradient($border-top, $border-bottom) border-box;
   background-size: 200% 200%;
   animation: border-gradient-animation $animation-duration infinite linear;
 }
@@ -124,9 +127,11 @@
   0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0% 50%;
   }
