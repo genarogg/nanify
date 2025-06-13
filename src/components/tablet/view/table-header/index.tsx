@@ -5,7 +5,7 @@ import "./table-header.css"
 
 import AddUsuario from "../../modal-crud/AddUsuario"
 
-import type { UseResponsiveViewReturn } from "../../useResponsiveView"
+import type { UseResponsiveViewReturn } from "../../fn/useResponsiveView"
 
 interface TableHeaderProps {
   title?: string

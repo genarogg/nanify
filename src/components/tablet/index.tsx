@@ -2,14 +2,18 @@
 
 
 
-import defaultConfig, { type TableConfig } from "./config"
+import defaultConfig, { type TableConfig } from "./fn/config"
 import { useTable, type UseTableReturn } from "./useTable"
 import type { DataTable } from "./fn/defaultData"
-import { useResponsiveView } from "./useResponsiveView"
-import TableHeader from "./view/table-header/table-header"
-import TablePagination from "./pagination/table-pagination"
-import TableCardView from "./view/table-card-view/table-card-view"
-import TableView from "./view/table-view/table-view"
+import { useResponsiveView } from "./fn/useResponsiveView"
+
+import {
+  TableCardView,
+  TableView,
+  TableHeader,
+  Pagination
+} from "./view"
+
 
 interface UserManagementTableProps {
   config?: Partial<TableConfig>
