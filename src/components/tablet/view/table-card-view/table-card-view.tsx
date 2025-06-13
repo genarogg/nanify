@@ -1,16 +1,16 @@
 "use client"
 
 import { Edit, Eye, Trash2, Check } from "lucide-react"
-import "./css/table-card-view.css"
-import type { User } from "./useTable"
+import "./table-card-view.css"
+import type { DataTable } from "../../useTable"
 
 interface TableCardViewProps {
-  users: User[]
+  users: DataTable[]
   selectedUsers: number[]
   onSelectUser: (userId: number) => void
-  onEditUser: (user: User) => void
-  onViewUser: (user: User) => void
-  onDeleteUser: (user: User) => void
+  onEditUser: (user: DataTable) => void
+  onViewUser: (user: DataTable) => void
+  onDeleteUser: (user: DataTable) => void
   showSelection?: boolean
 }
 

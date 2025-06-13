@@ -61,7 +61,7 @@ const defaultConfig: TableConfig = {
       id: "acciones",
       header: "Acciones",
       accessor: "",
-      sortable: false,
+      sortable: true,
     },
   ],
 }

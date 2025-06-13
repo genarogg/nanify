@@ -1,4 +1,4 @@
-interface User {
+interface DataTable {
     id: number
     nombre: string
     correo: string
@@ -9,7 +9,7 @@ interface User {
 }
 
 
-const defaultUsers: User[] = [
+const defaultData: DataTable[] = [
     {
         id: 707,
         nombre: "Miguel Reyes",
@@ -61,5 +61,5 @@ const defaultUsers: User[] = [
     })),
 ]
 
-export { defaultUsers }
-export type { User }
+export { defaultData }
+export type { DataTable }

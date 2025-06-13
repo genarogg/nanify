@@ -1,18 +1,18 @@
 "use client"
 
 import { useState, useMemo } from "react"
-import { defaultUsers, type User } from "./fn/defaultUsers"
+import { defaultData, type DataTable } from "./fn/defaultData"
 
 
 
 interface UseTableProps {
-  initialUsers?: User[]
+  initialUsers?: DataTable[]
   itemsPerPage?: number
 }
 
-export const useTable = ({ initialUsers = defaultUsers, itemsPerPage = 5 }: UseTableProps = {}) => {
+export const useTable = ({ initialUsers = defaultData, itemsPerPage = 5 }: UseTableProps = {}) => {
   // Estados principales
-  const [users, setUsers] = useState<User[]>(initialUsers)
+  const [users, setUsers] = useState<DataTable[]>(initialUsers)
   const [searchTerm, setSearchTerm] = useState("")
   const [currentPage, setCurrentPage] = useState(1)
   const [selectedUsers, setSelectedUsers] = useState<number[]>([])
@@ -122,11 +122,11 @@ export const useTable = ({ initialUsers = defaultUsers, itemsPerPage = 5 }: UseT
   }
 
   // Funciones para manejar los datos de usuarios
-  const addUser = (newUser: User) => {
+  const addUser = (newUser: DataTable) => {
     setUsers((prev) => [...prev, newUser])
   }
 
-  const updateUser = (userId: number, updatedUser: Partial<User>) => {
+  const updateUser = (userId: number, updatedUser: Partial<DataTable>) => {
     setUsers((prev) => prev.map((user) => (user.id === userId ? { ...user, ...updatedUser } : user)))
   }
 
@@ -240,4 +240,4 @@ export const useTable = ({ initialUsers = defaultUsers, itemsPerPage = 5 }: UseT
 }
 
 export type UseTableReturn = ReturnType<typeof useTable>
-export type { User }
+export type { DataTable }
