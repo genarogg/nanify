@@ -16,7 +16,8 @@
   border: 1px solid #e5e7eb;
   min-height: 400px;
   position: relative;
-  overflow: visible !important;
+  overflow-y: visible !important;
+  overflow-x: auto !important;
 }
 
 /* Add these styles to control column widths */

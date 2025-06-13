@@ -104,9 +104,7 @@ export default function UserManagementTable({
     getSelectAllState,
     getPageNumbers,
     hasFilteredUsers,
-    addUser,
     updateUser,
-    deleteUser,
   } = state
 
   // Hook para manejo responsive de vistas
@@ -114,17 +112,6 @@ export default function UserManagementTable({
     autoResponsive,
     breakpoint,
     defaultViewMode,
-  })
-
-  // Estados para el modal CRUD
-  const [modalState, setModalState] = useState<{
-    isOpen: boolean
-    mode: "create" | "edit" | "view" | "delete"
-    user?: User | null
-  }>({
-    isOpen: false,
-    mode: "create",
-    user: null,
   })
 
   // Combinar la configuración por defecto con la configuración proporcionada
@@ -150,58 +137,21 @@ export default function UserManagementTable({
 
   // Funciones CRUD
   const handleCreateUser = () => {
-    setModalState({
-      isOpen: true,
-      mode: "create",
-      user: null,
-    })
     onAddUser?.()
   }
 
   const handleEditUserClick = (user: User) => {
-    setModalState({
-      isOpen: true,
-      mode: "edit",
-      user,
-    })
     onEditUser?.(user)
   }
 
   const handleViewUserClick = (user: User) => {
-    setModalState({
-      isOpen: true,
-      mode: "view",
-      user,
-    })
     onViewUser?.(user)
   }
 
   const handleDeleteUserClick = (user: User) => {
-    setModalState({
-      isOpen: true,
-      mode: "delete",
-      user,
-    })
-  }
-
-  const handleModalClose = () => {
-    setModalState({
-      isOpen: false,
-      mode: "create",
-      user: null,
-    })
-  }
-
-  const handleModalSave = (userData: Partial<User>) => {
-    if (modalState.mode === "create") {
-      addUser(userData as User)
-    } else if (modalState.mode === "edit" && modalState.user) {
-      updateUser(modalState.user.id, userData)
-    }
-  }
-
-  const handleModalDelete = (userId: number) => {
-    deleteUser(userId)
+    // Por ahora solo llamamos al callback si existe
+    // En el futuro se puede implementar la lógica de eliminación
+    console.log('Delete user:', user)
   }
 
   return (
@@ -337,15 +287,18 @@ export default function UserManagementTable({
           </table>
         </div>
       ) : (
-        <TableCardView
-          users={currentUsers}
-          selectedUsers={selectedUsers}
-          onSelectUser={handleUserSelect}
-          onEditUser={handleEditUserClick}
-          onViewUser={handleViewUserClick}
-          onDeleteUser={handleDeleteUserClick}
-          showSelection={select}
-        />
+        <>
+          {/* Modo tarjeta */}
+          <TableCardView
+            users={currentUsers}
+            selectedUsers={selectedUsers}
+            onSelectUser={handleUserSelect}
+            onEditUser={handleEditUserClick}
+            onViewUser={handleViewUserClick}
+            onDeleteUser={handleDeleteUserClick}
+            showSelection={select}
+          />
+        </>
       )}
 
       {!hasFilteredUsers && (
@@ -354,6 +307,7 @@ export default function UserManagementTable({
         </div>
       )}
 
+      {/* paginacion */}
       {hasFilteredUsers && (
         <TablePagination
           currentPage={currentPage}
@@ -369,14 +323,6 @@ export default function UserManagementTable({
         />
       )}
 
-      {/* <UserCrudModal
-        isOpen={modalState.isOpen}
-        mode={modalState.mode}
-        user={modalState.user}
-        onClose={handleModalClose}
-        onSave={handleModalSave}
-        onDelete={handleModalDelete}
-      /> */}
     </div>
   )
 }
