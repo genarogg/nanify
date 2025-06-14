@@ -1,10 +1,11 @@
 "use client"
 
 import type React from "react"
-import { createContext, useContext, useState, useMemo, type ReactNode } from "react"
+import { createContext, useContext, useState, useMemo, type ReactNode, useCallback, useEffect } from "react"
 import { useResponsiveView, type UseResponsiveViewReturn } from "../fn/useResponsiveView"
 import { defaultData } from "../fn/defaultData"
 import type { DataTable, TableConfig } from "./types"
+import { useTableData } from "../hooks/useTableData"
 
 // Tipos para el estado de la tabla (movidos desde useTable)
 interface TableState {
@@ -48,6 +49,13 @@ interface TableState {
   selectedCount: number
   totalItems: number
   filteredCount: number
+  dataLoading: boolean
+  dataError: string | null
+  refetchData: () => Promise<void>
+  isUsingFallback: boolean
+  updateTableConfig: (newConfig: Partial<TableConfig>) => void
+  updateItemsPerPage: (newItemsPerPage: number) => void
+  itemsPerPage: number
 }
 
 // Tipos para el contexto
@@ -84,10 +92,10 @@ interface TableContextType {
 
   // Configuración de filtros
   filterConfig: {
-    dateFrom?: string
-    dateTo?: string
-    onDateFromChange?: (date: string) => void
-    onDateToChange?: (date: string) => void
+    dateFrom: string
+    dateTo: string
+    onDateFromChange: (date: string) => void
+    onDateToChange: (date: string) => void
     showStatusFilter: boolean
     statusOptions?: { value: string; label: string }[]
     selectedStatus?: string
@@ -116,7 +124,7 @@ interface TableProviderProps {
   onAddItem?: () => void
   onEditItem?: (item: DataTable) => void
   onViewItem?: (item: DataTable) => void
-  onDeleteItem?: (item: DataTable) => void
+  onDeleteItem?: () => void
   onSelectItem?: (item: DataTable) => void
 
   // Configuración de UI
@@ -140,6 +148,9 @@ interface TableProviderProps {
   statusOptions?: { value: string; label: string }[]
   selectedStatus?: string
   onStatusChange?: (status: string) => void
+  apiUrl?: string
+  autoFetch?: boolean
+  fetchOnMount?: boolean
 }
 
 // Provider del contexto
@@ -147,7 +158,7 @@ export const TableProvider: React.FC<TableProviderProps> = ({
   children,
   config = {},
   initialData = defaultData,
-  itemsPerPage = 5,
+  itemsPerPage = 10,
   defaultViewMode = "table",
   autoResponsive = true,
   breakpoint = 768,
@@ -166,20 +177,115 @@ export const TableProvider: React.FC<TableProviderProps> = ({
   nextText = "Siguiente",
   showViewToggle = true,
   showAutoToggle = true,
-  dateFrom,
-  dateTo,
-  onDateFromChange,
-  onDateToChange,
+  dateFrom: propDateFrom,
+  dateTo: propDateTo,
+  onDateFromChange: propOnDateFromChange,
+  onDateToChange: propOnDateToChange,
   showStatusFilter = false,
   statusOptions,
   selectedStatus,
   onStatusChange,
+  apiUrl,
+  autoFetch,
+  fetchOnMount,
 }) => {
   // Estados principales de la tabla (lógica movida desde useTable)
-  const [items, setItems] = useState<DataTable[]>(initialData)
+  const {
+    data: items,
+    loading: dataLoading,
+    error: dataError,
+    refetch: refetchData,
+    setData: setItems,
+    isUsingFallback,
+  } = useTableData({
+    apiUrl: apiUrl,
+    initialData,
+    autoFetch: autoFetch ?? true,
+    fetchOnMount: fetchOnMount ?? true,
+  })
   const [searchTerm, setSearchTerm] = useState("")
   const [currentPage, setCurrentPage] = useState(1)
   const [selectedItems, setSelectedItems] = useState<number[]>([])
+
+  // Estados internos para las fechas si no se proporcionan desde props
+  const [internalDateFrom, setInternalDateFrom] = useState("")
+  const [internalDateTo, setInternalDateTo] = useState("")
+
+  // Usar props si están disponibles, sino usar estado interno
+  const dateFrom = propDateFrom !== undefined ? propDateFrom : internalDateFrom
+  const dateTo = propDateTo !== undefined ? propDateTo : internalDateTo
+
+  const handleDateFromChange = (date: string) => {
+    if (propOnDateFromChange) {
+      propOnDateFromChange(date)
+    } else {
+      setInternalDateFrom(date)
+    }
+  }
+
+  const handleDateToChange = (date: string) => {
+    if (propOnDateToChange) {
+      propOnDateToChange(date)
+    } else {
+      setInternalDateTo(date)
+    }
+  }
+
+  // Agregar después de los estados existentes
+  const [dynamicItemsPerPage, setDynamicItemsPerPage] = useState(itemsPerPage)
+  const [dynamicConfig, setDynamicConfig] = useState<TableConfig>({
+    select: true,
+    cuadricula: true,
+    columns: [
+      { id: "id", header: "Id", accessor: "id", sortable: true },
+      { id: "nombre", header: "Nombre", accessor: "nombre", sortable: true },
+      { id: "correo", header: "Correo", accessor: "correo", sortable: true },
+      { id: "telefono", header: "Teléfono", accessor: "telefono", sortable: true },
+      { id: "cedula", header: "Cédula", accessor: "cedula", sortable: true },
+      { id: "rol", header: "Rol", accessor: "rol", sortable: true },
+      { id: "acciones", header: "Acciones", accessor: "", sortable: true },
+    ],
+  })
+
+  // Cargar configuración desde localStorage
+  const loadConfigFromStorage = useCallback(() => {
+    try {
+      const savedConfig = localStorage.getItem("tableConfig")
+      if (savedConfig) {
+        const parsedConfig = JSON.parse(savedConfig)
+
+        // Aplicar configuración guardada
+        if (parsedConfig.itemsPerPage) {
+          setDynamicItemsPerPage(parsedConfig.itemsPerPage)
+        }
+
+        if (parsedConfig.hiddenColumns) {
+          setDynamicConfig((prev) => ({
+            ...prev,
+            columns: prev.columns.map((col) => ({
+              ...col,
+              hidden: parsedConfig.hiddenColumns.includes(col.id),
+            })),
+          }))
+        }
+
+        if (typeof parsedConfig.select === "boolean") {
+          setDynamicConfig((prev) => ({ ...prev, select: parsedConfig.select }))
+        }
+
+        if (typeof parsedConfig.cuadricula === "boolean") {
+          setDynamicConfig((prev) => ({ ...prev, cuadricula: parsedConfig.cuadricula }))
+        }
+      }
+    } catch (error) {
+      console.warn("Error loading table configuration from localStorage:", error)
+    }
+  }, [])
+
+  // Cargar configuración al montar el componente
+  useEffect(() => {
+    loadConfigFromStorage()
+  }, [])
 
   // Elementos filtrados según el término de búsqueda
   const filteredItems = useMemo(() => {
@@ -193,13 +299,23 @@ export const TableProvider: React.FC<TableProviderProps> = ({
 
   // Calcular el número total de páginas
   const totalPages = useMemo(() => {
-    return Math.ceil(filteredItems.length / itemsPerPage)
-  }, [filteredItems.length, itemsPerPage])
+    return Math.ceil(filteredItems.length / dynamicItemsPerPage)
+  }, [filteredItems.length, dynamicItemsPerPage])
 
   // Obtener los elementos para la página actual
   const currentItems = useMemo(() => {
-    return filteredItems.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
-  }, [filteredItems, currentPage, itemsPerPage])
+    return filteredItems.slice((currentPage - 1) * dynamicItemsPerPage, currentPage * dynamicItemsPerPage)
+  }, [filteredItems, currentPage, dynamicItemsPerPage])
+
+  // Agregar funciones para actualizar la configuración
+  const updateTableConfig = (newConfig: Partial<TableConfig>) => {
+    setDynamicConfig((prev) => ({ ...prev, ...newConfig }))
+  }
+
+  const updateItemsPerPage = (newItemsPerPage: number) => {
+    setDynamicItemsPerPage(newItemsPerPage)
+    setCurrentPage(1) // Reset to first page when changing items per page
+  }
 
   // Funciones para manejar la búsqueda
   const handleSearch = (term: string) => {
@@ -401,6 +517,13 @@ export const TableProvider: React.FC<TableProviderProps> = ({
     selectedCount: selectedItems.length,
     totalItems: items.length,
     filteredCount: filteredItems.length,
+    dataLoading,
+    dataError,
+    refetchData,
+    isUsingFallback,
+    updateTableConfig,
+    updateItemsPerPage,
+    itemsPerPage: dynamicItemsPerPage,
   }
 
   // Inicializar el estado responsive
@@ -409,27 +532,6 @@ export const TableProvider: React.FC<TableProviderProps> = ({
     breakpoint,
     defaultViewMode,
   })
-
-  // Combinar configuración por defecto con la proporcionada
-  const defaultConfig: TableConfig = {
-    select: true,
-    cuadricula: true,
-    columns: [
-      { id: "id", header: "Id", accessor: "id", sortable: true },
-      { id: "nombre", header: "Nombre", accessor: "nombre", sortable: true },
-      { id: "correo", header: "Correo", accessor: "correo", sortable: true },
-      { id: "telefono", header: "Teléfono", accessor: "telefono", sortable: true },
-      { id: "cedula", header: "Cédula", accessor: "cedula", sortable: true },
-      { id: "rol", header: "Rol", accessor: "rol", sortable: true },
-      { id: "acciones", header: "Acciones", accessor: "", sortable: true },
-    ],
-  }
-
-  const finalConfig: TableConfig = {
-    ...defaultConfig,
-    ...config,
-    columns: config.columns || defaultConfig.columns,
-  }
 
   // Configuración de UI
   const uiConfig = {
@@ -449,18 +551,19 @@ export const TableProvider: React.FC<TableProviderProps> = ({
   const filterConfig = {
     dateFrom,
     dateTo,
-    onDateFromChange,
-    onDateToChange,
+    onDateFromChange: handleDateFromChange,
+    onDateToChange: handleDateToChange,
     showStatusFilter,
     statusOptions,
     selectedStatus,
     onStatusChange,
   }
 
+  // Actualizar el contextValue para usar dynamicConfig
   const contextValue: TableContextType = {
     tableState,
     responsiveViewState,
-    config: finalConfig,
+    config: dynamicConfig, // Usar la configuración dinámica
     onAddItem,
     onEditItem,
     onViewItem,

@@ -1,6 +1,7 @@
 "use client"
 
 import { Edit, Eye, Trash2, Check } from "lucide-react"
+import { useTableRowActions } from "../../hooks/useTableRowActions"
 import "./table-card-view.css"
 import type { DataTable } from "../../context/TableContext"
 
@@ -23,6 +24,14 @@ export default function TableCardView({
   onDeleteItem,
   showSelection = true,
 }: TableCardViewProps) {
+  // Usar el hook de acciones
+  const { handleEdit, handleView, handleDelete } = useTableRowActions({
+    onCustomEdit: onEditItem,
+    onCustomView: onViewItem,
+    onCustomDelete: onDeleteItem,
+    showConfirmDialog: true,
+  })
+
   const isSelected = (itemId: number) => selectedItems.includes(itemId)
 
   return (
@@ -44,13 +53,13 @@ export default function TableCardView({
               <h3 className="card-title">{item.nombre}</h3>
             </div>
             <div className="card-actions">
-              <button className="card-action-btn" onClick={() => onEditItem(item)} title="Editar elemento">
+              <button className="card-action-btn" onClick={() => handleEdit(item)} title="Editar elemento">
                 <Edit size={16} />
               </button>
-              <button className="card-action-btn" onClick={() => onViewItem(item)} title="Ver elemento">
+              <button className="card-action-btn" onClick={() => handleView(item)} title="Ver elemento">
                 <Eye size={16} />
               </button>
-              <button className="card-action-btn" onClick={() => onDeleteItem(item)} title="Eliminar elemento">
+              <button className="card-action-btn" onClick={() => handleDelete(item)} title="Eliminar elemento">
                 <Trash2 size={16} />
               </button>
             </div>
@@ -86,7 +95,7 @@ export default function TableCardView({
 
           {/* Footer de la tarjeta */}
           <div className="card-footer">
-            <button className="card-details-btn" onClick={() => onViewItem(item)}>
+            <button className="card-details-btn" onClick={() => handleView(item)}>
               Ver más
             </button>
           </div>

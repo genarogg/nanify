@@ -36,6 +36,15 @@ interface DataTableManagementProps {
   statusOptions?: { value: string; label: string }[]
   selectedStatus?: string
   onStatusChange?: (status: string) => void
+
+  // Configuración de datos remotos
+  apiUrl?: string
+  autoFetch?: boolean
+  fetchOnMount?: boolean
+
+  // Callbacks para manejo de datos
+  onDataLoad?: (data: DataTable[]) => void
+  onDataError?: (error: string) => void
 }
 
 export default function DataTableManagement(props: DataTableManagementProps) {

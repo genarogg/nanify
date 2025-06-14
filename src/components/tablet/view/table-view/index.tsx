@@ -3,6 +3,7 @@
 import { Edit, Eye, Check, Minus, Trash2 } from "lucide-react"
 import type { DataTable } from "../../context/TableContext"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "../../../ux/select"
+import { useTableRowActions } from "../../hooks/useTableRowActions"
 import "./user-management-table.css"
 
 interface TableViewProps {
@@ -34,6 +35,14 @@ export default function TableView({
   onDeleteItem,
   updateItem,
 }: TableViewProps) {
+  // Usar el hook de acciones
+  const { handleEdit, handleView, handleDelete, handleRoleChange } = useTableRowActions({
+    onCustomEdit: onEditItem,
+    onCustomView: onViewItem,
+    onCustomDelete: onDeleteItem,
+    showConfirmDialog: true,
+  })
+
   return (
     <div className="table-container">
       <table className={`data-table ${!select ? "no-select" : ""} ${cuadricula ? "with-grid" : ""}`}>
@@ -81,10 +90,7 @@ export default function TableView({
                     return (
                       <td key={column.id} className="acciones-column">
                         <div className="actions-cell">
-                          <Select
-                            value={item.rol}
-                            onValueChange={(newRole) => updateItem(item.id, { rol: newRole as string })}
-                          >
+                          <Select value={item.rol} onValueChange={(newRole) => handleRoleChange(item, newRole)}>
                             <SelectTrigger>
                               <SelectValue />
                             </SelectTrigger>
@@ -95,13 +101,13 @@ export default function TableView({
                             </SelectContent>
                           </Select>
                           <div className="action-buttons-container">
-                            <button className="action-btn" onClick={() => onEditItem(item)} title="Editar elemento">
+                            <button className="action-btn" onClick={() => handleEdit(item)} title="Editar elemento">
                               <Edit size={16} />
                             </button>
-                            <button className="action-btn" onClick={() => onViewItem(item)} title="Ver elemento">
+                            <button className="action-btn" onClick={() => handleView(item)} title="Ver elemento">
                               <Eye size={16} />
                             </button>
-                            <button className="action-btn" onClick={() => onDeleteItem(item)} title="Eliminar elemento">
+                            <button className="action-btn" onClick={() => handleDelete(item)} title="Eliminar elemento">
                               <Trash2 size={16} />
                             </button>
                           </div>
