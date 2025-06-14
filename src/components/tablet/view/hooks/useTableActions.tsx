@@ -1,7 +1,7 @@
 "use client"
 
-import { useTableCallbacks, useTableState } from "../context/TableContext"
-import type { DataTable } from "../fn/defaultData"
+import { useTableCallbacks, useTableState } from "../../context/TableContext"
+import type { DataTable } from "../../fn/defaultData"
 
 /**
  * Hook personalizado para manejar las acciones CRUD de la tabla

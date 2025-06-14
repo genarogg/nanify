@@ -1,7 +1,7 @@
 "use client"
 
 import { useTableContext } from "../context/TableContext"
-import { useTableActions } from "../hooks/useTableActions"
+import { useTableActions } from "./hooks/useTableActions"
 import TableCardView from "./table-card-view";
 import TableView from "./table-view";
 import TableHeader from "./table-header";

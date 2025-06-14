@@ -1,17 +1,23 @@
 "use client"
 
-import { Search } from "lucide-react"
+import { Search, Printer } from "lucide-react"
 import "./table-header.css"
 
 import AddUsuario from "../modal-crud/AddUsuario"
 import { useTableState, useUIConfig } from "../../context/TableContext"
 
 export default function TableHeader() {
-
-  const { searchTerm, handleSearch } = useTableState()
+  const { searchTerm, handleSearch, getSelectedUsers } = useTableState()
   const { title, searchPlaceholder } = useUIConfig()
 
-
+  const handlePrintSelected = () => {
+    const selectedUsers = getSelectedUsers()
+    if (selectedUsers.length === 0) {
+      console.log("No hay usuarios seleccionados para imprimir")
+      return
+    }
+    console.log("Usuarios seleccionados para imprimir:", selectedUsers)
+  }
 
   return (
     <div className="table-header-container">
@@ -38,9 +44,16 @@ export default function TableHeader() {
 
         {/* New Modal Buttons */}
         <div className="table-modal-buttons-container">
+          <button className="modal-trigger" onClick={handlePrintSelected} title="Imprimir seleccionados">
+            <span className="modal-trigger-icon">
+              <Printer size={16} />
+            </span>
+
+          </button>
           <div className="modal-button-wrapper">
             <AddUsuario />
           </div>
+
         </div>
       </div>
     </div>
