@@ -3,40 +3,16 @@
 import { Search } from "lucide-react"
 import "./table-header.css"
 
-import AddUsuario from "../../modal-crud/AddUsuario"
+import AddUsuario from "../modal-crud/AddUsuario"
+import { useTableState, useUIConfig } from "../../context/TableContext"
 
-import type { UseResponsiveViewReturn } from "../../fn/useResponsiveView"
+export default function TableHeader() {
 
-interface TableHeaderProps {
-  title?: string
-  searchTerm: string
-  searchPlaceholder?: string
-  onSearch: (term: string) => void
-  onAddUser?: () => void
-  addButtonText?: string
-  showAddButton?: boolean
-  // Nuevos props para filtros adicionales
+  const { searchTerm, handleSearch } = useTableState()
+  const { title, searchPlaceholder } = useUIConfig()
 
-  dateFrom?: string
-  dateTo?: string
-  onDateFromChange?: (date: string) => void
-  onDateToChange?: (date: string) => void
-  showStatusFilter?: boolean
-  statusOptions?: { value: string; label: string }[]
-  selectedStatus?: string
-  onStatusChange?: (status: string) => void
-  // Props para el toggle de vista responsive
-  showViewToggle?: boolean
-  responsiveViewState?: UseResponsiveViewReturn
-  showAutoToggle?: boolean
-}
 
-export default function TableHeader({
-  title = "Gestión de Usuarios",
-  searchTerm,
-  searchPlaceholder = "Buscar usuarios...",
-  onSearch,
-}: TableHeaderProps) {
+
   return (
     <div className="table-header-container">
       {/* Título principal */}
@@ -56,18 +32,12 @@ export default function TableHeader({
             placeholder={searchPlaceholder}
             className="table-search-input"
             value={searchTerm}
-            onChange={(e) => onSearch(e.target.value)}
+            onChange={(e) => handleSearch(e.target.value)}
           />
         </div>
 
         {/* New Modal Buttons */}
         <div className="table-modal-buttons-container">
-          <div className="modal-button-wrapper">
-            <AddUsuario />
-          </div>
-          <div className="modal-button-wrapper">
-            <AddUsuario />
-          </div>
           <div className="modal-button-wrapper">
             <AddUsuario />
           </div>

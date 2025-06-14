@@ -2,7 +2,7 @@
 import React from 'react'
 import { Download } from "lucide-react"
 
-import Modal from "../../ux/modal"
+import Modal from "../../../ux/modal"
 
 interface AddUsuarioProps {
 

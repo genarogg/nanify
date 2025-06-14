@@ -292,8 +292,8 @@
 
 /* Ensure the select dropdown doesn't grow too large */
 .actions-cell .select-root {
-  min-width: 120px;
-  max-width: 120px;
+  min-width: 170px;
+  max-width: 170px;
   flex-shrink: 0;
   flex-grow: 0;
   position: relative; /* Important for dropdown positioning */
@@ -404,8 +404,8 @@
   }
 
   .actions-cell .select-root {
-    min-width: 120px;
-    max-width: 120px;
+    min-width: 170px;
+    max-width: 170px;
   }
 }
 
