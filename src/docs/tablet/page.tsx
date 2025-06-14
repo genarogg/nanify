@@ -17,10 +17,6 @@ const page: React.FC<pageProps> = () => {
         { value: "super_usuario", label: "Super Usuario" },
     ]
 
-    // Puedes definir esta función si Tablet la requiere
-    const handleSelectUser = (user: any) => {
-        // lógica para seleccionar usuario (opcional)
-    }
 
     return (
         <main style={{ padding: "20px", backgroundColor: "#f5f5f5", minHeight: "100vh" }}>
@@ -41,7 +37,7 @@ const page: React.FC<pageProps> = () => {
                     config={{ cuadricula: true }}
                     title="Gestión de Trámites - Breakpoint 1024px"
                     searchPlaceholder="Buscar trámites..."
-                    showDateFilters={true}
+               
                     dateFrom={dateFrom}
                     dateTo={dateTo}
                     onDateFromChange={setDateFrom}

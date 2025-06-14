@@ -3,10 +3,7 @@
 import { useTableCallbacks, useTableState } from "../context/TableContext"
 import type { DataTable } from "../context/types"
 
-/**
- * Hook personalizado para manejar las acciones CRUD de la tabla
- * Centraliza toda la lógica de acciones y callbacks
- */
+
 export const useTableActions = () => {
   const { onAddItem, onEditItem, onViewItem, onDeleteItem, onSelectItem } = useTableCallbacks()
   const { currentItems, handleSelectItem: handleSelectItemState } = useTableState()
@@ -21,7 +18,6 @@ export const useTableActions = () => {
     }
   }
 
-  // Funciones CRUD
   const handleCreateItem = () => {
     onAddItem?.()
   }

@@ -4,6 +4,7 @@ import "./pagination.css"
 import { useTableState, useUIConfig } from "../../context/TableContext"
 
 export default function TablePagination() {
+  
   const { currentPage, totalPages, goToPage, goToNextPage, goToPreviousPage, getPageNumbers } = useTableState()
 
   const { showPaginationInfo, paginationInfoText, previousText, nextText } = useUIConfig()
