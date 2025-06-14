@@ -1,7 +1,5 @@
 "use client"
 
-
-
 import defaultConfig, { type TableConfig } from "./fn/config"
 import { useTable, type UseTableReturn } from "./useTable"
 import type { DataTable } from "./fn/defaultData"
@@ -29,7 +27,6 @@ interface UserManagementTableProps {
   showAddButton?: boolean
 
   // Props para filtros adicionales
-
   dateFrom?: string
   dateTo?: string
   onDateFromChange?: (date: string) => void
@@ -213,7 +210,7 @@ export default function UserManagementTable({
 
       {/* paginacion */}
       {hasFilteredUsers && (
-        <TablePagination
+        <Pagination
           currentPage={currentPage}
           totalPages={totalPages}
           onPageChange={goToPage}

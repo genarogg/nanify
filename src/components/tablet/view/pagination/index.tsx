@@ -1,6 +1,6 @@
 "use client"
 
-import "./table-pagination.css"
+import "./pagination.css"
 
 interface TablePaginationProps {
   currentPage: number

@@ -6,6 +6,7 @@ import Pagination from "./pagination";
 export {
     TableCardView,
     TableView,
+    
     TableHeader,
     Pagination
 };
