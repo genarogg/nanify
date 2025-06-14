@@ -2,10 +2,9 @@
 
 import { TableProvider } from "./context/TableContext"
 import TableContent from "./view"
-import type { DataTable } from "./fn/defaultData"
-import type { TableConfig } from "./fn/config"
+import type { DataTable, TableConfig } from "./context/types"
 
-interface UserManagementTableProps {
+interface DataTableManagementProps {
   // Configuración de la tabla
   config?: Partial<TableConfig>
   initialData?: DataTable[]
@@ -15,13 +14,6 @@ interface UserManagementTableProps {
   defaultViewMode?: "table" | "cards"
   autoResponsive?: boolean
   breakpoint?: number
-
-  // Callbacks CRUD
-  onAddUser?: () => void
-  onEditUser?: (user: DataTable) => void
-  onViewUser?: (user: DataTable) => void
-  onDeleteUser?: (user: DataTable) => void
-  onSelectUser?: (user: DataTable) => void
 
   // Configuración de UI
   title?: string
@@ -46,7 +38,7 @@ interface UserManagementTableProps {
   onStatusChange?: (status: string) => void
 }
 
-export default function UserManagementTable(props: UserManagementTableProps) {
+export default function DataTableManagement(props: DataTableManagementProps) {
   return (
     <TableProvider {...props}>
       <TableContent />

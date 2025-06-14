@@ -7,16 +7,16 @@ import AddUsuario from "../modal-crud/AddUsuario"
 import { useTableState, useUIConfig } from "../../context/TableContext"
 
 export default function TableHeader() {
-  const { searchTerm, handleSearch, getSelectedUsers } = useTableState()
+  const { searchTerm, handleSearch, getSelectedItems } = useTableState()
   const { title, searchPlaceholder } = useUIConfig()
 
   const handlePrintSelected = () => {
-    const selectedUsers = getSelectedUsers()
-    if (selectedUsers.length === 0) {
-      console.log("No hay usuarios seleccionados para imprimir")
+    const selectedItems = getSelectedItems()
+    if (selectedItems.length === 0) {
+      console.log("No hay elementos seleccionados para imprimir")
       return
     }
-    console.log("Usuarios seleccionados para imprimir:", selectedUsers)
+    console.log("Elementos seleccionados para imprimir:", selectedItems)
   }
 
   return (
@@ -48,12 +48,10 @@ export default function TableHeader() {
             <span className="modal-trigger-icon">
               <Printer size={16} />
             </span>
-
           </button>
           <div className="modal-button-wrapper">
             <AddUsuario />
           </div>
-
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-.user-management-container {
+.table-management-container {
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
@@ -35,11 +35,11 @@
 }
 
 .table-container::-webkit-scrollbar-thumb:hover {
-  background: $bgColor;
+  background: #d1d5db;
 }
 
 /* Add these styles to control column widths */
-.users-table {
+.data-table {
   width: 100%;
   border-collapse: collapse;
   background-color: #ffffff;
@@ -47,44 +47,44 @@
 }
 
 /* Define specific column widths */
-.users-table th.select-column,
-.users-table td.select-column {
+.data-table th.select-column,
+.data-table td.select-column {
   width: 40px;
 }
 
-.users-table th.id-column,
-.users-table td.id-column {
+.data-table th.id-column,
+.data-table td.id-column {
   width: 60px;
 }
 
-.users-table th.nombre-column,
-.users-table td.nombre-column {
+.data-table th.nombre-column,
+.data-table td.nombre-column {
   width: 18%;
 }
 
-.users-table th.correo-column,
-.users-table td.correo-column {
+.data-table th.correo-column,
+.data-table td.correo-column {
   width: 22%;
 }
 
-.users-table th.telefono-column,
-.users-table td.telefono-column {
+.data-table th.telefono-column,
+.data-table td.telefono-column {
   width: 12%;
 }
 
-.users-table th.cedula-column,
-.users-table td.cedula-column {
+.data-table th.cedula-column,
+.data-table td.cedula-column {
   width: 10%;
 }
 
-.users-table th.rol-column,
-.users-table td.rol-column {
+.data-table th.rol-column,
+.data-table td.rol-column {
   width: 12%;
 }
 
 /* Ensure the actions column has enough width */
-.users-table th.acciones-column,
-.users-table td.acciones-column {
+.data-table th.acciones-column,
+.data-table td.acciones-column {
   width: 240px; /* Increased fixed width to ensure enough space */
   min-width: 240px;
   /* Important: Override overflow for the actions column */
@@ -93,7 +93,7 @@
 }
 
 /* Ensure content doesn't overflow cells */
-.users-table td {
+.data-table td {
   padding: 18px 12px;
   font-size: 14px;
   color: #1f2937;
@@ -104,44 +104,44 @@
   text-overflow: ellipsis;
 }
 
-.users-table th {
+.data-table th {
   background-color: rgb(180, 180, 180);
   padding: 18px 12px;
   text-align: left;
   font-weight: 600;
   font-size: 12px;
 
-  color:#64748b;
+  color: #64748b;
   border-bottom: 1px solid #e5e7eb;
   white-space: nowrap;
   text-transform: uppercase;
 }
 
 /* Estilos para cuadrícula */
-.users-table.with-grid {
+.data-table.with-grid {
   border: 1px solid #d1d5db;
 }
 
-.users-table.with-grid th {
+.data-table.with-grid th {
   border-right: 1px solid #d1d5db;
   border-bottom: 1px solid #d1d5db;
   background-color: #f1f5f9;
 }
 
-.users-table.with-grid th:last-child {
+.data-table.with-grid th:last-child {
   border-right: none;
 }
 
-.users-table.with-grid td {
+.data-table.with-grid td {
   border-right: 1px solid #d1d5db;
   border-bottom: 1px solid #d1d5db;
 }
 
-.users-table.with-grid td:last-child {
+.data-table.with-grid td:last-child {
   border-right: none;
 }
 
-.users-table.with-grid tbody tr:last-child td {
+.data-table.with-grid tbody tr:last-child td {
   border-bottom: none;
 }
 
@@ -367,7 +367,7 @@
   font-size: 16px;
 }
 
-.users-table tbody {
+.data-table tbody {
   position: relative;
   min-height: 320px;
   display: table-row-group;
@@ -377,16 +377,16 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .user-management-container {
+  .table-management-container {
     padding: 16px;
   }
 
-  .users-table {
+  .data-table {
     font-size: 12px;
   }
 
-  .users-table th,
-  .users-table td {
+  .data-table th,
+  .data-table td {
     padding: 8px 6px;
   }
 
@@ -410,10 +410,10 @@
 }
 
 @media (max-width: 640px) {
-  .users-table th:nth-child(4),
-  .users-table td:nth-child(4),
-  .users-table th:nth-child(5),
-  .users-table td:nth-child(5) {
+  .data-table th:nth-child(4),
+  .data-table td:nth-child(4),
+  .data-table th:nth-child(5),
+  .data-table td:nth-child(5) {
     display: none;
   }
 }

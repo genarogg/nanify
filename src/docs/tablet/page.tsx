@@ -1,26 +1,14 @@
 'use client'
 import React, { useState } from 'react'
 import Tablet from '@components/tablet';
-import { useTable } from "@components/tablet/useTable";
 
-
-interface pageProps {
-
-}
+interface pageProps {}
 
 const page: React.FC<pageProps> = () => {
-
-    const tableState = useTable()
-
     // Estados para filtros adicionales
     const [dateFrom, setDateFrom] = useState("")
     const [dateTo, setDateTo] = useState("")
     const [selectedStatus, setSelectedStatus] = useState("todos")
-
-    const handleSelectUser = (user: any) => {
-        console.log("Usuario seleccionado:", user)
-        console.log("Usuarios seleccionados:", tableState.getSelectedUsers())
-    }
 
     const statusOptions = [
         { value: "todos", label: "Todos" },
@@ -29,72 +17,18 @@ const page: React.FC<pageProps> = () => {
         { value: "super_usuario", label: "Super Usuario" },
     ]
 
+    // Puedes definir esta función si Tablet la requiere
+    const handleSelectUser = (user: any) => {
+        // lógica para seleccionar usuario (opcional)
+    }
+
     return (
         <main style={{ padding: "20px", backgroundColor: "#f5f5f5", minHeight: "100vh" }}>
-            <div style={{ marginBottom: "20px", padding: "16px", backgroundColor: "white", borderRadius: "8px" }}>
-                <h3>Estado de la tabla:</h3>
-                <p>Total de usuarios: {tableState.totalUsers}</p>
-                <p>Usuarios filtrados: {tableState.filteredCount}</p>
-                <p>Usuarios seleccionados: {tableState.selectedCount}</p>
-                <p>Página actual: {tableState.currentPage}</p>
-                <p>Término de búsqueda: "{tableState.searchTerm}"</p>
-
-                <div style={{ marginTop: "16px", display: "flex", gap: "8px", flexWrap: "wrap" }}>
-                    <button
-                        onClick={() => tableState.clearSearch()}
-                        style={{
-                            padding: "8px 16px",
-                            backgroundColor: "#f3f4f6",
-                            border: "1px solid #d1d5db",
-                            borderRadius: "4px",
-                        }}
-                    >
-                        Limpiar búsqueda
-                    </button>
-                    <button
-                        onClick={() => tableState.clearSelection()}
-                        style={{
-                            padding: "8px 16px",
-                            backgroundColor: "#f3f4f6",
-                            border: "1px solid #d1d5db",
-                            borderRadius: "4px",
-                        }}
-                    >
-                        Limpiar selección
-                    </button>
-                    <button
-                        onClick={() => tableState.selectAllUsers()}
-                        style={{
-                            padding: "8px 16px",
-                            backgroundColor: "#f3f4f6",
-                            border: "1px solid #d1d5db",
-                            borderRadius: "4px",
-                        }}
-                    >
-                        Seleccionar todos
-                    </button>
-                    <button
-                        onClick={() => tableState.deleteSelectedUsers()}
-                        style={{
-                            padding: "8px 16px",
-                            backgroundColor: "#ef4444",
-                            color: "white",
-                            border: "none",
-                            borderRadius: "4px",
-                        }}
-                        disabled={tableState.selectedCount === 0}
-                    >
-                        Eliminar seleccionados
-                    </button>
-                </div>
-            </div>
-
             <div style={{ marginBottom: "40px" }}>
                 <h2 style={{ marginBottom: "20px" }}>Tabla con modo automático responsive (768px breakpoint)</h2>
                 <Tablet
-                    tableState={tableState}
                     title="Gestión de Usuarios - Auto Responsive"
-                    onSelectUser={handleSelectUser}
+                    
                     autoResponsive={true}
                     breakpoint={768}
                     config={{ cuadricula: true }}
@@ -117,7 +51,7 @@ const page: React.FC<pageProps> = () => {
                     selectedStatus={selectedStatus}
                     onStatusChange={setSelectedStatus}
                     addButtonText="Nuevo Trámite"
-                    onSelectUser={handleSelectUser}
+                    
                     autoResponsive={true}
                     breakpoint={1024}
                 />
@@ -131,7 +65,7 @@ const page: React.FC<pageProps> = () => {
                     showAutoToggle={false}
                     autoResponsive={false}
                     defaultViewMode="cards"
-                    onSelectUser={handleSelectUser}
+                    
                 />
             </div>
 
@@ -141,10 +75,9 @@ const page: React.FC<pageProps> = () => {
                     title="Control Manual Completo"
                     autoResponsive={false}
                     showAutoToggle={false}
-                    onSelectUser={handleSelectUser}
+                    
                 />
             </div>
-     
         </main>
     );
 }

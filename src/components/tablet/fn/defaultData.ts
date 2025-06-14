@@ -1,12 +1,4 @@
-interface DataTable {
-    id: number
-    nombre: string
-    correo: string
-    telefono: string
-    cedula: string
-    rol: string
-    [key: string]: any
-}
+import type { DataTable } from "../context/types"
 
 
 const defaultData: DataTable[] = [
@@ -62,4 +54,3 @@ const defaultData: DataTable[] = [
 ]
 
 export { defaultData }
-export type { DataTable }

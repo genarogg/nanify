@@ -7,7 +7,7 @@
   min-height: 200px;
 }
 
-.user-card {
+.item-card {
   background: #ffffff;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
@@ -17,12 +17,12 @@
   position: relative;
 }
 
-.user-card:hover {
+.item-card:hover {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   transform: translateY(-2px);
 }
 
-.user-card.selected {
+.item-card.selected {
   border-color: #3b82f6;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
@@ -225,7 +225,7 @@
     gap: 16px;
   }
 
-  .user-card {
+  .item-card {
     padding: 16px;
   }
 
@@ -257,7 +257,7 @@
     gap: 12px;
   }
 
-  .user-card {
+  .item-card {
     padding: 12px;
   }
 
