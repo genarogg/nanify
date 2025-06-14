@@ -1,12 +1,12 @@
-@use "/src/sass/global/variables" as var;
+@import "../../../../sass/global/variables";
 
 .btn-freya {
     border: none;
     outline: none;
     background-color: transparent;
-    
+
     span {
-        color: var.$color-secondary;
+        color: $color-secondary;
         display: block;
         border-top: 0.125rem solid;
         width: 20px;

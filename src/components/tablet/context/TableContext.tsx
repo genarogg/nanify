@@ -1,10 +1,11 @@
 "use client"
 
 import type React from "react"
-import { createContext, useContext, useState, useMemo, type ReactNode } from "react"
+import { createContext, useContext, useState, useMemo, useEffect, type ReactNode } from "react"
 import { useResponsiveView, type UseResponsiveViewReturn } from "../fn/useResponsiveView"
 import { defaultData } from "../fn/defaultData"
 import type { DataTable, TableConfig } from "./types"
+import { usePagination } from "../hooks/usePagination"
 
 // Tipos para el estado de la tabla (movidos desde useTable)
 interface TableState {
@@ -116,7 +117,7 @@ interface TableProviderProps {
   onAddItem?: () => void
   onEditItem?: (item: DataTable) => void
   onViewItem?: (item: DataTable) => void
-  onDeleteItem?: (item: DataTable) => void
+  onDeleteItem?: () => void
   onSelectItem?: (item: DataTable) => void
 
   // Configuración de UI
@@ -178,7 +179,6 @@ export const TableProvider: React.FC<TableProviderProps> = ({
   // Estados principales de la tabla (lógica movida desde useTable)
   const [items, setItems] = useState<DataTable[]>(initialData)
   const [searchTerm, setSearchTerm] = useState("")
-  const [currentPage, setCurrentPage] = useState(1)
   const [selectedItems, setSelectedItems] = useState<number[]>([])
 
   // Elementos filtrados según el término de búsqueda
@@ -191,44 +191,27 @@ export const TableProvider: React.FC<TableProviderProps> = ({
     )
   }, [items, searchTerm])
 
-  // Calcular el número total de páginas
-  const totalPages = useMemo(() => {
-    return Math.ceil(filteredItems.length / itemsPerPage)
-  }, [filteredItems.length, itemsPerPage])
+  // Usar el hook de paginación
+  const pagination = usePagination({
+    items: filteredItems,
+    itemsPerPage,
+  })
 
-  // Obtener los elementos para la página actual
-  const currentItems = useMemo(() => {
-    return filteredItems.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
-  }, [filteredItems, currentPage, itemsPerPage])
+  // Efecto para resetear la paginación solo cuando cambia la búsqueda
+  // Removido el bucle infinito - solo resetear cuando searchTerm cambia
+  useEffect(() => {
+    pagination.resetToFirstPage()
+  }, [searchTerm]) // Removido pagination de las dependencias
 
   // Funciones para manejar la búsqueda
   const handleSearch = (term: string) => {
     setSearchTerm(term)
-    setCurrentPage(1) // Resetear a la primera página cuando se busca
+    // No necesitamos llamar resetToFirstPage aquí ya que se maneja en el useEffect
   }
 
   const clearSearch = () => {
     setSearchTerm("")
-    setCurrentPage(1)
-  }
-
-  // Funciones para manejar la paginación
-  const goToPage = (page: number) => {
-    if (page >= 1 && page <= totalPages) {
-      setCurrentPage(page)
-    }
-  }
-
-  const goToNextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage((prev) => prev + 1)
-    }
-  }
-
-  const goToPreviousPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage((prev) => prev - 1)
-    }
+    // No necesitamos llamar resetToFirstPage aquí ya que se maneja en el useEffect
   }
 
   // Funciones para manejar la selección
@@ -243,10 +226,10 @@ export const TableProvider: React.FC<TableProviderProps> = ({
   }
 
   const handleSelectAll = () => {
-    const currentItemIds = currentItems.map((item) => item.id)
+    const currentItemIds = pagination.currentItems.map((item) => item.id)
     const selectedCurrentItems = selectedItems.filter((id) => currentItemIds.includes(id))
 
-    if (selectedCurrentItems.length === currentItems.length) {
+    if (selectedCurrentItems.length === pagination.currentItems.length) {
       // Si todos están seleccionados, deseleccionar todos
       setSelectedItems((prev) => prev.filter((id) => !currentItemIds.includes(id)))
     } else {
@@ -273,12 +256,12 @@ export const TableProvider: React.FC<TableProviderProps> = ({
 
   // Determinar el estado del botón de selección maestro
   const getSelectAllState = (): "none" | "some" | "all" => {
-    const currentItemIds = currentItems.map((item) => item.id)
+    const currentItemIds = pagination.currentItems.map((item) => item.id)
     const selectedCurrentItems = selectedItems.filter((id) => currentItemIds.includes(id))
 
     if (selectedCurrentItems.length === 0) {
       return "none" // Sin selección
-    } else if (selectedCurrentItems.length === currentItems.length) {
+    } else if (selectedCurrentItems.length === pagination.currentItems.length) {
       return "all" // Todos seleccionados
     } else {
       return "some" // Algunos seleccionados
@@ -304,56 +287,6 @@ export const TableProvider: React.FC<TableProviderProps> = ({
     setSelectedItems([])
   }
 
-  // Generar array de números de página para mostrar
-  const getPageNumbers = (): (number | string)[] => {
-    const pageNumbers: (number | string)[] = []
-    const maxPagesToShow = 5
-
-    if (totalPages <= maxPagesToShow) {
-      // Si hay pocas páginas, mostrar todas
-      for (let i = 1; i <= totalPages; i++) {
-        pageNumbers.push(i)
-      }
-    } else {
-      // Siempre mostrar la primera página
-      pageNumbers.push(1)
-
-      // Calcular el rango de páginas alrededor de la página actual
-      let startPage = Math.max(2, currentPage - 1)
-      let endPage = Math.min(totalPages - 1, currentPage + 1)
-
-      // Ajustar si estamos cerca del inicio
-      if (currentPage <= 3) {
-        endPage = Math.min(totalPages - 1, 4)
-      }
-
-      // Ajustar si estamos cerca del final
-      if (currentPage >= totalPages - 2) {
-        startPage = Math.max(2, totalPages - 3)
-      }
-
-      // Agregar elipsis después de la primera página si es necesario
-      if (startPage > 2) {
-        pageNumbers.push("...")
-      }
-
-      // Agregar páginas del rango calculado
-      for (let i = startPage; i <= endPage; i++) {
-        pageNumbers.push(i)
-      }
-
-      // Agregar elipsis antes de la última página si es necesario
-      if (endPage < totalPages - 1) {
-        pageNumbers.push("...")
-      }
-
-      // Siempre mostrar la última página
-      pageNumbers.push(totalPages)
-    }
-
-    return pageNumbers
-  }
-
   // Obtener elementos seleccionados
   const getSelectedItems = () => {
     return items.filter((item) => selectedItems.includes(item.id))
@@ -364,21 +297,21 @@ export const TableProvider: React.FC<TableProviderProps> = ({
     // Estados
     items,
     searchTerm,
-    currentPage,
+    currentPage: pagination.currentPage,
     selectedItems,
     filteredItems,
-    currentItems,
-    totalPages,
+    currentItems: pagination.currentItems,
+    totalPages: pagination.totalPages,
 
     // Funciones de búsqueda
     handleSearch,
     clearSearch,
 
     // Funciones de paginación
-    goToPage,
-    goToNextPage,
-    goToPreviousPage,
-    getPageNumbers,
+    goToPage: pagination.goToPage,
+    goToNextPage: pagination.goToNextPage,
+    goToPreviousPage: pagination.goToPreviousPage,
+    getPageNumbers: pagination.getPageNumbers,
 
     // Funciones de selección
     handleSelectItem,
