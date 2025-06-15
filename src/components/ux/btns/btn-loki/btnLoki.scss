@@ -1,4 +1,4 @@
-@use "/src/sass/global/variables" as var;
+@import "../../../../sass/global/variables";
 
 .btn-loki {
   outline: none;
@@ -16,7 +16,7 @@
     width: 100%;
     height: 3px;
     left: 0;
-    background-color: var.$color-quaternary;
+    background-color: $color-quaternary;
     border-radius: 4px;
     transition: all 0.5s;
 
@@ -35,16 +35,16 @@
 
       &:nth-last-of-type(1) {
         transform: translateY(4px) translateX(1px) rotate(-45deg);
-        background-color: var.$color-quaternary;
+        background-color: $color-quaternary;
       }
 
       &:nth-last-of-type(3) {
         transform: translateY(-7px) translateX(1px) rotate(45deg);
-        background-color: var.$color-quaternary;
+        background-color: $color-quaternary;
       }
 
       &:nth-last-of-type(2) {
-        background-color: var.$color-quaternary;
+        background-color: $color-quaternary;
         opacity: 0;
       }
     }
@@ -80,19 +80,19 @@
   }
 
   25% {
-    border-color: transparent var.$color-secondary transparent transparent;
+    border-color: transparent$color-secondary transparent transparent;
   }
 
   50% {
-    border-color: transparent var.$color-secondary var.$color-secondary transparent;
+    // border-color: transparent$color-secondary$color-secondary transparent;
   }
 
   75% {
-    border-color: transparent var.$color-secondary var.$color-secondary var.$color-secondary;
+    // // border-color: transparent$color-secondary$color-secondary$color-secondary;
   }
 
   100% {
-    border-color: var.$color-secondary;
+    border-color: $color-secondary;
     transform: rotate(-700deg);
   }
 }

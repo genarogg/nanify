@@ -124,7 +124,7 @@ const TableConfigModal: React.FC<TableConfigModalProps> = ({ className = "" }) =
 
   return (
     <Modal
-      title="Configuración de Tabla"
+      title=""
       icon={<Settings size={16} />}
       buttonClassName={`table-config-btn ${className}`}
       buttonText="Guardar Configuración"

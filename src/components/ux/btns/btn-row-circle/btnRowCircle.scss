@@ -1,5 +1,5 @@
-@use "/src/sass/global/variables" as var;
-@use "/src/sass/global/mixin" as fn;
+@import "../../../../sass/global/variables";
+@import "../../../sass/global/mixin";
 
 .container-row-circle {
     color: #fff;
@@ -16,12 +16,12 @@
                 position: absolute;
                 transform: translate(-50%, -50%);
                 width: 24px;
-                color: var.$color-secondary;
+                color: $color-secondary;
 
             }
 
             .icon {
-                color: var.$color-secondary;
+                color: $color-secondary;
                 display: block;
             }
         }
@@ -38,7 +38,7 @@
         outline: none;
         transform: translateY(50%);
 
-        @include fn.center-flex-xy;
+        @include center-flex-xy;
         align-items: flex-end;
 
 

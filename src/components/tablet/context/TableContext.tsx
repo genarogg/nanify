@@ -43,6 +43,9 @@ interface TableState {
   deleteSelectedItems: () => void
   setItems: React.Dispatch<React.SetStateAction<DataTable[]>>
 
+  // Funciones de cambio masivo
+  updateSelectedItemsRole: (newRole: string) => void
+
   // Información adicional
   hasItems: boolean
   hasFilteredItems: boolean
@@ -100,6 +103,8 @@ interface TableContextType {
     statusOptions?: { value: string; label: string }[]
     selectedStatus?: string
     onStatusChange?: (status: string) => void
+    selectedRole?: string
+    onRoleChange: (role: string) => void
   }
 }
 
@@ -148,6 +153,8 @@ interface TableProviderProps {
   statusOptions?: { value: string; label: string }[]
   selectedStatus?: string
   onStatusChange?: (status: string) => void
+  selectedRole?: string
+  onRoleChange?: (role: string) => void
   apiUrl?: string
   autoFetch?: boolean
   fetchOnMount?: boolean
@@ -185,6 +192,8 @@ export const TableProvider: React.FC<TableProviderProps> = ({
   statusOptions,
   selectedStatus,
   onStatusChange,
+  selectedRole: propSelectedRole,
+  onRoleChange: propOnRoleChange,
   apiUrl,
   autoFetch,
   fetchOnMount,
@@ -210,10 +219,12 @@ export const TableProvider: React.FC<TableProviderProps> = ({
   // Estados internos para las fechas si no se proporcionan desde props
   const [internalDateFrom, setInternalDateFrom] = useState("")
   const [internalDateTo, setInternalDateTo] = useState("")
+  const [internalSelectedRole, setInternalSelectedRole] = useState("todos")
 
   // Usar props si están disponibles, sino usar estado interno
   const dateFrom = propDateFrom !== undefined ? propDateFrom : internalDateFrom
   const dateTo = propDateTo !== undefined ? propDateTo : internalDateTo
+  const selectedRole = propSelectedRole !== undefined ? propSelectedRole : internalSelectedRole
 
   const handleDateFromChange = (date: string) => {
     if (propOnDateFromChange) {
@@ -229,6 +240,15 @@ export const TableProvider: React.FC<TableProviderProps> = ({
     } else {
       setInternalDateTo(date)
     }
+  }
+
+  const handleRoleChange = (role: string) => {
+    if (propOnRoleChange) {
+      propOnRoleChange(role)
+    } else {
+      setInternalSelectedRole(role)
+    }
+    setCurrentPage(1) // Reset to first page when changing role filter
   }
 
   // Agregar después de los estados existentes
@@ -287,15 +307,21 @@ export const TableProvider: React.FC<TableProviderProps> = ({
     loadConfigFromStorage()
   }, [])
 
-  // Elementos filtrados según el término de búsqueda
+  // Elementos filtrados según el término de búsqueda y rol seleccionado
   const filteredItems = useMemo(() => {
-    return items.filter(
-      (item) =>
+    return items.filter((item) => {
+      // Filtro por búsqueda
+      const matchesSearch =
         item.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.correo.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.rol.toLowerCase().includes(searchTerm.toLowerCase()),
-    )
-  }, [items, searchTerm])
+        item.rol.toLowerCase().includes(searchTerm.toLowerCase())
+
+      // Filtro por rol
+      const matchesRole = selectedRole === "todos" || item.rol === selectedRole
+
+      return matchesSearch && matchesRole
+    })
+  }, [items, searchTerm, selectedRole])
 
   // Calcular el número total de páginas
   const totalPages = useMemo(() => {
@@ -420,6 +446,11 @@ export const TableProvider: React.FC<TableProviderProps> = ({
     setSelectedItems([])
   }
 
+  // Función para cambio masivo de roles
+  const updateSelectedItemsRole = (newRole: string) => {
+    setItems((prev) => prev.map((item) => (selectedItems.includes(item.id) ? { ...item, rol: newRole } : item)))
+  }
+
   // Generar array de números de página para mostrar
   const getPageNumbers = (): (number | string)[] => {
     const pageNumbers: (number | string)[] = []
@@ -511,6 +542,9 @@ export const TableProvider: React.FC<TableProviderProps> = ({
     deleteSelectedItems,
     setItems,
 
+    // Funciones de cambio masivo
+    updateSelectedItemsRole,
+
     // Información adicional
     hasItems: items.length > 0,
     hasFilteredItems: filteredItems.length > 0,
@@ -557,6 +591,8 @@ export const TableProvider: React.FC<TableProviderProps> = ({
     statusOptions,
     selectedStatus,
     onStatusChange,
+    selectedRole,
+    onRoleChange: handleRoleChange,
   }
 
   // Actualizar el contextValue para usar dynamicConfig

@@ -95,13 +95,13 @@
 }
 
 .card-action-btn.edit-btn {
-  background-color: #f3f4f6;
-  color: #6b7280;
+  background-color: #f0f9ff;
+  color: #0369a1;
 }
 
 .card-action-btn.edit-btn:hover {
-  background-color: #e5e7eb;
-  color: #374151;
+  background-color: #e0f2fe;
+  color: #0c4a6e;
 }
 
 .card-action-btn.view-btn {
