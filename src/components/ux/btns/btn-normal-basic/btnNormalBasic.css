@@ -1,53 +1,43 @@
-/*
-Error: File to import not found or unreadable: ../../../sass/global/mixin.
-       Load path: A:/+/Usuario/Escritorio/nanify-proyect/src/components/ux/btns/btn-normal-basic
-        on line 2 of A:\+\Usuario\Escritorio\nanify-proyect\src\components\ux\btns\btn-normal-basic\btnNormalBasic.scss
+@keyframes border-gradient-animation {
+  0% {
+    background-position: 0% 50%; }
+  50% {
+    background-position: 100% 50%; }
+  100% {
+    background-position: 0% 50%; } }
+.btn-normal-basic {
+  display: flex;
+  justify-content: center;
+  height: 42px;
+  position: relative;
+  width: 100%; }
+  .btn-normal-basic,
+  .btn-normal-basic * {
+    transition: 500ms ease all; }
+  .btn-normal-basic button {
+    background-color: transparent;
+    border: 1px solid rgba(28, 28, 28, 0.5);
+    border-radius: 6px;
+    color: #ffac32;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 600;
+    height: 100%;
+    max-width: calc(333px / 1.5);
+    outline: none;
+    position: relative;
+    width: 100%; }
+    .btn-normal-basic button:active {
+      background-color: #ffac32;
+      transform: scale(0.9);
+      color: #fff; }
+    .btn-normal-basic button:disabled {
+      background-color: #ffac32; }
+    .btn-normal-basic button:focus {
+      background-color: #ffac32;
+      color: #fff; }
+    .btn-normal-basic button:hover {
+      background-color: #ffac32;
+      color: #fff; }
 
-1: @import "../../../../sass/global/variables";
-2: @import "../../../sass/global/mixin";
-3: 
-4: .btn-normal-basic {
-5:   @include center-x();
-6:   height: 42px;
-7:   position: relative;
-
-Backtrace:
-A:\+\Usuario\Escritorio\nanify-proyect\src\components\ux\btns\btn-normal-basic\btnNormalBasic.scss:2
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/import_node.rb:67:in `rescue in import'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/import_node.rb:45:in `import'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/import_node.rb:28:in `imported_file'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/import_node.rb:37:in `css_import?'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:314:in `visit_import'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/base.rb:36:in `visit'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:162:in `block in visit'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/stack.rb:79:in `block in with_base'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/stack.rb:135:in `with_frame'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/stack.rb:79:in `with_base'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:162:in `visit'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/base.rb:52:in `block in visit_children'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/base.rb:52:in `map'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/base.rb:52:in `visit_children'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:171:in `block in visit_children'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:183:in `with_environment'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:170:in `visit_children'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/base.rb:36:in `block in visit'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:190:in `visit_root'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/base.rb:36:in `visit'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:161:in `visit'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:10:in `visit'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/root_node.rb:36:in `css_tree'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/root_node.rb:29:in `render_with_sourcemap'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/engine.rb:389:in `_render_with_sourcemap'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/engine.rb:307:in `render_with_sourcemap'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/exec/sass_scss.rb:391:in `run'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/exec/sass_scss.rb:63:in `process_result'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/exec/base.rb:52:in `parse'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/exec/base.rb:19:in `parse!'
-C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/bin/sass:13:in `<top (required)>'
-C:/Program Files (x86)/Koala/bin/sass:22:in `load'
-C:/Program Files (x86)/Koala/bin/sass:22:in `<main>'
-*/
-body:before {
-  white-space: pre;
-  font-family: monospace;
-  content: "Error: File to import not found or unreadable: ../../../sass/global/mixin.\A        Load path: A:/+/Usuario/Escritorio/nanify-proyect/src/components/ux/btns/btn-normal-basic\A         on line 2 of A:\+\Usuario\Escritorio\nanify-proyect\src\components\ux\btns\btn-normal-basic\btnNormalBasic.scss\A \A 1: @import \"../../../../sass/global/variables\";\A 2: @import \"../../../sass/global/mixin\";\A 3: \A 4: .btn-normal-basic {\A 5:   @include center-x();\A 6:   height: 42px;\A 7:   position: relative;"; }
+/*# sourceMappingURL=btnNormalBasic.css.map */

@@ -1,6 +1,7 @@
 "use client"
 
 import type React from "react"
+import { useEffect, useState } from "react"
 
 import { Search, Printer, Users, Copy, Trash2 } from "lucide-react"
 import "./table-header.css"
@@ -29,6 +30,17 @@ export default function TableHeader() {
   const { title, searchPlaceholder } = useUIConfig()
   const { dateFrom, dateTo, onDateFromChange, onDateToChange, selectedRole, onRoleChange } = useFilterConfig()
 
+  const [showBulkBar, setShowBulkBar] = useState(false)
+
+  // Controlar la visibilidad de la barra con animación suave
+  useEffect(() => {
+    if (selectedCount > 0) {
+      setShowBulkBar(true)
+    } else {
+      setShowBulkBar(false)
+    }
+  }, [selectedCount])
+
   const handlePrintSelected = () => {
     const selectedItems = getSelectedItems()
     if (selectedItems.length === 0) {
@@ -48,12 +60,14 @@ export default function TableHeader() {
     onDateToChange(e.target.value)
   }
 
-  const handleRoleFilterChange = (role: string) => {
+  const handleRoleFilterChange = (value: string | string[]) => {
+    const role = Array.isArray(value) ? value[0] : value
     console.log("Filtro de rol cambiado:", role)
     onRoleChange(role)
   }
 
-  const handleBulkRoleChange = (newRole: string) => {
+  const handleBulkRoleChange = (value: string | string[]) => {
+    const newRole = Array.isArray(value) ? value[0] : value
     const selectedItems = getSelectedItems()
     if (selectedItems.length === 0) {
       console.log("No hay elementos seleccionados para cambiar rol")
@@ -73,8 +87,7 @@ export default function TableHeader() {
       notification.className = "bulk-action-notification success"
       notification.innerHTML = `
         <div class="notification-content">
-          <Check size="16" />
-          <span>Rol actualizado para ${selectedItems.length} usuario(s)</span>
+          <span>✓ Rol actualizado para ${selectedItems.length} usuario(s)</span>
         </div>
       `
       document.body.appendChild(notification)
@@ -209,41 +222,122 @@ export default function TableHeader() {
   ]
 
   return (
-    <div className="table-header-container">
-      {/* Título principal */}
-      <div className="table-header-title-section">
-        <h1 className="table-title">{title}</h1>
-        {dataLoading && (
-          <div className="data-status-indicator loading">
-            <span className="status-dot loading"></span>
-            <span className="status-text">Cargando datos...</span>
-          </div>
-        )}
+    <>
+      {/* Overlay de fondo muy sutil que NO bloquea interacciones */}
+      {showBulkBar && <div className={`bulk-actions-overlay ${showBulkBar ? "visible" : ""}`} />}
 
-        {dataError && (
-          <div className="data-status-indicator error">
-            <span className="status-dot error"></span>
-            <span className="status-text">Error: {dataError}</span>
-            <button className="retry-btn" onClick={refetchData}>
-              Reintentar
+      <div className="table-header-container">
+        {/* Título principal */}
+        <div className="table-header-title-section">
+          <h1 className="table-title">{title}</h1>
+          {dataLoading && (
+            <div className="data-status-indicator loading">
+              <span className="status-dot loading"></span>
+              <span className="status-text">Cargando datos...</span>
+            </div>
+          )}
+
+          {dataError && (
+            <div className="data-status-indicator error">
+              <span className="status-dot error"></span>
+              <span className="status-text">Error: {dataError}</span>
+              <button className="retry-btn" onClick={refetchData}>
+                Reintentar
+              </button>
+            </div>
+          )}
+
+          {isUsingFallback && !dataLoading && (
+            <div className="data-status-indicator fallback">
+              <span className="status-dot fallback"></span>
+              <span className="status-text">Usando datos de ejemplo</span>
+            </div>
+          )}
+        </div>
+
+        {/* Línea separadora */}
+        <div className="table-header-divider"></div>
+
+        {/* Controles */}
+        <div className="table-header-controls-section">
+          <div className="table-search-container">
+            <Search className="table-search-icon" size={20} />
+            <input
+              type="text"
+              placeholder={searchPlaceholder}
+              className="table-search-input"
+              value={searchTerm}
+              onChange={(e) => handleSearch(e.target.value)}
+            />
+          </div>
+
+          {/* Filtro de roles */}
+          <div className="table-role-filter-container">
+            <Select value={selectedRole || "todos"} onValueChange={handleRoleFilterChange}>
+              <SelectTrigger>
+                <SelectValue placeholder="Filtrar por rol" />
+              </SelectTrigger>
+              <SelectContent>
+                {roleOptions.map((option) => (
+                  <SelectItem key={option.value} value={option.value}>
+                    {option.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* Filtros de fecha */}
+          <div className="table-date-filters-container">
+            <div className="date-filter-group">
+              <label htmlFor="fecha-desde" className="date-filter-label">
+                Fecha desde
+              </label>
+              <input
+                id="fecha-desde"
+                type="date"
+                className="table-date-input"
+                value={dateFrom}
+                onChange={handleDateFromChangeLocal}
+              />
+            </div>
+
+            <div className="date-filter-group">
+              <label htmlFor="fecha-hasta" className="date-filter-label">
+                Fecha hasta
+              </label>
+              <input
+                id="fecha-hasta"
+                type="date"
+                className="table-date-input"
+                value={dateTo}
+                onChange={handleDateToChangeLocal}
+              />
+            </div>
+          </div>
+
+          {/* Modal Buttons */}
+          <div className="table-modal-buttons-container">
+            <button className="modal-trigger" onClick={handlePrintSelected} title="Imprimir seleccionados">
+              <span className="modal-trigger-icon">
+                <Printer size={16} />
+              </span>
             </button>
-          </div>
-        )}
 
-        {isUsingFallback && !dataLoading && (
-          <div className="data-status-indicator fallback">
-            <span className="status-dot fallback"></span>
-            <span className="status-text">Usando datos de ejemplo</span>
+            <div className="modal-button-wrapper">
+              <TableConfigModal />
+            </div>
+
+            <div className="modal-button-wrapper">
+              <AddUsuario />
+            </div>
           </div>
-        )}
+        </div>
       </div>
 
-      {/* Línea separadora */}
-      <div className="table-header-divider"></div>
-
-      {/* Barra de acciones masivas - Solo visible cuando hay elementos seleccionados */}
-      {selectedCount > 0 && (
-        <div className="bulk-actions-bar">
+      {/* Barra de acciones masivas en la parte inferior */}
+      {showBulkBar && (
+        <div className={`bulk-actions-bar ${showBulkBar ? "visible" : ""}`}>
           <div className="bulk-actions-info">
             <Users size={20} />
             <span className="bulk-count">{selectedCount} elemento(s) seleccionado(s)</span>
@@ -292,82 +386,6 @@ export default function TableHeader() {
           </div>
         </div>
       )}
-
-      {/* Controles */}
-      <div className="table-header-controls-section">
-        <div className="table-search-container">
-          <Search className="table-search-icon" size={20} />
-          <input
-            type="text"
-            placeholder={searchPlaceholder}
-            className="table-search-input"
-            value={searchTerm}
-            onChange={(e) => handleSearch(e.target.value)}
-          />
-        </div>
-
-        {/* Filtro de roles */}
-        <div className="table-role-filter-container">
-          <Select value={selectedRole || "todos"} onValueChange={handleRoleFilterChange}>
-            <SelectTrigger>
-              <SelectValue placeholder="Filtrar por rol" />
-            </SelectTrigger>
-            <SelectContent>
-              {roleOptions.map((option) => (
-                <SelectItem key={option.value} value={option.value}>
-                  {option.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-
-        {/* Filtros de fecha */}
-        <div className="table-date-filters-container">
-          <div className="date-filter-group">
-            <label htmlFor="fecha-desde" className="date-filter-label">
-              Fecha desde
-            </label>
-            <input
-              id="fecha-desde"
-              type="date"
-              className="table-date-input"
-              value={dateFrom}
-              onChange={handleDateFromChangeLocal}
-            />
-          </div>
-
-          <div className="date-filter-group">
-            <label htmlFor="fecha-hasta" className="date-filter-label">
-              Fecha hasta
-            </label>
-            <input
-              id="fecha-hasta"
-              type="date"
-              className="table-date-input"
-              value={dateTo}
-              onChange={handleDateToChangeLocal}
-            />
-          </div>
-        </div>
-
-        {/* Modal Buttons */}
-        <div className="table-modal-buttons-container">
-          <button className="modal-trigger" onClick={handlePrintSelected} title="Imprimir seleccionados">
-            <span className="modal-trigger-icon">
-              <Printer size={16} />
-            </span>
-          </button>
-
-          <div className="modal-button-wrapper">
-            <TableConfigModal />
-          </div>
-
-          <div className="modal-button-wrapper">
-            <AddUsuario />
-          </div>
-        </div>
-      </div>
-    </div>
+    </>
   )
 }

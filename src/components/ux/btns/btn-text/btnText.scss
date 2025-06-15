@@ -1,5 +1,5 @@
 @import "../../../../sass/global/variables";
-@use "/src/sass/global/mixin" as fn;
+@import "../../../../sass/global/mixin";
 
 .btn-text {
   @include center-x;
