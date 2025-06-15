@@ -1,7 +1,6 @@
-interface SpinnerProps {}
 import "./spinner.css";
 
-const Spinner: React.FC<SpinnerProps> = () => {
+const Spinner = () => {
   return (
     <div className="spinner-container">
       <div className="lds-ripple">

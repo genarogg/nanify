@@ -1,12 +1,14 @@
 .btn-freya {
   border: none;
   outline: none;
-  background-color: transparent; }
-  .btn-freya span {
-    color: #ffac32;
-    display: block;
-    border-top: 0.125rem solid;
-    width: 20px; }
+  background-color: transparent;
+}
+.btn-freya span {
+  color: #ffac32;
+  display: block;
+  border-top: 0.125rem solid;
+  width: 20px;
+}
 
 .btn-freya span::after,
 .btn-freya span::before {
@@ -17,16 +19,18 @@
   background-color: currentColor;
   margin-top: 5px;
   transition: 0.5s;
-  position: relative; }
+  position: relative;
+}
 
 .btn-freya.active span {
-  border-top-color: transparent; }
+  border-top-color: transparent;
+}
 
 .btn-freya.active span::before {
-  transform: rotate(135deg); }
+  transform: rotate(135deg);
+}
 
 .btn-freya.active span::after {
   transform: rotate(-135deg);
-  top: -0.4375rem; }
-
-/*# sourceMappingURL=btnFreya.css.map */
+  top: -0.4375rem;
+}

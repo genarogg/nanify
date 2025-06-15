@@ -17,15 +17,9 @@
   line-height: 1.5;
   cursor: pointer;
   outline: none;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
   font-weight: 500;
 }
@@ -38,9 +32,7 @@
 }
 
 .select-value {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
+  flex: 1;
   text-align: left;
   color: #111827;
 }
@@ -53,17 +45,12 @@
   width: 18px;
   height: 18px;
   color: #111827;
-  -webkit-transition: -webkit-transform 0.6s ease;
-  transition: -webkit-transform 0.6s ease;
   transition: transform 0.6s ease;
-  transition: transform 0.6s ease, -webkit-transform 0.6s ease;
-  -ms-flex-negative: 0;
-      flex-shrink: 0;
+  flex-shrink: 0;
 }
 
 .select-trigger[data-state="open"] .select-icon {
-  -webkit-transform: rotate(180deg);
-          transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 
 .select-content {
@@ -75,8 +62,7 @@
   background: #ffffff;
   border: 1px solid #e2e8f0;
   border-radius: 6px;
-  -webkit-box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-          box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   overflow: hidden;
   max-height: 240px;
   overflow-y: auto;
@@ -90,12 +76,8 @@
 }
 
 .select-item {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   padding: 9px 16px;
   margin: 5px;
   border-radius: 6px;
@@ -103,7 +85,6 @@
   line-height: 1.5;
   color: #111827;
   cursor: pointer;
-  -webkit-transition: all 0.15s ease;
   transition: all 0.15s ease;
   outline: none;
   position: relative;
@@ -140,7 +121,6 @@
   height: 16px;
   color: #6b7280;
   opacity: 0;
-  -webkit-transition: opacity 0.15s ease;
   transition: opacity 0.15s ease;
 }
 
@@ -173,17 +153,10 @@
   height: 18px;
   border: 1px solid #e2e8f0;
   border-radius: 6px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  align-items: center;
+  justify-content: center;
   background: #ffffff;
-  -webkit-transition: all 0.15s ease;
   transition: all 0.15s ease;
 }
 
@@ -197,7 +170,6 @@
   width: 12px;
   height: 12px;
   opacity: 0;
-  -webkit-transition: opacity 0.15s ease;
   transition: opacity 0.15s ease;
 }
 
@@ -206,11 +178,8 @@
 }
 
 .select-tags-wrapper {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  flex-wrap: wrap;
   gap: 8px;
   margin-top: 12px;
   overflow: hidden;
@@ -219,12 +188,8 @@
 }
 
 .select-tag {
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
   display: inline-flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   gap: 6px;
   padding: 6px 12px;
   background-color: #f1f5f9;
@@ -242,24 +207,16 @@
 }
 
 .select-tag-remove {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  align-items: center;
+  justify-content: center;
   width: 16px;
   height: 16px;
   border-radius: 50%;
   background: transparent;
   cursor: pointer;
-  -webkit-transition: background-color 0.15s ease;
   transition: background-color 0.15s ease;
-  -ms-flex-negative: 0;
-      flex-shrink: 0;
+  flex-shrink: 0;
   color: #9ca3af;
   border: none;
   padding: 0;

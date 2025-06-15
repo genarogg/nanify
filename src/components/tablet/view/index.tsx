@@ -5,6 +5,7 @@ import { useTableActions } from "../hooks/useTableActions"
 import TableCardView from "./table-card-view"
 import TableView from "./table-view"
 import TableHeader from "./table-header"
+import TableFooter from "./table-footer"
 import Pagination from "./pagination"
 
 export default function TableContent() {
@@ -64,6 +65,8 @@ export default function TableContent() {
       )}
 
       {hasFilteredItems && <Pagination />}
+
+      <TableFooter />
     </div>
   )
 }
