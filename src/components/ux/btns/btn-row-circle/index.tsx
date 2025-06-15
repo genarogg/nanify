@@ -2,7 +2,7 @@ import React from 'react'
 import { FaArrowLeft } from 'react-icons/fa';
 import { Icon } from "@components/ux";
 
-import "./_btnRowCircle.scss";
+import "./btnRowCircle.css";
 
 interface BtnRowCircleProps {
     icon?: React.ReactNode;
