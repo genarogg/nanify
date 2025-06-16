@@ -1,21 +1,24 @@
 "use client"
 
-import type React from "react"
+import React from "react"
 import { Search, Printer } from "lucide-react"
 import "./table-header.css"
 
 import AddUsuario from "../modal-crud/AddUsuario"
 import TableConfigModal from "../modal-crud/TableConfigModal"
 import { useTableState, useUIConfig, useFilterConfig } from "../../context/TableContext"
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "../../../ux/select"
+import useRoleFilter from "./hook/useRoleFilter"
 
-export default function TableHeader() {
+const TableHeader: React.FC = () => {
   const { searchTerm, handleSearch, getSelectedItems, dataLoading, dataError, refetchData, isUsingFallback } =
     useTableState()
   const { title, searchPlaceholder } = useUIConfig()
-  const { dateFrom, dateTo, onDateFromChange, onDateToChange, selectedRole, onRoleChange } = useFilterConfig()
+  const { dateFrom, dateTo, onDateFromChange, onDateToChange } = useFilterConfig()
 
-  const handlePrintSelected = () => {
+  // Componente de filtro de roles en una sola línea
+  const { RoleFilterSelect } = useRoleFilter()
+
+  const handlePrintSelected = (): void => {
     const selectedItems = getSelectedItems()
     if (selectedItems.length === 0) {
       console.log("No hay elementos seleccionados para imprimir")
@@ -24,29 +27,15 @@ export default function TableHeader() {
     console.log("Elementos seleccionados para imprimir:", selectedItems)
   }
 
-  const handleDateFromChangeLocal = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleDateFromChangeLocal = (e: React.ChangeEvent<HTMLInputElement>): void => {
     console.log("Fecha desde cambiada:", e.target.value)
     onDateFromChange(e.target.value)
   }
 
-  const handleDateToChangeLocal = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleDateToChangeLocal = (e: React.ChangeEvent<HTMLInputElement>): void => {
     console.log("Fecha hasta cambiada:", e.target.value)
     onDateToChange(e.target.value)
   }
-
-  const handleRoleFilterChange = (value: string | string[]) => {
-    const role = Array.isArray(value) ? value[0] : value
-    console.log("Filtro de rol cambiado:", role)
-    onRoleChange(role)
-  }
-
-  // Opciones de roles para el filtro
-  const roleOptions = [
-    { value: "todos", label: "Todos" },
-    { value: "ADMIN_DACE", label: "Admin DACE" },
-    { value: "ADMIN_FUNDESUR", label: "Admin FUNDESUR" },
-    { value: "SUPER_USUARIO", label: "Super Usuario" },
-  ]
 
   return (
     <div className="table-header-container">
@@ -94,22 +83,6 @@ export default function TableHeader() {
           />
         </div>
 
-        {/* Filtro de roles */}
-        <div className="table-role-filter-container">
-          <Select value={selectedRole || "todos"} onValueChange={handleRoleFilterChange}>
-            <SelectTrigger>
-              <SelectValue placeholder="Filtrar por rol" />
-            </SelectTrigger>
-            <SelectContent>
-              {roleOptions.map((option) => (
-                <SelectItem key={option.value} value={option.value}>
-                  {option.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-
         {/* Filtros de fecha */}
         <div className="table-date-filters-container">
           <div className="date-filter-group">
@@ -154,8 +127,14 @@ export default function TableHeader() {
           <div className="modal-button-wrapper">
             <AddUsuario />
           </div>
+
+          <div className="modal-button-wrapper">
+            <RoleFilterSelect />
+          </div>
         </div>
       </div>
     </div>
   )
 }
+
+export default TableHeader
