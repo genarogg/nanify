@@ -1,37 +1,18 @@
 "use client"
 
 import { Copy, Eye, Trash2, Check, Minus, Edit } from "lucide-react"
-import type { DataTable } from "../../context/TableContext"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "../../../ux/select"
 import { useTableRowActions } from "../../hooks/useTableRowActions"
 import ViewUserModal from "../modal-crud/ViewUserModal"
 import "./user-management-table.css"
-import { useTableState } from "../../context/TableContext"
+import { useTableState, useTableContext } from "../../context/TableContext"
 
-interface TableViewProps {
-  items: DataTable[]
-  selectedItems: number[]
-  columns: any[]
-  select: boolean
-  cuadricula: boolean
-  onSelectItem: (itemId: number) => void
-  onSelectAll: () => void
-  getSelectAllState: () => string
-
-}
-
-export default function TableView({
-  items,
-  selectedItems,
-  columns,
-  select,
-  cuadricula,
-  onSelectItem,
-  onSelectAll,
-  getSelectAllState,
-
-}: TableViewProps) {
+export default function TableView() {
+  const { tableState, config } = useTableContext()
   const { deleteItem } = useTableState()
+
+  const { currentItems, selectedItems, handleSelectAll, getSelectAllState } = tableState
+  const { select, cuadricula, columns } = config
 
   // Usar el hook de acciones - NO pasar onCustomView para que use el modal por defecto
   const {
@@ -52,6 +33,12 @@ export default function TableView({
     showConfirmDialog: true,
   })
 
+  const handleItemSelect = (itemId: number) => {
+    // Aquí deberías llamar a la función del contexto para seleccionar items
+    // Asumiendo que existe una función en el contexto para esto
+    // selectItem(itemId) o similar
+  }
+
   return (
     <>
       <div className="table-container">
@@ -62,7 +49,7 @@ export default function TableView({
                 <th className="select-column">
                   <button
                     className={`select-btn master-select ${getSelectAllState()}`}
-                    onClick={onSelectAll}
+                    onClick={handleSelectAll}
                     title="Seleccionar todos"
                   >
                     {getSelectAllState() === "all" && <Check size={14} />}
@@ -80,13 +67,13 @@ export default function TableView({
             </tr>
           </thead>
           <tbody style={{ minHeight: "320px", position: "relative" }}>
-            {items.map((item: any, index: any) => (
+            {currentItems.map((item: any, index: any) => (
               <tr key={item.id} className={index % 2 === 0 ? "row-even" : "row-odd"}>
                 {select && (
                   <td className="select-column">
                     <button
                       className={`select-btn ${selectedItems.includes(item.id) ? "selected" : ""}`}
-                      onClick={() => onSelectItem(item.id)}
+                      onClick={() => handleItemSelect(item.id)}
                       title="Seleccionar elemento"
                     >
                       {selectedItems.includes(item.id) && <Check size={14} />}

@@ -4,32 +4,25 @@ import { Copy, Eye, Trash2, Check, Edit } from "lucide-react"
 import { useTableRowActions } from "../../hooks/useTableRowActions"
 import ViewUserModal from "../modal-crud/ViewUserModal"
 import "./table-card-view.css"
-import type { DataTable } from "../../context/TableContext"
+import { useTableContext, useTableState } from "../../context/TableContext"
+import { useTableActions } from "../../hooks/useTableActions"
 
-interface TableCardViewProps {
-  items: DataTable[]
-  selectedItems: number[]
-  onSelectItem: (itemId: number) => void
-  onEditItem: (item: DataTable) => void
-  onViewItem: (item: DataTable) => void
-  onDeleteItem: (item: DataTable) => void
-  showSelection?: boolean
-}
+export default function TableCardView() {
+  const { tableState, config } = useTableContext()
+  const { deleteItem } = useTableState()
+  const { handleItemSelect } = useTableActions()
 
-export default function TableCardView({
-  items,
-  selectedItems,
-  onSelectItem,
-  onEditItem,
-  onViewItem,
-  onDeleteItem,
-  showSelection = true,
-}: TableCardViewProps) {
+  const { currentItems, selectedItems } = tableState
+  const { select } = config
+
   // Usar el hook de acciones - NO pasar onCustomView para que use el modal por defecto
   const { handleDuplicate, handleView, handleDelete, handleEdit, viewModalOpen, selectedItemForView, closeViewModal } =
     useTableRowActions({
       // NO pasar onCustomView para que use el modal interno
-      onCustomDelete: onDeleteItem,
+      onCustomDelete: (item) => {
+        // Usar directamente la función deleteItem del contexto
+        deleteItem(item.id)
+      },
       showConfirmDialog: true,
     })
 
@@ -38,15 +31,15 @@ export default function TableCardView({
   return (
     <>
       <div className="card-view-container">
-        {items.map((item) => (
+        {currentItems.map((item) => (
           <div key={item.id} className={`item-card ${isSelected(item.id) ? "selected" : ""}`}>
             {/* Header de la tarjeta */}
             <div className="card-header">
               <div className="card-title-section">
-                {showSelection && (
+                {select && (
                   <button
                     className={`card-select-btn ${isSelected(item.id) ? "selected" : ""}`}
-                    onClick={() => onSelectItem(item.id)}
+                    onClick={() => handleItemSelect(item.id)}
                     title="Seleccionar elemento"
                   >
                     {isSelected(item.id) && <Check size={14} />}
@@ -114,7 +107,7 @@ export default function TableCardView({
           </div>
         ))}
 
-        {items.length === 0 && (
+        {currentItems.length === 0 && (
           <div className="no-cards">
             <p>No se encontraron elementos que coincidan con la búsqueda.</p>
           </div>

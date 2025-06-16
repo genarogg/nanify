@@ -1,7 +1,7 @@
 "use client"
 
 import { useTableContext } from "../context/TableContext"
-import { useTableActions } from "../hooks/useTableActions"
+
 import TableCardView from "./table-card-view"
 import TableView from "./table-view"
 import TableHeader from "./table-header"
@@ -9,44 +9,19 @@ import TableFooter from "./table-footer"
 import Pagination from "./pagination"
 
 export default function TableContent() {
-  const { tableState, responsiveViewState, config } = useTableContext()
+  const { tableState, responsiveViewState } = useTableContext()
 
-  const { handleItemSelect, handleEditItemClick, handleViewItemClick, handleDeleteItemClick } = useTableActions()
-
-  const { currentItems, selectedItems, handleSelectAll, getSelectAllState,  } = tableState
-  const { select, cuadricula, columns } = config
+  const { currentItems } = tableState
 
   // Calculamos si hay elementos filtrados basándonos en si currentItems tiene elementos
   const hasFilteredItems = currentItems && currentItems.length > 0
 
   const renderTableContent = () => {
     if (responsiveViewState.viewMode === "table") {
-      return (
-        <TableView
-          items={currentItems}
-          selectedItems={selectedItems}
-          columns={columns}
-          select={select}
-          cuadricula={cuadricula}
-          onSelectItem={handleItemSelect}
-          onSelectAll={handleSelectAll}
-          getSelectAllState={getSelectAllState}
-        
-        />
-      )
+      return <TableView />
     }
 
-    return (
-      <TableCardView
-        items={currentItems}
-        selectedItems={selectedItems}
-        onSelectItem={handleItemSelect}
-        onEditItem={handleEditItemClick}
-        onViewItem={handleViewItemClick}
-        onDeleteItem={handleDeleteItemClick}
-        showSelection={select}
-      />
-    )
+    return <TableCardView />
   }
 
   return (

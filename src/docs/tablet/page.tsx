@@ -19,7 +19,6 @@ const page: React.FC<pageProps> = () => {
         { value: "super_usuario", label: "Super Usuario" },
     ]
 
-
     return (
         <main style={{ padding: "20px", backgroundColor: "#f5f5f5", minHeight: "100vh" }}>
             <div style={{ marginBottom: "40px" }}>
