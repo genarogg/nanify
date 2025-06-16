@@ -8,7 +8,7 @@ import Title from "./Title"
 import Search from "./Search"
 import Filter from "./filters"
 
-import AddUsuario from "../modal-crud/AddUsuario"
+import AddUsuario from "../../modal-crud/AddUsuario"
 
 
 const TableHeader: React.FC = () => {

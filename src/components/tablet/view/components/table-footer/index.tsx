@@ -2,9 +2,9 @@
 import { useEffect, useState, useRef, useCallback } from "react"
 import { Users, Copy, Trash2 } from "lucide-react"
 import "./table-footer.css"
-import { useTableState } from "../../context/TableContext"
-import type { DataTable } from "../../context/types"
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "../../../ux/select"
+import { useTableState } from "../../../context/TableContext"
+import type { DataTable } from "../../../context/types"
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "../../../../ux/select"
 
 export default function TableFooter() {
   const { getSelectedItems, selectedCount, updateSelectedItemsRole, clearSelection, addItem, deleteSelectedItems } =

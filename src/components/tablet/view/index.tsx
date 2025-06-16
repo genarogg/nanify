@@ -2,11 +2,11 @@
 
 import { useTableContext } from "../context/TableContext"
 
-import TableCardView from "./table-card-view"
-import TableView from "./table-view"
-import TableHeader from "./table-header"
-import TableFooter from "./table-footer"
-import Pagination from "./pagination"
+import TableCardView from "./table/table-card-view"
+import TableView from "./table/table-view"
+import TableHeader from "./components/table-header"
+import TableFooter from "./components/table-footer"
+import Pagination from "./components/pagination"
 
 import "./css/index.css"
 

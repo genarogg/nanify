@@ -1,5 +1,5 @@
 import { useCallback } from "react"
-import { useFilterConfig } from "../../../context/TableContext"
+import { useFilterConfig } from "../../../../context/TableContext"
 
 // Tipos genéricos
 interface FilterOption {

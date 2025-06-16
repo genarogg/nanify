@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react'
-import { useFilterConfig } from "../../../context/TableContext"
+import { useFilterConfig } from "../../../../context/TableContext"
 import "./css/from-to-date.css"
 
 interface FromToDateProps { }

@@ -1,7 +1,7 @@
 "use client"
 
 import "./pagination.css"
-import { useTableState, useUIConfig } from "../../context/TableContext"
+import { useTableState, useUIConfig } from "../../../context/TableContext"
 
 export default function TablePagination() {
   

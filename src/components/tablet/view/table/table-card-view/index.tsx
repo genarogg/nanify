@@ -1,11 +1,11 @@
 "use client"
 
 import { Copy, Eye, Trash2, Check, Edit } from "lucide-react"
-import { useTableRowActions } from "../../context/hooks/useTableRowActions"
-import ViewUserModal from "../modal-crud/ViewUserModal"
+import { useTableRowActions } from "../../../context/hooks/useTableRowActions"
+import ViewUserModal from "../../modal-crud/ViewUserModal"
 import "./table-card-view.css"
-import { useTableContext, useTableState } from "../../context/TableContext"
-import { useTableActions } from "../../context/hooks/useTableActions"
+import { useTableContext, useTableState } from "../../../context/TableContext"
+import { useTableActions } from "../../../context/hooks/useTableActions"
 
 export default function TableCardView() {
   const { tableState, config } = useTableContext()

@@ -1,7 +1,7 @@
 import { Search as Lupita } from "lucide-react"
 import "./css/search.css"
 
-import { useTableState } from "../../context/TableContext"
+import { useTableState } from "../../../context/TableContext"
 
 interface SearchProps {
 

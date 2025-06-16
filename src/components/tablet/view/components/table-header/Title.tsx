@@ -1,7 +1,7 @@
 'use client'
 
 import "./css/title.css"
-import { useTableState } from "../../context/TableContext"
+import { useTableState } from "../../../context/TableContext"
 
 interface DataStatusIndicatorProps {
     type: 'loading' | 'error' | 'fallback';
