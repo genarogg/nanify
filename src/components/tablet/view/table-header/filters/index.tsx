@@ -3,15 +3,15 @@ import type React from "react"
 import { useState, useEffect } from "react"
 import { Filter } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
-import "./filter-toggle.css"
+import "./css/index.css"
 
-interface FilterToggleButtonProps {
+interface FiltersProps {
   children: React.ReactNode
   className?: string
   storageKey?: string
 }
 
-const FilterToggleButton: React.FC<FilterToggleButtonProps> = ({
+const Filters: React.FC<FiltersProps> = ({
   children,
   className = "",
   storageKey = "table-filters-visible",
@@ -112,11 +112,10 @@ const FilterToggleButton: React.FC<FilterToggleButtonProps> = ({
           <Filter size={16} />
         </motion.div>
 
-        {/* Indicador de estado */}
         <div className={`filter-status-dot ${isVisible ? "visible" : "hidden"}`}></div>
       </button>
     </div>
   )
 }
 
-export default FilterToggleButton
+export default Filters

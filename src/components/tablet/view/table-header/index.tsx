@@ -11,7 +11,7 @@ import { useTableState } from "../../context/TableContext"
 import Title from "./Title"
 import Search from "./Search"
 import FromToDate from "./FromToDates"
-import FilterToggleButton from "./FilterToggleButton"
+import FilterToggleButton from "./filters"
 
 import { SelectStatus, SelectRol } from "./SearchSelected"
 
@@ -29,19 +29,18 @@ const TableHeader: React.FC = () => {
         </div>
 
         {/* Área de filtros expandibles */}
-        <div className="box-center">
-          <FilterToggleButton storageKey="table-filters-visible">
-            <FromToDate />
-            <SelectStatus />
-            <SelectRol />
-          </FilterToggleButton>
-        </div>
 
         {/* Botones fijos a la derecha */}
         <div className="box-right">
-          <div className="modal-button-wrapper">
-            <TableConfigModal />
+          <div className="box-filter">
+            <FilterToggleButton storageKey="table-filters-visible">
+              <FromToDate />
+              <SelectStatus />
+              <SelectRol />
+              <TableConfigModal />
+            </FilterToggleButton>
           </div>
+
 
           <div className="modal-button-wrapper">
             <AddUsuario />
