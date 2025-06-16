@@ -1,5 +1,5 @@
 "use client"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef, useCallback } from "react"
 import { Users, Copy, Trash2 } from "lucide-react"
 import "./table-footer.css"
 import { useTableState } from "../../context/TableContext"
@@ -11,6 +11,9 @@ export default function TableFooter() {
     useTableState()
 
   const [showBulkBar, setShowBulkBar] = useState(false)
+  const [isSticky, setIsSticky] = useState(false)
+  const bulkBarRef = useRef<HTMLDivElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
 
   // Controlar la visibilidad de la barra con animación suave
   useEffect(() => {
@@ -20,6 +23,59 @@ export default function TableFooter() {
       setShowBulkBar(false)
     }
   }, [selectedCount])
+
+  // Función para detectar si la barra debe ser sticky o fixed
+  const checkPosition = useCallback(() => {
+    if (!bulkBarRef.current) return
+
+    // Buscar el contenedor de la tabla
+    const tableContainer = document.querySelector(".table-management-container") as HTMLElement
+    if (!tableContainer) return
+
+    const containerRect = tableContainer.getBoundingClientRect()
+    const viewportHeight = window.innerHeight
+    const barHeight = 80 // Altura aproximada de la barra
+
+    // Si el final del contenedor está visible en la pantalla
+    const containerBottomVisible = containerRect.bottom <= viewportHeight
+
+    // Si el contenedor es más pequeño que la pantalla o su final está visible
+    if (containerBottomVisible || containerRect.height < viewportHeight - 100) {
+      setIsSticky(true) // Usar position absolute dentro del contenedor
+    } else {
+      setIsSticky(false) // Usar position fixed en la pantalla
+    }
+  }, [])
+
+  // Escuchar scroll y resize para ajustar posición
+  useEffect(() => {
+    if (!showBulkBar) return
+
+    checkPosition()
+
+    const handleScroll = () => checkPosition()
+    const handleResize = () => checkPosition()
+
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    window.addEventListener("resize", handleResize)
+
+    // Verificar posición inicial después de un pequeño delay
+    const timeoutId = setTimeout(checkPosition, 100)
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+      window.removeEventListener("resize", handleResize)
+      clearTimeout(timeoutId)
+    }
+  }, [showBulkBar, checkPosition])
+
+  // Asegurar que el contenedor tenga la referencia correcta
+  useEffect(() => {
+    const tableContainer = document.querySelector(".table-management-container") as HTMLElement
+    if (tableContainer) {
+      containerRef.current = tableContainer
+    }
+  }, [])
 
   const handleBulkRoleChange = (value: string | string[]) => {
     const newRole = Array.isArray(value) ? value[0] : value
@@ -149,59 +205,56 @@ export default function TableFooter() {
   if (!showBulkBar) return null
 
   return (
-    <>
-      {/* Overlay de fondo muy sutil que NO bloquea interacciones */}
-      <div className={`bulk-actions-overlay ${showBulkBar ? "visible" : ""}`} />
+    <div
+      ref={bulkBarRef}
+      className={`bulk-actions-bar ${showBulkBar ? "visible" : ""} ${isSticky ? "sticky" : "fixed"}`}
+    >
+      <div className="bulk-actions-info">
+        <Users size={20} />
+        <span className="bulk-count">{selectedCount} elemento(s) seleccionado(s)</span>
+      </div>
 
-      {/* Barra de acciones masivas en la parte inferior */}
-      <div className={`bulk-actions-bar ${showBulkBar ? "visible" : ""}`}>
-        <div className="bulk-actions-info">
-          <Users size={20} />
-          <span className="bulk-count">{selectedCount} elemento(s) seleccionado(s)</span>
+      <div className="bulk-actions-controls">
+        <div className="bulk-role-change">
+          <span className="bulk-label">Cambiar rol a:</span>
+          <Select onValueChange={handleBulkRoleChange}>
+            <SelectTrigger>
+              <SelectValue placeholder="Seleccionar rol" />
+            </SelectTrigger>
+            <SelectContent>
+              {bulkRoleOptions.map((option) => (
+                <SelectItem key={option.value} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
 
-        <div className="bulk-actions-controls">
-          <div className="bulk-role-change">
-            <span className="bulk-label">Cambiar rol a:</span>
-            <Select onValueChange={handleBulkRoleChange}>
-              <SelectTrigger>
-                <SelectValue placeholder="Seleccionar rol" />
-              </SelectTrigger>
-              <SelectContent>
-                {bulkRoleOptions.map((option) => (
-                  <SelectItem key={option.value} value={option.value}>
-                    {option.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
+        <div className="bulk-action-buttons">
+          <button
+            className="bulk-action-btn duplicate-btn"
+            onClick={handleBulkDuplicate}
+            title={`Duplicar ${selectedCount} elemento(s) seleccionado(s)`}
+          >
+            <Copy size={16} />
+            Duplicar ({selectedCount})
+          </button>
 
-          <div className="bulk-action-buttons">
-            <button
-              className="bulk-action-btn duplicate-btn"
-              onClick={handleBulkDuplicate}
-              title={`Duplicar ${selectedCount} elemento(s) seleccionado(s)`}
-            >
-              <Copy size={16} />
-              Duplicar ({selectedCount})
-            </button>
-
-            <button
-              className="bulk-action-btn delete-btn"
-              onClick={handleBulkDelete}
-              title={`Eliminar ${selectedCount} elemento(s) seleccionado(s)`}
-            >
-              <Trash2 size={16} />
-              Eliminar ({selectedCount})
-            </button>
-          </div>
-
-          <button className="bulk-clear-btn" onClick={clearSelection} title="Limpiar selección">
-            Limpiar selección
+          <button
+            className="bulk-action-btn delete-btn"
+            onClick={handleBulkDelete}
+            title={`Eliminar ${selectedCount} elemento(s) seleccionado(s)`}
+          >
+            <Trash2 size={16} />
+            Eliminar ({selectedCount})
           </button>
         </div>
+
+        <button className="bulk-clear-btn" onClick={clearSelection} title="Limpiar selección">
+          Limpiar selección
+        </button>
       </div>
-    </>
+    </div>
   )
 }

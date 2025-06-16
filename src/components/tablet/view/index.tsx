@@ -13,7 +13,7 @@ export default function TableContent() {
 
   const { handleItemSelect, handleEditItemClick, handleViewItemClick, handleDeleteItemClick } = useTableActions()
 
-  const { currentItems, selectedItems, handleSelectAll, getSelectAllState, updateItem } = tableState
+  const { currentItems, selectedItems, handleSelectAll, getSelectAllState,  } = tableState
   const { select, cuadricula, columns } = config
 
   // Calculamos si hay elementos filtrados basándonos en si currentItems tiene elementos
@@ -31,10 +31,7 @@ export default function TableContent() {
           onSelectItem={handleItemSelect}
           onSelectAll={handleSelectAll}
           getSelectAllState={getSelectAllState}
-          onEditItem={handleEditItemClick}
-          onViewItem={handleViewItemClick}
-          onDeleteItem={handleDeleteItemClick}
-          updateItem={updateItem}
+        
         />
       )
     }

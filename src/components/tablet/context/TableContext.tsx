@@ -163,7 +163,7 @@ interface TableProviderProps {
 // Provider del contexto
 export const TableProvider: React.FC<TableProviderProps> = ({
   children,
-  config = {},
+
   initialData = defaultData,
   itemsPerPage = 10,
   defaultViewMode = "table",

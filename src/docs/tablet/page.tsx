@@ -1,4 +1,5 @@
 'use client'
+
 import React, { useState } from 'react'
 import Tablet from '@components/tablet';
 
@@ -13,6 +14,7 @@ const page: React.FC<pageProps> = () => {
     const statusOptions = [
         { value: "todos", label: "Todos" },
         { value: "admin_dace", label: "Admin DACE" },
+
         { value: "admin_fundesur", label: "Admin FUNDESUR" },
         { value: "super_usuario", label: "Super Usuario" },
     ]

@@ -17,10 +17,7 @@ interface TableViewProps {
   onSelectItem: (itemId: number) => void
   onSelectAll: () => void
   getSelectAllState: () => string
-  onEditItem: (item: DataTable) => void
-  onViewItem: (item: DataTable) => void
-  onDeleteItem: (item: DataTable) => void
-  updateItem: (itemId: number, updates: Partial<DataTable>) => void
+
 }
 
 export default function TableView({
@@ -32,10 +29,7 @@ export default function TableView({
   onSelectItem,
   onSelectAll,
   getSelectAllState,
-  onEditItem,
-  onViewItem,
-  onDeleteItem,
-  updateItem,
+
 }: TableViewProps) {
   const { deleteItem } = useTableState()
 
@@ -106,7 +100,7 @@ export default function TableView({
                       return (
                         <td key={column.id} className="acciones-column">
                           <div className="actions-cell">
-                            <Select value={item.rol} onValueChange={(newRole) => handleRoleChange(item, newRole)}>
+                            <Select value={item.rol} onValueChange={(newRole: any) => handleRoleChange(item, newRole)}>
                               <SelectTrigger>
                                 <SelectValue />
                               </SelectTrigger>
