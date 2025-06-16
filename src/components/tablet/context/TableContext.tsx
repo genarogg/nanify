@@ -61,7 +61,7 @@ interface TableState {
   dataLoading: boolean
   dataError: string | null
   refetchData: () => Promise<void>
- 
+
   updateTableConfig: (newConfig: Partial<TableConfig>) => void
   updateItemsPerPage: (newItemsPerPage: number) => void
   itemsPerPage: number
@@ -74,7 +74,7 @@ interface ExtendedFilterConfig {
   dateTo: string
   onDateFromChange: (date: string) => void
   onDateToChange: (date: string) => void
-  
+
   // Filtros de selección específicos (compatibilidad hacia atrás)
   showStatusFilter: boolean
   statusOptions: { value: string; label: string }[]
@@ -82,14 +82,14 @@ interface ExtendedFilterConfig {
   onStatusChange: (status: string) => void
   selectedRole: string
   onRoleChange: (role: string) => void
-  
+
   // Sistema de filtros genéricos
   genericFilters: GenericFilter
   onGenericFilterChange: (filterType: string, value: string) => void
   clearAllFilters: () => void
   getFilterValue: (filterType: string) => string
   setFilterValue: (filterType: string, value: string) => void
-  
+
   // Configuración de filtros disponibles
   availableFilters: {
     [key: string]: {
@@ -118,20 +118,6 @@ interface TableContextType {
   onDeleteItem: (item: DataTable) => void
   onSelectItem: (item: DataTable) => void
 
-  // Configuración de UI
-  uiConfig: {
-    title: string
-    searchPlaceholder: string
-    addButtonText: string
-    showAddButton: boolean
-    showPaginationInfo: boolean
-    paginationInfoText: string
-    previousText: string
-    nextText: string
-    showViewToggle: boolean
-    showAutoToggle: boolean
-  }
-
   // Configuración de filtros extendida
   filterConfig: ExtendedFilterConfig
 }
@@ -146,31 +132,31 @@ interface TableProviderProps {
 
 // Configuración de filtros disponibles - Mover fuera del componente para evitar recreación
 const AVAILABLE_FILTERS = {
-  role: { 
-    defaultValue: "todos", 
-    resetPage: true, 
-    accessor: "rol" 
+  role: {
+    defaultValue: "todos",
+    resetPage: true,
+    accessor: "rol",
   },
-  status: { 
-    defaultValue: "todos", 
-    resetPage: true, 
-    accessor: "status" 
+  status: {
+    defaultValue: "todos",
+    resetPage: true,
+    accessor: "status",
   },
-  department: { 
-    defaultValue: "todos", 
-    resetPage: true, 
-    accessor: "departamento" 
+  department: {
+    defaultValue: "todos",
+    resetPage: true,
+    accessor: "departamento",
   },
-  priority: { 
-    defaultValue: "todos", 
-    resetPage: true, 
-    accessor: "prioridad" 
+  priority: {
+    defaultValue: "todos",
+    resetPage: true,
+    accessor: "prioridad",
   },
-  category: { 
-    defaultValue: "todos", 
-    resetPage: true, 
-    accessor: "categoria" 
-  }
+  category: {
+    defaultValue: "todos",
+    resetPage: true,
+    accessor: "categoria",
+  },
 } as const
 
 // Provider del contexto
@@ -221,47 +207,57 @@ export const TableProvider: React.FC<TableProviderProps> = ({ children }) => {
   // Estado para filtros genéricos
   const [genericFilters, setGenericFilters] = useState<GenericFilter>({
     role: "todos",
-    status: "todos"
+    status: "todos",
   })
 
   // Función genérica para cambiar filtros
   const handleGenericFilterChange = useCallback((filterType: string, value: string) => {
-    setGenericFilters(prev => ({
+    setGenericFilters((prev) => ({
       ...prev,
-      [filterType]: value
+      [filterType]: value,
     }))
-    
+
     // Resetear página si está configurado
     if (AVAILABLE_FILTERS[filterType as keyof typeof AVAILABLE_FILTERS]?.resetPage) {
       setCurrentPage(1)
     }
-    
+
     console.log(`Filtro genérico ${filterType} cambiado a:`, value)
   }, [])
 
   // Función para obtener valor de filtro
-  const getFilterValue = useCallback((filterType: string): string => {
-    return genericFilters[filterType] || AVAILABLE_FILTERS[filterType as keyof typeof AVAILABLE_FILTERS]?.defaultValue || "todos"
-  }, [genericFilters])
+  const getFilterValue = useCallback(
+    (filterType: string): string => {
+      return (
+        genericFilters[filterType] ||
+        AVAILABLE_FILTERS[filterType as keyof typeof AVAILABLE_FILTERS]?.defaultValue ||
+        "todos"
+      )
+    },
+    [genericFilters],
+  )
 
   // Función para establecer valor de filtro
-  const setFilterValue = useCallback((filterType: string, value: string) => {
-    handleGenericFilterChange(filterType, value)
-  }, [handleGenericFilterChange])
+  const setFilterValue = useCallback(
+    (filterType: string, value: string) => {
+      handleGenericFilterChange(filterType, value)
+    },
+    [handleGenericFilterChange],
+  )
 
   // Función para limpiar todos los filtros
   const clearAllFilters = useCallback(() => {
     const clearedFilters: GenericFilter = {}
-    Object.keys(AVAILABLE_FILTERS).forEach(filterType => {
+    Object.keys(AVAILABLE_FILTERS).forEach((filterType) => {
       clearedFilters[filterType] = AVAILABLE_FILTERS[filterType as keyof typeof AVAILABLE_FILTERS].defaultValue
     })
-    
+
     setGenericFilters(clearedFilters)
     setDateFrom("")
     setDateTo("")
     setSearchTerm("")
     setCurrentPage(1)
-    
+
     console.log("Todos los filtros han sido limpiados")
   }, [])
 
@@ -314,14 +310,14 @@ export const TableProvider: React.FC<TableProviderProps> = ({ children }) => {
         item.rol.toLowerCase().includes(searchTerm.toLowerCase())
 
       // Filtros genéricos
-      const matchesGenericFilters = Object.keys(genericFilters).every(filterType => {
+      const matchesGenericFilters = Object.keys(genericFilters).every((filterType) => {
         const filterValue = genericFilters[filterType]
         if (filterValue === "todos") return true
-        
+
         // Obtener el accessor del filtro
         const accessor = AVAILABLE_FILTERS[filterType as keyof typeof AVAILABLE_FILTERS]?.accessor
         if (!accessor) return true
-        
+
         // Comparar el valor del item con el filtro
         const itemValue = (item as any)[accessor]
         return itemValue === filterValue
@@ -524,13 +520,19 @@ export const TableProvider: React.FC<TableProviderProps> = ({ children }) => {
   }
 
   // Handlers de filtros específicos (compatibilidad hacia atrás)
-  const handleRoleChange = useCallback((role: string) => {
-    handleGenericFilterChange('role', role)
-  }, [handleGenericFilterChange])
+  const handleRoleChange = useCallback(
+    (role: string) => {
+      handleGenericFilterChange("role", role)
+    },
+    [handleGenericFilterChange],
+  )
 
-  const handleStatusChange = useCallback((status: string) => {
-    handleGenericFilterChange('status', status)
-  }, [handleGenericFilterChange])
+  const handleStatusChange = useCallback(
+    (status: string) => {
+      handleGenericFilterChange("status", status)
+    },
+    [handleGenericFilterChange],
+  )
 
   // Callbacks CRUD por defecto
   const onAddItem = () => {
@@ -601,20 +603,6 @@ export const TableProvider: React.FC<TableProviderProps> = ({ children }) => {
     defaultViewMode: "table",
   })
 
-  // Configuración de UI
-  const uiConfig = {
-    title: "Gestión de Datos",
-    searchPlaceholder: "Buscar elementos...",
-    addButtonText: "Agregar Elemento",
-    showAddButton: true,
-    showPaginationInfo: true,
-    paginationInfoText: "Mostrando {start} a {end} de {total} elementos",
-    previousText: "Anterior",
-    nextText: "Siguiente",
-    showViewToggle: true,
-    showAutoToggle: true,
-  }
-
   // Configuración de filtros extendida
   const filterConfig: ExtendedFilterConfig = {
     // Filtros de fecha
@@ -622,7 +610,7 @@ export const TableProvider: React.FC<TableProviderProps> = ({ children }) => {
     dateTo,
     onDateFromChange: handleDateFromChange,
     onDateToChange: handleDateToChange,
-    
+
     // Filtros específicos (compatibilidad hacia atrás)
     showStatusFilter: true,
     statusOptions: [
@@ -631,18 +619,18 @@ export const TableProvider: React.FC<TableProviderProps> = ({ children }) => {
       { value: "INACTIVO", label: "Inactivo" },
       { value: "PENDIENTE", label: "Pendiente" },
     ],
-    selectedStatus: getFilterValue('status'),
+    selectedStatus: getFilterValue("status"),
     onStatusChange: handleStatusChange,
-    selectedRole: getFilterValue('role'),
+    selectedRole: getFilterValue("role"),
     onRoleChange: handleRoleChange,
-    
+
     // Sistema de filtros genéricos
     genericFilters,
     onGenericFilterChange: handleGenericFilterChange,
     clearAllFilters,
     getFilterValue,
     setFilterValue,
-    availableFilters: AVAILABLE_FILTERS
+    availableFilters: AVAILABLE_FILTERS,
   }
 
   // Valor del contexto
@@ -655,7 +643,6 @@ export const TableProvider: React.FC<TableProviderProps> = ({ children }) => {
     onViewItem,
     onDeleteItem,
     onSelectItem,
-    uiConfig,
     filterConfig,
   }
 
@@ -694,11 +681,6 @@ export const useTableCallbacks = () => {
   return { onAddItem, onEditItem, onViewItem, onDeleteItem, onSelectItem }
 }
 
-export const useUIConfig = () => {
-  const { uiConfig } = useTableContext()
-  return uiConfig
-}
-
 export const useFilterConfig = () => {
   const { filterConfig } = useTableContext()
   return filterConfig
@@ -707,25 +689,26 @@ export const useFilterConfig = () => {
 // Hooks para filtros genéricos
 export const useGenericFilters = () => {
   const { filterConfig } = useTableContext()
-  
+
   return {
     filters: filterConfig.genericFilters,
     getFilterValue: filterConfig.getFilterValue,
     setFilterValue: filterConfig.setFilterValue,
     onFilterChange: filterConfig.onGenericFilterChange,
     clearAllFilters: filterConfig.clearAllFilters,
-    availableFilters: filterConfig.availableFilters
+    availableFilters: filterConfig.availableFilters,
   }
 }
 
 // Hook para un filtro específico
 export const useSpecificFilter = (filterType: string) => {
   const { filterConfig } = useTableContext()
-  
+
   return {
     value: filterConfig.getFilterValue(filterType),
     setValue: (value: string) => filterConfig.setFilterValue(filterType, value),
-    defaultValue: filterConfig.availableFilters[filterType as keyof typeof filterConfig.availableFilters]?.defaultValue || "todos"
+    defaultValue:
+      filterConfig.availableFilters[filterType as keyof typeof filterConfig.availableFilters]?.defaultValue || "todos",
   }
 }
 
