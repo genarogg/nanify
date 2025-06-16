@@ -29,6 +29,7 @@ const TableHeader: React.FC = () => {
         {/* Botones fijos a la derecha */}
         <div className="box-right">
           <Filter
+            hideToggleButton={true}
             filterOrder={['dates', 'rol', 'status']}
             alwaysActiveFilters={["status"]}
             alwaysHiddenFilters={['config', "dates"]}

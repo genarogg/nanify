@@ -1,6 +1,6 @@
 /* Contenedor principal del header */
 .table-header-container {
-  margin-bottom: 24px;
+  /* margin-bottom: 24px; */
   position: relative;
 }
 
@@ -167,19 +167,29 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 950px) {
   .table-header-controls-section {
     gap: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .table-header-container {
+    margin-bottom: 24px;
+    /* position: relative; */
   }
 
   .box-left,
   .box-center,
   .box-right {
     justify-content: center;
+    width: 100%;
   }
 
   .box-left {
     justify-content: stretch;
+    max-width: 100%;
+    min-width: 100%;
   }
 
   .box-right {
@@ -187,6 +197,22 @@
     flex-direction: column;
     align-items: stretch;
     gap: 12px;
+  }
+
+  .always-active-filters {
+    width: 100%;
+  }
+
+  .filter-content-area .always-active-filters:last-child{
+    margin-left: 0 !important;
+  }
+
+  .always-active-filters .select-root {
+    max-width: 100%;
+  }
+
+  .always-active-filter {
+    width: 100%;
   }
 
   .table-role-filter-container {
@@ -244,7 +270,7 @@
   }
 
   .box-right {
-    gap: 8px;
+    gap: 14px;
   }
 
   .responsive-badge {

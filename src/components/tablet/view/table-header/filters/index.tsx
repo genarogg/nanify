@@ -17,6 +17,8 @@ interface FilterToggleButtonProps {
   // Nuevas props para componentes siempre activos
   alwaysActiveComponents?: React.ReactNode[]
   alwaysActivePosition?: "before" | "after"
+  // Nueva prop para ocultar el botón de toggle
+  hideToggleButton?: boolean
 }
 
 const FilterToggleButton: React.FC<FilterToggleButtonProps> = ({
@@ -25,12 +27,19 @@ const FilterToggleButton: React.FC<FilterToggleButtonProps> = ({
   storageKey = "table-filters-visible",
   alwaysActiveComponents = [],
   alwaysActivePosition = "before",
+  hideToggleButton = false,
 }) => {
   const [isVisible, setIsVisible] = useState(true)
   const [isLoaded, setIsLoaded] = useState(false)
 
   // Cargar estado desde localStorage al montar el componente
   useEffect(() => {
+    // Si hideToggleButton es true, no necesitamos cargar/guardar estado
+    if (hideToggleButton) {
+      setIsLoaded(true)
+      return
+    }
+
     try {
       const savedState = localStorage.getItem(storageKey)
       if (savedState !== null) {
@@ -41,18 +50,18 @@ const FilterToggleButton: React.FC<FilterToggleButtonProps> = ({
     } finally {
       setIsLoaded(true)
     }
-  }, [storageKey])
+  }, [storageKey, hideToggleButton])
 
   // Guardar estado en localStorage cuando cambie
   useEffect(() => {
-    if (isLoaded) {
+    if (isLoaded && !hideToggleButton) {
       try {
         localStorage.setItem(storageKey, JSON.stringify(isVisible))
       } catch (error) {
         console.warn("Error saving filter visibility state:", error)
       }
     }
-  }, [isVisible, isLoaded, storageKey])
+  }, [isVisible, isLoaded, storageKey, hideToggleButton])
 
   const toggleVisibility = () => {
     setIsVisible((prev) => !prev)
@@ -63,9 +72,11 @@ const FilterToggleButton: React.FC<FilterToggleButtonProps> = ({
     return (
       <div className="filter-toggle-container">
         <div className="filter-content-placeholder"></div>
-        <button className="filter-toggle-icon-btn loading" disabled>
-          <Filter size={16} />
-        </button>
+        {!hideToggleButton && (
+          <button className="filter-toggle-icon-btn loading" disabled>
+            <Filter size={16} />
+          </button>
+        )}
       </div>
     )
   }
@@ -83,58 +94,71 @@ const FilterToggleButton: React.FC<FilterToggleButtonProps> = ({
           </div>
         )}
 
-        <AnimatePresence mode="wait">
-          {isVisible && (
-            <motion.div
-              className="filter-content-inline"
-              initial={{
-                opacity: 0,
-                height: 0,
-                y: -20, // Changed to slide down animation
-              }}
-              animate={{
-                opacity: 1,
-                height: "auto",
-                y: 0,
-              }}
-              exit={{
-                opacity: 0,
-                height: 0,
-                y: -20, // Changed to slide up when exiting
-              }}
-              transition={{
-                duration: 0.4,
-                ease: [0.4, 0.0, 0.2, 1],
-                height: {
-                  duration: 0.3,
-                },
-                y: {
+        {/* Si hideToggleButton es true, siempre mostrar los children */}
+        {hideToggleButton ? (
+          <div className="filter-content-inline" style={{ display: "none" }}>
+            <div className="filter-content-wrapper">
+              {React.Children.toArray(children).map((child, index) => (
+                <div key={`filter-child-${index}`} className="filter-child">
+                  {child}
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <AnimatePresence mode="wait">
+            {isVisible && (
+              <motion.div
+                className="filter-content-inline"
+                initial={{
+                  opacity: 0,
+                  height: 0,
+                  y: -20,
+                }}
+                animate={{
+                  opacity: 1,
+                  height: "auto",
+                  y: 0,
+                }}
+                exit={{
+                  opacity: 0,
+                  height: 0,
+                  y: -20,
+                }}
+                transition={{
                   duration: 0.4,
-                  ease: "easeOut",
-                },
-              }}
-            >
-              <div className="filter-content-wrapper">
-                {React.Children.toArray(children).map((child, index) => (
-                  <motion.div
-                    key={`filter-child-${index}`}
-                    className="filter-child"
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{
-                      delay: index * 0.1,
-                      duration: 0.3,
-                      ease: "easeOut",
-                    }}
-                  >
-                    {child}
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+                  ease: [0.4, 0.0, 0.2, 1],
+                  height: {
+                    duration: 0.3,
+                  },
+                  y: {
+                    duration: 0.4,
+                    ease: "easeOut",
+                  },
+                }}
+              >
+                <div className="filter-content-wrapper">
+                  {React.Children.toArray(children).map((child, index) => (
+                    <motion.div
+                      key={`filter-child-${index}`}
+                      className="filter-child"
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{
+                        delay: index * 0.1,
+                        duration: 0.3,
+                        ease: "easeOut",
+                      }}
+                    >
+                      {child}
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        )}
 
         {alwaysActivePosition === "after" && alwaysActiveComponents.length > 0 && (
           <div className="always-active-filters">
@@ -147,26 +171,28 @@ const FilterToggleButton: React.FC<FilterToggleButtonProps> = ({
         )}
       </div>
 
-      {/* Botón Toggle - Now 100% width */}
-      <button
-        className={`filter-toggle-icon-btn ${isVisible ? "active" : "inactive"} ${className}`}
-        onClick={toggleVisibility}
-        title={isVisible ? "Ocultar filtros" : "Mostrar filtros"}
-        aria-expanded={isVisible}
-        aria-controls="filter-content"
-      >
-        <motion.div
-          animate={{
-            rotate: isVisible ? 0 : 180,
-            scale: isVisible ? 1 : 0.9,
-          }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
+      {/* Botón Toggle - Solo renderizar si hideToggleButton es false */}
+      {!hideToggleButton && (
+        <button
+          className={`filter-toggle-icon-btn ${isVisible ? "active" : "inactive"} ${className}`}
+          onClick={toggleVisibility}
+          title={isVisible ? "Ocultar filtros" : "Mostrar filtros"}
+          aria-expanded={isVisible}
+          aria-controls="filter-content"
         >
-          <Filter size={16} />
-        </motion.div>
+          <motion.div
+            animate={{
+              rotate: isVisible ? 0 : 180,
+              scale: isVisible ? 1 : 0.9,
+            }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+          >
+            <Filter size={16} />
+          </motion.div>
 
-        <div className={`filter-status-dot ${isVisible ? "visible" : "hidden"}`}></div>
-      </button>
+          <div className={`filter-status-dot ${isVisible ? "visible" : "hidden"}`}></div>
+        </button>
+      )}
     </div>
   )
 }
@@ -182,15 +208,18 @@ interface TableFiltersProps {
   alwaysActivePosition?: "before" | "after"
   // Nueva opción para especificar qué filtros nunca se muestran
   alwaysHiddenFilters?: ("dates" | "status" | "rol" | "config")[]
+  // Nueva prop para ocultar el botón de toggle
+  hideToggleButton?: boolean
 }
 
 const TableFilters: React.FC<TableFiltersProps> = ({
   className = "",
   storageKey = "table-filters-visible",
-  filterOrder = ["dates", "status", "rol", "config"], // Orden por defecto
+  filterOrder = ["dates", "status", "rol", "config"],
   alwaysActiveFilters = [],
   alwaysActivePosition = "before",
   alwaysHiddenFilters = [],
+  hideToggleButton = false,
 }) => {
   // Función para renderizar componentes según el tipo
   const renderFilterComponent = (filterType: "dates" | "status" | "rol" | "config") => {
@@ -216,10 +245,13 @@ const TableFilters: React.FC<TableFiltersProps> = ({
 
   // Los filtros colapsables son aquellos que NO están en alwaysActive NI en alwaysHidden
   // pero RESPETANDO el orden especificado
-  const collapsableComponents = filterOrder
-    .filter((filterType) => !alwaysActiveFilters.includes(filterType) && !alwaysHiddenFilters.includes(filterType))
-    .map(renderFilterComponent)
-    .filter(Boolean)
+  // Si hideToggleButton es true, no mostrar filtros colapsables
+  const collapsableComponents = hideToggleButton
+    ? []
+    : filterOrder
+      .filter((filterType) => !alwaysActiveFilters.includes(filterType) && !alwaysHiddenFilters.includes(filterType))
+      .map(renderFilterComponent)
+      .filter(Boolean)
 
   return (
     <div className={`box-filter ${className}`}>
@@ -227,6 +259,7 @@ const TableFilters: React.FC<TableFiltersProps> = ({
         storageKey={storageKey}
         alwaysActiveComponents={alwaysActiveComponents}
         alwaysActivePosition={alwaysActivePosition}
+        hideToggleButton={hideToggleButton}
       >
         {collapsableComponents.map((component, index) => (
           <div key={index}>{component}</div>
