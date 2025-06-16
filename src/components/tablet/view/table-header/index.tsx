@@ -6,18 +6,16 @@ import "./css/index.css"
 
 import AddUsuario from "../modal-crud/AddUsuario"
 import TableConfigModal from "../modal-crud/TableConfigModal"
-import { useTableState, useFilterConfig } from "../../context/TableContext"
+import { useTableState } from "../../context/TableContext"
 import StatusFilterSelect from "./hook/useRoleFilter"
 
 import Title from "./Title"
 import Search from "./Search"
+import FromToDate from "./FromToDates"
 
 const TableHeader: React.FC = () => {
   const { getSelectedItems, } =
     useTableState()
-
-  const { dateFrom, dateTo, onDateFromChange, onDateToChange } = useFilterConfig()
-
 
 
   const handlePrintSelected = (): void => {
@@ -29,15 +27,7 @@ const TableHeader: React.FC = () => {
     console.log("Elementos seleccionados para imprimir:", selectedItems)
   }
 
-  const handleDateFromChangeLocal = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    console.log("Fecha desde cambiada:", e.target.value)
-    onDateFromChange(e.target.value)
-  }
 
-  const handleDateToChangeLocal = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    console.log("Fecha hasta cambiada:", e.target.value)
-    onDateToChange(e.target.value)
-  }
 
   return (
     <div className="table-header-container">
@@ -45,57 +35,36 @@ const TableHeader: React.FC = () => {
 
       {/* Controles */}
       <div className="table-header-controls-section">
-        <Search />
+        <div className="box-left">
+          <Search />
+        </div>
+        <div className="box-right">
 
-        {/* Filtros de fecha */}
-        <div className="table-date-filters-container">
-          <div className="date-filter-group">
-            <label htmlFor="fecha-desde" className="date-filter-label">
-              Fecha desde
-            </label>
-            <input
-              id="fecha-desde"
-              type="date"
-              className="table-date-input"
-              value={dateFrom}
-              onChange={handleDateFromChangeLocal}
-            />
-          </div>
+          <FromToDate />
+          {/* Modal Buttons */}
+         
+            {/* <button className="modal-trigger" onClick={handlePrintSelected} title="Imprimir seleccionados">
+              <span className="modal-trigger-icon">
+                <Printer size={16} />
+              </span>
+            </button> */}
 
-          <div className="date-filter-group">
-            <label htmlFor="fecha-hasta" className="date-filter-label">
-              Fecha hasta
-            </label>
-            <input
-              id="fecha-hasta"
-              type="date"
-              className="table-date-input"
-              value={dateTo}
-              onChange={handleDateToChangeLocal}
-            />
-          </div>
+            <div className="modal-button-wrapper">
+              <StatusFilterSelect />
+            </div>
+
+            <div className="modal-button-wrapper">
+              <TableConfigModal />
+            </div>
+
+            <div className="modal-button-wrapper">
+              <AddUsuario />
+            </div>
+
+
+          
         </div>
 
-        {/* Modal Buttons */}
-        <div className="table-modal-buttons-container">
-          <button className="modal-trigger" onClick={handlePrintSelected} title="Imprimir seleccionados">
-            <span className="modal-trigger-icon">
-              <Printer size={16} />
-            </span>
-          </button>
-
-          <div className="modal-button-wrapper">
-            <TableConfigModal />
-          </div>
-
-          <div className="modal-button-wrapper">
-            <AddUsuario />
-          </div>
-
-          <div className="modal-button-wrapper">
-            <StatusFilterSelect />
-          </div>
-        </div>
       </div>
     </div>
   )
