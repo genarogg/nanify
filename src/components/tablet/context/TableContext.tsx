@@ -7,7 +7,7 @@ import { defaultData } from "../fn/defaultData"
 import type { DataTable, TableConfig } from "./types"
 import { useTableData } from "../hooks/useTableData"
 
-// Tipos para el estado de la tabla (movidos desde useTable)
+// Tipos para el estado de la tabla
 interface TableState {
   // Estados principales
   items: DataTable[]
@@ -63,7 +63,7 @@ interface TableState {
 
 // Tipos para el contexto
 interface TableContextType {
-  // Estado de la tabla (ahora incluye toda la lógica de useTable)
+  // Estado de la tabla
   tableState: TableState
 
   // Estado de vista responsive
@@ -73,11 +73,11 @@ interface TableContextType {
   config: TableConfig
 
   // Callbacks CRUD
-  onAddItem?: () => void
-  onEditItem?: (item: DataTable) => void
-  onViewItem?: (item: DataTable) => void
-  onDeleteItem?: (item: DataTable) => void
-  onSelectItem?: (item: DataTable) => void
+  onAddItem: () => void
+  onEditItem: (item: DataTable) => void
+  onViewItem: (item: DataTable) => void
+  onDeleteItem: (item: DataTable) => void
+  onSelectItem: (item: DataTable) => void
 
   // Configuración de UI
   uiConfig: {
@@ -86,7 +86,7 @@ interface TableContextType {
     addButtonText: string
     showAddButton: boolean
     showPaginationInfo: boolean
-    paginationInfoText?: string
+    paginationInfoText: string
     previousText: string
     nextText: string
     showViewToggle: boolean
@@ -100,10 +100,10 @@ interface TableContextType {
     onDateFromChange: (date: string) => void
     onDateToChange: (date: string) => void
     showStatusFilter: boolean
-    statusOptions?: { value: string; label: string }[]
-    selectedStatus?: string
-    onStatusChange?: (status: string) => void
-    selectedRole?: string
+    statusOptions: { value: string; label: string }[]
+    selectedStatus: string
+    onStatusChange: (status: string) => void
+    selectedRole: string
     onRoleChange: (role: string) => void
   }
 }
@@ -111,149 +111,15 @@ interface TableContextType {
 // Crear el contexto
 const TableContext = createContext<TableContextType | null>(null)
 
-// Props del provider
+// Props del provider (simplificadas)
 interface TableProviderProps {
   children: ReactNode
-
-  // Configuración de la tabla
-  config?: Partial<TableConfig>
-  initialData?: DataTable[]
-  itemsPerPage?: number
-
-  // Configuración responsive
-  defaultViewMode?: "table" | "cards"
-  autoResponsive?: boolean
-  breakpoint?: number
-
-  // Callbacks CRUD
-  onAddItem?: () => void
-  onEditItem?: (item: DataTable) => void
-  onViewItem?: (item: DataTable) => void
-  onDeleteItem?: () => void
-  onSelectItem?: (item: DataTable) => void
-
-  // Configuración de UI
-  title?: string
-  searchPlaceholder?: string
-  addButtonText?: string
-  showAddButton?: boolean
-  showPaginationInfo?: boolean
-  paginationInfoText?: string
-  previousText?: string
-  nextText?: string
-  showViewToggle?: boolean
-  showAutoToggle?: boolean
-
-  // Configuración de filtros
-  dateFrom?: string
-  dateTo?: string
-  onDateFromChange?: (date: string) => void
-  onDateToChange?: (date: string) => void
-  showStatusFilter?: boolean
-  statusOptions?: { value: string; label: string }[]
-  selectedStatus?: string
-  onStatusChange?: (status: string) => void
-  selectedRole?: string
-  onRoleChange?: (role: string) => void
-  apiUrl?: string
-  autoFetch?: boolean
-  fetchOnMount?: boolean
 }
 
 // Provider del contexto
-export const TableProvider: React.FC<TableProviderProps> = ({
-  children,
-
-  initialData = defaultData,
-  itemsPerPage = 10,
-  defaultViewMode = "table",
-  autoResponsive = true,
-  breakpoint = 768,
-  onAddItem,
-  onEditItem,
-  onViewItem,
-  onDeleteItem,
-  onSelectItem,
-  title = "Gestión de Datos",
-  searchPlaceholder = "Buscar elementos...",
-  addButtonText = "Agregar Elemento",
-  showAddButton = true,
-  showPaginationInfo = true,
-  paginationInfoText,
-  previousText = "Anterior",
-  nextText = "Siguiente",
-  showViewToggle = true,
-  showAutoToggle = true,
-  dateFrom: propDateFrom,
-  dateTo: propDateTo,
-  onDateFromChange: propOnDateFromChange,
-  onDateToChange: propOnDateToChange,
-  showStatusFilter = false,
-  statusOptions,
-  selectedStatus,
-  onStatusChange,
-  selectedRole: propSelectedRole,
-  onRoleChange: propOnRoleChange,
-  apiUrl,
-  autoFetch,
-  fetchOnMount,
-}) => {
-  // Estados principales de la tabla (lógica movida desde useTable)
-  const {
-    data: items,
-    loading: dataLoading,
-    error: dataError,
-    refetch: refetchData,
-    setData: setItems,
-    isUsingFallback,
-  } = useTableData({
-    apiUrl: apiUrl,
-    initialData,
-    autoFetch: autoFetch ?? true,
-    fetchOnMount: fetchOnMount ?? true,
-  })
-  const [searchTerm, setSearchTerm] = useState("")
-  const [currentPage, setCurrentPage] = useState(1)
-  const [selectedItems, setSelectedItems] = useState<number[]>([])
-
-  // Estados internos para las fechas si no se proporcionan desde props
-  const [internalDateFrom, setInternalDateFrom] = useState("")
-  const [internalDateTo, setInternalDateTo] = useState("")
-  const [internalSelectedRole, setInternalSelectedRole] = useState("todos")
-
-  // Usar props si están disponibles, sino usar estado interno
-  const dateFrom = propDateFrom !== undefined ? propDateFrom : internalDateFrom
-  const dateTo = propDateTo !== undefined ? propDateTo : internalDateTo
-  const selectedRole = propSelectedRole !== undefined ? propSelectedRole : internalSelectedRole
-
-  const handleDateFromChange = (date: string) => {
-    if (propOnDateFromChange) {
-      propOnDateFromChange(date)
-    } else {
-      setInternalDateFrom(date)
-    }
-  }
-
-  const handleDateToChange = (date: string) => {
-    if (propOnDateToChange) {
-      propOnDateToChange(date)
-    } else {
-      setInternalDateTo(date)
-    }
-  }
-
-  const handleRoleChange = (role: string) => {
-    if (propOnRoleChange) {
-      propOnRoleChange(role)
-    } else {
-      setInternalSelectedRole(role)
-    }
-    setCurrentPage(1) // Reset to first page when changing role filter
-  }
-
-  // Agregar después de los estados existentes
-  const [dynamicItemsPerPage, setDynamicItemsPerPage] = useState(itemsPerPage)
-  const [dynamicConfig, setDynamicConfig] = useState<TableConfig>({
+export const TableProvider: React.FC<TableProviderProps> = ({ children }) => {
+  // Configuración por defecto
+  const defaultConfig: TableConfig = {
     select: true,
     cuadricula: true,
     columns: [
@@ -265,7 +131,37 @@ export const TableProvider: React.FC<TableProviderProps> = ({
       { id: "rol", header: "Rol", accessor: "rol", sortable: true },
       { id: "acciones", header: "Acciones", accessor: "", sortable: true },
     ],
+  }
+
+  // Estados de configuración
+  const [dynamicItemsPerPage, setDynamicItemsPerPage] = useState(10)
+  const [dynamicConfig, setDynamicConfig] = useState<TableConfig>(defaultConfig)
+
+  // Estados de datos
+  const {
+    data: items,
+    loading: dataLoading,
+    error: dataError,
+    refetch: refetchData,
+    setData: setItems,
+    isUsingFallback,
+  } = useTableData({
+    apiUrl: undefined,
+    initialData: defaultData,
+    autoFetch: true,
+    fetchOnMount: true,
   })
+
+  // Estados de la tabla
+  const [searchTerm, setSearchTerm] = useState("")
+  const [currentPage, setCurrentPage] = useState(1)
+  const [selectedItems, setSelectedItems] = useState<number[]>([])
+
+  // Estados de filtros
+  const [dateFrom, setDateFrom] = useState("")
+  const [dateTo, setDateTo] = useState("")
+  const [selectedRole, setSelectedRole] = useState("todos")
+  const [selectedStatus, setSelectedStatus] = useState("all")
 
   // Cargar configuración desde localStorage
   const loadConfigFromStorage = useCallback(() => {
@@ -274,7 +170,6 @@ export const TableProvider: React.FC<TableProviderProps> = ({
       if (savedConfig) {
         const parsedConfig = JSON.parse(savedConfig)
 
-        // Aplicar configuración guardada
         if (parsedConfig.itemsPerPage) {
           setDynamicItemsPerPage(parsedConfig.itemsPerPage)
         }
@@ -302,51 +197,49 @@ export const TableProvider: React.FC<TableProviderProps> = ({
     }
   }, [])
 
-  // Cargar configuración al montar el componente
+  // Cargar configuración al montar
   useEffect(() => {
     loadConfigFromStorage()
-  }, [])
+  }, [loadConfigFromStorage])
 
-  // Elementos filtrados según el término de búsqueda y rol seleccionado
+  // Elementos filtrados
   const filteredItems = useMemo(() => {
     return items.filter((item) => {
-      // Filtro por búsqueda
       const matchesSearch =
         item.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.correo.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.rol.toLowerCase().includes(searchTerm.toLowerCase())
 
-      // Filtro por rol
       const matchesRole = selectedRole === "todos" || item.rol === selectedRole
 
       return matchesSearch && matchesRole
     })
   }, [items, searchTerm, selectedRole])
 
-  // Calcular el número total de páginas
+  // Calcular páginas
   const totalPages = useMemo(() => {
     return Math.ceil(filteredItems.length / dynamicItemsPerPage)
   }, [filteredItems.length, dynamicItemsPerPage])
 
-  // Obtener los elementos para la página actual
+  // Elementos de la página actual
   const currentItems = useMemo(() => {
     return filteredItems.slice((currentPage - 1) * dynamicItemsPerPage, currentPage * dynamicItemsPerPage)
   }, [filteredItems, currentPage, dynamicItemsPerPage])
 
-  // Agregar funciones para actualizar la configuración
+  // Funciones de configuración
   const updateTableConfig = (newConfig: Partial<TableConfig>) => {
     setDynamicConfig((prev) => ({ ...prev, ...newConfig }))
   }
 
   const updateItemsPerPage = (newItemsPerPage: number) => {
     setDynamicItemsPerPage(newItemsPerPage)
-    setCurrentPage(1) // Reset to first page when changing items per page
+    setCurrentPage(1)
   }
 
-  // Funciones para manejar la búsqueda
+  // Funciones de búsqueda
   const handleSearch = (term: string) => {
     setSearchTerm(term)
-    setCurrentPage(1) // Resetear a la primera página cuando se busca
+    setCurrentPage(1)
   }
 
   const clearSearch = () => {
@@ -354,7 +247,7 @@ export const TableProvider: React.FC<TableProviderProps> = ({
     setCurrentPage(1)
   }
 
-  // Funciones para manejar la paginación
+  // Funciones de paginación
   const goToPage = (page: number) => {
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page)
@@ -373,7 +266,7 @@ export const TableProvider: React.FC<TableProviderProps> = ({
     }
   }
 
-  // Funciones para manejar la selección
+  // Funciones de selección
   const handleSelectItem = (itemId: number) => {
     setSelectedItems((prev) => {
       if (prev.includes(itemId)) {
@@ -389,10 +282,8 @@ export const TableProvider: React.FC<TableProviderProps> = ({
     const selectedCurrentItems = selectedItems.filter((id) => currentItemIds.includes(id))
 
     if (selectedCurrentItems.length === currentItems.length) {
-      // Si todos están seleccionados, deseleccionar todos
       setSelectedItems((prev) => prev.filter((id) => !currentItemIds.includes(id)))
     } else {
-      // Si ninguno o algunos están seleccionados, seleccionar todos
       setSelectedItems((prev) => {
         const newSelected = [...prev]
         currentItemIds.forEach((id) => {
@@ -413,21 +304,20 @@ export const TableProvider: React.FC<TableProviderProps> = ({
     setSelectedItems(items.map((item) => item.id))
   }
 
-  // Determinar el estado del botón de selección maestro
   const getSelectAllState = (): "none" | "some" | "all" => {
     const currentItemIds = currentItems.map((item) => item.id)
     const selectedCurrentItems = selectedItems.filter((id) => currentItemIds.includes(id))
 
     if (selectedCurrentItems.length === 0) {
-      return "none" // Sin selección
+      return "none"
     } else if (selectedCurrentItems.length === currentItems.length) {
-      return "all" // Todos seleccionados
+      return "all"
     } else {
-      return "some" // Algunos seleccionados
+      return "some"
     }
   }
 
-  // Funciones para manejar los datos
+  // Funciones de datos
   const addItem = (newItem: DataTable) => {
     setItems((prev) => [...prev, newItem])
   }
@@ -446,69 +336,96 @@ export const TableProvider: React.FC<TableProviderProps> = ({
     setSelectedItems([])
   }
 
-  // Función para cambio masivo de roles
   const updateSelectedItemsRole = (newRole: string) => {
     setItems((prev) => prev.map((item) => (selectedItems.includes(item.id) ? { ...item, rol: newRole } : item)))
   }
 
-  // Generar array de números de página para mostrar
+  // Generar números de página
   const getPageNumbers = (): (number | string)[] => {
     const pageNumbers: (number | string)[] = []
     const maxPagesToShow = 5
 
     if (totalPages <= maxPagesToShow) {
-      // Si hay pocas páginas, mostrar todas
       for (let i = 1; i <= totalPages; i++) {
         pageNumbers.push(i)
       }
     } else {
-      // Siempre mostrar la primera página
       pageNumbers.push(1)
-
-      // Calcular el rango de páginas alrededor de la página actual
       let startPage = Math.max(2, currentPage - 1)
       let endPage = Math.min(totalPages - 1, currentPage + 1)
 
-      // Ajustar si estamos cerca del inicio
       if (currentPage <= 3) {
         endPage = Math.min(totalPages - 1, 4)
       }
 
-      // Ajustar si estamos cerca del final
       if (currentPage >= totalPages - 2) {
         startPage = Math.max(2, totalPages - 3)
       }
 
-      // Agregar elipsis después de la primera página si es necesario
       if (startPage > 2) {
         pageNumbers.push("...")
       }
 
-      // Agregar páginas del rango calculado
       for (let i = startPage; i <= endPage; i++) {
         pageNumbers.push(i)
       }
 
-      // Agregar elipsis antes de la última página si es necesario
       if (endPage < totalPages - 1) {
         pageNumbers.push("...")
       }
 
-      // Siempre mostrar la última página
       pageNumbers.push(totalPages)
     }
 
     return pageNumbers
   }
 
-  // Obtener elementos seleccionados
   const getSelectedItems = () => {
     return items.filter((item) => selectedItems.includes(item.id))
   }
 
-  // Crear el estado de la tabla
+  // Handlers de filtros
+  const handleDateFromChange = (date: string) => {
+    setDateFrom(date)
+  }
+
+  const handleDateToChange = (date: string) => {
+    setDateTo(date)
+  }
+
+  const handleRoleChange = (role: string) => {
+    setSelectedRole(role)
+    setCurrentPage(1)
+  }
+
+  const handleStatusChange = (status: string) => {
+    setSelectedStatus(status)
+    setCurrentPage(1)
+  }
+
+  // Callbacks CRUD por defecto
+  const onAddItem = () => {
+    console.log("Add item clicked")
+  }
+
+  const onEditItem = (item: DataTable) => {
+    console.log("Edit item:", item)
+  }
+
+  const onViewItem = (item: DataTable) => {
+    console.log("View item:", item)
+  }
+
+  const onDeleteItem = (item: DataTable) => {
+    deleteItem(item.id)
+  }
+
+  const onSelectItem = (item: DataTable) => {
+    handleSelectItem(item.id)
+  }
+
+  // Estado de la tabla
   const tableState: TableState = {
-    // Estados
     items,
     searchTerm,
     currentPage,
@@ -516,36 +433,24 @@ export const TableProvider: React.FC<TableProviderProps> = ({
     filteredItems,
     currentItems,
     totalPages,
-
-    // Funciones de búsqueda
     handleSearch,
     clearSearch,
-
-    // Funciones de paginación
     goToPage,
     goToNextPage,
     goToPreviousPage,
     getPageNumbers,
-
-    // Funciones de selección
     handleSelectItem,
     handleSelectAll,
     clearSelection,
     selectAllItems,
     getSelectAllState,
     getSelectedItems,
-
-    // Funciones de datos
     addItem,
     updateItem,
     deleteItem,
     deleteSelectedItems,
     setItems,
-
-    // Funciones de cambio masivo
     updateSelectedItemsRole,
-
-    // Información adicional
     hasItems: items.length > 0,
     hasFilteredItems: filteredItems.length > 0,
     selectedCount: selectedItems.length,
@@ -560,25 +465,25 @@ export const TableProvider: React.FC<TableProviderProps> = ({
     itemsPerPage: dynamicItemsPerPage,
   }
 
-  // Inicializar el estado responsive
+  // Estado responsive
   const responsiveViewState = useResponsiveView({
-    autoResponsive,
-    breakpoint,
-    defaultViewMode,
+    autoResponsive: true,
+    breakpoint: 768,
+    defaultViewMode: "table",
   })
 
   // Configuración de UI
   const uiConfig = {
-    title,
-    searchPlaceholder,
-    addButtonText,
-    showAddButton,
-    showPaginationInfo,
-    paginationInfoText,
-    previousText,
-    nextText,
-    showViewToggle,
-    showAutoToggle,
+    title: "Gestión de Datos",
+    searchPlaceholder: "Buscar elementos...",
+    addButtonText: "Agregar Elemento",
+    showAddButton: true,
+    showPaginationInfo: true,
+    paginationInfoText: "Mostrando {start} a {end} de {total} elementos",
+    previousText: "Anterior",
+    nextText: "Siguiente",
+    showViewToggle: true,
+    showAutoToggle: true,
   }
 
   // Configuración de filtros
@@ -587,19 +492,23 @@ export const TableProvider: React.FC<TableProviderProps> = ({
     dateTo,
     onDateFromChange: handleDateFromChange,
     onDateToChange: handleDateToChange,
-    showStatusFilter,
-    statusOptions,
+    showStatusFilter: true,
+    statusOptions: [
+      { value: "all", label: "Todos los estados" },
+      { value: "active", label: "Activo" },
+      { value: "inactive", label: "Inactivo" },
+    ],
     selectedStatus,
-    onStatusChange,
+    onStatusChange: handleStatusChange,
     selectedRole,
     onRoleChange: handleRoleChange,
   }
 
-  // Actualizar el contextValue para usar dynamicConfig
+  // Valor del contexto
   const contextValue: TableContextType = {
     tableState,
     responsiveViewState,
-    config: dynamicConfig, // Usar la configuración dinámica
+    config: dynamicConfig,
     onAddItem,
     onEditItem,
     onViewItem,
@@ -623,41 +532,36 @@ export const useTableContext = (): TableContextType => {
   return context
 }
 
-// Hook para acceder solo al estado de la tabla
+// Hooks específicos
 export const useTableState = (): TableState => {
   const { tableState } = useTableContext()
   return tableState
 }
 
-// Hook para acceder solo al estado responsive
 export const useResponsiveState = (): UseResponsiveViewReturn => {
   const { responsiveViewState } = useTableContext()
   return responsiveViewState
 }
 
-// Hook para acceder a la configuración
 export const useTableConfig = (): TableConfig => {
   const { config } = useTableContext()
   return config
 }
 
-// Hook para acceder a los callbacks CRUD
 export const useTableCallbacks = () => {
   const { onAddItem, onEditItem, onViewItem, onDeleteItem, onSelectItem } = useTableContext()
   return { onAddItem, onEditItem, onViewItem, onDeleteItem, onSelectItem }
 }
 
-// Hook para acceder a la configuración de UI
 export const useUIConfig = () => {
   const { uiConfig } = useTableContext()
   return uiConfig
 }
 
-// Hook para acceder a la configuración de filtros
 export const useFilterConfig = () => {
   const { filterConfig } = useTableContext()
   return filterConfig
 }
 
-// Exportar tipos para compatibilidad
+// Exportar tipos
 export type { DataTable, TableState }

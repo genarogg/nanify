@@ -1,79 +1,82 @@
 'use client'
 
 import React, { useState } from 'react'
-import Tablet from '@components/tablet';
+import Tablet from '@components/tablet'
 
-interface pageProps {}
+interface pageProps { }
 
 const page: React.FC<pageProps> = () => {
-    // Estados para filtros adicionales
+    // Solo necesitas estos estados si quieres controlar los filtros externamente
     const [dateFrom, setDateFrom] = useState("")
     const [dateTo, setDateTo] = useState("")
     const [selectedStatus, setSelectedStatus] = useState("todos")
 
-    const statusOptions = [
-        { value: "todos", label: "Todos" },
-        { value: "admin_dace", label: "Admin DACE" },
+    // Callbacks personalizados opcionales
+    const handleAddUser = () => {
+        console.log("Agregando nuevo usuario...")
+        // Lógica personalizada
+    }
 
-        { value: "admin_fundesur", label: "Admin FUNDESUR" },
-        { value: "super_usuario", label: "Super Usuario" },
-    ]
+    const handleEditUser = (user: any) => {
+        console.log("Editando usuario:", user)
+        // Lógica personalizada
+    }
+
+    const handleViewUser = (user: any) => {
+        console.log("Viendo usuario:", user)
+        // Lógica personalizada
+    }
+
+    const handleDeleteUser = (user: any) => {
+        console.log("Eliminando usuario:", user)
+        // Lógica personalizada
+    }
 
     return (
         <main style={{ padding: "20px", backgroundColor: "#f5f5f5", minHeight: "100vh" }}>
+
+            {/* Ejemplo 1: Uso básico - sin props */}
             <div style={{ marginBottom: "40px" }}>
-                <h2 style={{ marginBottom: "20px" }}>Tabla con modo automático responsive (768px breakpoint)</h2>
+                <h2 style={{ marginBottom: "20px" }}>Tabla Básica (sin configuración)</h2>
+                <Tablet />
+            </div>
+
+            {/* Ejemplo 2: Con título personalizado */}
+            <div style={{ marginBottom: "40px" }}>
+                <h2 style={{ marginBottom: "20px" }}>Tabla con Título Personalizado</h2>
                 <Tablet
-                    title="Gestión de Usuarios - Auto Responsive"
-                    
-                    autoResponsive={true}
-                    breakpoint={768}
-                    config={{ cuadricula: true }}
+
                 />
             </div>
 
+            {/* Ejemplo 3: Con callbacks personalizados */}
             <div style={{ marginBottom: "40px" }}>
-                <h2 style={{ marginBottom: "20px" }}>Tabla con breakpoint personalizado (1024px)</h2>
+                <h2 style={{ marginBottom: "20px" }}>Tabla con Callbacks Personalizados</h2>
                 <Tablet
-                    config={{ cuadricula: true }}
-                    title="Gestión de Trámites - Breakpoint 1024px"
-                    searchPlaceholder="Buscar trámites..."
-               
-                    dateFrom={dateFrom}
-                    dateTo={dateTo}
-                    onDateFromChange={setDateFrom}
-                    onDateToChange={setDateTo}
-                    showStatusFilter={true}
-                    statusOptions={statusOptions}
-                    selectedStatus={selectedStatus}
-                    onStatusChange={setSelectedStatus}
-                    addButtonText="Nuevo Trámite"
-                    
-                    autoResponsive={true}
-                    breakpoint={1024}
+
                 />
             </div>
 
+            {/* Ejemplo 4: Con datos iniciales personalizados */}
             <div style={{ marginBottom: "40px" }}>
-                <h2 style={{ marginBottom: "20px" }}>Tabla sin modo automático (control manual)</h2>
+                <h2 style={{ marginBottom: "20px" }}>Tabla con Datos Personalizados</h2>
                 <Tablet
-                    config={{ select: false }}
-                    title="Vista Manual"
-                    showAutoToggle={false}
-                    autoResponsive={false}
-                    defaultViewMode="cards"
-                    
+
                 />
             </div>
 
+            {/* Ejemplo 5: Con API (si tienes una) */}
+            <div style={{ marginBottom: "40px" }}>
+                <h2 style={{ marginBottom: "20px" }}>Tabla con API</h2>
+                <Tablet
+
+                />
+            </div>
+
+            {/* Ejemplo 6: Configuración mínima */}
             <div>
-                <h2 style={{ marginBottom: "20px" }}>Tabla solo con toggle manual (sin auto)</h2>
-                <Tablet
-                    title="Control Manual Completo"
-                    autoResponsive={false}
-                    showAutoToggle={false}
-                    
-                />
+                <h2 style={{ marginBottom: "20px" }}>Tabla Solo con Título</h2>
+                <Tablet />
             </div>
         </main>
     );
