@@ -4,19 +4,15 @@ import type React from "react"
 
 import "./css/index.css"
 
-import AddUsuario from "../modal-crud/AddUsuario"
-import TableConfigModal from "../modal-crud/TableConfigModal"
-import { useTableState } from "../../context/TableContext"
-
 import Title from "./Title"
 import Search from "./Search"
-import FromToDate from "./FromToDates"
-import FilterToggleButton from "./filters"
+import Filter from "./filters"
 
-import { SelectStatus, SelectRol } from "./SearchSelected"
+import AddUsuario from "../modal-crud/AddUsuario"
+
 
 const TableHeader: React.FC = () => {
-  const { getSelectedItems } = useTableState()
+
 
   return (
     <div className="table-header-container">
@@ -32,15 +28,12 @@ const TableHeader: React.FC = () => {
 
         {/* Botones fijos a la derecha */}
         <div className="box-right">
-          <div className="box-filter">
-            <FilterToggleButton storageKey="table-filters-visible">
-              <FromToDate />
-              <SelectStatus />
-              <SelectRol />
-              <TableConfigModal />
-            </FilterToggleButton>
-          </div>
-
+          <Filter
+            filterOrder={['dates', 'status', 'rol',]}
+            alwaysActiveFilters={["rol"]}
+            alwaysHiddenFilters={['config']}
+            alwaysActivePosition="after"
+          />
 
           <div className="modal-button-wrapper">
             <AddUsuario />

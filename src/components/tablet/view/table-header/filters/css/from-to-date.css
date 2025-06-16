@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 }
 
 .table-date-input {
@@ -53,6 +53,7 @@
   .date-filter-group {
     width: 100%;
     justify-content: stretch;
+    gap: 8px; /* Reduce el gap en tablets */
   }
 
   .table-date-input {
@@ -65,13 +66,17 @@
 
 @media (max-width: 480px) {
   .date-filter-group {
-    flex-direction: column;
-    gap: 8px;
+    /* MANTENER flex-direction: row (por defecto) */
+    /* flex-direction: column; <- ELIMINAR ESTA LÍNEA */
+    gap: 6px; /* Gap más pequeño para pantallas muy pequeñas */
     margin-bottom: 4px;
   }
 
   .table-date-input {
-    width: 100%;
+    flex: 1; /* Los inputs se expandirán igualmente */
+    width: auto;
     max-width: none;
+    min-width: 100px; /* Reduce el min-width para pantallas muy pequeñas */
+    font-size: 16px;
   }
 }

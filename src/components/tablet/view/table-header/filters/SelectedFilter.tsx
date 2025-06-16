@@ -1,6 +1,6 @@
 import React from 'react'
-import useGenericSelectFilter from './hook/useGenericSelectFilter'
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '../../../ux/select'
+import useGenericSelectFilter from '../hook/useGenericSelectFilter'
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '../../../../ux/select'
 
 // Interfaz común para props de filtros
 interface FilterSelectProps {

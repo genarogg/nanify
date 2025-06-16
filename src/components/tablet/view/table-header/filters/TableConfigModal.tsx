@@ -2,10 +2,10 @@
 import type React from "react"
 import { useState, useEffect } from "react"
 import { Settings, Eye, EyeOff } from "lucide-react"
-import Modal from "../../../ux/modal"
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "../../../ux/select"
-import { useTableContext, useTableState } from "../../context/TableContext"
-import "./table-config-modal.css"
+import Modal from "../../../../ux/modal"
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "../../../../ux/select"
+import { useTableContext, useTableState } from "../../../context/TableContext"
+import "./css/table-config-modal.css"
 
 interface TableConfigModalProps {
   className?: string
@@ -159,7 +159,7 @@ const TableConfigModal: React.FC<TableConfigModalProps> = ({ className = "" }) =
           <h3 className="config-section-title">Vista</h3>
           <div className="config-field">
             <label className="config-label">Modo de vista:</label>
-            <Select value={localViewMode} onValueChange={(value: "table" | "cards") => setLocalViewMode(value)}>
+            <Select value={localViewMode} onValueChange={(value) => setLocalViewMode(value as "table" | "cards")}>
               <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>
