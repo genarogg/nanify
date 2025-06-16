@@ -23,4 +23,4 @@ const DataStatusIndicator: React.FC<DataStatusIndicatorProps> = ({ type, message
   );
 };
 
-export default DataStatusIndicator; 
+export default DataStatusIndicator;

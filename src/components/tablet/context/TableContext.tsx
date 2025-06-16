@@ -7,6 +7,11 @@ import { defaultData } from "../fn/defaultData"
 import type { DataTable, TableConfig } from "./types"
 import { useTableData } from "../hooks/useTableData"
 
+// Tipo genérico para filtros
+interface GenericFilter {
+  [key: string]: string
+}
+
 // Tipos para el estado de la tabla
 interface TableState {
   // Estados principales
@@ -62,6 +67,39 @@ interface TableState {
   itemsPerPage: number
 }
 
+// Configuración extendida de filtros
+interface ExtendedFilterConfig {
+  // Filtros de fecha
+  dateFrom: string
+  dateTo: string
+  onDateFromChange: (date: string) => void
+  onDateToChange: (date: string) => void
+  
+  // Filtros de selección específicos (compatibilidad hacia atrás)
+  showStatusFilter: boolean
+  statusOptions: { value: string; label: string }[]
+  selectedStatus: string
+  onStatusChange: (status: string) => void
+  selectedRole: string
+  onRoleChange: (role: string) => void
+  
+  // Sistema de filtros genéricos
+  genericFilters: GenericFilter
+  onGenericFilterChange: (filterType: string, value: string) => void
+  clearAllFilters: () => void
+  getFilterValue: (filterType: string) => string
+  setFilterValue: (filterType: string, value: string) => void
+  
+  // Configuración de filtros disponibles
+  availableFilters: {
+    [key: string]: {
+      defaultValue: string
+      resetPage?: boolean
+      accessor?: string // Campo del item a comparar
+    }
+  }
+}
+
 // Tipos para el contexto
 interface TableContextType {
   // Estado de la tabla
@@ -82,8 +120,8 @@ interface TableContextType {
 
   // Configuración de UI
   uiConfig: {
- 
-
+    title: string
+    searchPlaceholder: string
     addButtonText: string
     showAddButton: boolean
     showPaginationInfo: boolean
@@ -94,25 +132,14 @@ interface TableContextType {
     showAutoToggle: boolean
   }
 
-  // Configuración de filtros
-  filterConfig: {
-    dateFrom: string
-    dateTo: string
-    onDateFromChange: (date: string) => void
-    onDateToChange: (date: string) => void
-    showStatusFilter: boolean
-    statusOptions: { value: string; label: string }[]
-    selectedStatus: string
-    onStatusChange: (status: string) => void
-    selectedRole: string
-    onRoleChange: (role: string) => void
-  }
+  // Configuración de filtros extendida
+  filterConfig: ExtendedFilterConfig
 }
 
 // Crear el contexto
 const TableContext = createContext<TableContextType | null>(null)
 
-// Props del provider (simplificadas)
+// Props del provider
 interface TableProviderProps {
   children: ReactNode
 }
@@ -146,7 +173,6 @@ export const TableProvider: React.FC<TableProviderProps> = ({ children }) => {
     error: dataError,
     refetch: refetchData,
     setData: setItems,
-    
   } = useTableData({
     apiUrl: undefined,
     initialData: defaultData,
@@ -159,11 +185,98 @@ export const TableProvider: React.FC<TableProviderProps> = ({ children }) => {
   const [currentPage, setCurrentPage] = useState(1)
   const [selectedItems, setSelectedItems] = useState<number[]>([])
 
-  // Estados de filtros
+  // Estados de filtros de fecha
   const [dateFrom, setDateFrom] = useState("")
   const [dateTo, setDateTo] = useState("")
+
+  // Estados de filtros específicos (para compatibilidad)
   const [selectedRole, setSelectedRole] = useState("todos")
   const [selectedStatus, setSelectedStatus] = useState("todos")
+
+  // Estado para filtros genéricos
+  const [genericFilters, setGenericFilters] = useState<GenericFilter>({
+    role: "todos",
+    status: "todos"
+  })
+
+  // Configuración de filtros disponibles
+  const availableFilters = useMemo(() => ({
+    role: { 
+      defaultValue: "todos", 
+      resetPage: true, 
+      accessor: "rol" 
+    },
+    status: { 
+      defaultValue: "todos", 
+      resetPage: true, 
+      accessor: "status" 
+    },
+    department: { 
+      defaultValue: "todos", 
+      resetPage: true, 
+      accessor: "departamento" 
+    },
+    priority: { 
+      defaultValue: "todos", 
+      resetPage: true, 
+      accessor: "prioridad" 
+    },
+    category: { 
+      defaultValue: "todos", 
+      resetPage: true, 
+      accessor: "categoria" 
+    }
+  }), [])
+
+  // Función genérica para cambiar filtros
+  const handleGenericFilterChange = useCallback((filterType: string, value: string) => {
+    setGenericFilters(prev => ({
+      ...prev,
+      [filterType]: value
+    }))
+    
+    // Resetear página si está configurado
+    if (availableFilters[filterType]?.resetPage) {
+      setCurrentPage(1)
+    }
+    
+    // Mantener compatibilidad con filtros específicos
+    if (filterType === 'role') {
+      setSelectedRole(value)
+    } else if (filterType === 'status') {
+      setSelectedStatus(value)
+    }
+    
+    console.log(`Filtro genérico ${filterType} cambiado a:`, value)
+  }, [availableFilters])
+
+  // Función para obtener valor de filtro
+  const getFilterValue = useCallback((filterType: string): string => {
+    return genericFilters[filterType] || availableFilters[filterType]?.defaultValue || "todos"
+  }, [genericFilters, availableFilters])
+
+  // Función para establecer valor de filtro
+  const setFilterValue = useCallback((filterType: string, value: string) => {
+    handleGenericFilterChange(filterType, value)
+  }, [handleGenericFilterChange])
+
+  // Función para limpiar todos los filtros
+  const clearAllFilters = useCallback(() => {
+    const clearedFilters: GenericFilter = {}
+    Object.keys(availableFilters).forEach(filterType => {
+      clearedFilters[filterType] = availableFilters[filterType].defaultValue
+    })
+    
+    setGenericFilters(clearedFilters)
+    setSelectedRole("todos")
+    setSelectedStatus("todos")
+    setDateFrom("")
+    setDateTo("")
+    setSearchTerm("")
+    setCurrentPage(1)
+    
+    console.log("Todos los filtros han sido limpiados")
+  }, [availableFilters])
 
   // Cargar configuración desde localStorage
   const loadConfigFromStorage = useCallback(() => {
@@ -204,20 +317,43 @@ export const TableProvider: React.FC<TableProviderProps> = ({ children }) => {
     loadConfigFromStorage()
   }, [loadConfigFromStorage])
 
-  // Elementos filtrados
+  // Elementos filtrados con sistema genérico
   const filteredItems = useMemo(() => {
     return items.filter((item) => {
+      // Filtro de búsqueda
       const matchesSearch =
         item.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.correo.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.rol.toLowerCase().includes(searchTerm.toLowerCase())
 
-      const matchesRole = selectedRole === "todos" || item.rol === selectedRole
-      const matchesStatus = selectedStatus === "todos" || item.status === selectedStatus
+      // Filtros genéricos
+      const matchesGenericFilters = Object.keys(genericFilters).every(filterType => {
+        const filterValue = genericFilters[filterType]
+        if (filterValue === "todos") return true
+        
+        // Obtener el accessor del filtro
+        const accessor = availableFilters[filterType]?.accessor
+        if (!accessor) return true
+        
+        // Comparar el valor del item con el filtro
+        const itemValue = (item as any)[accessor]
+        return itemValue === filterValue
+      })
 
-      return matchesSearch && matchesRole && matchesStatus
+      // Filtros de fecha (si existen campos de fecha)
+      let matchesDateRange = true
+      if (dateFrom || dateTo) {
+        const itemDate = (item as any).fecha || (item as any).createdAt
+        if (itemDate) {
+          const date = new Date(itemDate)
+          if (dateFrom && date < new Date(dateFrom)) matchesDateRange = false
+          if (dateTo && date > new Date(dateTo)) matchesDateRange = false
+        }
+      }
+
+      return matchesSearch && matchesGenericFilters && matchesDateRange
     })
-  }, [items, searchTerm, selectedRole, selectedStatus])
+  }, [items, searchTerm, genericFilters, dateFrom, dateTo, availableFilters])
 
   // Calcular páginas
   const totalPages = useMemo(() => {
@@ -391,7 +527,7 @@ export const TableProvider: React.FC<TableProviderProps> = ({ children }) => {
     return items.filter((item) => selectedItems.includes(item.id))
   }
 
-  // Handlers de filtros
+  // Handlers de filtros de fecha
   const handleDateFromChange = (date: string) => {
     setDateFrom(date)
   }
@@ -400,15 +536,14 @@ export const TableProvider: React.FC<TableProviderProps> = ({ children }) => {
     setDateTo(date)
   }
 
-  const handleRoleChange = (role: string) => {
-    setSelectedRole(role)
-    setCurrentPage(1)
-  }
+  // Handlers de filtros específicos (compatibilidad hacia atrás)
+  const handleRoleChange = useCallback((role: string) => {
+    handleGenericFilterChange('role', role)
+  }, [handleGenericFilterChange])
 
-  const handleStatusChange = (status: string) => {
-    setSelectedStatus(status)
-    setCurrentPage(1)
-  }
+  const handleStatusChange = useCallback((status: string) => {
+    handleGenericFilterChange('status', status)
+  }, [handleGenericFilterChange])
 
   // Callbacks CRUD por defecto
   const onAddItem = () => {
@@ -467,7 +602,6 @@ export const TableProvider: React.FC<TableProviderProps> = ({ children }) => {
     dataLoading,
     dataError,
     refetchData,
-    
     updateTableConfig,
     updateItemsPerPage,
     itemsPerPage: dynamicItemsPerPage,
@@ -494,12 +628,15 @@ export const TableProvider: React.FC<TableProviderProps> = ({ children }) => {
     showAutoToggle: true,
   }
 
-  // Configuración de filtros
-  const filterConfig = {
+  // Configuración de filtros extendida
+  const filterConfig: ExtendedFilterConfig = {
+    // Filtros de fecha
     dateFrom,
     dateTo,
     onDateFromChange: handleDateFromChange,
     onDateToChange: handleDateToChange,
+    
+    // Filtros específicos (compatibilidad hacia atrás)
     showStatusFilter: true,
     statusOptions: [
       { value: "todos", label: "Todos" },
@@ -507,10 +644,18 @@ export const TableProvider: React.FC<TableProviderProps> = ({ children }) => {
       { value: "INACTIVO", label: "Inactivo" },
       { value: "PENDIENTE", label: "Pendiente" },
     ],
-    selectedStatus,
+    selectedStatus: getFilterValue('status'),
     onStatusChange: handleStatusChange,
-    selectedRole,
+    selectedRole: getFilterValue('role'),
     onRoleChange: handleRoleChange,
+    
+    // Sistema de filtros genéricos
+    genericFilters,
+    onGenericFilterChange: handleGenericFilterChange,
+    clearAllFilters,
+    getFilterValue,
+    setFilterValue,
+    availableFilters
   }
 
   // Valor del contexto
@@ -572,5 +717,30 @@ export const useFilterConfig = () => {
   return filterConfig
 }
 
+// Hooks para filtros genéricos
+export const useGenericFilters = () => {
+  const { filterConfig } = useTableContext()
+  
+  return {
+    filters: filterConfig.genericFilters,
+    getFilterValue: filterConfig.getFilterValue,
+    setFilterValue: filterConfig.setFilterValue,
+    onFilterChange: filterConfig.onGenericFilterChange,
+    clearAllFilters: filterConfig.clearAllFilters,
+    availableFilters: filterConfig.availableFilters
+  }
+}
+
+// Hook para un filtro específico
+export const useSpecificFilter = (filterType: string) => {
+  const { filterConfig } = useTableContext()
+  
+  return {
+    value: filterConfig.getFilterValue(filterType),
+    setValue: (value: string) => filterConfig.setFilterValue(filterType, value),
+    defaultValue: filterConfig.availableFilters[filterType]?.defaultValue || "todos"
+  }
+}
+
 // Exportar tipos
-export type { DataTable, TableState }
+export type { DataTable, TableState, ExtendedFilterConfig, GenericFilter }

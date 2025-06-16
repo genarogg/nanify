@@ -1,0 +1,221 @@
+/* Contenedor principal del toggle */
+.filter-toggle-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  width: 100%;
+}
+
+/* Área de contenido de filtros - se expande/contrae */
+.filter-content-area {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+
+/* Placeholder para mantener el espacio cuando está cargando */
+.filter-content-placeholder {
+  flex: 1;
+  min-height: 40px;
+}
+
+/* Botón Toggle - Posición fija */
+.filter-toggle-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
+  background-color: #6b7280;
+  border: 1px solid #6b7280;
+  border-radius: 6px;
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  transition: all 0.2s ease;
+  color: white;
+  flex-shrink: 0;
+  margin-left: auto; /* Empuja el botón hacia la derecha */
+}
+
+.filter-toggle-icon-btn:hover {
+  background-color: #4b5563;
+  border-color: #4b5563;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.filter-toggle-icon-btn:focus {
+  outline-offset: 2px;
+  outline: 2px solid #020817;
+}
+
+.filter-toggle-icon-btn:active {
+  transform: translateY(0);
+}
+
+/* Estados del botón */
+.filter-toggle-icon-btn.active {
+  background-color: #3b82f6;
+  border-color: #3b82f6;
+  color: white;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+.filter-toggle-icon-btn.active:hover {
+  background-color: #2563eb;
+  border-color: #2563eb;
+}
+
+.filter-toggle-icon-btn.inactive {
+  background-color: #6b7280;
+  border-color: #6b7280;
+  color: white;
+}
+
+.filter-toggle-icon-btn.inactive:hover {
+  background-color: #4b5563;
+  border-color: #4b5563;
+}
+
+/* Estado de carga */
+.filter-toggle-icon-btn.loading {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.filter-toggle-icon-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Indicador de estado - punto pequeño */
+.filter-status-dot {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.filter-status-dot.visible {
+  background: #10b981;
+  box-shadow: 0 0 4px rgba(16, 185, 129, 0.6);
+  animation: pulse-green 2s infinite;
+}
+
+.filter-status-dot.hidden {
+  background: #ef4444;
+  box-shadow: 0 0 4px rgba(239, 68, 68, 0.6);
+}
+
+/* Contenido de filtros inline */
+.filter-content-inline {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  margin-right: 12px; /* Espacio entre filtros y botón */
+}
+
+.filter-content-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  white-space: nowrap;
+}
+
+/* Animaciones */
+@keyframes pulse-green {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.2);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .filter-toggle-container {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+  }
+
+  .filter-content-area {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .filter-toggle-icon-btn {
+    margin-left: 0;
+    align-self: flex-end;
+  }
+
+  .filter-content-inline {
+    margin-right: 0;
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .filter-toggle-icon-btn {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    min-height: 36px;
+  }
+
+  .filter-status-dot {
+    width: 5px;
+    height: 5px;
+    top: 1px;
+    right: 1px;
+  }
+
+  .filter-content-wrapper {
+    gap: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .filter-toggle-icon-btn {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    min-height: 32px;
+  }
+
+  .filter-content-wrapper {
+    gap: 6px;
+  }
+}
+
+/* Mejoras de accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+  .filter-toggle-icon-btn,
+  .filter-content-inline,
+  .filter-status-dot {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* Focus visible para mejor accesibilidad */
+.filter-toggle-icon-btn:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}

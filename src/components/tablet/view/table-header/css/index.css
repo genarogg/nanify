@@ -1,11 +1,37 @@
 /* Contenedor principal del header */
 .table-header-container {
   margin-bottom: 32px;
+  position: relative;
 }
 
-.box-left,
+/* Sección de controles del header */
+.table-header-controls-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+}
+
+.box-left {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.box-center {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  justify-content: center;
+}
+
 .box-right {
   display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-shrink: 0;
 }
 
 /* Información responsive */
@@ -29,14 +55,6 @@
   height: 1px;
   background-color: #e5e7eb;
   margin-bottom: 20px;
-}
-
-/* Sección de controles del header */
-.table-header-controls-section {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 16px;
 }
 
 /* Filtro de roles */
@@ -85,8 +103,6 @@
   align-items: center;
 }
 
-/* Filtros de fecha */
-
 /* Contenedores de tabla */
 .table-management-container {
   margin-bottom: 100px; /* Espacio para la barra inferior cuando esté visible */
@@ -97,11 +113,43 @@
 }
 
 /* Responsive stacking para controles de header */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .table-header-controls-section {
     flex-direction: column;
     align-items: stretch;
     gap: 16px;
+  }
+
+  .box-left,
+  .box-center,
+  .box-right {
+    width: 100%;
+  }
+
+  .box-left {
+    justify-content: flex-start;
+  }
+
+  .box-center {
+    justify-content: flex-start;
+    order: 2;
+  }
+
+  .box-right {
+    justify-content: flex-end;
+    order: 3;
+  }
+}
+
+@media (max-width: 768px) {
+  .table-header-controls-section {
+    gap: 20px;
+  }
+
+  .box-left,
+  .box-center,
+  .box-right {
+    justify-content: center;
   }
 
   .table-role-filter-container {
@@ -132,6 +180,6 @@
 
 @media (max-width: 480px) {
   .table-header-controls-section {
-    gap: 20px;
+    gap: 16px;
   }
 }
