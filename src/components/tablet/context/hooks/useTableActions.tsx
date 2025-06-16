@@ -1,7 +1,7 @@
 "use client"
 
-import { useTableCallbacks, useTableState } from "../context/TableContext"
-import type { DataTable } from "../context/types"
+import { useTableCallbacks, useTableState } from "../TableContext"
+import type { DataTable } from "../types"
 
 
 export const useTableActions = () => {

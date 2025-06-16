@@ -3,8 +3,8 @@
 import type React from "react"
 
 import { useState, useEffect, useCallback } from "react"
-import type { DataTable } from "../context/types"
-import { defaultData } from "../fn/defaultData"
+import type { DataTable } from "../types"
+import { defaultData } from "../../fn/defaultData"
 
 interface UseTableDataProps {
   apiUrl?: string

@@ -2,7 +2,7 @@
 
 import { Copy, Eye, Trash2, Check, Minus, Edit } from "lucide-react"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "../../../ux/select"
-import { useTableRowActions } from "../../hooks/useTableRowActions"
+import { useTableRowActions } from "../../context/hooks/useTableRowActions"
 import ViewUserModal from "../modal-crud/ViewUserModal"
 import "./user-management-table.css"
 import { useTableState, useTableContext } from "../../context/TableContext"

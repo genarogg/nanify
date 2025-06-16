@@ -1,8 +1,8 @@
 "use client"
 
 import { useCallback, useState } from "react"
-import { useTableState, useTableCallbacks } from "../context/TableContext"
-import type { DataTable } from "../context/types"
+import { useTableState, useTableCallbacks } from "../TableContext"
+import type { DataTable } from "../types"
 
 interface UseTableRowActionsProps {
   onCustomEdit?: (item: DataTable) => void
@@ -22,7 +22,7 @@ export const useTableRowActions = ({
   showConfirmDialog = true,
 }: UseTableRowActionsProps = {}) => {
   const { updateItem, deleteItem, addItem } = useTableState()
-  const { onEditItem, onViewItem, onDeleteItem } = useTableCallbacks()
+  const { onEditItem, onDeleteItem } = useTableCallbacks()
 
   // Estado para el modal de vista
   const [viewModalOpen, setViewModalOpen] = useState(false)

@@ -5,7 +5,7 @@ import { createContext, useContext, useState, useMemo, type ReactNode, useCallba
 import { useResponsiveView, type UseResponsiveViewReturn } from "../fn/useResponsiveView"
 import { defaultData } from "../fn/defaultData"
 import type { DataTable, TableConfig } from "./types"
-import { useTableData } from "../hooks/useTableData"
+import { useTableData } from "../context/hooks/useTableData"
 
 // Tipo genérico para filtros
 interface GenericFilter {
