@@ -1,6 +1,5 @@
 import type { DataTable } from "../context/types"
 
-
 const defaultData: DataTable[] = [
     {
         id: 707,
@@ -9,6 +8,7 @@ const defaultData: DataTable[] = [
         telefono: "04120482582",
         cedula: "17251549",
         rol: "ADMIN_DACE",
+        status: "ACTIVO",
     },
     {
         id: 6,
@@ -17,6 +17,7 @@ const defaultData: DataTable[] = [
         telefono: "04243208887",
         cedula: "18972206",
         rol: "ADMIN_DACE",
+        status: "ACTIVO",
     },
     {
         id: 118,
@@ -25,6 +26,7 @@ const defaultData: DataTable[] = [
         telefono: "04143455473",
         cedula: "16804638",
         rol: "ADMIN_DACE",
+        status: "INACTIVO",
     },
     {
         id: 3,
@@ -33,6 +35,7 @@ const defaultData: DataTable[] = [
         telefono: "04128540607",
         cedula: "17062927",
         rol: "ADMIN_FUNDESUR",
+        status: "PENDIENTE",
     },
     {
         id: 1,
@@ -41,6 +44,7 @@ const defaultData: DataTable[] = [
         telefono: "04127554970",
         cedula: "123456789",
         rol: "SUPER_USUARIO",
+        status: "ACTIVO",
     },
     // Agregar más usuarios para demostrar la paginación
     ...Array.from({ length: 25 }, (_, i) => ({
@@ -50,6 +54,7 @@ const defaultData: DataTable[] = [
         telefono: `04${Math.floor(10000000 + Math.random() * 90000000)}`,
         cedula: `${Math.floor(10000000 + Math.random() * 90000000)}`,
         rol: ["ADMIN_DACE", "ADMIN_FUNDESUR", "SUPER_USUARIO"][Math.floor(Math.random() * 3)],
+        status: ["ACTIVO", "INACTIVO", "PENDIENTE"][Math.floor(Math.random() * 3)],
     })),
 ]
 

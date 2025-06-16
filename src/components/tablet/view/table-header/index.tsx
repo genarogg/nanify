@@ -1,22 +1,24 @@
 "use client"
 
 import React from "react"
-import { Search, Printer } from "lucide-react"
-import "./table-header.css"
+import { Printer } from "lucide-react"
+import "./css/index.css"
 
 import AddUsuario from "../modal-crud/AddUsuario"
 import TableConfigModal from "../modal-crud/TableConfigModal"
-import { useTableState, useUIConfig, useFilterConfig } from "../../context/TableContext"
-import useRoleFilter from "./hook/useRoleFilter"
+import { useTableState, useFilterConfig } from "../../context/TableContext"
+import StatusFilterSelect from "./hook/useRoleFilter"
+
+import Title from "./Title"
+import Search from "./Search"
 
 const TableHeader: React.FC = () => {
-  const { searchTerm, handleSearch, getSelectedItems, dataLoading, dataError, refetchData, isUsingFallback } =
+  const { getSelectedItems, } =
     useTableState()
-  const { title, searchPlaceholder } = useUIConfig()
+
   const { dateFrom, dateTo, onDateFromChange, onDateToChange } = useFilterConfig()
 
-  // Componente de filtro de roles en una sola línea
-  const { RoleFilterSelect } = useRoleFilter()
+
 
   const handlePrintSelected = (): void => {
     const selectedItems = getSelectedItems()
@@ -39,49 +41,11 @@ const TableHeader: React.FC = () => {
 
   return (
     <div className="table-header-container">
-      {/* Título principal */}
-      <div className="table-header-title-section">
-        <h1 className="table-title">{title}</h1>
-        {dataLoading && (
-          <div className="data-status-indicator loading">
-            <span className="status-dot loading"></span>
-            <span className="status-text">Cargando datos...</span>
-          </div>
-        )}
-
-        {dataError && (
-          <div className="data-status-indicator error">
-            <span className="status-dot error"></span>
-            <span className="status-text">Error: {dataError}</span>
-            <button className="retry-btn" onClick={refetchData}>
-              Reintentar
-            </button>
-          </div>
-        )}
-
-        {isUsingFallback && !dataLoading && (
-          <div className="data-status-indicator fallback">
-            <span className="status-dot fallback"></span>
-            <span className="status-text">Usando datos de ejemplo</span>
-          </div>
-        )}
-      </div>
-
-      {/* Línea separadora */}
-      <div className="table-header-divider"></div>
+      <Title />
 
       {/* Controles */}
       <div className="table-header-controls-section">
-        <div className="table-search-container">
-          <Search className="table-search-icon" size={20} />
-          <input
-            type="text"
-            placeholder={searchPlaceholder}
-            className="table-search-input"
-            value={searchTerm}
-            onChange={(e) => handleSearch(e.target.value)}
-          />
-        </div>
+        <Search />
 
         {/* Filtros de fecha */}
         <div className="table-date-filters-container">
@@ -129,7 +93,7 @@ const TableHeader: React.FC = () => {
           </div>
 
           <div className="modal-button-wrapper">
-            <RoleFilterSelect />
+            <StatusFilterSelect />
           </div>
         </div>
       </div>

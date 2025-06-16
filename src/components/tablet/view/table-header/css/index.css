@@ -1,0 +1,225 @@
+/* Contenedor principal del header */
+.table-header-container {
+  margin-bottom: 32px;
+}
+
+/* Información responsive */
+.responsive-info {
+  display: flex;
+  align-items: center;
+}
+
+.responsive-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  background-color: #f0f9ff;
+  color: #0369a1;
+  border: 1px solid #bae6fd;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+/* Divisor del header */
+.table-header-divider {
+  height: 1px;
+  background-color: #e5e7eb;
+  margin-bottom: 20px;
+}
+
+/* Sección de controles del header */
+.table-header-controls-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Filtro de roles */
+.table-role-filter-container {
+  display: flex;
+  align-items: center;
+  min-width: 160px;
+}
+
+.table-role-filter-container .select-root {
+  width: 100%;
+  min-width: 160px;
+}
+
+.table-role-filter-container .select-trigger {
+  height: 40px;
+  font-size: 14px;
+  border: 1px solid #d1d5db;
+  background-color: #ffffff;
+  color: #374151;
+}
+
+.table-role-filter-container .select-trigger:hover {
+  border-color: #9ca3af;
+  background-color: #f9fafb;
+}
+
+.table-role-filter-container .select-trigger:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.table-role-filter-container .select-value {
+  font-weight: 500;
+}
+
+/* Botones del modal */
+.table-modal-buttons-container {
+  display: flex;
+  gap: 20px;
+  justify-content: space-around;
+}
+
+/* Inputs de fecha */
+.table-date-input {
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  background-color: #ffffff;
+  transition: border-color 0.2s ease;
+  min-width: 150px;
+  color: #6b7280;
+}
+
+.table-date-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  color: #1f2937;
+}
+
+.table-date-input::-webkit-calendar-picker-indicator {
+  color: #6b7280;
+  cursor: pointer;
+}
+
+/* Contenedor de estado */
+.table-status-container {
+  display: flex;
+  align-items: center;
+}
+
+/* Contenedor de toggle de vista */
+.table-view-toggle-container {
+  display: flex;
+  align-items: center;
+}
+
+/* Filtros de fecha */
+.table-date-filters-container {
+  display: flex;
+  gap: 16px;
+  align-items: flex-end;
+}
+
+.date-filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.date-filter-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* Contenedores de tabla */
+.table-management-container {
+  margin-bottom: 100px; /* Espacio para la barra inferior cuando esté visible */
+}
+
+.table-container {
+  margin-bottom: 20px;
+}
+
+/* Responsive stacking para controles de header */
+@media (max-width: 768px) {
+  .table-header-controls-section {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .table-role-filter-container {
+    width: 100%;
+    min-width: auto;
+  }
+
+  .table-role-filter-container .select-root {
+    width: 100%;
+    min-width: auto;
+  }
+
+  .table-modal-buttons-container {
+    width: 100%;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  /* Hacer que cada botón dentro del contenedor tome el ancho completo */
+  .table-modal-buttons-container > * {
+    width: 100%;
+  }
+
+  .responsive-info {
+    width: 100%;
+  }
+
+  .table-view-toggle-container {
+    justify-content: center;
+  }
+
+  /* Responsive para filtros de fecha */
+  .table-date-filters-container {
+    width: 100%;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .date-filter-group {
+    width: 100%;
+  }
+
+  .table-date-input {
+    width: 100%;
+    min-width: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .responsive-badge {
+    font-size: 11px;
+    padding: 3px 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .table-header-controls-section {
+    gap: 20px;
+  }
+
+  .table-modal-buttons-container {
+    gap: 16px;
+  }
+
+  .table-date-filters-container {
+    gap: 16px;
+  }
+
+  .date-filter-label {
+    font-size: 13px;
+  }
+
+  .table-date-input {
+    font-size: 16px; /* Previene zoom en iOS */
+    padding: 8px 10px;
+  }
+}

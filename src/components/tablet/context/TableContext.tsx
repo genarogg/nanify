@@ -45,6 +45,7 @@ interface TableState {
 
   // Funciones de cambio masivo
   updateSelectedItemsRole: (newRole: string) => void
+  updateSelectedItemsStatus: (newStatus: string) => void
 
   // Información adicional
   hasItems: boolean
@@ -55,7 +56,7 @@ interface TableState {
   dataLoading: boolean
   dataError: string | null
   refetchData: () => Promise<void>
-  isUsingFallback: boolean
+ 
   updateTableConfig: (newConfig: Partial<TableConfig>) => void
   updateItemsPerPage: (newItemsPerPage: number) => void
   itemsPerPage: number
@@ -81,8 +82,8 @@ interface TableContextType {
 
   // Configuración de UI
   uiConfig: {
-    title: string
-    searchPlaceholder: string
+ 
+
     addButtonText: string
     showAddButton: boolean
     showPaginationInfo: boolean
@@ -129,6 +130,7 @@ export const TableProvider: React.FC<TableProviderProps> = ({ children }) => {
       { id: "telefono", header: "Teléfono", accessor: "telefono", sortable: true },
       { id: "cedula", header: "Cédula", accessor: "cedula", sortable: true },
       { id: "rol", header: "Rol", accessor: "rol", sortable: true },
+      { id: "status", header: "Estado", accessor: "status", sortable: true },
       { id: "acciones", header: "Acciones", accessor: "", sortable: true },
     ],
   }
@@ -144,7 +146,7 @@ export const TableProvider: React.FC<TableProviderProps> = ({ children }) => {
     error: dataError,
     refetch: refetchData,
     setData: setItems,
-    isUsingFallback,
+    
   } = useTableData({
     apiUrl: undefined,
     initialData: defaultData,
@@ -161,7 +163,7 @@ export const TableProvider: React.FC<TableProviderProps> = ({ children }) => {
   const [dateFrom, setDateFrom] = useState("")
   const [dateTo, setDateTo] = useState("")
   const [selectedRole, setSelectedRole] = useState("todos")
-  const [selectedStatus, setSelectedStatus] = useState("all")
+  const [selectedStatus, setSelectedStatus] = useState("todos")
 
   // Cargar configuración desde localStorage
   const loadConfigFromStorage = useCallback(() => {
@@ -211,10 +213,11 @@ export const TableProvider: React.FC<TableProviderProps> = ({ children }) => {
         item.rol.toLowerCase().includes(searchTerm.toLowerCase())
 
       const matchesRole = selectedRole === "todos" || item.rol === selectedRole
+      const matchesStatus = selectedStatus === "todos" || item.status === selectedStatus
 
-      return matchesSearch && matchesRole
+      return matchesSearch && matchesRole && matchesStatus
     })
-  }, [items, searchTerm, selectedRole])
+  }, [items, searchTerm, selectedRole, selectedStatus])
 
   // Calcular páginas
   const totalPages = useMemo(() => {
@@ -340,6 +343,10 @@ export const TableProvider: React.FC<TableProviderProps> = ({ children }) => {
     setItems((prev) => prev.map((item) => (selectedItems.includes(item.id) ? { ...item, rol: newRole } : item)))
   }
 
+  const updateSelectedItemsStatus = (newStatus: string) => {
+    setItems((prev) => prev.map((item) => (selectedItems.includes(item.id) ? { ...item, status: newStatus } : item)))
+  }
+
   // Generar números de página
   const getPageNumbers = (): (number | string)[] => {
     const pageNumbers: (number | string)[] = []
@@ -451,6 +458,7 @@ export const TableProvider: React.FC<TableProviderProps> = ({ children }) => {
     deleteSelectedItems,
     setItems,
     updateSelectedItemsRole,
+    updateSelectedItemsStatus,
     hasItems: items.length > 0,
     hasFilteredItems: filteredItems.length > 0,
     selectedCount: selectedItems.length,
@@ -459,7 +467,7 @@ export const TableProvider: React.FC<TableProviderProps> = ({ children }) => {
     dataLoading,
     dataError,
     refetchData,
-    isUsingFallback,
+    
     updateTableConfig,
     updateItemsPerPage,
     itemsPerPage: dynamicItemsPerPage,
@@ -494,9 +502,10 @@ export const TableProvider: React.FC<TableProviderProps> = ({ children }) => {
     onDateToChange: handleDateToChange,
     showStatusFilter: true,
     statusOptions: [
-      { value: "all", label: "Todos los estados" },
-      { value: "active", label: "Activo" },
-      { value: "inactive", label: "Inactivo" },
+      { value: "todos", label: "Todos" },
+      { value: "ACTIVO", label: "Activo" },
+      { value: "INACTIVO", label: "Inactivo" },
+      { value: "PENDIENTE", label: "Pendiente" },
     ],
     selectedStatus,
     onStatusChange: handleStatusChange,

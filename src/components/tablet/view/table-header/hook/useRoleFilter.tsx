@@ -8,57 +8,60 @@ import {
     SelectItem
 } from "../../../../ux/select"
 
-interface RoleOption {
+interface StatusOption {
     value: string
     label: string
 }
 
-const STATIC_ROLE_OPTIONS: RoleOption[] = [
+const STATIC_STATUS_OPTIONS: StatusOption[] = [
     { value: "todos", label: "Todos" },
-    { value: "ADMIN_DACE", label: "Admin DACE" },
-    { value: "ADMIN_FUNDESUR", label: "Admin FUNDESUR" },
-    { value: "SUPER_USUARIO", label: "Super Usuario" },
-];
+    { value: "ACTIVO", label: "Activo" },
+    { value: "INACTIVO", label: "Inactivo" },
+    { value: "pendiente", label: "Pendiente" },
+    { value: "suspendido", label: "Suspendido" },
+    { value: "bloqueado", label: "Bloqueado" },
+  ]
 
-const useRoleFilter = () => {
-    const { selectedRole, onRoleChange } = useFilterConfig()
-    const [roleOptions, setRoleOptions] = useState<RoleOption[]>(STATIC_ROLE_OPTIONS);
 
+const StatusFilterSelect: React.FC = memo(() => {
+    const { selectedStatus, onStatusChange } = useFilterConfig()
+    const [statusOptions, setStatusOptions] = useState<StatusOption[]>(STATIC_STATUS_OPTIONS);
+ 
     useEffect(() => {
-        const fetchRoles = async () => {
+        const fetchStatuses = async () => {
             try {
-                const res = await fetch("/api/roles");
+                const res = await fetch("/api/statuses");
 
                 if (res.ok) {
-                    const data: RoleOption[] = await res.json();
+                    const data: StatusOption[] = await res.json();
                     if (Array.isArray(data) && data.length > 0) {
-                        setRoleOptions(data);
+                        setStatusOptions(data);
                     }
                 } else {
-                    setRoleOptions(STATIC_ROLE_OPTIONS);
+                    setStatusOptions(STATIC_STATUS_OPTIONS);
                 }
             } catch (error) {
-                console.error("Error al cargar los roles:", error)
-                setRoleOptions(STATIC_ROLE_OPTIONS);
+                console.error("Error al cargar los estados:", error)
+                setStatusOptions(STATIC_STATUS_OPTIONS);
             }
         };
-        fetchRoles();
+        fetchStatuses();
     }, []);
 
-    const handleRoleFilterChange = useCallback((value: string | string[]): void => {
-        const role = Array.isArray(value) ? value[0] : value
-        console.log("Filtro de rol cambiado:", role)
-        onRoleChange(role)
-    }, [onRoleChange])
+    const handleStatusFilterChange = useCallback((value: string | string[]): void => {
+        const status = Array.isArray(value) ? value[0] : value
+        console.log("Filtro de estado cambiado:", status)
+        onStatusChange(status)
+    }, [onStatusChange])
 
-    const RoleFilterSelect: React.FC = memo(() => (
-        <div className="table-role-filter-container">
-            <Select value={selectedRole || "todos"} onValueChange={handleRoleFilterChange}>
+    return (
+        <div className="table-status-filter-container">
+            <Select value={selectedStatus || "todos"} onValueChange={handleStatusFilterChange}>
                 <SelectTrigger>
-                    <SelectValue placeholder="Filtrar por rol" />
+                    <SelectValue placeholder="Filtrar por estado" />
                 </SelectTrigger>
                 <SelectContent>
-                    {roleOptions.map((option) => (
+                    {statusOptions.map((option) => (
                         <SelectItem key={option.value} value={option.value}>
                             {option.label}
                         </SelectItem>
@@ -66,13 +69,7 @@ const useRoleFilter = () => {
                 </SelectContent>
             </Select>
         </div>
-    ))
+    )
+})
 
-    RoleFilterSelect.displayName = 'RoleFilterSelect'
-
-    return {
-        RoleFilterSelect
-    } as const
-}
-
-export default useRoleFilter
+export default StatusFilterSelect
