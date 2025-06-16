@@ -1,5 +1,5 @@
 "use client"
-import type React from "react"
+import React from "react"
 import { useState, useEffect } from "react"
 import { Filter } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
@@ -72,12 +72,10 @@ const FilterToggleButton: React.FC<FilterToggleButtonProps> = ({
 
   return (
     <div className="filter-toggle-container">
-      {/* Contenido de Filtros con Animación - Posición fija */}
       <div className="filter-content-area">
-        {/* Componentes siempre activos ANTES de los filtros colapsables */}
         {alwaysActivePosition === 'before' && alwaysActiveComponents.length > 0 && (
           <div className="always-active-filters">
-            {alwaysActiveComponents.map((component, index) => (
+            {React.Children.toArray(alwaysActiveComponents).map((component, index) => (
               <div key={`always-active-before-${index}`} className="always-active-filter">
                 {component}
               </div>
@@ -109,15 +107,20 @@ const FilterToggleButton: React.FC<FilterToggleButtonProps> = ({
                 ease: [0.4, 0.0, 0.2, 1],
               }}
             >
-              <div className="filter-content-wrapper">{children}</div>
+              <div className="filter-content-wrapper">
+                {React.Children.toArray(children).map((child, index) => (
+                  <div key={`filter-child-${index}`} className="filter-child">
+                    {child}
+                  </div>
+                ))}
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
 
-        {/* Componentes siempre activos DESPUÉS de los filtros colapsables */}
         {alwaysActivePosition === 'after' && alwaysActiveComponents.length > 0 && (
           <div className="always-active-filters">
-            {alwaysActiveComponents.map((component, index) => (
+            {React.Children.toArray(alwaysActiveComponents).map((component, index) => (
               <div key={`always-active-after-${index}`} className="always-active-filter">
                 {component}
               </div>

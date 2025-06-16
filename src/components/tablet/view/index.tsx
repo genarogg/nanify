@@ -8,6 +8,8 @@ import TableHeader from "./table-header"
 import TableFooter from "./table-footer"
 import Pagination from "./pagination"
 
+import "./css/index.css"
+
 export default function TableContent() {
   const { tableState, responsiveViewState } = useTableContext()
 

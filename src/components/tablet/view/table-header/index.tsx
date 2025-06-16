@@ -29,8 +29,8 @@ const TableHeader: React.FC = () => {
         {/* Botones fijos a la derecha */}
         <div className="box-right">
           <Filter
-            filterOrder={['dates', 'status', 'rol',]}
-            alwaysActiveFilters={["rol"]}
+            filterOrder={['dates', 'rol', 'status']}
+            alwaysActiveFilters={["status"]}
             alwaysHiddenFilters={['config']}
             alwaysActivePosition="after"
           />

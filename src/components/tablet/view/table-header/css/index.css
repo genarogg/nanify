@@ -11,6 +11,11 @@
   align-items: center;
   gap: 16px;
   position: relative;
+
+  max-width: 100%;
+  overflow: auto;
+  /* overflow-y: hidden; */
+  min-height: 60px;
 }
 
 .box-left {
