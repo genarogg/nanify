@@ -16,19 +16,18 @@ export default function TableContent() {
   // Calculamos si hay elementos filtrados basándonos en si currentItems tiene elementos
   const hasFilteredItems = currentItems && currentItems.length > 0
 
-  const renderTableContent = () => {
-    if (responsiveViewState.viewMode === "table") {
-      return <TableView />
-    }
-
-    return <TableCardView />
-  }
-
   return (
     <div className="table-management-container">
+      
       <TableHeader />
 
-      {renderTableContent()}
+      {hasFilteredItems &&
+        <>
+          {responsiveViewState.viewMode === "table" ? <TableView /> : <TableCardView />}
+          <Pagination />
+          <TableFooter />
+        </>
+      }
 
       {!hasFilteredItems && (
         <div className="no-results">
@@ -36,9 +35,6 @@ export default function TableContent() {
         </div>
       )}
 
-      {hasFilteredItems && <Pagination />}
-
-      <TableFooter />
     </div>
   )
 }
