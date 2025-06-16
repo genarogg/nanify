@@ -16,7 +16,7 @@ interface FilterToggleButtonProps {
   storageKey?: string
   // Nuevas props para componentes siempre activos
   alwaysActiveComponents?: React.ReactNode[]
-  alwaysActivePosition?: 'before' | 'after'
+  alwaysActivePosition?: "before" | "after"
 }
 
 const FilterToggleButton: React.FC<FilterToggleButtonProps> = ({
@@ -24,7 +24,7 @@ const FilterToggleButton: React.FC<FilterToggleButtonProps> = ({
   className = "",
   storageKey = "table-filters-visible",
   alwaysActiveComponents = [],
-  alwaysActivePosition = 'before',
+  alwaysActivePosition = "before",
 }) => {
   const [isVisible, setIsVisible] = useState(true)
   const [isLoaded, setIsLoaded] = useState(false)
@@ -73,7 +73,7 @@ const FilterToggleButton: React.FC<FilterToggleButtonProps> = ({
   return (
     <div className="filter-toggle-container">
       <div className="filter-content-area">
-        {alwaysActivePosition === 'before' && alwaysActiveComponents.length > 0 && (
+        {alwaysActivePosition === "before" && alwaysActiveComponents.length > 0 && (
           <div className="always-active-filters">
             {React.Children.toArray(alwaysActiveComponents).map((component, index) => (
               <div key={`always-active-before-${index}`} className="always-active-filter">
@@ -89,36 +89,54 @@ const FilterToggleButton: React.FC<FilterToggleButtonProps> = ({
               className="filter-content-inline"
               initial={{
                 opacity: 0,
-                width: 0,
-                scale: 0.8,
+                height: 0,
+                y: -20, // Changed to slide down animation
               }}
               animate={{
                 opacity: 1,
-                width: "auto",
-                scale: 1,
+                height: "auto",
+                y: 0,
               }}
               exit={{
                 opacity: 0,
-                width: 0,
-                scale: 0.8,
+                height: 0,
+                y: -20, // Changed to slide up when exiting
               }}
               transition={{
                 duration: 0.4,
                 ease: [0.4, 0.0, 0.2, 1],
+                height: {
+                  duration: 0.3,
+                },
+                y: {
+                  duration: 0.4,
+                  ease: "easeOut",
+                },
               }}
             >
               <div className="filter-content-wrapper">
                 {React.Children.toArray(children).map((child, index) => (
-                  <div key={`filter-child-${index}`} className="filter-child">
+                  <motion.div
+                    key={`filter-child-${index}`}
+                    className="filter-child"
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{
+                      delay: index * 0.1,
+                      duration: 0.3,
+                      ease: "easeOut",
+                    }}
+                  >
                     {child}
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </motion.div>
           )}
         </AnimatePresence>
 
-        {alwaysActivePosition === 'after' && alwaysActiveComponents.length > 0 && (
+        {alwaysActivePosition === "after" && alwaysActiveComponents.length > 0 && (
           <div className="always-active-filters">
             {React.Children.toArray(alwaysActiveComponents).map((component, index) => (
               <div key={`always-active-after-${index}`} className="always-active-filter">
@@ -129,7 +147,7 @@ const FilterToggleButton: React.FC<FilterToggleButtonProps> = ({
         )}
       </div>
 
-      {/* Botón Toggle - Posición fija */}
+      {/* Botón Toggle - Now 100% width */}
       <button
         className={`filter-toggle-icon-btn ${isVisible ? "active" : "inactive"} ${className}`}
         onClick={toggleVisibility}
@@ -158,32 +176,32 @@ interface TableFiltersProps {
   className?: string
   storageKey?: string
   // Opción para especificar el orden de TODOS los filtros
-  filterOrder?: ('dates' | 'status' | 'rol' | 'config')[]
+  filterOrder?: ("dates" | "status" | "rol" | "config")[]
   // Opción para especificar qué filtros están siempre activos
-  alwaysActiveFilters?: ('dates' | 'status' | 'rol' | 'config')[]
-  alwaysActivePosition?: 'before' | 'after'
+  alwaysActiveFilters?: ("dates" | "status" | "rol" | "config")[]
+  alwaysActivePosition?: "before" | "after"
   // Nueva opción para especificar qué filtros nunca se muestran
-  alwaysHiddenFilters?: ('dates' | 'status' | 'rol' | 'config')[]
+  alwaysHiddenFilters?: ("dates" | "status" | "rol" | "config")[]
 }
 
 const TableFilters: React.FC<TableFiltersProps> = ({
   className = "",
   storageKey = "table-filters-visible",
-  filterOrder = ['dates', 'status', 'rol', 'config'], // Orden por defecto
+  filterOrder = ["dates", "status", "rol", "config"], // Orden por defecto
   alwaysActiveFilters = [],
-  alwaysActivePosition = 'before',
+  alwaysActivePosition = "before",
   alwaysHiddenFilters = [],
 }) => {
   // Función para renderizar componentes según el tipo
-  const renderFilterComponent = (filterType: 'dates' | 'status' | 'rol' | 'config') => {
+  const renderFilterComponent = (filterType: "dates" | "status" | "rol" | "config") => {
     switch (filterType) {
-      case 'status':
+      case "status":
         return <SelectStatus />
-      case 'rol':
+      case "rol":
         return <SelectRol />
-      case 'dates':
+      case "dates":
         return <FromToDate />
-      case 'config':
+      case "config":
         return <TableConfigModal />
       default:
         return null
@@ -192,17 +210,14 @@ const TableFilters: React.FC<TableFiltersProps> = ({
 
   // Crear arrays de componentes siempre activos y colapsables RESPETANDO EL ORDEN
   const alwaysActiveComponents = filterOrder
-    .filter(filterType => alwaysActiveFilters.includes(filterType))
+    .filter((filterType) => alwaysActiveFilters.includes(filterType))
     .map(renderFilterComponent)
     .filter(Boolean)
 
   // Los filtros colapsables son aquellos que NO están en alwaysActive NI en alwaysHidden
   // pero RESPETANDO el orden especificado
   const collapsableComponents = filterOrder
-    .filter(filterType => 
-      !alwaysActiveFilters.includes(filterType) && 
-      !alwaysHiddenFilters.includes(filterType)
-    )
+    .filter((filterType) => !alwaysActiveFilters.includes(filterType) && !alwaysHiddenFilters.includes(filterType))
     .map(renderFilterComponent)
     .filter(Boolean)
 

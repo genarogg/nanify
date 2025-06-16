@@ -1,6 +1,6 @@
 /* Contenedor principal del header */
 .table-header-container {
-  margin-bottom: 32px;
+  margin-bottom: 24px;
   position: relative;
 }
 
@@ -8,14 +8,13 @@
 .table-header-controls-section {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   gap: 16px;
   position: relative;
-
   max-width: 100%;
-  overflow: auto;
-  /* overflow-y: hidden; */
+  overflow: visible;
   min-height: 60px;
+  flex-wrap: nowrap;
 }
 
 .box-left {
@@ -23,6 +22,9 @@
   gap: 12px;
   align-items: center;
   flex-shrink: 0;
+  min-width: 0;
+  flex: 1;
+  max-width: 400px;
 }
 
 .box-center {
@@ -35,8 +37,9 @@
 .box-right {
   display: flex;
   gap: 12px;
-  align-items: center;
+  align-items: flex-start;
   flex-shrink: 0;
+  flex-wrap: wrap;
 }
 
 /* Información responsive */
@@ -110,39 +113,57 @@
 
 /* Contenedores de tabla */
 .table-management-container {
-  margin-bottom: 100px; /* Espacio para la barra inferior cuando esté visible */
+  margin-bottom: 100px;
 }
 
 .table-container {
   margin-bottom: 20px;
 }
 
-/* Responsive stacking para controles de header */
-@media (max-width: 1024px) {
+/* Responsive stacking para controles de header - Mucho más responsivo */
+@media (max-width: 1200px) {
   .table-header-controls-section {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 16px;
-  }
-
-  .box-left,
-  .box-center,
-  .box-right {
-    width: 100%;
+    gap: 12px;
   }
 
   .box-left {
+    max-width: 350px;
+    min-width: 350px;
+  }
+
+  .box-right {
+    gap: 10px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .table-header-controls-section {
+    /* flex-direction: column;
+    align-items: stretch; */
+    gap: 16px;
+  }
+
+  /* .box-left,
+  .box-center,
+  .box-right {
+    width: 100%;
+    max-width: none;
+  } */
+
+  .box-left {
     justify-content: flex-start;
+    order: 1;
   }
 
   .box-center {
     justify-content: flex-start;
-    order: 2;
+    order: 3;
   }
 
   .box-right {
     justify-content: flex-end;
-    order: 3;
+    order: 2;
+    position: relative;
   }
 }
 
@@ -157,6 +178,17 @@
     justify-content: center;
   }
 
+  .box-left {
+    justify-content: stretch;
+  }
+
+  .box-right {
+    justify-content: stretch;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
   .table-role-filter-container {
     width: 100%;
     min-width: auto;
@@ -169,14 +201,33 @@
 
   .responsive-info {
     width: 100%;
+    justify-content: center;
   }
 
   .table-view-toggle-container {
     justify-content: center;
   }
+
+  /* Wrapper para el botón modal */
+  .modal-button-wrapper {
+    width: 100%;
+  }
+
+  .modal-button-wrapper .modal-trigger {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 @media (max-width: 640px) {
+  .table-header-controls-section {
+    gap: 16px;
+  }
+
+  .box-right {
+    gap: 10px;
+  }
+
   .responsive-badge {
     font-size: 11px;
     padding: 3px 6px;
@@ -185,6 +236,30 @@
 
 @media (max-width: 480px) {
   .table-header-controls-section {
-    gap: 16px;
+    gap: 12px;
+  }
+
+  .box-left {
+    gap: 8px;
+  }
+
+  .box-right {
+    gap: 8px;
+  }
+
+  .responsive-badge {
+    font-size: 10px;
+    padding: 2px 4px;
+  }
+}
+
+@media (max-width: 360px) {
+  .table-header-container {
+    margin-bottom: 24px;
+  }
+
+  .table-header-controls-section {
+    gap: 10px;
+    min-height: auto;
   }
 }

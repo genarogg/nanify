@@ -4,12 +4,12 @@
   align-items: center;
   gap: 12px;
   flex-wrap: nowrap;
+  width: 100%;
 }
 
 .table-date-input {
-  width: 100%;
-  max-width: 160px;
-  min-width: 140px;
+  width: 50%; /* Changed to 50% as requested */
+  width:150px;
   height: 40px;
   padding: 10px 12px;
   border: 1px solid #e2e8f0;
@@ -19,6 +19,8 @@
   outline: none;
   color: #374151;
   font-family: inherit;
+  flex: 1;
+  min-width: 0;
 }
 
 .table-date-input:active,
@@ -48,35 +50,70 @@
   opacity: 1;
 }
 
-/* Responsive styles para filtros de fecha */
-@media (max-width: 768px) {
+/* Responsive styles para filtros de fecha - 50% width each */
+@media (max-width: 1200px) {
   .date-filter-group {
-    width: 100%;
-    justify-content: stretch;
-    gap: 8px; /* Reduce el gap en tablets */
+    gap: 10px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .date-filter-group {
+    gap: 8px;
   }
 
   .table-date-input {
-    flex: 1;
-    max-width: none;
-    min-width: 120px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .date-filter-group {
+    width: 100%;
+    gap: 8px;
+  }
+
+  .table-date-input {
     font-size: 16px; /* Previene zoom en iOS */
+    height: 42px;
+    padding: 12px;
+  }
+}
+
+@media (max-width: 640px) {
+  .date-filter-group {
+    gap: 6px;
+  }
+
+  .table-date-input {
+    height: 40px;
+    padding: 10px;
+    font-size: 16px;
   }
 }
 
 @media (max-width: 480px) {
   .date-filter-group {
-    /* MANTENER flex-direction: row (por defecto) */
-    /* flex-direction: column; <- ELIMINAR ESTA LÍNEA */
-    gap: 6px; /* Gap más pequeño para pantallas muy pequeñas */
-    margin-bottom: 4px;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
   }
 
   .table-date-input {
-    flex: 1; /* Los inputs se expandirán igualmente */
-    width: auto;
-    max-width: none;
-    min-width: 100px; /* Reduce el min-width para pantallas muy pequeñas */
+    width: 100%; /* Full width on mobile when stacked */
+    height: 44px;
+    padding: 12px;
     font-size: 16px;
+  }
+}
+
+@media (max-width: 360px) {
+  .date-filter-group {
+    gap: 6px;
+  }
+
+  .table-date-input {
+    height: 42px;
+    padding: 10px;
   }
 }

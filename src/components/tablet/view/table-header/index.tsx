@@ -31,7 +31,7 @@ const TableHeader: React.FC = () => {
           <Filter
             filterOrder={['dates', 'rol', 'status']}
             alwaysActiveFilters={["status"]}
-            alwaysHiddenFilters={['config']}
+            alwaysHiddenFilters={['config', "dates"]}
             alwaysActivePosition="after"
           />
 
