@@ -36,6 +36,11 @@
   margin: 0; /* Remove any margin that might affect layout */
 }
 
+.action-btn:focus,
+.action-btn:active {
+  outline: none;
+}
+
 .action-btn:hover {
   border-color: #9ca3af;
   background-color: #f1f5f9;

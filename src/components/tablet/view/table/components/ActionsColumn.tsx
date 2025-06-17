@@ -1,9 +1,10 @@
 "use client"
 
-import { Copy, Eye, Trash2, Edit, FileText, MessageCircle } from "lucide-react"
+import { Copy, Eye, Trash2, FileText, MessageCircle } from "lucide-react"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "../../../../ux/select"
 import Switch from "../../../../ux/btns/switch"
 import "./css/actions-column.css"
+import EditUsuario from "../../modal-crud/EditUsuario"
 
 interface ActionsColumnProps {
   item: any
@@ -45,8 +46,8 @@ export default function ActionsColumn({
     view: true,
     delete: true,
     report: true,
-    whatsapp: true
-  }
+    whatsapp: true,
+  },
 }: ActionsColumnProps) {
   const baseClass = variant === "table" ? "actions-cell" : "card-actions"
   const buttonClass = variant === "table" ? "action-btn" : "card-action-btn"
@@ -77,15 +78,20 @@ export default function ActionsColumn({
     }
   }
 
+  // Función auxiliar para manejar la edición con modal
+  const handleEditClick = () => {
+    if (onEdit) {
+      console.log("Botón de editar clickeado para:", item.nombre)
+      onEdit(item)
+    }
+  }
+
   return (
     <div className={baseClass}>
       {/* Switch de estado para cards */}
       {showStatusSwitch && variant === "card" && (
         <div className="status-switch-container">
-          <Switch
-            isOn={item.status === "ACTIVO"}
-            onToggle={handleStatusToggle}
-          />
+          <Switch isOn={item.status === "ACTIVO"} onToggle={handleStatusToggle} />
           <span className={`status-text ${item.status === "ACTIVO" ? "active" : "inactive"}`}>
             {item.status === "ACTIVO" ? "Activo" : "Inactivo"}
           </span>
@@ -109,56 +115,28 @@ export default function ActionsColumn({
       {/* Botones de acción */}
       <div className="action-buttons-container">
         {visibleActions.duplicate && onDuplicate && (
-          <button
-            className={buttonClass}
-            onClick={() => onDuplicate(item)}
-            title="Duplicar elemento"
-          >
+          <button className={buttonClass} onClick={() => onDuplicate(item)} title="Duplicar elemento">
             <Copy size={16} />
           </button>
         )}
-        {visibleActions.edit && onEdit && (
-          <button
-            className={buttonClass}
-            onClick={() => onEdit(item)}
-            title="Editar elemento"
-          >
-            <Edit size={16} />
-          </button>
-        )}
+        {visibleActions.edit && <EditUsuario user={item} />}
         {visibleActions.view && onView && (
-          <button
-            className={buttonClass}
-            onClick={handleViewClick}
-            title="Ver detalles del elemento"
-          >
+          <button className={buttonClass} onClick={handleViewClick} title="Ver detalles del elemento">
             <Eye size={16} />
           </button>
         )}
         {visibleActions.report && onReport && (
-          <button
-            className={buttonClass}
-            onClick={() => onReport(item)}
-            title="Generar reporte"
-          >
+          <button className={buttonClass} onClick={() => onReport(item)} title="Generar reporte">
             <FileText size={16} />
           </button>
         )}
         {visibleActions.whatsapp && onWhatsApp && (
-          <button
-            className={buttonClass}
-            onClick={() => onWhatsApp(item)}
-            title="Enviar por WhatsApp"
-          >
+          <button className={buttonClass} onClick={() => onWhatsApp(item)} title="Enviar por WhatsApp">
             <MessageCircle size={16} />
           </button>
         )}
         {visibleActions.delete && onDelete && (
-          <button
-            className={buttonClass}
-            onClick={() => onDelete(item)}
-            title="Eliminar elemento"
-          >
+          <button className={buttonClass} onClick={() => onDelete(item)} title="Eliminar elemento">
             <Trash2 size={16} />
           </button>
         )}
