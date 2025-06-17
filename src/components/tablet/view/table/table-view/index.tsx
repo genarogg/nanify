@@ -1,9 +1,9 @@
 "use client"
 
-import { Copy, Eye, Trash2, Check, Minus, Edit } from "lucide-react"
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "../../../../ux/select"
+import { Check, Minus } from "lucide-react"
 import { useTableRowActions } from "../../../context/hooks/useTableRowActions"
 import ViewUserModal from "../../modal-crud/ViewUserModal"
+import ActionsColumn from "../components/ActionsColumn"
 import "./user-management-table.css"
 import { useTableState, useTableContext } from "../../../context/TableContext"
 
@@ -34,9 +34,8 @@ export default function TableView() {
   })
 
   const handleItemSelect = (itemId: number) => {
-    // Aquí deberías llamar a la función del contexto para seleccionar items
-    // Asumiendo que existe una función en el contexto para esto
-    // selectItem(itemId) o similar
+    // Use the function from tableState to handle item selection
+    tableState.handleSelectItem(itemId)
   }
 
   return (
@@ -86,51 +85,16 @@ export default function TableView() {
                     if (column.id === "acciones") {
                       return (
                         <td key={column.id} className="acciones-column">
-                          <div className="actions-cell">
-                            <Select value={item.rol} onValueChange={(newRole: any) => handleRoleChange(item, newRole)}>
-                              <SelectTrigger>
-                                <SelectValue />
-                              </SelectTrigger>
-                              <SelectContent>
-                                <SelectItem value="ADMIN_DACE">Admin DACE</SelectItem>
-                                <SelectItem value="ADMIN_FUNDESUR">Admin FUNDESUR</SelectItem>
-                                <SelectItem value="SUPER_USUARIO">Super Usuario</SelectItem>
-                              </SelectContent>
-                            </Select>
-                            <div className="action-buttons-container">
-                              <button
-                                className="action-btn"
-                                onClick={() => handleDuplicate(item)}
-                                title="Duplicar elemento"
-                              >
-                                <Copy size={16} />
-                              </button>
-                              <button
-                                className="action-btn edit-btn"
-                                onClick={() => handleEdit(item)}
-                                title="Editar elemento"
-                              >
-                                <Edit size={16} />
-                              </button>
-                              <button
-                                className="action-btn"
-                                onClick={() => {
-                                  console.log("Botón de vista clickeado para:", item.nombre)
-                                  handleView(item)
-                                }}
-                                title="Ver detalles del elemento"
-                              >
-                                <Eye size={16} />
-                              </button>
-                              <button
-                                className="action-btn"
-                                onClick={() => handleDelete(item)}
-                                title="Eliminar elemento"
-                              >
-                                <Trash2 size={16} />
-                              </button>
-                            </div>
-                          </div>
+                          <ActionsColumn
+                            item={item}
+                            onDuplicate={handleDuplicate}
+                            onView={handleView}
+                            onDelete={handleDelete}
+                            onEdit={handleEdit}
+                            onRoleChange={handleRoleChange}
+                            showRoleSelect={true}
+                            variant="table"
+                          />
                         </td>
                       )
                     }

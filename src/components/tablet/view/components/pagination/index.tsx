@@ -2,6 +2,7 @@
 
 import "./pagination.css"
 import { usePagination } from "../../../context/hooks/usePagination"
+import { useState, useEffect } from "react"
 
 interface TablePaginationProps {
   // Configuración opcional del hook de paginación
@@ -23,6 +24,8 @@ interface TablePaginationProps {
   showInfo?: boolean
   showControls?: boolean
   customInfoTemplate?: string
+  // Nueva prop para forzar modo compacto
+  forceCompact?: boolean
 }
 
 export default function TablePagination({
@@ -32,27 +35,79 @@ export default function TablePagination({
   showPrevNext = true,
   showPaginationInfo = true,
   paginationInfoText = "Mostrando {start} a {end} de {total} elementos",
-  previousText = "Anterior",
-  nextText = "Siguiente",
-  firstText = "Primera",
-  lastText = "Última",
+  previousText = "<",
+  nextText = ">",
+  firstText = "<<",
+  lastText = ">>",
   onPageChange,
   onItemsPerPageChange,
   showInfo = true,
   showControls = true,
   customInfoTemplate,
+  forceCompact = false,
 }: TablePaginationProps = {}) {
+  const [isMobile, setIsMobile] = useState(false)
+  const [isSmallMobile, setIsSmallMobile] = useState(false)
+
+  // Detectar tamaño de pantalla
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth <= 768)
+      setIsSmallMobile(window.innerWidth <= 480)
+    }
+
+    checkScreenSize()
+    window.addEventListener('resize', checkScreenSize)
+    return () => window.removeEventListener('resize', checkScreenSize)
+  }, [])
+
+  // Ajustar configuración según el tamaño de pantalla
+  const getResponsiveConfig = () => {
+    if (forceCompact || isSmallMobile) {
+      return {
+        maxPagesToShow: 3,
+        showFirstLast: true,
+        previousText: "‹",
+        nextText: "›",
+        firstText: "‹‹",
+        lastText: "››",
+        showInfo: true
+      }
+    } else if (isMobile) {
+      return {
+        maxPagesToShow: 4,
+        showFirstLast: true,
+        previousText: "‹",
+        nextText: "›",
+        firstText: "‹‹",
+        lastText: "››",
+        showInfo: true
+      }
+    }
+    return {
+      maxPagesToShow,
+      showFirstLast,
+      previousText,
+      nextText,
+      firstText,
+      lastText,
+      showInfo: true
+    }
+  }
+
+  const config = getResponsiveConfig()
+
   const { info, controls, display, uiConfig, isEmpty, isLoading, hasError } = usePagination({
-    maxPagesToShow,
-    showFirstLast,
+    maxPagesToShow: config.maxPagesToShow,
+    showFirstLast: config.showFirstLast,
     showEllipsis,
     showPrevNext,
     showPaginationInfo,
     paginationInfoText,
-    previousText,
-    nextText,
-    firstText,
-    lastText,
+    previousText: config.previousText,
+    nextText: config.nextText,
+    firstText: config.firstText || firstText,
+    lastText: config.lastText || lastText,
     onPageChange,
     onItemsPerPageChange,
   })
@@ -72,12 +127,16 @@ export default function TablePagination({
 
   return (
     <div className="table-pagination-container">
-      {showInfo && uiConfig.showPaginationInfo && <div className="table-pagination-info">{getPaginationText()}</div>}
+      {showInfo && config.showInfo && uiConfig.showPaginationInfo && (
+        <div className="table-pagination-info">
+          {getPaginationText()}
+        </div>
+      )}
 
       {showControls && info.totalPages > 1 && (
         <div className="table-pagination-controls">
           {/* Botón Primera Página */}
-          {uiConfig.showFirstLast && !info.isFirstPage && (
+          {config.showFirstLast && !info.isFirstPage && (
             <button
               className="table-pagination-btn table-pagination-first"
               onClick={controls.goToFirstPage}
@@ -95,7 +154,7 @@ export default function TablePagination({
               disabled={!info.hasPreviousPage}
               title="Página anterior"
             >
-              <span>{uiConfig.previousText}</span>
+              <span>{config.previousText}</span>
             </button>
           )}
 
@@ -125,12 +184,12 @@ export default function TablePagination({
               disabled={!info.hasNextPage}
               title="Página siguiente"
             >
-              <span>{uiConfig.nextText}</span>
+              <span>{config.nextText}</span>
             </button>
           )}
 
           {/* Botón Última Página */}
-          {uiConfig.showFirstLast && !info.isLastPage && (
+          {config.showFirstLast && !info.isLastPage && (
             <button
               className="table-pagination-btn table-pagination-last"
               onClick={controls.goToLastPage}
@@ -147,7 +206,7 @@ export default function TablePagination({
 
 // Componente de paginación compacta para móviles
 export function CompactPagination(props: Omit<TablePaginationProps, "maxPagesToShow" | "showFirstLast">) {
-  return <TablePagination {...props} maxPagesToShow={3} showFirstLast={false} previousText="‹" nextText="›" />
+  return <TablePagination {...props} maxPagesToShow={3} showFirstLast={true} previousText="‹" nextText="›" firstText="‹‹" lastText="››" forceCompact={true} />
 }
 
 // Componente de paginación extendida para escritorio
@@ -182,13 +241,25 @@ export function PaginationControls(
     "maxPagesToShow" | "showFirstLast" | "onPageChange" | "previousText" | "nextText" | "firstText" | "lastText"
   >,
 ) {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth <= 768)
+    }
+
+    checkScreenSize()
+    window.addEventListener('resize', checkScreenSize)
+    return () => window.removeEventListener('resize', checkScreenSize)
+  }, [])
+
   const { info, controls, display, uiConfig } = usePagination({
-    maxPagesToShow: props.maxPagesToShow || 5,
+    maxPagesToShow: isMobile ? 3 : (props.maxPagesToShow || 5),
     showFirstLast: props.showFirstLast ?? true,
-    previousText: props.previousText || "Anterior",
-    nextText: props.nextText || "Siguiente",
-    firstText: props.firstText || "Primera",
-    lastText: props.lastText || "Última",
+    previousText: isMobile ? "‹" : (props.previousText || "Anterior"),
+    nextText: isMobile ? "›" : (props.nextText || "Siguiente"),
+    firstText: isMobile ? "‹‹" : (props.firstText || "Primera"),
+    lastText: isMobile ? "››" : (props.lastText || "Última"),
     onPageChange: props.onPageChange,
   })
 

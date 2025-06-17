@@ -47,7 +47,7 @@ const defaultData: DataTable[] = [
         status: "ACTIVO",
     },
     // Agregar más usuarios para demostrar la paginación
-    ...Array.from({ length: 25 }, (_, i) => ({
+    ...Array.from({ length: 225 }, (_, i) => ({
         id: 1000 + i,
         nombre: `Usuario Ejemplo ${i + 1}`,
         correo: `usuario${i + 1}@ejemplo.com`,

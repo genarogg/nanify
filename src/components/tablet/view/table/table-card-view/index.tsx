@@ -1,16 +1,20 @@
 "use client"
 
-import { Copy, Eye, Trash2, Check, Edit } from "lucide-react"
+import { Check, Copy, Eye, Trash2, Edit } from "lucide-react"
 import { useTableRowActions } from "../../../context/hooks/useTableRowActions"
 import ViewUserModal from "../../modal-crud/ViewUserModal"
 import "./table-card-view.css"
 import { useTableContext, useTableState } from "../../../context/TableContext"
-import { useTableActions } from "../../../context/hooks/useTableActions"
+import ActionsColumn from "../components/ActionsColumn"
+import Switch from "../../../../ux/btns/switch"
 
 export default function TableCardView() {
   const { tableState, config } = useTableContext()
   const { deleteItem } = useTableState()
-  const { handleItemSelect } = useTableActions()
+
+  const handleItemSelect = (itemId: number) => {
+    tableState.handleSelectItem(itemId)
+  }
 
   const { currentItems, selectedItems } = tableState
   const { select } = config
@@ -33,6 +37,9 @@ export default function TableCardView() {
       <div className="card-view-container">
         {currentItems.map((item) => (
           <div key={item.id} className={`item-card ${isSelected(item.id) ? "selected" : ""}`}>
+            {/* Status indicator */}
+            <div className="status-indicator"></div>
+
             {/* Header de la tarjeta */}
             <div className="card-header">
               <div className="card-title-section">
@@ -51,7 +58,7 @@ export default function TableCardView() {
                 <button className="card-action-btn" onClick={() => handleDuplicate(item)} title="Duplicar elemento">
                   <Copy size={16} />
                 </button>
-                <button className="card-action-btn edit-btn" onClick={() => handleEdit(item)} title="Editar elemento">
+                <button className="card-action-btn" onClick={() => handleEdit(item)} title="Editar elemento">
                   <Edit size={16} />
                 </button>
                 <button
@@ -74,7 +81,7 @@ export default function TableCardView() {
             <div className="card-content">
               <div className="card-field">
                 <span className="field-label">ID:</span>
-                <span className="field-value">{item.id}</span>
+                <span className="field-value id-value">#{item.id}</span>
               </div>
 
               <div className="card-field">
@@ -96,13 +103,49 @@ export default function TableCardView() {
                 <span className="field-label">Rol:</span>
                 <span className={`role-badge role-${item.rol.toLowerCase().replace("_", "-")}`}>{item.rol}</span>
               </div>
+
+              <div className="card-field">
+                <span className="field-label">Estado:</span>
+                <div className="status-switch-container">
+                  <Switch
+                    isOn={item.status === "ACTIVO"}
+                    onToggle={() => {
+                      // Actualizar el estado del item
+                      const newStatus = item.status === "ACTIVO" ? "INACTIVO" : "ACTIVO"
+                      console.log(`Cambiando estado de ${item.nombre} a ${newStatus}`)
+                      // Aquí puedes agregar la lógica para actualizar el estado en el contexto
+                      tableState.updateItem(item.id, { status: newStatus })
+                    }}
+                  />
+                  <span className={`status-text ${item.status === "ACTIVO" ? "active" : "inactive"}`}>
+                    {item.status === "ACTIVO" ? "Activo" : "Inactivo"}
+                  </span>
+                </div>
+              </div>
+
+              {/* Nueva barra de acciones igual a la del modo tabla */}
+              <div className="card-table-actions">
+                <ActionsColumn
+                  item={item}
+                  onDuplicate={handleDuplicate}
+                  onView={handleView}
+                  onDelete={handleDelete}
+                  onEdit={handleEdit}
+                  onRoleChange={(item, newRole) => {
+                    // Implementar cambio de rol para cards si es necesario
+                    console.log("Cambio de rol en card:", item, newRole)
+                  }}
+                  showRoleSelect={true}
+                  variant="table"
+                />
+              </div>
             </div>
 
-            {/* Footer de la tarjeta */}
+            {/* Footer de la tarjeta - quitar estilo de botón */}
             <div className="card-footer">
-              <button className="card-details-btn" onClick={() => handleView(item)}>
-                Ver más
-              </button>
+              <div className="card-details-text" onClick={() => handleView(item)}>
+                Ver detalles completos
+              </div>
             </div>
           </div>
         ))}
