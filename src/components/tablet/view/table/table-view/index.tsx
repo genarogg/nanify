@@ -4,6 +4,7 @@ import { Check, Minus } from "lucide-react"
 import { useTableRowActions } from "../../../context/hooks/useTableRowActions"
 import ViewUserModal from "../../modal-crud/ViewUserModal"
 import ActionsColumn from "../components/ActionsColumn"
+import BadgeWrapper from "../components/BadgeWrapper"
 import "./user-management-table.css"
 import { useTableState, useTableContext } from "../../../context/TableContext"
 
@@ -104,13 +105,15 @@ export default function TableView() {
                         {column.id === "nombre" && <span className="name-cell">{item[column.accessor]}</span>}
                         {column.id === "correo" && <span className="email-cell">{item[column.accessor]}</span>}
                         {column.id === "rol" && (
-                          <span className={`role-badge role-${item.rol.toLowerCase().replace("_", "-")}`}>
-                            {item.rol}
-                          </span>
+                          <BadgeWrapper type="role" value={item.rol} />
+                        )}
+                        {column.id === "status" && (
+                          <BadgeWrapper type="status" value={item.status} />
                         )}
                         {column.id !== "nombre" &&
                           column.id !== "correo" &&
                           column.id !== "rol" &&
+                          column.id !== "status" &&
                           item[column.accessor]}
                       </td>
                     )

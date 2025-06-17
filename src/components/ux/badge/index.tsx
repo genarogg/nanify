@@ -1,12 +1,12 @@
 "use client"
 
-import  React from "react"
+import React from "react"
 import "./style.css"
 
 export interface StatusBadgeProps {
 
   children: React.ReactNode
-  variant?: "success" | "warning" | "error" | "info" | "primary" | "secondary"
+  variant?: "success" | "warning" | "error" | "info" | "primary" | "secondary" | any
   customColor?: string
   width?: string | number
   className?: string

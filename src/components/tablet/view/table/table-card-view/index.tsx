@@ -1,12 +1,13 @@
 "use client"
 
-import { Check, Copy, Eye, Trash2, Edit } from "lucide-react"
+import { Check } from "lucide-react"
 import { useTableRowActions } from "../../../context/hooks/useTableRowActions"
 import ViewUserModal from "../../modal-crud/ViewUserModal"
 import "./table-card-view.css"
 import { useTableContext, useTableState } from "../../../context/TableContext"
 import ActionsColumn from "../components/ActionsColumn"
 import Switch from "../../../../ux/btns/switch"
+import BadgeWrapper from "../components/BadgeWrapper"
 
 export default function TableCardView() {
   const { tableState, config } = useTableContext()
@@ -55,25 +56,22 @@ export default function TableCardView() {
                 <h3 className="card-title">{item.nombre}</h3>
               </div>
               <div className="card-actions">
-                <button className="card-action-btn" onClick={() => handleDuplicate(item)} title="Duplicar elemento">
-                  <Copy size={16} />
-                </button>
-                <button className="card-action-btn" onClick={() => handleEdit(item)} title="Editar elemento">
-                  <Edit size={16} />
-                </button>
-                <button
-                  className="card-action-btn"
-                  onClick={() => {
-                    console.log("Botón de vista clickeado para:", item.nombre)
-                    handleView(item)
-                  }}
-                  title="Ver detalles del elemento"
-                >
-                  <Eye size={16} />
-                </button>
-                <button className="card-action-btn" onClick={() => handleDelete(item)} title="Eliminar elemento">
-                  <Trash2 size={16} />
-                </button>
+                <div className="status-switch-container">
+                  <Switch
+                    isOn={item.status === "ACTIVO"}
+                    onToggle={() => {
+                      // Actualizar el estado del item
+                      const newStatus = item.status === "ACTIVO" ? "INACTIVO" : "ACTIVO"
+                      console.log(`Cambiando estado de ${item.nombre} a ${newStatus}`)
+                      // Aquí puedes agregar la lógica para actualizar el estado en el contexto
+                      tableState.updateItem(item.id, { status: newStatus })
+                    }}
+                  />
+                  <span className={`status-text ${item.status === "ACTIVO" ? "active" : "inactive"}`}>
+                    {item.status === "ACTIVO" ? "Activo" : "Inactivo"}
+                  </span>
+                </div>
+
               </div>
             </div>
 
@@ -101,26 +99,20 @@ export default function TableCardView() {
 
               <div className="card-field">
                 <span className="field-label">Rol:</span>
-                <span className={`role-badge role-${item.rol.toLowerCase().replace("_", "-")}`}>{item.rol}</span>
+                <BadgeWrapper
+                  type="role"
+                  value={item.rol}
+                  className="card-badge"
+                />
               </div>
 
               <div className="card-field">
                 <span className="field-label">Estado:</span>
-                <div className="status-switch-container">
-                  <Switch
-                    isOn={item.status === "ACTIVO"}
-                    onToggle={() => {
-                      // Actualizar el estado del item
-                      const newStatus = item.status === "ACTIVO" ? "INACTIVO" : "ACTIVO"
-                      console.log(`Cambiando estado de ${item.nombre} a ${newStatus}`)
-                      // Aquí puedes agregar la lógica para actualizar el estado en el contexto
-                      tableState.updateItem(item.id, { status: newStatus })
-                    }}
-                  />
-                  <span className={`status-text ${item.status === "ACTIVO" ? "active" : "inactive"}`}>
-                    {item.status === "ACTIVO" ? "Activo" : "Inactivo"}
-                  </span>
-                </div>
+                <BadgeWrapper
+                  type="status"
+                  value={item.status}
+                  className="card-badge"
+                />
               </div>
 
               {/* Nueva barra de acciones igual a la del modo tabla */}
