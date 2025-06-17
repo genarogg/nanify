@@ -1,4 +1,4 @@
-import { Badge } from "../../../../ux"
+import Badge from "../../../../ux/badge"
 
 export interface BadgeWrapperProps {
     type: "role" | "status"

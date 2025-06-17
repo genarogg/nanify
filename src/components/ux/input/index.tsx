@@ -1,6 +1,6 @@
 "use client"
 import React, { useState, useRef, useEffect, forwardRef, useImperativeHandle } from 'react'
-import { Icon } from '../index'
+import Icon from '../icon'
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import './input.css';
 

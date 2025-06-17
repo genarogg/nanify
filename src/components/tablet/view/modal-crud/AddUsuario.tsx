@@ -2,15 +2,18 @@
 import type React from "react"
 import { useState } from "react"
 import { UserPlus, Shield } from "lucide-react"
+import Modal from "../../../ux/modal"
+import Input from "../../../ux/input"
 import {
-  Modal, Input, Select,
+  Select,
   SelectTrigger,
   SelectValue,
   SelectContent,
   SelectItem,
   SelectSeparator,
   SelectLabel
-} from "../../../ux"
+} from "../../../ux/select"
+
 import { useTableState } from "../../context/TableContext"
 import type { DataTable } from "../../context/types"
 import "./add-usuario.css"
