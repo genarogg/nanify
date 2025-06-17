@@ -15,7 +15,8 @@
 .add-user-form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 24px;
+  padding-top: 24px;
 }
 
 .form-info {
@@ -29,7 +30,7 @@
 /* Responsive para el formulario */
 @media (max-width: 768px) {
   .add-user-form {
-    gap: 12px;
+    gap: 24px;
   }
 
   .form-info p {

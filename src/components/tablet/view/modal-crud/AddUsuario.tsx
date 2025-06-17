@@ -1,8 +1,17 @@
 "use client"
 import type React from "react"
-import { useState } from "react"
-import { UserPlus } from "lucide-react"
-import Modal from "../../../ux/modal"
+import { useState, useRef } from "react"
+import { UserPlus, User, Mail, Phone, CreditCard, Shield } from "lucide-react"
+import {
+  Modal, Input, Select,
+  SelectTrigger,
+  SelectValue,
+  SelectTags,
+  SelectContent,
+  SelectItem,
+  SelectSeparator,
+  SelectLabel
+} from "../../../ux"
 import { useTableState } from "../../context/TableContext"
 import type { DataTable } from "../../context/types"
 import "./add-usuario.css"
@@ -12,6 +21,7 @@ type AddUsuarioProps = {}
 const AddUsuario: React.FC<AddUsuarioProps> = () => {
   const { addItem } = useTableState()
 
+  // Cambiar de useRef a useState para que React pueda rastrear los cambios
   const [formData, setFormData] = useState({
     nombre: "",
     correo: "",
@@ -20,10 +30,60 @@ const AddUsuario: React.FC<AddUsuarioProps> = () => {
     rol: "ADMIN_DACE",
   })
 
+  const [errors, setErrors] = useState({
+    nombre: "",
+    correo: "",
+    cedula: "",
+  })
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target
+    setFormData(prev => ({ ...prev, [name]: value }))
+
+    // Limpiar error cuando el usuario empiece a escribir
+    if (errors[name as keyof typeof errors]) {
+      setErrors(prev => ({ ...prev, [name]: "" }))
+    }
+  }
+
+  // Handler para el select
+  const handleSelectChange = (value: string | string[]) => {
+    // Como sabemos que solo seleccionamos un rol, tomamos el primer valor si es array
+    const selectedValue = Array.isArray(value) ? value[0] : value
+    setFormData(prev => ({ ...prev, rol: selectedValue }))
+  }
+
+  const validateForm = () => {
+    const newErrors = { nombre: "", correo: "", cedula: "" }
+    let isValid = true
+
+    if (!formData.nombre.trim()) {
+      newErrors.nombre = "El nombre es requerido"
+      isValid = false
+    }
+
+    if (!formData.correo.trim()) {
+      newErrors.correo = "El correo es requerido"
+      isValid = false
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.correo)) {
+      newErrors.correo = "Ingrese un correo válido"
+      isValid = false
+    }
+
+    if (!formData.cedula.trim()) {
+      newErrors.cedula = "La cédula es requerida"
+      isValid = false
+    } else if (!/^\d{7,8}$/.test(formData.cedula.trim())) {
+      newErrors.cedula = "La cédula debe tener entre 7 y 8 dígitos"
+      isValid = false
+    }
+
+    setErrors(newErrors)
+    return isValid
+  }
+
   const handleSave = () => {
-    // Validar que los campos requeridos estén llenos
-    if (!formData.nombre || !formData.correo || !formData.cedula) {
-      alert("Por favor, complete todos los campos requeridos (Nombre, Correo, Cédula)")
+    if (!validateForm()) {
       return
     }
 
@@ -50,6 +110,9 @@ const AddUsuario: React.FC<AddUsuarioProps> = () => {
       rol: "ADMIN_DACE",
     })
 
+    // Limpiar errores
+    setErrors({ nombre: "", correo: "", cedula: "" })
+
     console.log("Nuevo usuario agregado:", newUser)
   }
 
@@ -64,80 +127,78 @@ const AddUsuario: React.FC<AddUsuarioProps> = () => {
       >
         <div className="add-user-form">
           <div style={{ marginBottom: "16px" }}>
-            <label className="modal-label">Nombre completo *</label>
-            <input
-              className="modal-input"
+            <Input
+              name="nombre"
               type="text"
               placeholder="Ingrese el nombre completo"
-              value={formData.nombre}
-              onChange={(e) => setFormData((prev) => ({ ...prev, nombre: e.target.value }))}
               required
+              onChange={handleChange}
+              error={errors.nombre}
+              value={formData.nombre}
             />
           </div>
 
           <div style={{ marginBottom: "16px" }}>
-            <label className="modal-label">Correo electrónico *</label>
-            <input
-              className="modal-input"
+            <Input
+              name="correo"
               type="email"
               placeholder="ejemplo@correo.com"
-              value={formData.correo}
-              onChange={(e) => setFormData((prev) => ({ ...prev, correo: e.target.value }))}
               required
+              onChange={handleChange}
+              error={errors.correo}
+              value={formData.correo}
             />
           </div>
 
           <div style={{ marginBottom: "16px" }}>
-            <label className="modal-label">Teléfono</label>
-            <input
-              className="modal-input"
+            <Input
+              name="telefono"
               type="tel"
               placeholder="04XX-XXXXXXX"
+              onChange={handleChange}
               value={formData.telefono}
-              onChange={(e) => setFormData((prev) => ({ ...prev, telefono: e.target.value }))}
             />
           </div>
 
           <div style={{ marginBottom: "16px" }}>
-            <label className="modal-label">Cédula de identidad *</label>
-            <input
-              className="modal-input"
+            <Input
+              name="cedula"
               type="text"
               placeholder="12345678"
-              value={formData.cedula}
-              onChange={(e) => setFormData((prev) => ({ ...prev, cedula: e.target.value }))}
               required
+              onChange={handleChange}
+              error={errors.cedula}
+              value={formData.cedula}
             />
           </div>
 
           <div style={{ marginBottom: "16px" }}>
-            <label className="modal-label">Rol del usuario</label>
-            <select
-              className="modal-input"
+            <label style={{
+              display: "flex",
+              alignItems: "center",
+              marginBottom: "8px",
+              fontSize: "14px",
+              fontWeight: "500",
+              color: "#374151"
+            }}>
+              <Shield size={16} style={{ marginRight: "8px" }} />
+              Rol del usuario
+            </label>
+            <Select
               value={formData.rol}
-              onChange={(e) => setFormData((prev) => ({ ...prev, rol: e.target.value }))}
+              onValueChange={handleSelectChange}
             >
-              <option value="ADMIN_DACE">Admin DACE</option>
-              <option value="ADMIN_FUNDESUR">Admin FUNDESUR</option>
-              <option value="SUPER_USUARIO">Super Usuario</option>
-            </select>
-          </div>
-
-          <div className="form-info">
-            <p
-              style={{
-                fontSize: "14px",
-                color: "#6b7280",
-                fontStyle: "italic",
-                margin: "0",
-                padding: "12px",
-                backgroundColor: "#f0f9ff",
-                borderRadius: "6px",
-                borderLeft: "4px solid #3b82f6",
-              }}
-            >
-              Los campos marcados con (*) son obligatorios. El usuario será creado con estado "Activo" por defecto.
-            </p>
+              <SelectTrigger>
+                <SelectValue placeholder="Seleccionar rol" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectLabel>Roles disponibles</SelectLabel>
+                <SelectSeparator />
+                <SelectItem value="ADMIN_DACE">Admin DACE</SelectItem>
+                <SelectItem value="ADMIN_FUNDESUR">Admin FUNDESUR</SelectItem>
+                <SelectItem value="SUPER_USUARIO">Super Usuario</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
         </div>
       </Modal>
