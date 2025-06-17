@@ -1,12 +1,11 @@
 "use client"
 import type React from "react"
-import { useState, useRef } from "react"
-import { UserPlus, User, Mail, Phone, CreditCard, Shield } from "lucide-react"
+import { useState } from "react"
+import { UserPlus, Shield } from "lucide-react"
 import {
   Modal, Input, Select,
   SelectTrigger,
   SelectValue,
-  SelectTags,
   SelectContent,
   SelectItem,
   SelectSeparator,
