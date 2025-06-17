@@ -36,18 +36,6 @@
   margin: 0; /* Remove any margin that might affect layout */
 }
 
-.action-btn.edit-btn {
-  background-color: #f0f9ff;
-  color: #0369a1;
-  border-color: #bae6fd;
-}
-
-.action-btn.edit-btn:hover {
-  background-color: #e0f2fe;
-  border-color: #7dd3fc;
-  color: #0c4a6e;
-}
-
 .action-btn:hover {
   border-color: #9ca3af;
   background-color: #f1f5f9;
@@ -128,36 +116,13 @@
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s ease;
-}
-
-.card-action-btn.edit-btn {
-  background-color: #f0f9ff;
-  color: #0369a1;
-}
-
-.card-action-btn.edit-btn:hover {
-  background-color: #e0f2fe;
-  color: #0c4a6e;
-}
-
-.card-action-btn.view-btn {
   background-color: #f3f4f6;
   color: #6b7280;
 }
 
-.card-action-btn.view-btn:hover {
+.card-action-btn:hover {
   background-color: #e5e7eb;
   color: #374151;
-}
-
-.card-action-btn.delete-btn {
-  background-color: #fef2f2;
-  color: #dc2626;
-}
-
-.card-action-btn.delete-btn:hover {
-  background-color: #fee2e2;
-  color: #b91c1c;
 }
 
 /* Responsive styles */

@@ -21,7 +21,6 @@ export default function TableView() {
     handleView,
     handleDelete,
     handleEdit,
-    handleRoleChange,
     viewModalOpen,
     selectedItemForView,
     closeViewModal,
@@ -92,8 +91,9 @@ export default function TableView() {
                             onView={handleView}
                             onDelete={handleDelete}
                             onEdit={handleEdit}
-                            onRoleChange={handleRoleChange}
+                            onUpdateItem={tableState.updateItem}
                             showRoleSelect={true}
+                            showStatusSwitch={false}
                             variant="table"
                           />
                         </td>

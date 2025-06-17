@@ -6,7 +6,6 @@ import ViewUserModal from "../../modal-crud/ViewUserModal"
 import "./table-card-view.css"
 import { useTableContext, useTableState } from "../../../context/TableContext"
 import ActionsColumn from "../components/ActionsColumn"
-import Switch from "../../../../ux/btns/switch"
 import BadgeWrapper from "../components/BadgeWrapper"
 
 export default function TableCardView() {
@@ -55,23 +54,24 @@ export default function TableCardView() {
                 )}
                 <h3 className="card-title">{item.nombre}</h3>
               </div>
+              
+              {/* Switch de estado usando ActionsColumn */}
               <div className="card-actions">
-                <div className="status-switch-container">
-                  <Switch
-                    isOn={item.status === "ACTIVO"}
-                    onToggle={() => {
-                      // Actualizar el estado del item
-                      const newStatus = item.status === "ACTIVO" ? "INACTIVO" : "ACTIVO"
-                      console.log(`Cambiando estado de ${item.nombre} a ${newStatus}`)
-                      // Aquí puedes agregar la lógica para actualizar el estado en el contexto
-                      tableState.updateItem(item.id, { status: newStatus })
-                    }}
-                  />
-                  <span className={`status-text ${item.status === "ACTIVO" ? "active" : "inactive"}`}>
-                    {item.status === "ACTIVO" ? "Activo" : "Inactivo"}
-                  </span>
-                </div>
-
+                <ActionsColumn
+                  item={item}
+                  onUpdateItem={tableState.updateItem}
+                  showStatusSwitch={true}
+                  showRoleSelect={false}
+                  variant="card"
+                  visibleActions={{
+                    duplicate: false,
+                    edit: false,
+                    view: false,
+                    delete: false,
+                    report: false,
+                    whatsapp: false
+                  }}
+                />
               </div>
             </div>
 
@@ -115,7 +115,7 @@ export default function TableCardView() {
                 />
               </div>
 
-              {/* Nueva barra de acciones igual a la del modo tabla */}
+              {/* Barra de acciones usando ActionsColumn */}
               <div className="card-table-actions">
                 <ActionsColumn
                   item={item}
@@ -123,17 +123,15 @@ export default function TableCardView() {
                   onView={handleView}
                   onDelete={handleDelete}
                   onEdit={handleEdit}
-                  onRoleChange={(item, newRole) => {
-                    // Implementar cambio de rol para cards si es necesario
-                    console.log("Cambio de rol en card:", item, newRole)
-                  }}
+                  onUpdateItem={tableState.updateItem}
                   showRoleSelect={true}
+                  showStatusSwitch={false}
                   variant="table"
                 />
               </div>
             </div>
 
-            {/* Footer de la tarjeta - quitar estilo de botón */}
+            {/* Footer de la tarjeta */}
             <div className="card-footer">
               <div className="card-details-text" onClick={() => handleView(item)}>
                 Ver detalles completos
