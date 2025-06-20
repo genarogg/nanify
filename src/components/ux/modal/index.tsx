@@ -63,7 +63,7 @@ export default function Modal({
     }
   }, [isClosing])
 
-  // Cerrar modal con tecla ESC
+  // Manejar overflow del body y eventos de teclado
   useEffect(() => {
     const handleEsc = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -71,18 +71,22 @@ export default function Modal({
       }
     }
 
-    if (isOpen) {
+    if (isOpen && !isClosing) {
+      // Solo establecer overflow hidden cuando el modal está completamente abierto
       document.addEventListener("keydown", handleEsc)
       document.body.style.overflow = "hidden"
+    } else {
+      // Restaurar overflow cuando el modal no está abierto o se está cerrando
+      document.removeEventListener("keydown", handleEsc)
+      document.body.style.overflow = "unset"
     }
 
+    // Cleanup function que siempre restaura el overflow
     return () => {
       document.removeEventListener("keydown", handleEsc)
-      if (!isOpen) {
-        document.body.style.overflow = "unset"
-      }
+      document.body.style.overflow = "unset"
     }
-  }, [isOpen])
+  }, [isOpen, isClosing])
 
   // Cerrar modal al hacer click fuera del contenido
   const handleOverlayClick = (e: React.MouseEvent) => {

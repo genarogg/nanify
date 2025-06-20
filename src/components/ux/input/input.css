@@ -11,7 +11,7 @@
 }
 form {
   display: grid;
-  gap: 41px;
+  gap: 40px;
 }
 
 .container-input {
@@ -20,6 +20,7 @@ form {
   align-items: center;
   border: 1px solid #e2e8f0;
   border-radius: 6px;
+  min-width: 333px;
   height: 46px;
   position: relative;
   width: 100%;
@@ -47,6 +48,14 @@ form {
 .container-input.no-icon span.holder.has-content {
   font-size: 14px;
   left: -8px;
+}
+.container-input.icon-placehorder span.holder {
+  left: 0px;
+  padding: 0;
+  display: flex;
+}
+.container-input.icon-placehorder .label-ico {
+  width: 34px;
 }
 .container-input .label-ico,
 .container-input .view-pass {

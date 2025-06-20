@@ -5,8 +5,8 @@ import { Check } from "lucide-react"
 import "./animated-checkbox.css"
 
 interface AnimatedCheckboxProps {
-    isChecked: boolean
-    onToggle: () => void
+    isChecked?: boolean
+    onToggle?: () => void
     label: string
     disabled?: boolean
 }

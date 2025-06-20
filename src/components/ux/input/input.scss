@@ -7,7 +7,7 @@ $border-container: 1px solid #e2e8f0;
 
 form {
     display: grid;
-    gap: 41px;
+    gap: 40px;
 }
 
 .container-input {
@@ -15,7 +15,7 @@ form {
 
     border: $border-container;
     border-radius: $border-radius;
-
+    min-width: 333px;
     height: 46px;
     position: relative;
     width: 100%;
@@ -55,6 +55,19 @@ form {
                 font-size: 14px;
                 left: -8px;
             }
+        }
+    }
+
+    &.icon-placehorder {
+
+        span.holder {
+            left: 0px;
+            padding: 0;
+            display: flex;
+        }
+
+        .label-ico {
+            width: 34px;
         }
     }
 
