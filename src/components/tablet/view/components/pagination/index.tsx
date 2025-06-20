@@ -2,21 +2,20 @@
 
 import "./pagination.css"
 import { usePagination } from "../../../context/hooks/usePagination"
-import { useState, useEffect } from "react"
+import {
+  ChevronLeft,
+  ChevronRight,
+  MoreHorizontal
+} from "lucide-react"
 
 interface TablePaginationProps {
-  // Configuración opcional del hook de paginación
+  // Configuración del hook de paginación
   maxPagesToShow?: number
-  showFirstLast?: boolean
   showEllipsis?: boolean
   showPrevNext?: boolean
   // Configuración de UI
   showPaginationInfo?: boolean
   paginationInfoText?: string
-  previousText?: string
-  nextText?: string
-  firstText?: string
-  lastText?: string
   // Callbacks opcionales
   onPageChange?: (page: number) => void
   onItemsPerPageChange?: (itemsPerPage: number) => void
@@ -24,93 +23,84 @@ interface TablePaginationProps {
   showInfo?: boolean
   showControls?: boolean
   customInfoTemplate?: string
-  // Nueva prop para forzar modo compacto
   forceCompact?: boolean
 }
 
-export default function TablePagination({
+const TablePagination = ({
   maxPagesToShow = 5,
-  showFirstLast = true,
   showEllipsis = true,
   showPrevNext = true,
   showPaginationInfo = true,
-  paginationInfoText = "Mostrando {start} a {end} de {total} elementos",
-  previousText = "<",
-  nextText = ">",
-  firstText = "<<",
-  lastText = ">>",
+  paginationInfoText = "{start} a {end} de {total}",
   onPageChange,
   onItemsPerPageChange,
   showInfo = true,
   showControls = true,
   customInfoTemplate,
   forceCompact = false,
-}: TablePaginationProps = {}) {
-  const [isMobile, setIsMobile] = useState(false)
-  const [isSmallMobile, setIsSmallMobile] = useState(false)
-
-  // Detectar tamaño de pantalla
-  useEffect(() => {
-    const checkScreenSize = () => {
-      setIsMobile(window.innerWidth <= 768)
-      setIsSmallMobile(window.innerWidth <= 480)
-    }
-
-    checkScreenSize()
-    window.addEventListener('resize', checkScreenSize)
-    return () => window.removeEventListener('resize', checkScreenSize)
-  }, [])
-
-  // Ajustar configuración según el tamaño de pantalla
-  const getResponsiveConfig = () => {
-    if (forceCompact || isSmallMobile) {
-      return {
-        maxPagesToShow: 3,
-        showFirstLast: true,
-        previousText: "‹",
-        nextText: "›",
-        firstText: "‹‹",
-        lastText: "››",
-        showInfo: true
-      }
-    } else if (isMobile) {
-      return {
-        maxPagesToShow: 4,
-        showFirstLast: true,
-        previousText: "‹",
-        nextText: "›",
-        firstText: "‹‹",
-        lastText: "››",
-        showInfo: true
-      }
-    }
-    return {
-      maxPagesToShow,
-      showFirstLast,
-      previousText,
-      nextText,
-      firstText,
-      lastText,
-      showInfo: true
-    }
-  }
-
-  const config = getResponsiveConfig()
+}: TablePaginationProps = {}) => {
 
   const { info, controls, display, uiConfig, isEmpty, isLoading, hasError } = usePagination({
-    maxPagesToShow: config.maxPagesToShow,
-    showFirstLast: config.showFirstLast,
+    maxPagesToShow,
+    showFirstLast: false,
     showEllipsis,
     showPrevNext,
     showPaginationInfo,
     paginationInfoText,
-    previousText: config.previousText,
-    nextText: config.nextText,
-    firstText: config.firstText || firstText,
-    lastText: config.lastText || lastText,
+    previousText: "",
+    nextText: "",
     onPageChange,
     onItemsPerPageChange,
   })
+
+  // Función para generar números de página con primer y último elemento siempre visibles
+  const getPageNumbersWithFirstLast = () => {
+    const { currentPage, totalPages } = info
+    const maxPages = forceCompact ? 3 : maxPagesToShow
+
+    if (totalPages <= maxPages) {
+      return Array.from({ length: totalPages }, (_, i) => i + 1)
+    }
+
+    const pages: (number | string)[] = []
+
+    // Siempre incluir página 1
+    pages.push(1)
+
+    // Calcular rango alrededor de la página actual
+    const halfRange = Math.floor((maxPages - 2) / 2)
+    let start = Math.max(2, currentPage - halfRange)
+    let end = Math.min(totalPages - 1, currentPage + halfRange)
+
+    // Ajustar el rango si está muy cerca del inicio o final
+    if (currentPage <= halfRange + 2) {
+      end = Math.min(totalPages - 1, maxPages - 1)
+    } else if (currentPage >= totalPages - halfRange - 1) {
+      start = Math.max(2, totalPages - maxPages + 2)
+    }
+
+    // Agregar ellipsis si hay gap después de 1
+    if (start > 2) {
+      pages.push('...')
+    }
+
+    // Agregar páginas del rango
+    for (let i = start; i <= end; i++) {
+      pages.push(i)
+    }
+
+    // Agregar ellipsis si hay gap antes de la última
+    if (end < totalPages - 1) {
+      pages.push('...')
+    }
+
+    // Siempre incluir última página (si no es la página 1)
+    if (totalPages > 1) {
+      pages.push(totalPages)
+    }
+
+    return pages
+  }
 
   // Función para obtener el texto de paginación
   const getPaginationText = () => {
@@ -126,26 +116,17 @@ export default function TablePagination({
   }
 
   return (
-    <div className="table-pagination-container">
-      {showInfo && config.showInfo && uiConfig.showPaginationInfo && (
+    <div className={`table-pagination-container ${forceCompact ? 'force-compact' : ''}`}>
+      {showInfo && uiConfig.showPaginationInfo && (
         <div className="table-pagination-info">
-          {getPaginationText()}
+          <span className="pagination-info-text">
+            {getPaginationText()}
+          </span>
         </div>
       )}
 
       {showControls && info.totalPages > 1 && (
         <div className="table-pagination-controls">
-          {/* Botón Primera Página */}
-          {config.showFirstLast && !info.isFirstPage && (
-            <button
-              className="table-pagination-btn table-pagination-first"
-              onClick={controls.goToFirstPage}
-              title={`${uiConfig.firstText} página`}
-            >
-              <span>{uiConfig.firstText}</span>
-            </button>
-          )}
-
           {/* Botón Anterior */}
           {uiConfig.showPrevNext && (
             <button
@@ -154,12 +135,12 @@ export default function TablePagination({
               disabled={!info.hasPreviousPage}
               title="Página anterior"
             >
-              <span>{config.previousText}</span>
+              <ChevronLeft size={16} />
             </button>
           )}
 
           {/* Números de página */}
-          {display.pageNumbers.map((pageNum, index) =>
+          {getPageNumbersWithFirstLast().map((pageNum, index) =>
             typeof pageNum === "number" ? (
               <button
                 key={`page-${pageNum}`}
@@ -171,7 +152,7 @@ export default function TablePagination({
               </button>
             ) : (
               <span key={`ellipsis-${index}`} className="table-pagination-ellipsis">
-                {pageNum}
+                <MoreHorizontal size={16} />
               </span>
             ),
           )}
@@ -184,18 +165,7 @@ export default function TablePagination({
               disabled={!info.hasNextPage}
               title="Página siguiente"
             >
-              <span>{config.nextText}</span>
-            </button>
-          )}
-
-          {/* Botón Última Página */}
-          {config.showFirstLast && !info.isLastPage && (
-            <button
-              className="table-pagination-btn table-pagination-last"
-              onClick={controls.goToLastPage}
-              title={`${uiConfig.lastText} página`}
-            >
-              <span>{uiConfig.lastText}</span>
+              <ChevronRight size={16} />
             </button>
           )}
         </div>
@@ -204,114 +174,4 @@ export default function TablePagination({
   )
 }
 
-// Componente de paginación compacta para móviles
-export function CompactPagination(props: Omit<TablePaginationProps, "maxPagesToShow" | "showFirstLast">) {
-  return <TablePagination {...props} maxPagesToShow={3} showFirstLast={true} previousText="‹" nextText="›" firstText="‹‹" lastText="››" forceCompact={true} />
-}
-
-// Componente de paginación extendida para escritorio
-export function ExtendedPagination(props: Omit<TablePaginationProps, "maxPagesToShow">) {
-  return <TablePagination {...props} maxPagesToShow={7} firstText="««" lastText="»»" />
-}
-
-// Componente de información de paginación solamente
-export function PaginationInfo({
-  customTemplate,
-  paginationInfoText = "Mostrando {start} a {end} de {total} elementos",
-}: {
-  customTemplate?: string
-  paginationInfoText?: string
-} = {}) {
-  const { display } = usePagination({ paginationInfoText })
-
-  const getText = () => {
-    if (customTemplate) {
-      return display.formatPaginationText(customTemplate)
-    }
-    return display.paginationText
-  }
-
-  return <div className="table-pagination-info standalone">{getText()}</div>
-}
-
-// Componente de controles de paginación solamente
-export function PaginationControls(
-  props: Pick<
-    TablePaginationProps,
-    "maxPagesToShow" | "showFirstLast" | "onPageChange" | "previousText" | "nextText" | "firstText" | "lastText"
-  >,
-) {
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    const checkScreenSize = () => {
-      setIsMobile(window.innerWidth <= 768)
-    }
-
-    checkScreenSize()
-    window.addEventListener('resize', checkScreenSize)
-    return () => window.removeEventListener('resize', checkScreenSize)
-  }, [])
-
-  const { info, controls, display, uiConfig } = usePagination({
-    maxPagesToShow: isMobile ? 3 : (props.maxPagesToShow || 5),
-    showFirstLast: props.showFirstLast ?? true,
-    previousText: isMobile ? "‹" : (props.previousText || "Anterior"),
-    nextText: isMobile ? "›" : (props.nextText || "Siguiente"),
-    firstText: isMobile ? "‹‹" : (props.firstText || "Primera"),
-    lastText: isMobile ? "››" : (props.lastText || "Última"),
-    onPageChange: props.onPageChange,
-  })
-
-  if (info.totalPages <= 1) {
-    return null
-  }
-
-  return (
-    <div className="table-pagination-controls standalone">
-      {uiConfig.showFirstLast && !info.isFirstPage && (
-        <button className="table-pagination-btn table-pagination-first" onClick={controls.goToFirstPage}>
-          <span>{uiConfig.firstText}</span>
-        </button>
-      )}
-
-      <button
-        className="table-pagination-btn table-pagination-prev"
-        onClick={controls.goToPreviousPage}
-        disabled={!info.hasPreviousPage}
-      >
-        <span>{uiConfig.previousText}</span>
-      </button>
-
-      {display.pageNumbers.map((pageNum, index) =>
-        typeof pageNum === "number" ? (
-          <button
-            key={`page-${pageNum}`}
-            className={`table-pagination-btn table-page-number ${pageNum === info.currentPage ? "active" : ""}`}
-            onClick={() => controls.goToPage(pageNum)}
-          >
-            {pageNum}
-          </button>
-        ) : (
-          <span key={`ellipsis-${index}`} className="table-pagination-ellipsis">
-            {pageNum}
-          </span>
-        ),
-      )}
-
-      <button
-        className="table-pagination-btn table-pagination-next"
-        onClick={controls.goToNextPage}
-        disabled={!info.hasNextPage}
-      >
-        <span>{uiConfig.nextText}</span>
-      </button>
-
-      {uiConfig.showFirstLast && !info.isLastPage && (
-        <button className="table-pagination-btn table-pagination-last" onClick={controls.goToLastPage}>
-          <span>{uiConfig.lastText}</span>
-        </button>
-      )}
-    </div>
-  )
-}
+export default TablePagination

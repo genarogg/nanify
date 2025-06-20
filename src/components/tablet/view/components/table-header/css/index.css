@@ -99,6 +99,43 @@
   font-weight: 500;
 }
 
+/* User role select */
+.user-role-select-container {
+  display: flex;
+  align-items: center;
+  min-width: 120px;
+}
+
+.user-role-select-container .select-root {
+  width: 100%;
+  min-width: 120px;
+}
+
+.user-role-select-container .select-trigger {
+  height: 40px;
+  font-size: 14px;
+  border: 1px solid #d1d5db;
+  background-color: #ffffff;
+  color: #374151;
+  font-weight: 600;
+}
+
+.user-role-select-container .select-trigger:hover {
+  border-color: #9ca3af;
+  background-color: #f9fafb;
+}
+
+.user-role-select-container .select-trigger:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.user-role-select-container .select-value {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
 /* Contenedor de estado */
 .table-status-container {
   display: flex;
@@ -203,7 +240,7 @@
     width: 100%;
   }
 
-  .filter-content-area .always-active-filters:last-child{
+  .filter-content-area .always-active-filters:last-child {
     margin-left: 0 !important;
   }
 
@@ -221,6 +258,16 @@
   }
 
   .table-role-filter-container .select-root {
+    width: 100%;
+    min-width: auto;
+  }
+
+  .user-role-select-container {
+    width: 100%;
+    min-width: auto;
+  }
+
+  .user-role-select-container .select-root {
     width: 100%;
     min-width: auto;
   }

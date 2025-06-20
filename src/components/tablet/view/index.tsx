@@ -30,15 +30,10 @@ export default function TableContent() {
 
           {/* Usar el nuevo componente de paginación con callbacks opcionales */}
           <TablePagination
-            maxPagesToShow={5}
-            showFirstLast={true}
+      
+          
             showEllipsis={true}
-            onPageChange={(page) => {
-              console.log(`Navegando a la página ${page}`)
-            }}
-            onItemsPerPageChange={(itemsPerPage) => {
-              console.log(`Cambiando a ${itemsPerPage} elementos por página`)
-            }}
+      
           />
 
           <TableFooter />

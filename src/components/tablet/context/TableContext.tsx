@@ -65,6 +65,8 @@ interface TableState {
   updateTableConfig: (newConfig: Partial<TableConfig>) => void
   updateItemsPerPage: (newItemsPerPage: number) => void
   itemsPerPage: number
+  userRole: "super" | "asistente"
+  updateUserRole: (role: "super" | "asistente") => void
 }
 
 // Configuración extendida de filtros
@@ -179,7 +181,18 @@ export const TableProvider: React.FC<TableProviderProps> = ({ children }) => {
 
   // Estados de configuración
   const [dynamicItemsPerPage, setDynamicItemsPerPage] = useState(10)
-  const [dynamicConfig, setDynamicConfig] = useState<TableConfig>(defaultConfig)
+
+  // Estado para el rol del usuario
+  const [userRole, setUserRole] = useState<"super" | "asistente">("super")
+
+  const [dynamicConfig, setDynamicConfig] = useState<TableConfig>(() => {
+    const baseConfig = { ...defaultConfig }
+    // Hide role column for asistente users
+    if (userRole === "asistente") {
+      baseConfig.columns = baseConfig.columns.map((col) => (col.id === "rol" ? { ...col, hidden: true } : col))
+    }
+    return baseConfig
+  })
 
   // Estados de datos
   const {
@@ -356,6 +369,21 @@ export const TableProvider: React.FC<TableProviderProps> = ({ children }) => {
   const updateItemsPerPage = (newItemsPerPage: number) => {
     setDynamicItemsPerPage(newItemsPerPage)
     setCurrentPage(1)
+  }
+
+  const updateUserRole = (newRole: "super" | "asistente") => {
+    setUserRole(newRole)
+
+    // Update column visibility based on role
+    setDynamicConfig((prev) => ({
+      ...prev,
+      columns: prev.columns.map((col) => {
+        if (col.id === "rol") {
+          return { ...col, hidden: newRole === "asistente" }
+        }
+        return col
+      }),
+    }))
   }
 
   // Funciones de búsqueda
@@ -594,6 +622,8 @@ export const TableProvider: React.FC<TableProviderProps> = ({ children }) => {
     updateTableConfig,
     updateItemsPerPage,
     itemsPerPage: dynamicItemsPerPage,
+    userRole,
+    updateUserRole,
   }
 
   // Estado responsive

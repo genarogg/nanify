@@ -10,10 +10,7 @@ import Filter from "./filters"
 
 import AddUsuario from "../../modal-crud/AddUsuario"
 
-
 const TableHeader: React.FC = () => {
-
-
   return (
     <div className="table-header-container">
       <Title />
@@ -30,9 +27,9 @@ const TableHeader: React.FC = () => {
         <div className="box-right">
           <Filter
             hideToggleButton={true}
-            filterOrder={['dates', 'rol', 'status']}
+            filterOrder={["dates", "rol", "status"]}
             alwaysActiveFilters={["status"]}
-            alwaysHiddenFilters={['config', "dates"]}
+            alwaysHiddenFilters={["config", "dates"]}
             alwaysActivePosition="after"
           />
 

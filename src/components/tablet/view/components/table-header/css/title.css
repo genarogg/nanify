@@ -2,7 +2,15 @@
 .table-header-title-section {
   margin-bottom: 16px;
   display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Container for title and role select */
+.title-and-role-container {
+  display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 16px;
   flex-wrap: wrap;
 }
@@ -14,6 +22,43 @@
   color: #3d5cfc;
   margin: 0;
   padding: 0;
+}
+
+/* Development mode user role select */
+.dev-user-role-select {
+  display: flex;
+  align-items: center;
+  min-width: 120px;
+}
+
+.dev-user-role-select .select-root {
+  width: 100%;
+  min-width: 120px;
+}
+
+.dev-user-role-select .select-trigger {
+  height: 32px;
+  font-size: 12px;
+  border: 1px solid #f59e0b;
+  background-color: #fef3c7;
+  color: #92400e;
+  font-weight: 600;
+}
+
+.dev-user-role-select .select-trigger:hover {
+  border-color: #d97706;
+  background-color: #fde68a;
+}
+
+.dev-user-role-select .select-trigger:focus {
+  border-color: #f59e0b;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+}
+
+.dev-user-role-select .select-value {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
 }
 
 /* Indicadores de estado de datos */
@@ -92,10 +137,20 @@
     text-align: center;
   }
 
-  .table-header-title-section {
+  .title-and-role-container {
     flex-direction: column;
     align-items: flex-start;
-    gap: 8px;
+    gap: 12px;
+  }
+
+  .dev-user-role-select {
+    align-self: flex-end;
+    min-width: 100px;
+  }
+
+  .dev-user-role-select .select-trigger {
+    height: 28px;
+    font-size: 11px;
   }
 
   .data-status-indicator {
