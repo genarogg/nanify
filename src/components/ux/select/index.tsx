@@ -28,6 +28,7 @@ interface SelectContextType {
   longestOptionWidth: number
   direction: DropdownDirection
   calculatedDirection: 'up' | 'down'
+  setCalculatedDirection: React.Dispatch<React.SetStateAction<'up' | 'down'>>
 }
 
 const SelectContext = createContext<SelectContextType | null>(null)
@@ -106,7 +107,7 @@ export const Select = memo(function Select({
       const measurer = measureRef.current
       
       // Obtener el estilo computado del elemento de medición
-      const computedStyle = window.getComputedStyle(measurer)
+      // const computedStyle = window.getComputedStyle(measurer)
       
       optionsMap.forEach((label) => {
         // Establecer el texto y medir
@@ -133,10 +134,11 @@ export const Select = memo(function Select({
     longestOptionWidth,
     direction,
     calculatedDirection,
+    setCalculatedDirection,
   }), [currentValue, handleValueChange, open, multiple, selectedLabels, setSelectedLabel, registerOption, longestOptionWidth, direction, calculatedDirection])
 
   return (
-    <SelectContext.Provider value={{...contextValue, setCalculatedDirection}}>
+    <SelectContext.Provider value={contextValue}>
       <div className="select-root">
         {/* Elemento invisible para medir texto */}
         <span
@@ -207,7 +209,6 @@ const findScrollableContainer = (element: HTMLElement): HTMLElement | null => {
  */
 const calculateAvailableSpace = (
   triggerRect: DOMRect, 
-  contentHeight: number,
   scrollableContainer: HTMLElement | null
 ) => {
   const safetyMargin = 20
@@ -280,7 +281,6 @@ const calculateDropdownDirection = (
   
   const { spaceAbove, spaceBelow, safetyMargin } = calculateAvailableSpace(
     triggerRect, 
-    estimatedContentHeight, 
     scrollableContainer
   )
   
@@ -329,8 +329,8 @@ export const SelectTrigger = memo(function SelectTrigger({ children }: SelectTri
     onOpenChange, 
     longestOptionWidth, 
     direction,
-    registerOption,
-    ...context 
+    selectedLabels,
+    setCalculatedDirection
   } = useSelectContext()
   const triggerRef = useRef<HTMLButtonElement>(null)
 
@@ -340,13 +340,11 @@ export const SelectTrigger = memo(function SelectTrigger({ children }: SelectTri
     
     if (!open && triggerRef.current) {
       // Calcular dirección ANTES de abrir
-      const optionsCount = context.selectedLabels?.size || 5 // usar número de opciones registradas
+      const optionsCount = selectedLabels?.size || 5 // usar número de opciones registradas
       const calculatedDir = calculateDropdownDirection(triggerRef.current, direction, optionsCount)
       
       // Actualizar la dirección calculada
-      if ('setCalculatedDirection' in context) {
-        (context as any).setCalculatedDirection(calculatedDir)
-      }
+      setCalculatedDirection(calculatedDir)
       
       // Pequeño delay para asegurar que el estado se actualice antes de abrir
       requestAnimationFrame(() => {
@@ -355,7 +353,7 @@ export const SelectTrigger = memo(function SelectTrigger({ children }: SelectTri
     } else {
       onOpenChange(false)
     }
-  }, [open, onOpenChange, direction, context])
+  }, [open, onOpenChange, direction, selectedLabels, setCalculatedDirection])
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     if (e.key === "Enter" || e.key === " ") {
@@ -363,12 +361,10 @@ export const SelectTrigger = memo(function SelectTrigger({ children }: SelectTri
       
       if (!open && triggerRef.current) {
         // Calcular dirección ANTES de abrir
-        const optionsCount = context.selectedLabels?.size || 5
+        const optionsCount = selectedLabels?.size || 5
         const calculatedDir = calculateDropdownDirection(triggerRef.current, direction, optionsCount)
         
-        if ('setCalculatedDirection' in context) {
-          (context as any).setCalculatedDirection(calculatedDir)
-        }
+        setCalculatedDirection(calculatedDir)
         
         requestAnimationFrame(() => {
           onOpenChange(true)
@@ -379,12 +375,10 @@ export const SelectTrigger = memo(function SelectTrigger({ children }: SelectTri
     } else if (e.key === "ArrowDown") {
       e.preventDefault()
       if (!open && triggerRef.current) {
-        const optionsCount = context.selectedLabels?.size || 5
+        const optionsCount = selectedLabels?.size || 5
         const calculatedDir = calculateDropdownDirection(triggerRef.current, direction, optionsCount)
         
-        if ('setCalculatedDirection' in context) {
-          (context as any).setCalculatedDirection(calculatedDir)
-        }
+        setCalculatedDirection(calculatedDir)
         
         requestAnimationFrame(() => {
           onOpenChange(true)
@@ -394,7 +388,7 @@ export const SelectTrigger = memo(function SelectTrigger({ children }: SelectTri
       e.preventDefault()
       onOpenChange(false)
     }
-  }, [open, onOpenChange, direction, context])
+  }, [open, onOpenChange, direction, selectedLabels, setCalculatedDirection])
 
   const handleBlur = useCallback((e: React.FocusEvent) => {
     // Check if focus moved outside the select component
