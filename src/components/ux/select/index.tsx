@@ -1,7 +1,6 @@
 "use client"
 
-import type React from "react"
-import {
+import React, {
   createContext,
   useContext,
   useState,
@@ -14,6 +13,8 @@ import {
 import { ChevronDown, Check, X } from "lucide-react"
 import "./select.css" 
 
+type DropdownDirection = 'up' | 'down' | 'auto'
+
 interface SelectContextType {
   value: string | string[]
   onValueChange: (value: string | string[]) => void
@@ -25,6 +26,8 @@ interface SelectContextType {
   setSelectedLabel: (value: string, label: string) => void
   registerOption: (value: string, label: string) => void
   longestOptionWidth: number
+  direction: DropdownDirection
+  calculatedDirection: 'up' | 'down'
 }
 
 const SelectContext = createContext<SelectContextType | null>(null)
@@ -43,6 +46,7 @@ interface SelectProps {
   onValueChange?: (value: string | string[]) => void
   children: React.ReactNode
   multiple?: boolean
+  direction?: DropdownDirection
 }
 
 export const Select = memo(function Select({
@@ -50,7 +54,8 @@ export const Select = memo(function Select({
   defaultValue,
   onValueChange,
   children,
-  multiple = false
+  multiple = false,
+  direction = 'auto'
 }: SelectProps) {
   const [internalValue, setInternalValue] = useState<string | string[]>(
     () => defaultValue || (multiple ? [] : "")
@@ -61,6 +66,7 @@ export const Select = memo(function Select({
   const [open, setOpen] = useState(false)
   const [optionsMap, setOptionsMap] = useState<Map<string, string>>(new Map())
   const [longestOptionWidth, setLongestOptionWidth] = useState(0)
+  const [calculatedDirection, setCalculatedDirection] = useState<'up' | 'down'>('down')
   const measureRef = useRef<HTMLSpanElement>(null)
 
   const currentValue = value !== undefined ? value : internalValue
@@ -125,10 +131,12 @@ export const Select = memo(function Select({
     setSelectedLabel,
     registerOption,
     longestOptionWidth,
-  }), [currentValue, handleValueChange, open, multiple, selectedLabels, setSelectedLabel, registerOption, longestOptionWidth])
+    direction,
+    calculatedDirection,
+  }), [currentValue, handleValueChange, open, multiple, selectedLabels, setSelectedLabel, registerOption, longestOptionWidth, direction, calculatedDirection])
 
   return (
-    <SelectContext.Provider value={contextValue}>
+    <SelectContext.Provider value={{...contextValue, setCalculatedDirection}}>
       <div className="select-root">
         {/* Elemento invisible para medir texto */}
         <span
@@ -156,28 +164,237 @@ interface SelectTriggerProps {
   children: React.ReactNode
 }
 
+/**
+ * Encuentra el contenedor scrollable más cercano que puede afectar la posición del dropdown
+ */
+const findScrollableContainer = (element: HTMLElement): HTMLElement | null => {
+  let current = element.parentElement
+  
+  while (current && current !== document.body) {
+    const computedStyle = window.getComputedStyle(current)
+    const hasScrollableOverflow = ['auto', 'scroll', 'overlay'].includes(computedStyle.overflowY) ||
+                                  ['auto', 'scroll', 'overlay'].includes(computedStyle.overflow)
+    
+    // También verificar si tiene una altura fija que podría crear scroll
+    const hasFixedHeight = computedStyle.height !== 'auto' && 
+                           computedStyle.maxHeight !== 'none' &&
+                           current.scrollHeight > current.clientHeight
+    
+    // Detectar contenedores comunes de modales, overlays y tablas
+    const isModalContainer = current.classList.contains('modal') ||
+                            current.classList.contains('dialog') ||
+                            current.classList.contains('popover') ||
+                            current.classList.contains('overlay') ||
+                            current.classList.contains('table-container') ||
+                            current.tagName === 'TABLE' ||
+                            current.tagName === 'TBODY' ||
+                            current.hasAttribute('role') && ['dialog', 'alertdialog', 'grid'].includes(current.getAttribute('role') || '') ||
+                            computedStyle.position === 'fixed' ||
+                            computedStyle.position === 'absolute'
+    
+    if (hasScrollableOverflow || hasFixedHeight || isModalContainer) {
+      return current
+    }
+    
+    current = current.parentElement
+  }
+  
+  return null
+}
+
+/**
+ * Calcula el espacio disponible considerando contenedores scrollables, modales y tablas
+ */
+const calculateAvailableSpace = (
+  triggerRect: DOMRect, 
+  contentHeight: number,
+  scrollableContainer: HTMLElement | null
+) => {
+  const safetyMargin = 20
+  let spaceAbove: number
+  let spaceBelow: number
+  
+  if (scrollableContainer) {
+    const containerRect = scrollableContainer.getBoundingClientRect()
+    const containerStyle = window.getComputedStyle(scrollableContainer)
+    
+    // Considerar padding del contenedor
+    const paddingTop = parseInt(containerStyle.paddingTop, 10) || 0
+    const paddingBottom = parseInt(containerStyle.paddingBottom, 10) || 0
+    
+    // Calcular espacio dentro del contenedor
+    spaceAbove = triggerRect.top - containerRect.top - paddingTop
+    spaceBelow = containerRect.bottom - triggerRect.bottom - paddingBottom
+    
+    // Caso especial para tablas: usar espacio visible del viewport
+    if (scrollableContainer.classList.contains('table-container') || 
+        scrollableContainer.tagName === 'TABLE' ||
+        scrollableContainer.tagName === 'TBODY') {
+      const viewportHeight = window.innerHeight
+      spaceAbove = Math.min(spaceAbove, triggerRect.top)
+      spaceBelow = Math.min(spaceBelow, viewportHeight - triggerRect.bottom)
+    }
+    
+    // Si el contenedor es scrollable, considerar el scroll actual
+    if (scrollableContainer.scrollHeight > scrollableContainer.clientHeight) {
+      const scrollTop = scrollableContainer.scrollTop
+      const scrollBottom = scrollableContainer.scrollHeight - scrollableContainer.clientHeight - scrollTop
+      
+      // Ajustar espacios considerando el scroll disponible
+      spaceAbove += Math.min(scrollTop, 0) // Solo si podemos scroll hacia arriba
+      spaceBelow += Math.min(scrollBottom, 0) // Solo si podemos scroll hacia abajo
+    }
+  } else {
+    // Usar viewport como referencia (comportamiento original mejorado)
+    const viewportHeight = window.innerHeight
+    spaceAbove = triggerRect.top
+    spaceBelow = viewportHeight - triggerRect.bottom
+  }
+  
+  return {
+    spaceAbove: Math.max(0, spaceAbove),
+    spaceBelow: Math.max(0, spaceBelow),
+    safetyMargin
+  }
+}
+
+/**
+ * Calcula la dirección antes de abrir el dropdown
+ */
+const calculateDropdownDirection = (
+  trigger: HTMLElement,
+  direction: DropdownDirection,
+  optionsCount: number = 5
+): 'up' | 'down' => {
+  // Si la dirección está forzada, respetarla
+  if (direction === 'up') return 'up'
+  if (direction === 'down') return 'down'
+  
+  // Para dirección 'auto', calcular basado en espacio disponible
+  const triggerRect = trigger.getBoundingClientRect()
+  const scrollableContainer = findScrollableContainer(trigger)
+  
+  // Estimar altura del contenido basado en número de opciones
+  const estimatedItemHeight = 32 // altura aproximada de cada item
+  const estimatedContentHeight = Math.min(240, optionsCount * estimatedItemHeight + 16) // padding
+  
+  const { spaceAbove, spaceBelow, safetyMargin } = calculateAvailableSpace(
+    triggerRect, 
+    estimatedContentHeight, 
+    scrollableContainer
+  )
+  
+  // Lógica de decisión
+  const isInTable = trigger.closest('table, .table-container, [role="grid"]')
+  
+  let shouldOpenUpward = false
+  
+  if (isInTable) {
+    // En tablas, priorizar abrir hacia arriba si hay poco espacio abajo
+    if (spaceBelow < estimatedContentHeight + safetyMargin) {
+      shouldOpenUpward = true
+    }
+  } else {
+    // Lógica original para otros contextos
+    if (spaceBelow < estimatedContentHeight + safetyMargin) {
+      if (spaceAbove >= estimatedContentHeight + safetyMargin) {
+        shouldOpenUpward = true
+      } else if (spaceAbove > spaceBelow) {
+        shouldOpenUpward = true
+      }
+    }
+  }
+  
+  // Debug log
+  if (process.env.NODE_ENV === 'development') {
+    console.log('Pre-calculated dropdown direction:', {
+      direction,
+      spaceAbove: Math.round(spaceAbove),
+      spaceBelow: Math.round(spaceBelow),
+      estimatedContentHeight,
+      shouldOpenUpward,
+      hasScrollableContainer: !!scrollableContainer,
+      containerType: scrollableContainer?.tagName || 'none',
+      isInTable: !!isInTable,
+      optionsCount
+    })
+  }
+  
+  return shouldOpenUpward ? 'up' : 'down'
+}
+
 export const SelectTrigger = memo(function SelectTrigger({ children }: SelectTriggerProps) {
-  const { open, onOpenChange, longestOptionWidth } = useSelectContext()
+  const { 
+    open, 
+    onOpenChange, 
+    longestOptionWidth, 
+    direction,
+    registerOption,
+    ...context 
+  } = useSelectContext()
   const triggerRef = useRef<HTMLButtonElement>(null)
 
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
     e.preventDefault()
     e.stopPropagation()
-    onOpenChange(!open)
-  }, [open, onOpenChange])
+    
+    if (!open && triggerRef.current) {
+      // Calcular dirección ANTES de abrir
+      const optionsCount = context.selectedLabels?.size || 5 // usar número de opciones registradas
+      const calculatedDir = calculateDropdownDirection(triggerRef.current, direction, optionsCount)
+      
+      // Actualizar la dirección calculada
+      if ('setCalculatedDirection' in context) {
+        (context as any).setCalculatedDirection(calculatedDir)
+      }
+      
+      // Pequeño delay para asegurar que el estado se actualice antes de abrir
+      requestAnimationFrame(() => {
+        onOpenChange(true)
+      })
+    } else {
+      onOpenChange(false)
+    }
+  }, [open, onOpenChange, direction, context])
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault()
-      onOpenChange(!open)
+      
+      if (!open && triggerRef.current) {
+        // Calcular dirección ANTES de abrir
+        const optionsCount = context.selectedLabels?.size || 5
+        const calculatedDir = calculateDropdownDirection(triggerRef.current, direction, optionsCount)
+        
+        if ('setCalculatedDirection' in context) {
+          (context as any).setCalculatedDirection(calculatedDir)
+        }
+        
+        requestAnimationFrame(() => {
+          onOpenChange(true)
+        })
+      } else {
+        onOpenChange(false)
+      }
     } else if (e.key === "ArrowDown") {
       e.preventDefault()
-      onOpenChange(true)
+      if (!open && triggerRef.current) {
+        const optionsCount = context.selectedLabels?.size || 5
+        const calculatedDir = calculateDropdownDirection(triggerRef.current, direction, optionsCount)
+        
+        if ('setCalculatedDirection' in context) {
+          (context as any).setCalculatedDirection(calculatedDir)
+        }
+        
+        requestAnimationFrame(() => {
+          onOpenChange(true)
+        })
+      }
     } else if (e.key === "ArrowUp") {
       e.preventDefault()
       onOpenChange(false)
     }
-  }, [open, onOpenChange])
+  }, [open, onOpenChange, direction, context])
 
   const handleBlur = useCallback((e: React.FocusEvent) => {
     // Check if focus moved outside the select component
@@ -298,151 +515,13 @@ const SelectTag = memo(function SelectTag({ value, label, onRemove }: SelectTagP
   )
 })
 
-/**
- * Encuentra el contenedor scrollable más cercano que puede afectar la posición del dropdown
- */
-const findScrollableContainer = (element: HTMLElement): HTMLElement | null => {
-  let current = element.parentElement
-  
-  while (current && current !== document.body) {
-    const computedStyle = window.getComputedStyle(current)
-    const hasScrollableOverflow = ['auto', 'scroll', 'overlay'].includes(computedStyle.overflowY) ||
-                                  ['auto', 'scroll', 'overlay'].includes(computedStyle.overflow)
-    
-    // También verificar si tiene una altura fija que podría crear scroll
-    const hasFixedHeight = computedStyle.height !== 'auto' && 
-                           computedStyle.maxHeight !== 'none' &&
-                           current.scrollHeight > current.clientHeight
-    
-    // Detectar contenedores comunes de modales y overlays
-    const isModalContainer = current.classList.contains('modal') ||
-    
-                            current.classList.contains('dialog') ||
-                            current.classList.contains('popover') ||
-                            current.classList.contains('overlay') ||
-                            current.hasAttribute('role') && ['dialog', 'alertdialog'].includes(current.getAttribute('role') || '') ||
-                            computedStyle.position === 'fixed' ||
-                            computedStyle.position === 'absolute'
-    
-    if (hasScrollableOverflow || hasFixedHeight || isModalContainer) {
-      return current
-    }
-    
-    current = current.parentElement
-  }
-  
-  return null
-}
-
-/**
- * Calcula el espacio disponible considerando contenedores scrollables y modales
- */
-const calculateAvailableSpace = (
-  triggerRect: DOMRect, 
-  contentHeight: number,
-  scrollableContainer: HTMLElement | null
-) => {
-  const safetyMargin = 20
-  let spaceAbove: number
-  let spaceBelow: number
-  
-  if (scrollableContainer) {
-    const containerRect = scrollableContainer.getBoundingClientRect()
-    const containerStyle = window.getComputedStyle(scrollableContainer)
-    
-    // Considerar padding del contenedor
-    const paddingTop = parseInt(containerStyle.paddingTop, 10) || 0
-    const paddingBottom = parseInt(containerStyle.paddingBottom, 10) || 0
-    
-    // Calcular espacio dentro del contenedor
-    spaceAbove = triggerRect.top - containerRect.top - paddingTop
-    spaceBelow = containerRect.bottom - triggerRect.bottom - paddingBottom
-    
-    // Si el contenedor es scrollable, considerar el scroll actual
-    if (scrollableContainer.scrollHeight > scrollableContainer.clientHeight) {
-      const scrollTop = scrollableContainer.scrollTop
-      const scrollBottom = scrollableContainer.scrollHeight - scrollableContainer.clientHeight - scrollTop
-      
-      // Ajustar espacios considerando el scroll disponible
-      spaceAbove += scrollTop
-      spaceBelow += scrollBottom
-    }
-  } else {
-    // Usar viewport como referencia (comportamiento original mejorado)
-    const viewportHeight = window.innerHeight
-    spaceAbove = triggerRect.top
-    spaceBelow = viewportHeight - triggerRect.bottom
-  }
-  
-  return {
-    spaceAbove: Math.max(0, spaceAbove),
-    spaceBelow: Math.max(0, spaceBelow),
-    safetyMargin
-  }
-}
-
 interface SelectContentProps {
   children: React.ReactNode
 }
 
 export const SelectContent = memo(function SelectContent({ children }: SelectContentProps) {
-  const { open, onOpenChange } = useSelectContext()
+  const { open, onOpenChange, direction, calculatedDirection } = useSelectContext()
   const contentRef = useRef<HTMLDivElement>(null)
-  const [calculatedOpenUpward, setCalculatedOpenUpward] = useState(false)
-
-  // Lógica mejorada de cálculo de posición
-  useEffect(() => {
-    if (open && contentRef.current) {
-      const content = contentRef.current
-      const selectRoot = content.closest('.select-root') as HTMLElement
-      const trigger = selectRoot?.querySelector('.select-trigger') as HTMLElement
-      
-      if (trigger) {
-        const triggerRect = trigger.getBoundingClientRect()
-        
-        // Buscar contenedor scrollable que pueda afectar la posición
-        const scrollableContainer = findScrollableContainer(trigger)
-        
-        // Obtener altura estimada del contenido
-        const contentHeight = Math.min(240, content.scrollHeight || 240)
-        
-        // Calcular espacios disponibles
-        const { spaceAbove, spaceBelow, safetyMargin } = calculateAvailableSpace(
-          triggerRect, 
-          contentHeight, 
-          scrollableContainer
-        )
-        
-        let shouldOpenUpward = false
-        
-        // Lógica de decisión mejorada
-        if (spaceBelow < contentHeight + safetyMargin) {
-          if (spaceAbove >= contentHeight + safetyMargin) {
-            // Hay suficiente espacio arriba
-            shouldOpenUpward = true
-          } else if (spaceAbove > spaceBelow) {
-            // Poco espacio en ambos lados, pero más arriba
-            shouldOpenUpward = true
-          }
-          // Si hay más espacio abajo, mantener hacia abajo (shouldOpenUpward = false)
-        }
-        
-        setCalculatedOpenUpward(shouldOpenUpward)
-        
-        // Debug log (opcional, remover en producción)
-        if (process.env.NODE_ENV === 'development') {
-          console.log('Select position calculation:', {
-            spaceAbove: Math.round(spaceAbove),
-            spaceBelow: Math.round(spaceBelow),
-            contentHeight,
-            shouldOpenUpward,
-            hasScrollableContainer: !!scrollableContainer,
-            containerType: scrollableContainer?.tagName || 'none'
-          })
-        }
-      }
-    }
-  }, [open])
 
   useEffect(() => {
     if (open) {
@@ -469,68 +548,25 @@ export const SelectContent = memo(function SelectContent({ children }: SelectCon
         }
       }
 
-      // Manejar scroll en contenedores padre para reposicionar
-      const handleScroll = () => {
-        // Recalcular posición cuando hay scroll
-        if (contentRef.current) {
-          const content = contentRef.current
-          const selectRoot = content.closest('.select-root') as HTMLElement
-          const trigger = selectRoot?.querySelector('.select-trigger') as HTMLElement
-          
-          if (trigger) {
-            const triggerRect = trigger.getBoundingClientRect()
-            const scrollableContainer = findScrollableContainer(trigger)
-            const contentHeight = Math.min(240, content.scrollHeight || 240)
-            
-            const { spaceAbove, spaceBelow, safetyMargin } = calculateAvailableSpace(
-              triggerRect, 
-              contentHeight, 
-              scrollableContainer
-            )
-            
-            const shouldOpenUpward = spaceBelow < contentHeight + safetyMargin && spaceAbove >= contentHeight + safetyMargin
-            setCalculatedOpenUpward(shouldOpenUpward)
-          }
-        }
-      }
-
-      // Agregar listeners de scroll a contenedores relevantes
-      const trigger = contentRef.current?.closest('.select-root')?.querySelector('.select-trigger') as HTMLElement
-      if (trigger) {
-        const scrollableContainer = findScrollableContainer(trigger)
-        if (scrollableContainer) {
-          scrollableContainer.addEventListener('scroll', handleScroll, { passive: true })
-        }
-        window.addEventListener('scroll', handleScroll, { passive: true })
-        window.addEventListener('resize', handleScroll, { passive: true })
-      }
-
       document.addEventListener('keydown', handleEscape)
 
       return () => {
         clearTimeout(timeoutId)
         document.removeEventListener('keydown', handleEscape)
-        
-        // Cleanup scroll listeners
-        if (trigger) {
-          const scrollableContainer = findScrollableContainer(trigger)
-          if (scrollableContainer) {
-            scrollableContainer.removeEventListener('scroll', handleScroll)
-          }
-          window.removeEventListener('scroll', handleScroll)
-          window.removeEventListener('resize', handleScroll)
-        }
       }
     }
   }, [open, onOpenChange])
 
   if (!open) return null
 
+  // Usar la dirección pre-calculada
+  const shouldOpenUpward = direction === 'up' || (direction === 'auto' && calculatedDirection === 'up')
+
   return (
     <div
       ref={contentRef}
       className="select-content"
-      data-open-upward={calculatedOpenUpward}
+      data-open-upward={shouldOpenUpward}
       role="listbox"
     >
       {children}
@@ -558,11 +594,18 @@ export const SelectItem = memo(function SelectItem({ value, children, disabled }
     if (typeof children === "string") {
       setSelectedLabel(value, children)
       registerOption(value, children)
-    } else if (React.isValidElement(children) && typeof children.props.children === "string") {
+    } else if (React.isValidElement(children)) {
       // Handle case where children is a React element with string content
-      const label = children.props.children
-      setSelectedLabel(value, label)
-      registerOption(value, label)
+      const props = children.props as { children?: React.ReactNode }
+      if (typeof props.children === "string") {
+        const label = props.children
+        setSelectedLabel(value, label)
+        registerOption(value, label)
+      } else {
+        // Fallback: use value as label
+        setSelectedLabel(value, value)
+        registerOption(value, value)
+      }
     } else {
       // Fallback: use value as label
       setSelectedLabel(value, value)
