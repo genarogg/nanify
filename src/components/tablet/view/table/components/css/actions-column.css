@@ -46,6 +46,18 @@
   background-color: #f1f5f9;
 }
 
+/* WhatsApp button specific styles */
+.action-btn.whatsapp-btn {
+  color: #25d366;
+  border-color: #25d366;
+}
+
+.action-btn.whatsapp-btn:hover {
+  background-color: #25d366;
+  color: white;
+  border-color: #128c7e;
+}
+
 /* Select dropdown styles for table variant */
 .actions-cell .select-root {
   min-width: 170px;
@@ -128,6 +140,15 @@
 .card-action-btn:hover {
   background-color: #e5e7eb;
   color: #374151;
+}
+
+.card-action-btn.whatsapp-btn {
+  color: #25d366;
+}
+
+.card-action-btn.whatsapp-btn:hover {
+  background-color: #25d366;
+  color: white;
 }
 
 /* Responsive styles */

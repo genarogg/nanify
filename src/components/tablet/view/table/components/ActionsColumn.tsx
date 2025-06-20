@@ -1,8 +1,10 @@
 "use client"
 
 import { Copy, Eye, Trash2, FileText, MessageCircle } from "lucide-react"
+import { useState } from "react"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "../../../../ux/select"
 import Switch from "../../../../ux/btns/switch"
+import WhatsAppModal from "./WhatsAppModal"
 import "./css/actions-column.css"
 import EditUsuario from "../../modal-crud/EditUsuario"
 
@@ -14,7 +16,7 @@ interface ActionsColumnProps {
   onEdit?: (item: any) => void
   onReport?: (item: any) => void
   onWhatsApp?: (item: any) => void
-  onUpdateItem?: (itemId: number, updates: any) => void // Nueva prop para actualizar items
+  onUpdateItem?: (itemId: number, updates: any) => void
   showRoleSelect?: boolean
   showStatusSwitch?: boolean
   variant?: "table" | "card"
@@ -49,6 +51,8 @@ export default function ActionsColumn({
     whatsapp: true,
   },
 }: ActionsColumnProps) {
+  const [whatsappModalOpen, setWhatsappModalOpen] = useState(false)
+
   const baseClass = variant === "table" ? "actions-cell" : "card-actions"
   const buttonClass = variant === "table" ? "action-btn" : "card-action-btn"
 
@@ -86,61 +90,85 @@ export default function ActionsColumn({
     }
   }
 
+  // Función para manejar WhatsApp
+  const handleWhatsAppClick = () => {
+    if (onWhatsApp) {
+      onWhatsApp(item)
+    } else {
+      // Usar modal por defecto
+      setWhatsappModalOpen(true)
+    }
+  }
+
   return (
-    <div className={baseClass}>
-      {/* Switch de estado para cards */}
-      {showStatusSwitch && variant === "card" && (
-        <div className="status-switch-container">
-          <Switch isOn={item.status === "ACTIVO"} onToggle={handleStatusToggle} />
-          <span className={`status-text ${item.status === "ACTIVO" ? "active" : "inactive"}`}>
-            {item.status === "ACTIVO" ? "Activo" : "Inactivo"}
-          </span>
+    <>
+      <div className={baseClass}>
+        {/* Switch de estado para cards */}
+        {showStatusSwitch && variant === "card" && (
+          <div className="status-switch-container">
+            <Switch isOn={item.status === "ACTIVO"} onToggle={handleStatusToggle} />
+            <span className={`status-text ${item.status === "ACTIVO" ? "active" : "inactive"}`}>
+              {item.status === "ACTIVO" ? "Activo" : "Inactivo"}
+            </span>
+          </div>
+        )}
+
+        {/* Select de rol */}
+        {showRoleSelect && variant === "table" && (
+          <Select value={item.rol} onValueChange={handleRoleChange}>
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="ADMIN_DACE">Admin DACE</SelectItem>
+              <SelectItem value="ADMIN_FUNDESUR">Admin FUNDESUR</SelectItem>
+              <SelectItem value="SUPER_USUARIO">Super Usuario</SelectItem>
+            </SelectContent>
+          </Select>
+        )}
+
+        {/* Botones de acción */}
+        <div className="action-buttons-container">
+          {visibleActions.duplicate && onDuplicate && (
+            <button className={buttonClass} onClick={() => onDuplicate(item)} title="Duplicar elemento">
+              <Copy size={16} />
+            </button>
+          )}
+          {visibleActions.edit && <EditUsuario user={item} />}
+          {visibleActions.view && onView && (
+            <button className={buttonClass} onClick={handleViewClick} title="Ver detalles del elemento">
+              <Eye size={16} />
+            </button>
+          )}
+          {visibleActions.whatsapp && (
+            <button
+              className={`${buttonClass} whatsapp-btn`}
+              onClick={handleWhatsAppClick}
+              title="Contactar por WhatsApp"
+            >
+              <MessageCircle size={16} />
+            </button>
+          )}
+          {visibleActions.report && onReport && (
+            <button className={buttonClass} onClick={() => onReport(item)} title="Generar reporte">
+              <FileText size={16} />
+            </button>
+          )}
+          {visibleActions.delete && onDelete && (
+            <button className={buttonClass} onClick={() => onDelete(item)} title="Eliminar elemento">
+              <Trash2 size={16} />
+            </button>
+          )}
         </div>
-      )}
-
-      {/* Select de rol */}
-      {showRoleSelect && variant === "table" && (
-        <Select value={item.rol} onValueChange={handleRoleChange}>
-          <SelectTrigger>
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="ADMIN_DACE">Admin DACE</SelectItem>
-            <SelectItem value="ADMIN_FUNDESUR">Admin FUNDESUR</SelectItem>
-            <SelectItem value="SUPER_USUARIO">Super Usuario</SelectItem>
-          </SelectContent>
-        </Select>
-      )}
-
-      {/* Botones de acción */}
-      <div className="action-buttons-container">
-        {visibleActions.duplicate && onDuplicate && (
-          <button className={buttonClass} onClick={() => onDuplicate(item)} title="Duplicar elemento">
-            <Copy size={16} />
-          </button>
-        )}
-        {visibleActions.edit && <EditUsuario user={item} />}
-        {visibleActions.view && onView && (
-          <button className={buttonClass} onClick={handleViewClick} title="Ver detalles del elemento">
-            <Eye size={16} />
-          </button>
-        )}
-        {visibleActions.report && onReport && (
-          <button className={buttonClass} onClick={() => onReport(item)} title="Generar reporte">
-            <FileText size={16} />
-          </button>
-        )}
-        {visibleActions.whatsapp && onWhatsApp && (
-          <button className={buttonClass} onClick={() => onWhatsApp(item)} title="Enviar por WhatsApp">
-            <MessageCircle size={16} />
-          </button>
-        )}
-        {visibleActions.delete && onDelete && (
-          <button className={buttonClass} onClick={() => onDelete(item)} title="Eliminar elemento">
-            <Trash2 size={16} />
-          </button>
-        )}
       </div>
-    </div>
+
+      {/* WhatsApp Modal */}
+      <WhatsAppModal
+        isOpen={whatsappModalOpen}
+        onClose={() => setWhatsappModalOpen(false)}
+        phoneNumber={item.telefono}
+        userName={item.nombre}
+      />
+    </>
   )
 }
