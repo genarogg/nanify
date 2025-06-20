@@ -15,6 +15,19 @@
   flex-wrap: wrap;
 }
 
+/* Box containers */
+.box-left {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.box-right {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
 /* Título principal */
 .table-title {
   font-size: 24px;
@@ -24,7 +37,7 @@
   padding: 0;
 }
 
-/* Development mode user role select */
+/* Development mode user role select
 .dev-user-role-select {
   display: flex;
   align-items: center;
@@ -59,7 +72,7 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.025em;
-}
+} */
 
 /* Indicadores de estado de datos */
 .data-status-indicator {
@@ -143,15 +156,22 @@
     gap: 12px;
   }
 
-  .dev-user-role-select {
+  .box-left {
+    align-self: center;
+  }
+
+  .box-right {
     align-self: flex-end;
+  }
+
+  /* .dev-user-role-select {
     min-width: 100px;
   }
 
   .dev-user-role-select .select-trigger {
     height: 28px;
     font-size: 11px;
-  }
+  } */
 
   .data-status-indicator {
     font-size: 11px;

@@ -2,10 +2,10 @@
 import type React from "react"
 import { useState, useEffect } from "react"
 import { Settings, Eye, EyeOff } from "lucide-react"
-import Modal from "../../../../../ux/modal"
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "../../../../../ux/select"
-import { useTableContext, useTableState } from "../../../../context/TableContext"
-import "./css/table-config-modal.css"
+import Modal from "../../../../../../ux/modal"
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "../../../../../../ux/select"
+import { useTableContext, useTableState } from "../../../../../context/TableContext"
+import "../css/table-config-modal.css"
 
 interface TableConfigModalProps {
   className?: string

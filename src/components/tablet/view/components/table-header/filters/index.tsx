@@ -8,7 +8,7 @@ import "./css/index.css"
 // Importar los componentes de filtros
 import FromToDate from "./FromToDates"
 import { SelectStatus, SelectRol } from "./SelectedFilter"
-import TableConfigModal from "./TableConfigModal"
+// import TableConfigModal from "./TableConfigModal"
 
 interface FilterToggleButtonProps {
   children: React.ReactNode
@@ -230,8 +230,8 @@ const TableFilters: React.FC<TableFiltersProps> = ({
         return <SelectRol />
       case "dates":
         return <FromToDate />
-      case "config":
-        return <TableConfigModal />
+      // case "config":
+      //   return <TableConfigModal />
       default:
         return null
     }
