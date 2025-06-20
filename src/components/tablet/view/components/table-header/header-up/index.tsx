@@ -12,7 +12,7 @@ interface HeaderUpProps {
 }
 
 const HeaderUp: React.FC<HeaderUpProps> = () => {
-    const { dataLoading, dataError, refetchData, userRole, updateUserRole } = useTableState()
+    const { dataLoading, dataError, refetchData } = useTableState()
 
     const isDevelopment = process.env.NODE_ENV === "development"
 
@@ -22,29 +22,28 @@ const HeaderUp: React.FC<HeaderUpProps> = () => {
             <div className="table-header-title-section">
                 <div className="title-and-role-container">
                     <div className="box-left">
-                        <h2 className="table-title">Usuarios</h2>
+                        <h2 className="table-title">Table Example</h2>
+
+                        {dataLoading && <DataStatusIndicator type="loading" message="Cargando datos..." />}
+
+                        {dataError && (
+                            <DataStatusIndicator
+                                type="error"
+                                message={`Error: ${dataError}`}
+                                onRetry={refetchData}
+                            />
+                        )}
                     </div>
 
                     <div className="box-right">
                         {isDevelopment && (
-                            <SelectRol
-                                userRole={userRole}
-                                onRoleChange={(role) => updateUserRole(role)}
-                            />
+                            <SelectRol />
                         )}
                         <TableConfigModal />
                     </div>
                 </div>
 
-                {dataLoading && <DataStatusIndicator type="loading" message="Cargando datos..." />}
 
-                {dataError && (
-                    <DataStatusIndicator
-                        type="error"
-                        message={`Error: ${dataError}`}
-                        onRetry={refetchData}
-                    />
-                )}
             </div>
             <div className="table-header-divider"></div>
         </>

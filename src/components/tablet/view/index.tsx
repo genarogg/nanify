@@ -27,15 +27,7 @@ export default function TableContent() {
       {hasFilteredItems && (
         <>
           {responsiveViewState.viewMode === "table" ? <TableView /> : <TableCardView />}
-
-          {/* Usar el nuevo componente de paginación con callbacks opcionales */}
-          <TablePagination
-      
-          
-            showEllipsis={true}
-      
-          />
-
+          <TablePagination showEllipsis={true} />
           <TableFooter />
         </>
       )}

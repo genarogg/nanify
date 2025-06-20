@@ -2,18 +2,14 @@
 
 import type React from "react"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "../../../../../../ux/select"
+import { useTableState } from "../../../../../context/TableContext"
 
-interface SelectRolProps {
-  userRole: "super" | "asistente"
-  onRoleChange: (role: "super" | "asistente") => void
-}
-
-const SelectRol: React.FC<SelectRolProps> = ({ userRole, onRoleChange }) => {
-
+const SelectRol: React.FC = () => {
+  const { userRole, updateUserRole } = useTableState()
 
   return (
     <div className="dev-user-role-select">
-      <Select value={userRole} onValueChange={(value) => onRoleChange(value as "super" | "asistente")}>
+      <Select value={userRole} onValueChange={(value) => updateUserRole(value as "super" | "asistente")}>
         <SelectTrigger>
           <SelectValue />
         </SelectTrigger>
@@ -22,7 +18,7 @@ const SelectRol: React.FC<SelectRolProps> = ({ userRole, onRoleChange }) => {
           <SelectItem value="asistente">Asistente</SelectItem>
         </SelectContent>
       </Select>
-     </div>
+    </div>
   )
 }
 
