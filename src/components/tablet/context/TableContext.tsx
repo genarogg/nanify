@@ -3,9 +3,9 @@
 import type React from "react"
 import { createContext, useContext, useState, useMemo, type ReactNode, useCallback, useEffect } from "react"
 import { useResponsiveView, type UseResponsiveViewReturn } from "../fn/useResponsiveView"
-import { defaultData } from "../fn/defaultData"
+
 import type { DataTable, TableConfig } from "./types"
-import { useTableData } from "./hooks/useTableData"
+import { useTableData } from "./data/useTableData"
 
 // Tipo genérico para filtros
 interface GenericFilter {
@@ -202,8 +202,8 @@ export const TableProvider: React.FC<TableProviderProps> = ({ children }) => {
     refetch: refetchData,
     setData: setItems,
   } = useTableData({
-    apiUrl: undefined,
-    initialData: defaultData,
+   
+    initialData: [],
     autoFetch: true,
     fetchOnMount: true,
   })

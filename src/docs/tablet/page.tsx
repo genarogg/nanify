@@ -42,42 +42,42 @@ const page: React.FC<pageProps> = () => {
             </div>
 
             {/* Ejemplo 2: Con título personalizado */}
-            <div style={{ marginBottom: "40px" }}>
+            {/* <div style={{ marginBottom: "40px" }}>
                 <h2 style={{ marginBottom: "20px" }}>Tabla con Título Personalizado</h2>
                 <Tablet
 
                 />
-            </div>
+            </div> */}
 
             {/* Ejemplo 3: Con callbacks personalizados */}
-            <div style={{ marginBottom: "40px" }}>
+            {/* <div style={{ marginBottom: "40px" }}>
                 <h2 style={{ marginBottom: "20px" }}>Tabla con Callbacks Personalizados</h2>
                 <Tablet
 
                 />
-            </div>
+            </div> */}
 
             {/* Ejemplo 4: Con datos iniciales personalizados */}
-            <div style={{ marginBottom: "40px" }}>
+            {/* <div style={{ marginBottom: "40px" }}>
                 <h2 style={{ marginBottom: "20px" }}>Tabla con Datos Personalizados</h2>
                 <Tablet
 
                 />
-            </div>
+            </div> */}
 
             {/* Ejemplo 5: Con API (si tienes una) */}
-            <div style={{ marginBottom: "40px" }}>
+            {/* <div style={{ marginBottom: "40px" }}>
                 <h2 style={{ marginBottom: "20px" }}>Tabla con API</h2>
                 <Tablet
 
                 />
-            </div>
+            </div> */}
 
             {/* Ejemplo 6: Configuración mínima */}
-            <div>
+            {/* <div>
                 <h2 style={{ marginBottom: "20px" }}>Tabla Solo con Título</h2>
                 <Tablet />
-            </div>
+            </div> */}
         </main>
     );
 }

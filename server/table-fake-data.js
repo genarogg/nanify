@@ -7,7 +7,7 @@ const roles = [
   { name: 'PENDIENTE', color: '#FFC107' }
 ];
 
-const estatus = [
+const status = [
   { name: 'ACTIVO', color: '#2196F3' },
   { name: 'INACTIVO', color: '#9E9E9E' }
 ];
@@ -15,21 +15,28 @@ const estatus = [
 function generateUser(id) {
   return {
     id: id,
-    name: faker.person.firstName(),
-    lastName: faker.person.lastName(),
-    phones: faker.phone.number(),
+    nombre: faker.person.firstName() + " " + faker.person.lastName(),
     correo: faker.internet.email(),
+    telefono: faker.phone.number(),
     cedula: faker.string.alphanumeric(8).toUpperCase() + faker.string.alpha(1).toUpperCase(),
     rol: faker.helpers.arrayElement(roles).name,
-    estatus: faker.helpers.arrayElement(estatus).name,
+    status: faker.helpers.arrayElement(status).name,
   };
 }
 
 const data = {
-  usuarios: Array.from({ length: 100 }, (_, i) => generateUser(i + 1)),
+  usuarios: {
+    config: {
+      pagination: {
+        defaultLimit: 10,
+        maxLimit: 45
+      }
+    },
+    data: Array.from({ length: 45 }, (_, i) => generateUser(i + 1))
+  },
   rol: roles,
-  estatus: estatus
+  status: status
 };
 
-fs.writeFileSync('./server/table-fake-data.json', JSON.stringify(data, null, 2));
-console.log('db.json generado exitosamente con 100 usuarios, roles y estatus!');
+fs.writeFileSync('./server/db.json', JSON.stringify(data, null, 2));
+console.log('db.json generado exitosamente con 100 usuarios, roles, estatus y config!');

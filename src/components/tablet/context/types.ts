@@ -1,4 +1,5 @@
 import type React from "react"
+
 interface DataTable {
   id: number
   nombre: string
@@ -6,7 +7,19 @@ interface DataTable {
   telefono: string
   cedula: string
   rol: string
+  status: string  // Agregada esta propiedad que faltaba
   [key: string]: any
+}
+
+// Nuevo tipo para la respuesta completa de la API
+interface ApiResponse {
+  config: {
+    pagination: {
+      defaultLimit: number
+      maxLimit: number
+    }
+  }
+  data: DataTable[]
 }
 
 interface TableColumn {
@@ -75,4 +88,4 @@ interface TableState {
   isUsingFallback: boolean
 }
 
-export type { DataTable, TableColumn, TableConfig, TableState }
+export type { DataTable, ApiResponse, TableColumn, TableConfig, TableState }
