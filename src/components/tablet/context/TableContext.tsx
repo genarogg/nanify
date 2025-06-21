@@ -1,10 +1,11 @@
 "use client"
 
-import type React from "react"
 import { createContext, useContext, useState, useMemo, type ReactNode, useCallback, useEffect } from "react"
+
 import { useResponsiveView, type UseResponsiveViewReturn } from "../fn/useResponsiveView"
 
 import type { DataTable, TableConfig } from "./types"
+
 import { useTableData } from "./data/useTableData"
 
 // Tipo genérico para filtros
@@ -15,11 +16,11 @@ interface GenericFilter {
 // Tipos para el estado de la tabla
 interface TableState {
   // Estados principales
-  items: DataTable[]
-  searchTerm: string
-  currentPage: number
-  selectedItems: number[]
-  filteredItems: DataTable[]
+  items: DataTable[] // datos a renderizar
+  searchTerm: string // lo que se busca en la tabla
+  currentPage: number // página actual de la tabla // comienza en 1
+  selectedItems: number[] // IDs de los items seleccionados
+  filteredItems: DataTable[] // items filtrados según búsqueda y filtros aplicados
   currentItems: DataTable[]
   totalPages: number
 
@@ -201,12 +202,7 @@ export const TableProvider: React.FC<TableProviderProps> = ({ children }) => {
     error: dataError,
     refetch: refetchData,
     setData: setItems,
-  } = useTableData({
-   
-    initialData: [],
-    autoFetch: true,
-    fetchOnMount: true,
-  })
+  } = useTableData()
 
   // Estados de la tabla
   const [searchTerm, setSearchTerm] = useState("")
@@ -494,45 +490,7 @@ export const TableProvider: React.FC<TableProviderProps> = ({ children }) => {
     setItems((prev) => prev.map((item) => (selectedItems.includes(item.id) ? { ...item, status: newStatus } : item)))
   }
 
-  // Generar números de página
-  const getPageNumbers = (): (number | string)[] => {
-    const pageNumbers: (number | string)[] = []
-    const maxPagesToShow = 5
 
-    if (totalPages <= maxPagesToShow) {
-      for (let i = 1; i <= totalPages; i++) {
-        pageNumbers.push(i)
-      }
-    } else {
-      pageNumbers.push(1)
-      let startPage = Math.max(2, currentPage - 1)
-      let endPage = Math.min(totalPages - 1, currentPage + 1)
-
-      if (currentPage <= 3) {
-        endPage = Math.min(totalPages - 1, 4)
-      }
-
-      if (currentPage >= totalPages - 2) {
-        startPage = Math.max(2, totalPages - 3)
-      }
-
-      if (startPage > 2) {
-        pageNumbers.push("...")
-      }
-
-      for (let i = startPage; i <= endPage; i++) {
-        pageNumbers.push(i)
-      }
-
-      if (endPage < totalPages - 1) {
-        pageNumbers.push("...")
-      }
-
-      pageNumbers.push(totalPages)
-    }
-
-    return pageNumbers
-  }
 
   const getSelectedItems = () => {
     return items.filter((item) => selectedItems.includes(item.id))
@@ -584,7 +542,7 @@ export const TableProvider: React.FC<TableProviderProps> = ({ children }) => {
   }
 
   // Estado de la tabla
-  const tableState: TableState = {
+  const tableState: any = {
     items,
     searchTerm,
     currentPage,
@@ -597,7 +555,7 @@ export const TableProvider: React.FC<TableProviderProps> = ({ children }) => {
     goToPage,
     goToNextPage,
     goToPreviousPage,
-    getPageNumbers,
+
     handleSelectItem,
     handleSelectAll,
     clearSelection,
