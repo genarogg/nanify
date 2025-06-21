@@ -14,8 +14,8 @@ import "./css/index.css"
 export default function TableContent() {
   const { tableState, responsiveViewState } = useTableContext()
   const { isEmpty } = usePagination()
-
   const { currentItems } = tableState
+
 
   // Calculamos si hay elementos filtrados basándonos en si currentItems tiene elementos
   const hasFilteredItems = currentItems && currentItems.length > 0
