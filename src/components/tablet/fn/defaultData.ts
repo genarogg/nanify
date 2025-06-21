@@ -58,4 +58,6 @@ const defaultData: DataTable[] = [
     })),
 ]
 
+console.log("Default data loaded:", defaultData.length, "items");
+
 export { defaultData }
