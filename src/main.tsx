@@ -1,6 +1,9 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+
+
 import AuthProvider from '@context/AuthContext';
 
 import "./sass/style.scss"
@@ -104,7 +107,7 @@ createRoot(document.getElementById('root')!).render(
           {/* Tablet page */}
 
           <Route path="/table" element={<TabletPage />} />
-          
+
           <Route path="/table-my" element={<TabletMyPage />} />
 
           <Route path="/layout/clean" element={<LayoutClean />} />
@@ -114,6 +117,7 @@ createRoot(document.getElementById('root')!).render(
           {/* Fallback route for unknown paths */}
 
         </Routes>
+
       </AuthProvider>
     </BrowserRouter>
   </StrictMode>,

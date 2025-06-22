@@ -27,7 +27,7 @@ interface GlobalZustanProps {
     setData: (value: Partial<DataState>) => void;
     theme: ThemeState;
 
-    API: string;
+ 
     roles: any;
 
     getSearch: () => string;
@@ -49,7 +49,7 @@ interface GlobalZustanProps {
 
 const useGlobalZustand = create<GlobalZustanProps>()(
     devtools((set, get) => ({
-        API: "http://localhost:3001/usuarios",
+
 
         theme: {
             dark: false

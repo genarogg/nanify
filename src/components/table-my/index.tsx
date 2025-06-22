@@ -2,7 +2,9 @@
 import React, { useEffect } from "react";
 import TableHeader from "./view/components/table-header";
 import useConfigured from "./context/useConfigured";
+
 import { useGlobalZustand } from "./context/Global";
+import useData from "./context/data/useData";
 
 import TableView from "./view/components/table-body/table-view";
 
@@ -10,7 +12,11 @@ const HolaMundo: React.FC = () => {
 
     const { roles, configured, setConfigured } = useGlobalZustand();
 
+    const { fetchData } = useData();
+
     useEffect(() => {
+        fetchData()
+
         const rolUser = configured.rolUser
         const config = useConfigured({ rolUser, roles });
 

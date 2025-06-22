@@ -42,7 +42,7 @@ export default function TableView() {
   //   tableState.handleSelectItem(itemId)
   // }
 
-  const { configured } = useGlobalZustand()
+  const { configured, data } = useGlobalZustand()
 
   return (
     <>
@@ -76,9 +76,9 @@ export default function TableView() {
             </tr>
           </thead>
           <tbody style={{ minHeight: "320px", position: "relative" }}>
-            {/* {currentItems.map((item: any, index: any) => (
+            {data.items.map((item: any, index: any) => (
               <tr key={item.id} className={index % 2 === 0 ? "row-even" : "row-odd"}>
-                {select && (
+                {/* {select && (
                   <td className="select-column">
                     <button
                       className={`select-btn ${selectedItems.includes(item.id) ? "selected" : ""}`}
@@ -88,8 +88,8 @@ export default function TableView() {
                       {selectedItems.includes(item.id) && <Check size={14} />}
                     </button>
                   </td>
-                )}
-                {columns
+                )} */}
+                {/* {columns
                   .filter((column) => !column.hidden)
                   .map((column) => {
                     if (column.id === "acciones") {
@@ -108,28 +108,28 @@ export default function TableView() {
                           />
                         </td>
                       )
-                    }
+                    } */}
 
-                    return (
+                    {/* return (
                       <td key={column.id} className={`${column.id}-column`}>
                         {column.id === "nombre" && <span className="name-cell">{item[column.accessor]}</span>}
-                        {column.id === "correo" && <span className="email-cell">{item[column.accessor]}</span>}
+                        {column.id === "correo" && <span className="email-cell">{item[column.accessor]}</span>} */}
                         {/* {column.id === "rol" && (
                           <BadgeWrapper type="role" value={item.rol} />
                         )}
                         {column.id === "status" && (
                           <BadgeWrapper type="status" value={item.status} />
-                        )} 
-                        {column.id !== "nombre" &&
+                        )}  */}
+                        {/* {column.id !== "nombre" &&
                           column.id !== "correo" &&
                           column.id !== "rol" &&
                           column.id !== "status" &&
                           item[column.accessor]}
                       </td>
                     )
-                  })}
+                  })} */}
               </tr>
-            ))} */}
+            ))}
           </tbody>
         </table>
       </div>
