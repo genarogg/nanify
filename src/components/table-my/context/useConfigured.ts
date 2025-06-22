@@ -1,37 +1,50 @@
-import { useGlobalContext } from "./Global";
+import { useGlobalZustand } from "./Global";
+
+interface Column {
+    name: string;
+    filtro?: boolean;
+}
 
 const useConfigured = () => {
-    const { configured, setConfigured } = useGlobalContext();
+    const { configured, setConfigured, setData } = useGlobalZustand();
 
     let rolUser = configured?.rol || "dev";
-    let columns: { name: string }[] = [];
+    let columns: Column[] = [];
 
     switch (rolUser) {
         case "super":
             columns = [
-                { name: "Nombre" },
-                { name: "Email" },
-                { name: "Rol" },
-                { name: "Acciones" }
+                { name: "Nombre", filtro: true },
+                { name: "Email", filtro: true },
+                { name: "Rol", filtro: true },
+                { name: "Acciones", filtro: true }
             ];
             break;
+
         case "estandar":
             columns = [
-                { name: "Nombre" },
-                { name: "Email" },
-                { name: "Rol" },
-                { name: "Acciones" }
+                { name: "Nombre", filtro: true },
+                { name: "Email", filtro: true },
+                { name: "Rol", filtro: true },
+                { name: "Acciones", filtro: true }
             ];
             break;
 
         case "dev":
             columns = [
-                { name: "Nombre" },
-                { name: "Email" },
-                { name: "Rol" },
-                { name: "Acciones" }
+                { name: "Nombre", filtro: true },
+                { name: "Email", filtro: true },
+                { name: "Rol", filtro: true },
+                { name: "Acciones", filtro: true }
             ];
             break;
+        default:
+            columns = [
+                { name: "Nombre", filtro: true },
+                { name: "Email", filtro: true },
+                { name: "Rol", filtro: true },
+                { name: "Acciones", filtro: true }
+            ];
     }
 
     const confiugracion = {
@@ -40,6 +53,8 @@ const useConfigured = () => {
     };
 
     setConfigured(confiugracion);
+
+    setData({ filter: columns });
 };
 
 export default useConfigured

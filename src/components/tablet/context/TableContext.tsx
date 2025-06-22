@@ -16,11 +16,11 @@ interface GenericFilter {
 // Tipos para el estado de la tabla
 interface TableState {
   // Estados principales
-  items: DataTable[] // datos a renderizar
-  searchTerm: string // lo que se busca en la tabla
-  currentPage: number // página actual de la tabla // comienza en 1
-  selectedItems: number[] // IDs de los items seleccionados
-  filteredItems: DataTable[] // items filtrados según búsqueda y filtros aplicados
+  items: DataTable[] 
+  searchTerm: string 
+  currentPage: number 
+  selectedItems: number[] 
+  filteredItems: DataTable[] 
   currentItems: DataTable[]
   totalPages: number
 

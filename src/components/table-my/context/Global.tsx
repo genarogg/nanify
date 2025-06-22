@@ -1,50 +1,42 @@
-import React, { createContext, useContext, useState } from "react";
+import { create } from 'zustand';
 
+interface DataState {
+    items: any[];
+    search: string;
+    filter: any[];
+    page: number;
+    totalPages: number;
+    loading: boolean;
+}
 
-/** como funcionan los context en react
-* con el GlobalProvider podemos envolver nuestra aplicacion y proveer un contexto global
-* en el GlobalContext definimos los valores que queremos compartir
-* useGlobalContext es un hook que nos permite acceder a los valores del contexto
-*/
-
-interface GlobalContextProps {
+interface GlobalZustanProps {
     configured: any;
-    setConfigured: any;
-    dataTablet: any,
-    setDataTablet: any;
+    setConfigured: (value: any) => void;
+    data: DataState;
+    setData: (value: Partial<DataState>) => void;
+    API: string;
 }
 
-const GlobalContext = createContext<GlobalContextProps | undefined>(undefined);
+const useGlobalZustand = create<GlobalZustanProps>((set) => {
+    return {
+        API: "http://localhost:3001/usuarios",
+        configured: null,
+        data: {
+            items: [],
+            search: "",
+            filter: [],
+            page: 1,
+            totalPages: 1,
+            loading: true,
+            error: null,
 
-const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [configured, setConfigured] = useState<any>();
-    const [dataTablet, setDataTablet] = useState<any[]>([]);
-    
-
-    const value: GlobalContextProps = {
-        configured,
-        setConfigured,
-        dataTablet,
-        setDataTablet
+        },
+        setConfigured: (value) => set({ configured: value }),
+        
+        setData: (value) => set((state) => ({
+            data: { ...state.data, ...value }
+        })),
     };
+});
 
-    return (
-        <GlobalContext.Provider value={value}>
-            {children}
-        </GlobalContext.Provider>
-    );
-};
-
-const useGlobalContext = () => {
-    const context = useContext(GlobalContext);
-    if (!context) {
-        throw new Error("useGlobalContext debe usarse dentro de un GlobalProvider");
-    }
-    return context;
-};
-
-export {
-    GlobalProvider,
-    useGlobalContext,
-    
-}
+export { useGlobalZustand };

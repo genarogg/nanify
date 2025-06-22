@@ -1,5 +1,6 @@
 import useConfigured from "./useConfigured";
-import { useGlobalContext } from "./Global";
+import useData from "./data/useData";
+import { useGlobalZustand } from "./Global";
 
 const inicializarContext = () => {
     useConfigured()
@@ -7,5 +8,6 @@ const inicializarContext = () => {
 
 export {
     inicializarContext,
-    useGlobalContext
+    useGlobalZustand,
+    useData
 }
