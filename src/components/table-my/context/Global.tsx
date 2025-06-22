@@ -3,6 +3,7 @@ import { devtools } from 'zustand/middleware';
 
 interface DataState {
     items: any[];
+    selectItems: any[];
     filterValue: {
         search: string;
         date: {
@@ -26,8 +27,6 @@ interface GlobalZustanProps {
     data: DataState;
     setData: (value: Partial<DataState>) => void;
     theme: ThemeState;
-
- 
     roles: any;
 
     getSearch: () => string;
@@ -45,11 +44,20 @@ interface GlobalZustanProps {
     // Métodos para configured
     getCuadricula: () => boolean;
     setCuadricula: (cuadricula: boolean) => void;
+
+    // Métodos para manejo de selección
+    getSelectItems: () => any[];
+    setSelectItems: (items: any[]) => void;
+    toggleSelectItem: (item: any, uniqueKey?: string) => void;
+    selectAllItems: () => void;
+    clearSelection: () => void;
+    isItemSelected: (item: any, uniqueKey?: string) => boolean;
+    getSelectAllState: () => 'none' | 'some' | 'all';
+    toggleAllSelect: () => void;
 }
 
 const useGlobalZustand = create<GlobalZustanProps>()(
     devtools((set, get) => ({
-
 
         theme: {
             dark: false
@@ -58,7 +66,7 @@ const useGlobalZustand = create<GlobalZustanProps>()(
         configured: {
             rolUser: "DEV",
             cuadricula: false,
-            select: false,
+            select: true,
             columns: [],
             rowActions: [],
             headerFilter: [],
@@ -73,7 +81,7 @@ const useGlobalZustand = create<GlobalZustanProps>()(
         data: {
             items: [],
             selectItems: [],
-            
+
             filterValue: {
                 search: '',
                 date: {
@@ -215,6 +223,104 @@ const useGlobalZustand = create<GlobalZustanProps>()(
             false,
             'setCuadricula'
         ),
+
+        // MÉTODOS PARA MANEJO DE SELECCIÓN
+
+        // Función para obtener los elementos seleccionados
+        getSelectItems: () => get().data.selectItems,
+
+        // Función para establecer directamente los elementos seleccionados
+        setSelectItems: (items: any[]) => set(
+            (state) => ({
+                data: {
+                    ...state.data,
+                    selectItems: items
+                }
+            }),
+            false,
+            'setSelectItems'
+        ),
+
+        // Función principal para alternar selección de un elemento
+        toggleSelectItem: (item: any, uniqueKey: string = 'id') => set(
+            (state) => {
+                const currentSelectItems = state.data.selectItems;
+                const itemExists = currentSelectItems.some(selectedItem =>
+                    selectedItem[uniqueKey] === item[uniqueKey]
+                );
+
+                let newSelectItems;
+                if (itemExists) {
+                    // Si existe, lo eliminamos (deseleccionar)
+                    newSelectItems = currentSelectItems.filter(selectedItem =>
+                        selectedItem[uniqueKey] !== item[uniqueKey]
+                    );
+                } else {
+                    // Si no existe, lo agregamos (seleccionar)
+                    newSelectItems = [...currentSelectItems, item];
+                }
+
+                return {
+                    data: {
+                        ...state.data,
+                        selectItems: newSelectItems
+                    }
+                };
+            },
+            false,
+            'toggleSelectItem'
+        ),
+
+        toggleAllSelect: () => set((state) => {
+            const allSelected = state.data.selectItems.length === state.data.items.length && state.data.items.length > 0;
+            return {
+                data: {
+                    ...state.data,
+                    selectItems: allSelected ? [] : [...state.data.items]
+                }
+            };
+        }, false, 'toggleAllSelect'),
+
+        // Función para seleccionar todos los elementos
+        selectAllItems: () => set(
+            (state) => ({
+                data: {
+                    ...state.data,
+                    selectItems: [...state.data.items]
+                }
+            }),
+            false,
+            'selectAllItems'
+        ),
+
+        // Función para limpiar toda la selección
+        clearSelection: () => set(
+            (state) => ({
+                data: {
+                    ...state.data,
+                    selectItems: []
+                }
+            }),
+            false,
+            'clearSelection'
+        ),
+
+        // Función para verificar si un elemento está seleccionado
+        isItemSelected: (item: any, uniqueKey: string = 'id') => {
+            const selectItems = get().data.selectItems;
+            return selectItems.some(selectedItem =>
+                selectedItem[uniqueKey] === item[uniqueKey]
+            );
+        },
+
+        getSelectAllState: () => {
+            const selectItems = get().getSelectItems();
+            const totalItems = get().data.items;
+
+            if (selectItems.length === 0) return 'none';
+            if (selectItems.length === totalItems.length && totalItems.length > 0) return 'all';
+            return 'some';
+        },
 
     }),
         {

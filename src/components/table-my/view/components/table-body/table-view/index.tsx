@@ -42,7 +42,18 @@ export default function TableView() {
   //   tableState.handleSelectItem(itemId)
   // }
 
-  const { configured, data } = useGlobalZustand()
+  const {
+    configured,
+    data,
+    getSelectAllState,
+    toggleAllSelect,
+    isItemSelected,
+    toggleSelectItem
+  } = useGlobalZustand()
+
+  console.log(data.items)
+
+
 
   return (
     <>
@@ -55,18 +66,18 @@ export default function TableView() {
           }>
           <thead>
             <tr>
-              {/* {configured.select && (
+              {configured.select && (
                 <th className="select-column">
                   <button
                     className={`select-btn master-select ${getSelectAllState()}`}
-                    onClick={handleSelectAll}
+                    onClick={() => { toggleAllSelect() }}
                     title="Seleccionar todos"
                   >
                     {getSelectAllState() === "all" && <Check size={14} />}
                     {getSelectAllState() === "some" && <Minus size={14} />}
                   </button>
                 </th>
-              )} */}
+              )}
               {configured.columns
                 .map((column: any, index: any) => (
                   <th key={index} className={`col-${index}`}>
@@ -78,64 +89,52 @@ export default function TableView() {
           <tbody style={{ minHeight: "320px", position: "relative" }}>
             {data.items.map((item: any, index: any) => (
               <tr key={item.id} className={index % 2 === 0 ? "row-even" : "row-odd"}>
-                {/* {select && (
+                {configured.select && (
                   <td className="select-column">
                     <button
-                      className={`select-btn ${selectedItems.includes(item.id) ? "selected" : ""}`}
-                      onClick={() => handleItemSelect(item.id)}
+                      className={`select-btn ${isItemSelected(item) ? "selected" : ""}`}
+                      onClick={() => toggleSelectItem(item)}
                       title="Seleccionar elemento"
                     >
-                      {selectedItems.includes(item.id) && <Check size={14} />}
+                      {isItemSelected(item) && <Check size={14} />}
                     </button>
                   </td>
-                )} */}
-                {/* {columns
-                  .filter((column) => !column.hidden)
+                )}
+
+                {data.items
+
                   .map((column) => {
                     if (column.id === "acciones") {
                       return (
                         <td key={column.id} className="acciones-column">
-                          <ActionsColumn
-                            item={item}
-                            onDuplicate={handleDuplicate}
-                            onView={handleView}
-                            onDelete={handleDelete}
-                            onEdit={handleEdit}
-                            onUpdateItem={tableState.updateItem}
-                            showRoleSelect={true}
-                            showStatusSwitch={false}
-                            variant="table"
-                          />
+
                         </td>
                       )
-                    } */}
+                    }
 
-                    {/* return (
+                    return (
                       <td key={column.id} className={`${column.id}-column`}>
                         {column.id === "nombre" && <span className="name-cell">{item[column.accessor]}</span>}
-                        {column.id === "correo" && <span className="email-cell">{item[column.accessor]}</span>} */}
+                        {column.id === "correo" && <span className="email-cell">{item[column.accessor]}</span>}
                         {/* {column.id === "rol" && (
                           <BadgeWrapper type="role" value={item.rol} />
                         )}
                         {column.id === "status" && (
                           <BadgeWrapper type="status" value={item.status} />
                         )}  */}
-                        {/* {column.id !== "nombre" &&
+                        {column.id !== "nombre" &&
                           column.id !== "correo" &&
                           column.id !== "rol" &&
                           column.id !== "status" &&
                           item[column.accessor]}
                       </td>
                     )
-                  })} */}
+                  })}
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-
-      {/* Modal de vista de usuario */}
-      {/* <ViewUserModal isOpen={viewModalOpen} onClose={closeViewModal} user={selectedItemForView} /> */}
     </>
   )
 }

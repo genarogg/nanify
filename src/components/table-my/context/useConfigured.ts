@@ -6,6 +6,9 @@ const useConfigured = ({ rolUser, roles }: any) => {
     // Configuración base
     let config = {
         rolUser: rolUser,
+        select: true,
+        cuadricula: false,
+
         columns: [
             { column: "id" },
             { column: "Nombre" },
@@ -29,7 +32,7 @@ const useConfigured = ({ rolUser, roles }: any) => {
             break
     }
 
-    return config
+    return config;
 };
 
 export default useConfigured;

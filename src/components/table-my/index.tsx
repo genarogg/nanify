@@ -12,10 +12,10 @@ const HolaMundo: React.FC = () => {
 
     const { roles, configured, setConfigured } = useGlobalZustand();
 
-    const { fetchData } = useData();
+    const { initialData } = useData();
 
     useEffect(() => {
-        fetchData()
+        initialData()
 
         const rolUser = configured.rolUser
         const config = useConfigured({ rolUser, roles });

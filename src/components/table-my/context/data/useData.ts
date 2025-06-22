@@ -7,7 +7,7 @@ const useData = () => {
     const { setData } = useGlobalZustand();
     const API = "http://localhost:3001/usuarios";
 
-    const fetchData = useCallback(async (page: number = 1, limit: number = 20) => {
+    const initialData = useCallback(async (page: number = 1, limit: number = 20) => {
         setData({ loading: true });
         try {
             const res = await fetch(`${API}?_page=${page}&_limit=${limit}`);
@@ -23,7 +23,7 @@ const useData = () => {
         }
     }, [setData]);
 
-    return { fetchData };
+    return { initialData };
 };
 
 export default useData;
