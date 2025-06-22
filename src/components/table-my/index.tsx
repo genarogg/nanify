@@ -8,19 +8,20 @@ import TableHeader from "./view/components/table-header";
 interface HolaMundoProps { }
 
 const HolaMundo: React.FC<HolaMundoProps> = () => {
-    const { configured } = useGlobalZustand();
+    const { configured, getInicializado } = useGlobalZustand();
     const { data, fetchData } = useData();
 
-    if (!configured) {
+    if (!getInicializado()) {
         inicializarContext()
         return
     }
 
-    console.log("HolaMundo", configured, data, useData);
 
-    useEffect(() => {
-        fetchData(1, 20);
-    }, [fetchData]);
+    // useEffect(() => {
+    //     fetchData(1, 20);
+    // }, [fetchData]);
+
+    console.log("indexTablet", configured, data);
 
     return (
         <div className="table-management-container">

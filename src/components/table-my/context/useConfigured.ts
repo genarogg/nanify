@@ -1,62 +1,39 @@
 import { useGlobalZustand } from "./Global";
 
-interface Column {
-    name: string;
-    filtro?: boolean;
-}
-
 const useConfigured = () => {
-    const { configured, setConfigured, setData, roles } = useGlobalZustand();
+    const { configured, setConfigured, roles, setInicializado } = useGlobalZustand();
 
-    let rolUser = configured?.rol;
-    let columns: Column[] = [];
+    const rolUser = configured?.rol;
+    const { DEV, SUPER, ESTANDAR } = roles;
 
-    let { DEV, SUPER, ESTANDAR } = roles
+
+    // Configuración base
+    let config = {
+        rolUser: rolUser,
+        columns: [
+            { name: "id" },
+            { name: "Nombre" },
+            { name: "Correo" },
+            { name: "Teléfono" },
+            { name: "Cédula" },
+            { name: "Acciones" }
+        ],
+        rowActions: [{ name: "Ver", action: "view" }],
+        headerFilter: [{}],
+        headerActions: [{}],
+        footerActions: [{}],
+    };
 
     switch (rolUser) {
         case SUPER:
-            columns = [
-                { name: "Nombre", filtro: true },
-                { name: "Email", filtro: true },
-                { name: "Rol", filtro: true },
-                { name: "Acciones", filtro: true }
-            ];
-            break;
-
-        case ESTANDAR:
-            columns = [
-                { name: "Nombre", filtro: true },
-                { name: "Email", filtro: true },
-                { name: "Rol", filtro: true },
-                { name: "Acciones", filtro: true }
-            ];
-            break;
-
         case DEV:
-            columns = [
-                { name: "Nombre", filtro: true },
-                { name: "Email", filtro: true },
-                { name: "Rol", filtro: true },
-                { name: "Acciones", filtro: true }
-            ];
-            break;
-        default:
-            columns = [
-                { name: "Nombre", filtro: true },
-                { name: "Email", filtro: true },
-                { name: "Rol", filtro: true },
-                { name: "Acciones", filtro: true }
-            ];
+        case ESTANDAR:
+            config.columns.splice(4, 0, { name: "Rol" });
+            config.columns.splice(6, 0, { name: "Estado" });
+            break
     }
-
-    const confiugracion = {
-        rolUser,
-        columns
-    };
-
-    setConfigured(confiugracion);
-
-    setData({ filter: columns });
+    setInicializado(true)
+    setConfigured(config);
 };
 
-export default useConfigured
+export default useConfigured;

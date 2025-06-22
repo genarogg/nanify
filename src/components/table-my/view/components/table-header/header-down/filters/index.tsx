@@ -6,8 +6,8 @@ import { motion, AnimatePresence } from "framer-motion"
 import "./css/index.css"
 
 // Importar los componentes de filtros
-import FromToDate from "./FromToDates"
-import { SelectStatus, SelectRol } from "./SelectedFilter"
+// import FromToDate from "./FromToDates"
+// import { SelectStatus, SelectRol } from "./SelectedFilter"
 // import TableConfigModal from "./TableConfigModal"
 
 interface FilterToggleButtonProps {
@@ -224,12 +224,12 @@ const TableFilters: React.FC<TableFiltersProps> = ({
   // Función para renderizar componentes según el tipo
   const renderFilterComponent = (filterType: "dates" | "status" | "rol" | "config") => {
     switch (filterType) {
-      case "status":
-        return <SelectStatus />
-      case "rol":
-        return <SelectRol />
-      case "dates":
-        return <FromToDate />
+      // case "status":
+      //   return <SelectStatus />
+      // case "rol":
+      //   return <SelectRol />
+      // case "dates":
+      //   return <FromToDate />
       // case "config":
       //   return <TableConfigModal />
       default:
