@@ -1,11 +1,7 @@
-import { useGlobalZustand } from "./Global";
 
-const useConfigured = () => {
-    const { configured, setConfigured, roles, setInicializado } = useGlobalZustand();
 
-    const rolUser = configured?.rol;
+const useConfigured = ({ rolUser, roles }: any) => {
     const { DEV, SUPER, ESTANDAR } = roles;
-
 
     // Configuración base
     let config = {
@@ -32,8 +28,8 @@ const useConfigured = () => {
             config.columns.splice(6, 0, { name: "Estado" });
             break
     }
-    setInicializado(true)
-    setConfigured(config);
+
+    return config
 };
 
 export default useConfigured;

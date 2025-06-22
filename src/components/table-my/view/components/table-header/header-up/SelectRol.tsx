@@ -1,8 +1,8 @@
 "use client"
 
 import type React from "react"
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "../../../../../../ux/select"
-import { useGlobalZustand } from "../../../../../context"
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "../../../../../ux/select"
+import { useGlobalZustand } from "../../../../context/Global"
 
 const SelectRol: React.FC = () => {
   const { roles, configured, setConfigured } = useGlobalZustand()

@@ -6,7 +6,7 @@ import "./css/index.css"
 
 import HeaderUp from "./header-up"
 import Search from "./Search"
-import Filter from "./header-down/filters"
+// import Filter from "./header-down/filters"
 
 // import AddUsuario from "../../modal-crud/AddUsuario"
 
@@ -24,7 +24,7 @@ const TableHeader: React.FC = () => {
 
         {/* Botones fijos a la derecha */}
         <div className="box-right">
-          <Filter />
+          {/* <Filter /> */}
 
           {/* <div className="modal-button-wrapper">
             <AddUsuario />

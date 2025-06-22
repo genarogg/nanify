@@ -1,27 +1,20 @@
 'use client'
 import React, { useEffect } from "react";
-
-import { inicializarContext, useGlobalZustand, useData } from "./context";
-
 import TableHeader from "./view/components/table-header";
+import useConfigured from "./context/useConfigured";
+import { useGlobalZustand } from "./context/Global";
 
-interface HolaMundoProps { }
+const HolaMundo: React.FC = () => {
 
-const HolaMundo: React.FC<HolaMundoProps> = () => {
-    const { configured, getInicializado } = useGlobalZustand();
-    const { data, fetchData } = useData();
+    const { roles, configured, setConfigured } = useGlobalZustand();
 
-    if (!getInicializado()) {
-        inicializarContext()
-        return
-    }
+    useEffect(() => {
+        const rolUser = configured.rolUser
+        const config = useConfigured({ rolUser, roles });
 
+        setConfigured(config);
+    }, [configured.rolUser]);
 
-    // useEffect(() => {
-    //     fetchData(1, 20);
-    // }, [fetchData]);
-
-    console.log("indexTablet", configured, data);
 
     return (
         <div className="table-management-container">

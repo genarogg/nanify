@@ -2,7 +2,7 @@
 import React from 'react'
 
 
-import SelectRol from "./controllers/SelectRol"
+import SelectRol from "./SelectRol"
 // import TableConfigModal from "./controllers/TableConfigModal"
 
 import "./css/header-up.css"
@@ -28,7 +28,6 @@ const HeaderUp: React.FC<HeaderUpProps> = () => {
                         {isDevelopment && (
                             <SelectRol />
                         )}
-                        {/* <TableConfigModal /> */}
                     </div>
                 </div>
 

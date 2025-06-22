@@ -21,11 +21,10 @@ interface GlobalZustanProps {
     setConfigured: (value: any) => void;
     data: DataState;
     setData: (value: Partial<DataState>) => void;
-    inicializado: boolean;
+
     API: string;
     roles: any;
-    getInicializado: () => boolean;
-    setInicializado: (inicializado: boolean) => void;
+    
     getSearch: () => string;
     setSearch: (search: string) => void;
     getDate: () => { start: null | string; end: null | string };
@@ -37,9 +36,9 @@ interface GlobalZustanProps {
 const useGlobalZustand = create<GlobalZustanProps>()(
     devtools((set, get) => ({
         API: "http://localhost:3001/usuarios",
-        inicializado: false,
+ 
         configured: {
-            rolUser: "dev",
+            rolUser: "DEV",
             columns: [],
             rowActions: [],
             headerFilter: [],
@@ -47,9 +46,9 @@ const useGlobalZustand = create<GlobalZustanProps>()(
             footerActions: [],
         },
         roles: {
-            SUPER: "super",
-            ESTANDAR: "estandar",
-            DEV: "dev",
+            SUPER: "SUPER",
+            ESTANDAR: "ESTANDAR",
+            DEV: "DEV",
         },
         data: {
             items: [],
@@ -80,15 +79,7 @@ const useGlobalZustand = create<GlobalZustanProps>()(
             'setData'
         ),
 
-        getInicializado: () => get().inicializado,
-
-        // Función para cambiar el valor de inicializado
-        setInicializado: (inicializado: boolean) => set(
-            { inicializado },
-            false,
-            'setInicializado'
-        ),
-
+        
         // Función para obtener el valor de search desde filterValue
         getSearch: () => get().data.filterValue.search,
 
