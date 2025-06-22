@@ -41,6 +41,7 @@ import AnimatedBackgroundWrapper from './docs/wrapper/animated-background-wrappe
 
 import ModalPage from './docs/ux/modal/page';
 import TabletPage from './docs/tablet/page';
+import TabletMyPage from './docs/tablet-my/page';
 
 import SelectPage from './docs/ux/select/page';
 
@@ -103,6 +104,8 @@ createRoot(document.getElementById('root')!).render(
           {/* Tablet page */}
 
           <Route path="/table" element={<TabletPage />} />
+          
+          <Route path="/table-my" element={<TabletMyPage />} />
 
           <Route path="/layout/clean" element={<LayoutClean />} />
 
