@@ -1,50 +1,61 @@
 "use client"
 
 import { Check, Minus } from "lucide-react"
-import { useTableRowActions } from "../../../context/hooks/useTableRowActions"
-import ViewUserModal from "../../modal-crud/ViewUserModal"
-import ActionsColumn from "../components/ActionsColumn"
-import BadgeWrapper from "../components/BadgeWrapper"
+// import { useTableRowActions } from "../../../context/hooks/useTableRowActions"
+// import ViewUserModal from "../../modal-crud/ViewUserModal"
+// import ActionsColumn from "../components/ActionsColumn"
+// import BadgeWrapper from "../components/BadgeWrapper"
 import "./user-management-table.css"
-import { useTableState, useTableContext } from "../../../context/TableContext"
+
+
+import { useGlobalZustand } from "../../../../context/Global"
 
 export default function TableView() {
-  const { tableState, config } = useTableContext()
-  const { deleteItem } = useTableState()
+  // const { tableState, config } = useTableContext()
+  // const { deleteItem } = useTableState()
 
-  const { currentItems, selectedItems, handleSelectAll, getSelectAllState } = tableState
-  const { select, cuadricula, columns } = config
+  // const { currentItems, selectedItems, handleSelectAll, getSelectAllState } = tableState
+  // const { select, cuadricula, columns } = config
+
+
 
   // Usar el hook de acciones - NO pasar onCustomView para que use el modal por defecto
-  const {
-    handleDuplicate,
-    handleView,
-    handleDelete,
-    handleEdit,
-    viewModalOpen,
-    selectedItemForView,
-    closeViewModal,
-  } = useTableRowActions({
-    onCustomDelete: (item) => {
-      // Usar directamente la función deleteItem del contexto
-      deleteItem(item.id)
-    },
-    // NO pasar onCustomView para que use el modal interno
-    showConfirmDialog: true,
-  })
+  // const {
+  //   handleDuplicate,
+  //   handleView,
+  //   handleDelete,
+  //   handleEdit,
+  //   viewModalOpen,
+  //   selectedItemForView,
+  //   closeViewModal,
+  // } = useTableRowActions({
+  //   onCustomDelete: (item) => {
+  //     // Usar directamente la función deleteItem del contexto
+  //     deleteItem(item.id)
+  //   },
+  //   // NO pasar onCustomView para que use el modal interno
+  //   showConfirmDialog: true,
+  // })
 
-  const handleItemSelect = (itemId: number) => {
-    // Use the function from tableState to handle item selection
-    tableState.handleSelectItem(itemId)
-  }
+  // const handleItemSelect = (itemId: number) => {
+  //   // Use the function from tableState to handle item selection
+  //   tableState.handleSelectItem(itemId)
+  // }
+
+  const { configured } = useGlobalZustand()
 
   return (
     <>
       <div className="table-container">
-        <table className={`data-table ${!select ? "no-select" : ""} ${cuadricula ? "with-grid" : ""}`}>
+        <table
+          className={`
+            data-table 
+            ${configured.select ? "" : "no-select"} 
+            ${configured.cuadricula ? "with-grid" : ""}`
+          }>
           <thead>
             <tr>
-              {select && (
+              {/* {configured.select && (
                 <th className="select-column">
                   <button
                     className={`select-btn master-select ${getSelectAllState()}`}
@@ -55,18 +66,17 @@ export default function TableView() {
                     {getSelectAllState() === "some" && <Minus size={14} />}
                   </button>
                 </th>
-              )}
-              {columns
-                .filter((column) => !column.hidden)
-                .map((column) => (
-                  <th key={column.id} className={`${column.id}-column`}>
-                    {column.header}
+              )} */}
+              {configured.columns
+                .map((column: any, index: any) => (
+                  <th key={index} className={`col-${index}`}>
+                    {column.column}
                   </th>
                 ))}
             </tr>
           </thead>
           <tbody style={{ minHeight: "320px", position: "relative" }}>
-            {currentItems.map((item: any, index: any) => (
+            {/* {currentItems.map((item: any, index: any) => (
               <tr key={item.id} className={index % 2 === 0 ? "row-even" : "row-odd"}>
                 {select && (
                   <td className="select-column">
@@ -104,12 +114,12 @@ export default function TableView() {
                       <td key={column.id} className={`${column.id}-column`}>
                         {column.id === "nombre" && <span className="name-cell">{item[column.accessor]}</span>}
                         {column.id === "correo" && <span className="email-cell">{item[column.accessor]}</span>}
-                        {column.id === "rol" && (
+                        {/* {column.id === "rol" && (
                           <BadgeWrapper type="role" value={item.rol} />
                         )}
                         {column.id === "status" && (
                           <BadgeWrapper type="status" value={item.status} />
-                        )}
+                        )} 
                         {column.id !== "nombre" &&
                           column.id !== "correo" &&
                           column.id !== "rol" &&
@@ -119,13 +129,13 @@ export default function TableView() {
                     )
                   })}
               </tr>
-            ))}
+            ))} */}
           </tbody>
         </table>
       </div>
 
       {/* Modal de vista de usuario */}
-      <ViewUserModal isOpen={viewModalOpen} onClose={closeViewModal} user={selectedItemForView} />
+      {/* <ViewUserModal isOpen={viewModalOpen} onClose={closeViewModal} user={selectedItemForView} /> */}
     </>
   )
 }

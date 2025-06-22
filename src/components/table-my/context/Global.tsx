@@ -16,29 +16,49 @@ interface DataState {
     error: null | string;
 }
 
+interface ThemeState {
+    dark: boolean;
+}
+
 interface GlobalZustanProps {
     configured: any;
     setConfigured: (value: any) => void;
     data: DataState;
     setData: (value: Partial<DataState>) => void;
+    theme: ThemeState;
 
     API: string;
     roles: any;
-    
+
     getSearch: () => string;
     setSearch: (search: string) => void;
     getDate: () => { start: null | string; end: null | string };
     setDate: (date: { start: null | string; end: null | string }) => void;
     setDateStart: (start: null | string) => void;
     setDateEnd: (end: null | string) => void;
+
+    // Métodos para theme
+    getTheme: () => ThemeState;
+    setTheme: (theme: Partial<ThemeState>) => void;
+    setDark: (dark: boolean) => void;
+
+    // Métodos para configured
+    getCuadricula: () => boolean;
+    setCuadricula: (cuadricula: boolean) => void;
 }
 
 const useGlobalZustand = create<GlobalZustanProps>()(
     devtools((set, get) => ({
         API: "http://localhost:3001/usuarios",
- 
+
+        theme: {
+            dark: false
+        },
+
         configured: {
             rolUser: "DEV",
+            cuadricula: false,
+            select: false,
             columns: [],
             rowActions: [],
             headerFilter: [],
@@ -52,6 +72,8 @@ const useGlobalZustand = create<GlobalZustanProps>()(
         },
         data: {
             items: [],
+            selectItems: [],
+            
             filterValue: {
                 search: '',
                 date: {
@@ -79,7 +101,6 @@ const useGlobalZustand = create<GlobalZustanProps>()(
             'setData'
         ),
 
-        
         // Función para obtener el valor de search desde filterValue
         getSearch: () => get().data.filterValue.search,
 
@@ -151,6 +172,50 @@ const useGlobalZustand = create<GlobalZustanProps>()(
             false,
             'setDateEnd'
         ),
+
+        // MÉTODOS PARA THEME
+
+        // Función para obtener el objeto theme completo
+        getTheme: () => get().theme,
+
+        // Función para cambiar propiedades específicas del theme manteniendo las demás
+        setTheme: (theme: Partial<ThemeState>) => set(
+            (state) => ({
+                theme: { ...state.theme, ...theme }
+            }),
+            false,
+            'setTheme'
+        ),
+
+        // Función para cambiar solo dark
+        setDark: (dark: boolean) => set(
+            (state) => ({
+                theme: {
+                    ...state.theme,
+                    dark
+                }
+            }),
+            false,
+            'setDark'
+        ),
+
+        // MÉTODOS PARA CONFIGURED
+
+        // Función para obtener el valor de cuadricula desde configured
+        getCuadricula: () => get().configured.cuadricula,
+
+        // Función para cambiar solo cuadricula en configured
+        setCuadricula: (cuadricula: boolean) => set(
+            (state) => ({
+                configured: {
+                    ...state.configured,
+                    cuadricula
+                }
+            }),
+            false,
+            'setCuadricula'
+        ),
+
     }),
         {
             name: 'global-store',

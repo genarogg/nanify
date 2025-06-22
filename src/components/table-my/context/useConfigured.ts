@@ -7,12 +7,12 @@ const useConfigured = ({ rolUser, roles }: any) => {
     let config = {
         rolUser: rolUser,
         columns: [
-            { name: "id" },
-            { name: "Nombre" },
-            { name: "Correo" },
-            { name: "Teléfono" },
-            { name: "Cédula" },
-            { name: "Acciones" }
+            { column: "id" },
+            { column: "Nombre" },
+            { column: "Correo" },
+            { column: "Teléfono" },
+            { column: "Cédula" },
+            { column: "Acciones" }
         ],
         rowActions: [{ name: "Ver", action: "view" }],
         headerFilter: [{}],
@@ -24,8 +24,8 @@ const useConfigured = ({ rolUser, roles }: any) => {
         case SUPER:
         case DEV:
         case ESTANDAR:
-            config.columns.splice(4, 0, { name: "Rol" });
-            config.columns.splice(6, 0, { name: "Estado" });
+            config.columns.splice(4, 0, { column: "Rol" });
+            config.columns.splice(6, 0, { column: "Estado" });
             break
     }
 
