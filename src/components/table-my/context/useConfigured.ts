@@ -6,13 +6,15 @@ interface Column {
 }
 
 const useConfigured = () => {
-    const { configured, setConfigured, setData } = useGlobalZustand();
+    const { configured, setConfigured, setData, roles } = useGlobalZustand();
 
-    let rolUser = configured?.rol || "dev";
+    let rolUser = configured?.rol;
     let columns: Column[] = [];
 
+    let { DEV, SUPER, ESTANDAR } = roles
+
     switch (rolUser) {
-        case "super":
+        case SUPER:
             columns = [
                 { name: "Nombre", filtro: true },
                 { name: "Email", filtro: true },
@@ -21,7 +23,7 @@ const useConfigured = () => {
             ];
             break;
 
-        case "estandar":
+        case ESTANDAR:
             columns = [
                 { name: "Nombre", filtro: true },
                 { name: "Email", filtro: true },
@@ -30,7 +32,7 @@ const useConfigured = () => {
             ];
             break;
 
-        case "dev":
+        case DEV:
             columns = [
                 { name: "Nombre", filtro: true },
                 { name: "Email", filtro: true },

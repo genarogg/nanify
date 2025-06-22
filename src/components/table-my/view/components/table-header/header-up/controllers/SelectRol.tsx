@@ -2,20 +2,33 @@
 
 import type React from "react"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "../../../../../../ux/select"
-import { useTableState } from "../../../../../context/TableContext"
+import { useGlobalZustand } from "../../../../../context"
 
 const SelectRol: React.FC = () => {
-  const { userRole, updateUserRole } = useTableState()
+  const { roles, configured, setConfigured } = useGlobalZustand()
+  const userRole = configured.rolUser
+
+  const handleRoleChange = (value: string | string[]) => {
+    if (typeof value === "string") {
+      setConfigured({
+        ...configured,
+        rolUser: value,
+      })
+    }
+  }
 
   return (
     <div className="dev-user-role-select">
-      <Select value={userRole} onValueChange={(value) => updateUserRole(value as "super" | "asistente")}>
+      <Select value={userRole} onValueChange={handleRoleChange}>
         <SelectTrigger>
-          <SelectValue />
+          <SelectValue placeholder="Selecciona un rol" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="super">Super</SelectItem>
-          <SelectItem value="asistente">Asistente</SelectItem>
+          {Object.entries(roles).map(([key, value]) => (
+            <SelectItem key={key} value={String(value)}>
+              {key.charAt(0) + key.slice(1).toLowerCase()}
+            </SelectItem>
+          ))}
         </SelectContent>
       </Select>
     </div>

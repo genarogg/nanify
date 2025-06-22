@@ -19,7 +19,7 @@ const HolaMundo: React.FC<HolaMundoProps> = () => {
     console.log("HolaMundo", configured, data, useData);
 
     useEffect(() => {
-        fetchData(1, 20); // Se ejecuta automáticamente al montar el componente
+        fetchData(1, 20);
     }, [fetchData]);
 
     return (

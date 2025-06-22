@@ -1,7 +1,6 @@
 import { Search as Lupita } from "lucide-react"
 import "./css/search.css"
-
-import { useTableState } from "../../../context/TableContext"
+import { useGlobalZustand } from "../../../context"
 
 interface SearchProps {
 
@@ -9,8 +8,12 @@ interface SearchProps {
 
 const Search: React.FC<SearchProps> = () => {
 
-    const { searchTerm, handleSearch } =
-        useTableState()
+    const { getSearch, setSearch } = useGlobalZustand();
+    const searchValue = getSearch();
+
+    const handleSearch = (value: string) => {
+        setSearch(value);
+    };
 
     return (
         <div className="table-search-container">
@@ -19,7 +22,7 @@ const Search: React.FC<SearchProps> = () => {
                 type="text"
                 placeholder="Buscar elementos..."
                 className="table-search-input"
-                value={searchTerm}
+                value={searchValue}
                 onChange={(e) => handleSearch(e.target.value)}
             />
         </div>

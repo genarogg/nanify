@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { devtools } from 'zustand/middleware';
 
 interface DataState {
     items: any[];
@@ -7,6 +8,7 @@ interface DataState {
     page: number;
     totalPages: number;
     loading: boolean;
+    error: null | string;
 }
 
 interface GlobalZustanProps {
@@ -15,12 +17,28 @@ interface GlobalZustanProps {
     data: DataState;
     setData: (value: Partial<DataState>) => void;
     API: string;
+    roles: any;
+    getSearch: () => string;
+    setSearch: (search: string) => void;
 }
 
-const useGlobalZustand = create<GlobalZustanProps>((set) => {
-    return {
+const useGlobalZustand = create<GlobalZustanProps>()(
+    devtools((set, get) => ({
         API: "http://localhost:3001/usuarios",
-        configured: null,
+        configured: {
+            rolUser: "dev",
+            columns: [
+                { name: "Nombre", filtro: true },
+                { name: "Email", filtro: true },
+                { name: "Rol", filtro: true },
+                { name: "Acciones", filtro: true }
+            ]
+        },
+        roles: {
+            SUPER: "super",
+            ESTANDAR: "estandar",
+            DEV: "dev",
+        },
         data: {
             items: [],
             search: "",
@@ -29,14 +47,36 @@ const useGlobalZustand = create<GlobalZustanProps>((set) => {
             totalPages: 1,
             loading: true,
             error: null,
-
         },
-        setConfigured: (value) => set({ configured: value }),
-        
-        setData: (value) => set((state) => ({
-            data: { ...state.data, ...value }
-        })),
-    };
-});
+        setConfigured: (value) => set(
+            { configured: value },
+            false,
+            'setConfigured'
+        ),
+        setData: (value) => set(
+            (state) => ({
+                data: { ...state.data, ...value }
+            }),
+            false,
+            'setData'
+        ),
+
+        // Función para obtener el valor de search
+        getSearch: () => get().data.search,
+
+        // Función para cambiar directamente el search
+        setSearch: (search: any) => set(
+            (state) => ({
+                data: { ...state.data, search }
+            }),
+            false,
+            'setSearch'
+        ),
+    }),
+        {
+            name: 'global-store',
+        }
+    )
+);
 
 export { useGlobalZustand };
