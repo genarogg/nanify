@@ -1,6 +1,6 @@
 import { Search as Lupita } from "lucide-react"
-import "./css/search.css"
-import { useGlobalZustand } from "../../../context/Global"
+import "../css/search.css"
+import { useGlobalZustand } from "../../../../context/Global"
 
 interface SearchProps { }
 
