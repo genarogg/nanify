@@ -1,9 +1,10 @@
 'use client'
 import React, { useState, useEffect } from 'react'
-import { SquarePen, UserPlus, Shield, FileText, Upload } from 'lucide-react'
+import { SquarePen, UserPlus, Shield, FileText } from 'lucide-react'
 import { useGlobalZustand, type DataItem } from '../../../context/Global'
 import Modal from '../../../../ux/modal'
 import Input from '../../../../ux/input'
+import InputFile from '../../../../ux/input-file'
 import {
     Select,
     SelectTrigger,
@@ -256,55 +257,18 @@ const AggEditar: React.FC<AggEditarProps> = ({ item }) => {
                     </Select>
                 </div>
                 <div style={{ marginBottom: "15px" }}>
-                    <label style={{ display: "flex", alignItems: "center", marginBottom: "8px", fontSize: "14px", fontWeight: "500", color: "#374151" }}>
-                        <FileText size={16} style={{ marginRight: "8px" }} />
-                        Documento PDF {!isEditMode && <span style={{ color: "#ef4444" }}>*</span>}
-                    </label>
-                    <div style={{
-                        position: "relative",
-                        border: "2px dashed #d1d5db",
-                        borderRadius: "8px",
-                        padding: "16px",
-                        textAlign: "center",
-                        backgroundColor: "#f9fafb",
-                        transition: "all 0.2s ease",
-                        cursor: isLoading ? "not-allowed" : "pointer",
-                        overflow: "hidden"
-                    }}>
-                        <input
-                            type="file"
-                            accept=".pdf"
-                            onChange={handleFileChange}
-                            disabled={isLoading}
-                            style={{
-                                position: "absolute",
-                                top: 0,
-                                left: 0,
-                                width: "100%",
-                                height: "100%",
-                                opacity: 0,
-                                cursor: isLoading ? "not-allowed" : "pointer",
-                                zIndex: 1
-                            }}
-                        />
-                        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "8px", position: "relative", zIndex: 0 }}>
-                            <Upload size={24} style={{ color: "#6b7280" }} />
-                            {fileName ? (
-                                <div style={{ fontSize: "14px", color: "#374151", fontWeight: "500" }}>
-                                    {fileName}
-                                </div>
-                            ) : (
-                                <>
-                                    <div style={{ fontSize: "14px", color: "#6b7280" }}>
-                                        Haz clic para seleccionar un archivo PDF
-                                    </div>
-                                    <div style={{ fontSize: "12px", color: "#9ca3af" }}>
-                                        Máximo 10MB
-                                    </div>
-                                </>
-                            )}
-                        </div>
-                    </div>
+                    <InputFile
+                        name="doc"
+                        label="Documento PDF"
+                        value={fileName}
+                        onChange={handleFileChange}
+                        accept=".pdf"
+                        placeholder="Haz clic para seleccionar un archivo PDF"
+                        required={!isEditMode}
+                        disabled={isLoading}
+                        maxSize="Máximo 10MB"
+                        icon={<FileText size={16} />}
+                    />
                 </div>
             </div>
         </Modal>
