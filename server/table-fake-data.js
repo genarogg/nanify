@@ -2,9 +2,9 @@ import fs from 'fs';
 import { faker } from '@faker-js/faker';
 
 const roles = [
-  { name: 'ACTIVO', color: '#4CAF50' },
-  { name: 'INACTIVO', color: '#F44336' },
-  { name: 'PENDIENTE', color: '#FFC107' }
+  { name: 'SUPER', color: '#4CAF50' },
+  { name: 'DEV', color: '#F44336' },
+  { name: 'ESTANDAR', color: '#FFC107' }
 ];
 
 const status = [
@@ -20,7 +20,8 @@ function generateUser(id) {
     telefono: faker.phone.number(),
     cedula: faker.string.alphanumeric(8).toUpperCase() + faker.string.alpha(1).toUpperCase(),
     rol: faker.helpers.arrayElement(roles).name,
-    status: faker.helpers.arrayElement(status).name,
+    estado: faker.helpers.arrayElement(status).name,
+    limite: faker.number.int({ min: 1, max: 100 }),
   };
 }
 

@@ -28,6 +28,8 @@ interface GlobalZustanProps {
     setData: (value: Partial<DataState>) => void;
     theme: ThemeState;
     roles: any;
+    badges: any;
+    estados: any;
 
     getSearch: () => string;
     setSearch: (search: string) => void;
@@ -54,6 +56,7 @@ interface GlobalZustanProps {
     isItemSelected: (item: any, uniqueKey?: string) => boolean;
     getSelectAllState: () => 'none' | 'some' | 'all';
     toggleAllSelect: () => void;
+    
 }
 
 const useGlobalZustand = create<GlobalZustanProps>()(
@@ -78,6 +81,25 @@ const useGlobalZustand = create<GlobalZustanProps>()(
             ESTANDAR: "ESTANDAR",
             DEV: "DEV",
         },
+
+        estados: {
+            ACTIVO: "ACTIVO",
+            INACTIVO: "INACTIVO",
+        },
+
+        badges: {
+            roles: {
+                SUPER: { name: "SUPER", color: "#ef4444" },
+                ESTANDAR: { name: "ESTANDAR", color: "blue" },
+                DEV: { name: "DEV", color: "#020817" },
+            },
+            estados: {
+                ACTIVO: { name: "ACTIVO", color: "#22c55e" },
+                INACTIVO: { name: "INACTIVO", color: "#f97316" },
+            }
+        },
+
+
         data: {
             items: [],
             selectItems: [],
@@ -93,6 +115,7 @@ const useGlobalZustand = create<GlobalZustanProps>()(
             totalPages: 1,
             loading: true,
             error: null,
+
         },
 
         //FUNCIONES PARA CONFIGURAR EL ESTADO GLOBAL

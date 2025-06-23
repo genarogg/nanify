@@ -6,7 +6,7 @@ import useConfigured from "./context/useConfigured";
 import { useGlobalZustand } from "./context/Global";
 import useData from "./context/data/useData";
 
-import TableView from "./view/components/table-body/table-view";
+import TableView from "./view/table-body/table-view";
 
 const HolaMundo: React.FC = () => {
 

@@ -7,30 +7,43 @@ const useConfigured = ({ rolUser, roles }: any) => {
     let config = {
         rolUser: rolUser,
         select: true,
-        cuadricula: false,
+        cuadricula: true,
 
         columns: [
             { column: "id" },
-            { column: "Nombre" },
-            { column: "Correo" },
-            { column: "Teléfono" },
-            { column: "Cédula" },
-            { column: "Acciones" }
+            { column: "nombre" },
+            { column: "correo", key: "correo" },
+            { column: "telefono" },
+            { column: "cedula" },
+
         ],
-        rowActions: [{ name: "Ver", action: "view" }],
+        rowActions: [
+            { name: "view", type: "btn" },
+            { name: "doc", type: "btn" },
+        ],
         headerFilter: [{}],
         headerActions: [{}],
         footerActions: [{}],
     };
 
+
+
     switch (rolUser) {
         case SUPER:
         case DEV:
+            //columns
+            config.columns.splice(7, 0, { column: "rol" });
+            config.columns.splice(6, 0, { column: "estado" });
+
+            // rowActions
+            config.rowActions.splice(0, 0, { name: "changeEstado", type: "select" });
+            config.rowActions.splice(4, 0, { name: "edit", type: "btn" });
+            break
         case ESTANDAR:
-            config.columns.splice(4, 0, { column: "Rol" });
-            config.columns.splice(6, 0, { column: "Estado" });
             break
     }
+
+    config.columns.splice(10, 0, { column: "acciones" });
 
     return config;
 };
