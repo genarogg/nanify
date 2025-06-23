@@ -1,6 +1,6 @@
 "use client"
 
-import type React from "react"
+import React, { useState } from "react"
 
 import "./css/index.css"
 
@@ -8,9 +8,11 @@ import HeaderUp from "./header-up"
 import Search from "./Search"
 // import Filter from "./header-down/filters"
 
-// import AddUsuario from "../../modal-crud/AddUsuario"
+import AggEditar from "../../components/modals/AggEditar"
+
 
 const TableHeader: React.FC = () => {
+
   return (
     <div className="table-header-container">
       <HeaderUp />
@@ -26,9 +28,9 @@ const TableHeader: React.FC = () => {
         <div className="box-right">
           {/* <Filter /> */}
 
-          {/* <div className="modal-button-wrapper">
-            <AddUsuario />
-          </div> */}
+          <div className="modal-button-wrapper">
+            <AggEditar />
+          </div>
         </div>
       </div>
     </div>

@@ -101,7 +101,7 @@ export default function Modal({
   // Renderizar el contenido del botón basado en isIconOnly
   const renderButtonContent = () => {
     if (isIconOnly) {
-      return <span className="modal-trigger-icon">{icon}</span>
+      return <span className="modal-trigger-icon onli-icon">{icon}</span>
     }
     
     return (

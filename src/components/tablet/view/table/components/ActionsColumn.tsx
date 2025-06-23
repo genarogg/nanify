@@ -1,10 +1,10 @@
 "use client"
 
-import { Copy, Eye, Trash2, FileText, MessageCircle } from "lucide-react"
+import { Copy, Eye, Trash2, FileText } from "lucide-react"
 import { useState } from "react"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "../../../../ux/select"
 import Switch from "../../../../ux/btns/switch"
-import WhatsAppModal from "./WhatsAppModal"
+
 import "./css/actions-column.css"
 import EditUsuario from "../../modal-crud/EditUsuario"
 
@@ -19,7 +19,6 @@ interface ActionsColumnProps {
   onUpdateItem?: (itemId: number, updates: any) => void
   showRoleSelect?: boolean
   showStatusSwitch?: boolean
-  variant?: "table" | "card"
   visibleActions?: {
     duplicate?: boolean
     edit?: boolean
@@ -41,7 +40,6 @@ export default function ActionsColumn({
   onUpdateItem,
   showRoleSelect = true,
   showStatusSwitch = false,
-  variant = "table",
   visibleActions = {
     duplicate: true,
     edit: true,
@@ -53,8 +51,8 @@ export default function ActionsColumn({
 }: ActionsColumnProps) {
   const [whatsappModalOpen, setWhatsappModalOpen] = useState(false)
 
-  const baseClass = variant === "table" ? "actions-cell" : "card-actions"
-  const buttonClass = variant === "table" ? "action-btn" : "card-action-btn"
+  const baseClass = "actions-cell"
+  const buttonClass = "action-btn"
 
   // Función auxiliar para manejar el cambio de rol - centralizada
   const handleRoleChange = (value: string | string[]) => {
@@ -103,8 +101,8 @@ export default function ActionsColumn({
   return (
     <>
       <div className={baseClass}>
-        {/* Switch de estado para cards */}
-        {showStatusSwitch && variant === "card" && (
+        {/* Switch de estado */}
+        {showStatusSwitch && (
           <div className="status-switch-container">
             <Switch isOn={item.status === "ACTIVO"} onToggle={handleStatusToggle} />
             <span className={`status-text ${item.status === "ACTIVO" ? "active" : "inactive"}`}>
@@ -114,7 +112,7 @@ export default function ActionsColumn({
         )}
 
         {/* Select de rol */}
-        {showRoleSelect && variant === "table" && (
+        {showRoleSelect && (
           <Select value={item.rol} onValueChange={handleRoleChange}>
             <SelectTrigger>
               <SelectValue />
@@ -140,15 +138,7 @@ export default function ActionsColumn({
               <Eye size={16} />
             </button>
           )}
-          {visibleActions.whatsapp && (
-            <button
-              className={`${buttonClass} whatsapp-btn`}
-              onClick={handleWhatsAppClick}
-              title="Contactar por WhatsApp"
-            >
-              <MessageCircle size={16} />
-            </button>
-          )}
+         
           {visibleActions.report && onReport && (
             <button className={buttonClass} onClick={() => onReport(item)} title="Generar reporte">
               <FileText size={16} />
@@ -161,14 +151,6 @@ export default function ActionsColumn({
           )}
         </div>
       </div>
-
-      {/* WhatsApp Modal */}
-      <WhatsAppModal
-        isOpen={whatsappModalOpen}
-        onClose={() => setWhatsappModalOpen(false)}
-        phoneNumber={item.telefono}
-        userName={item.nombre}
-      />
     </>
   )
 }

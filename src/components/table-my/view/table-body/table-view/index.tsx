@@ -1,13 +1,15 @@
 "use client"
 
 import { Check, Minus } from "lucide-react"
-// import ViewUserModal from "../../modal-crud/ViewUserModal"
-// import ActionsColumn from "../components/ActionsColumn"
+
+import ActionRow from "../../components/actions/ActionRow"
+
 import { Badge } from "../../../../ux"
 import "./user-management-table.css"
 
-
 import { useGlobalZustand } from "../../../context/Global"
+
+
 
 export default function TableView() {
 
@@ -18,12 +20,19 @@ export default function TableView() {
     toggleAllSelect,
     isItemSelected,
     toggleSelectItem,
-    badges
+
+    badges,
+    updateItem
   } = useGlobalZustand()
 
-  const { select, cuadricula, columns } = configured
+  const { select, cuadricula, columns, rowActions } = configured
 
   const { estados, roles } = badges
+
+  const handleRoleChange = (item: any, value: string | string[]) => {
+    const newRole = Array.isArray(value) ? value[0] : value
+    updateItem(item.id, { rol: newRole })
+  }
 
 
   return (
@@ -51,7 +60,7 @@ export default function TableView() {
               )}
               {columns
                 .map((column: any, index: any) => (
-                  <th key={index} className={`col-${index}`}>
+                  <th key={index}>
                     {column.column}
                   </th>
                 ))}
@@ -79,7 +88,7 @@ export default function TableView() {
                   // Renderizar badge para 'rol' y 'estado'
                   if (column.column === "rol" && value && roles[value]) {
                     return (
-                      <td key={Index} className={`col-${Index}`}>
+                      <td key={Index}>
                         <Badge customColor={roles[value].color} width="110px">
                           {roles[value].name}
                         </Badge>
@@ -88,7 +97,7 @@ export default function TableView() {
                   }
                   if (column.column === "estado" && value && estados[value]) {
                     return (
-                      <td key={Index} className={`col-${Index}`}>
+                      <td key={Index}>
                         <Badge customColor={estados[value].color} width="110px">
                           {estados[value].name}
                         </Badge>
@@ -97,11 +106,9 @@ export default function TableView() {
                   }
 
                   return (
-                    <td key={Index} className={`col-${Index}`}>
+                    <td key={Index}>
                       {column.column === 'acciones' ? (
-                        <div className="actions-cell">
-                          {/* Componente de acciones */}
-                        </div>
+                        <ActionRow item={item} />
                       ) : (
                         value || ''
                       )}

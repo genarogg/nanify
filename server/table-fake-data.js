@@ -22,6 +22,7 @@ function generateUser(id) {
     rol: faker.helpers.arrayElement(roles).name,
     estado: faker.helpers.arrayElement(status).name,
     limite: faker.number.int({ min: 1, max: 100 }),
+    doc: faker.helpers.arrayElement(['Cédula', 'Pasaporte', 'Licencia de conducir']),
   };
 }
 

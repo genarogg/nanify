@@ -29,6 +29,7 @@ interface SelectContextType {
   direction: DropdownDirection
   calculatedDirection: 'up' | 'down'
   setCalculatedDirection: React.Dispatch<React.SetStateAction<'up' | 'down'>>
+  desiredWidth?: number | string
 }
 
 const SelectContext = createContext<SelectContextType | null>(null)
@@ -48,6 +49,7 @@ interface SelectProps {
   children: React.ReactNode
   multiple?: boolean
   direction?: DropdownDirection
+  width?: number | string
 }
 
 export const Select = memo(function Select({
@@ -56,7 +58,8 @@ export const Select = memo(function Select({
   onValueChange,
   children,
   multiple = false,
-  direction = 'auto'
+  direction = 'auto',
+  width
 }: SelectProps) {
   const [internalValue, setInternalValue] = useState<string | string[]>(
     () => defaultValue || (multiple ? [] : "")
@@ -135,12 +138,13 @@ export const Select = memo(function Select({
     direction,
     calculatedDirection,
     setCalculatedDirection,
-  }), [currentValue, handleValueChange, open, multiple, selectedLabels, setSelectedLabel, registerOption, longestOptionWidth, direction, calculatedDirection])
+    desiredWidth: width,
+  }), [currentValue, handleValueChange, open, multiple, selectedLabels, setSelectedLabel, registerOption, longestOptionWidth, direction, calculatedDirection, width])
 
   return (
     <SelectContext.Provider value={contextValue}>
-      <div className="select-root">
-        {/* Elemento invisible para medir texto */}
+      <div className="select-root" style={{ width: typeof width === 'number' ? `${width}px` : width }}>
+  
         <span
           ref={measureRef}
           style={{
@@ -330,7 +334,8 @@ export const SelectTrigger = memo(function SelectTrigger({ children }: SelectTri
     longestOptionWidth, 
     direction,
     selectedLabels,
-    setCalculatedDirection
+    setCalculatedDirection,
+    desiredWidth
   } = useSelectContext()
   const triggerRef = useRef<HTMLButtonElement>(null)
 
@@ -404,10 +409,19 @@ export const SelectTrigger = memo(function SelectTrigger({ children }: SelectTri
     }, 0)
   }, [onOpenChange])
 
-  // Aplicar el ancho calculado automáticamente
-  const triggerStyle: React.CSSProperties = longestOptionWidth > 0 ? {
-    minWidth: `${longestOptionWidth}px`
-  } : {}
+  // Aplicar el ancho: priorizar desiredWidth, luego longestOptionWidth
+  const triggerStyle: React.CSSProperties = useMemo(() => {
+    if (desiredWidth) {
+      return {
+        width: typeof desiredWidth === 'number' ? `${desiredWidth}px` : desiredWidth
+      }
+    } else if (longestOptionWidth > 0) {
+      return {
+        minWidth: `${longestOptionWidth}px`
+      }
+    }
+    return {}
+  }, [desiredWidth, longestOptionWidth])
 
   return (
     <button
@@ -514,8 +528,23 @@ interface SelectContentProps {
 }
 
 export const SelectContent = memo(function SelectContent({ children }: SelectContentProps) {
-  const { open, onOpenChange, direction, calculatedDirection } = useSelectContext()
+  const { open, onOpenChange, direction, calculatedDirection, desiredWidth, longestOptionWidth } = useSelectContext()
   const contentRef = useRef<HTMLDivElement>(null)
+
+  // Aplicar el ancho al contenido del dropdown para que coincida con el trigger
+  // IMPORTANTE: Este useMemo debe estar ANTES del early return para no violar las Rules of Hooks
+  const contentStyle: React.CSSProperties = useMemo(() => {
+    if (desiredWidth) {
+      return {
+        width: typeof desiredWidth === 'number' ? `${desiredWidth}px` : desiredWidth
+      }
+    } else if (longestOptionWidth > 0) {
+      return {
+        minWidth: `${longestOptionWidth}px`
+      }
+    }
+    return {}
+  }, [desiredWidth, longestOptionWidth])
 
   useEffect(() => {
     if (open) {
@@ -560,6 +589,7 @@ export const SelectContent = memo(function SelectContent({ children }: SelectCon
     <div
       ref={contentRef}
       className="select-content"
+      style={contentStyle}
       data-open-upward={shouldOpenUpward}
       role="listbox"
     >

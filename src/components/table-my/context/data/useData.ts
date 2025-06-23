@@ -14,7 +14,7 @@ const useData = () => {
             const json = await res.json();
 
             setData({
-                items: json.data || [],
+                items: json.data.reverse() || [],
                 page,
                 loading: false,
             });

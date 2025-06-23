@@ -1,9 +1,22 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 
+interface DataItem {
+    id: number;
+    nombre: string;
+    correo: string;
+    telefono: string;
+    cedula: string;
+    rol: "DEV" | "ESTANDAR" | "SUPER";
+    estado: "ACTIVO" | "INACTIVO";
+    limite: number;
+    doc: string;
+   
+}
+
 interface DataState {
-    items: any[];
-    selectItems: any[];
+    items: DataItem[];
+    selectItems: DataItem[];
     filterValue: {
         search: string;
         date: {
@@ -38,6 +51,9 @@ interface GlobalZustanProps {
     setDateStart: (start: null | string) => void;
     setDateEnd: (end: null | string) => void;
 
+    // Corregir tipo del id (number en lugar de string)
+    updateItem: (id: number, newData: Partial<DataItem>) => void;
+
     // Métodos para theme
     getTheme: () => ThemeState;
     setTheme: (theme: Partial<ThemeState>) => void;
@@ -47,16 +63,16 @@ interface GlobalZustanProps {
     getCuadricula: () => boolean;
     setCuadricula: (cuadricula: boolean) => void;
 
-    // Métodos para manejo de selección
-    getSelectItems: () => any[];
-    setSelectItems: (items: any[]) => void;
-    toggleSelectItem: (item: any, uniqueKey?: string) => void;
+    // Métodos para manejo de selección - corregir tipos
+    getSelectItems: () => DataItem[];
+    setSelectItems: (items: DataItem[]) => void;
+    toggleSelectItem: (item: DataItem, uniqueKey?: keyof DataItem) => void;
     selectAllItems: () => void;
     clearSelection: () => void;
-    isItemSelected: (item: any, uniqueKey?: string) => boolean;
+    isItemSelected: (item: DataItem, uniqueKey?: keyof DataItem) => boolean;
     getSelectAllState: () => 'none' | 'some' | 'all';
     toggleAllSelect: () => void;
-    
+
 }
 
 const useGlobalZustand = create<GlobalZustanProps>()(
@@ -98,7 +114,6 @@ const useGlobalZustand = create<GlobalZustanProps>()(
                 INACTIVO: { name: "INACTIVO", color: "#f97316" },
             }
         },
-
 
         data: {
             items: [],
@@ -253,7 +268,7 @@ const useGlobalZustand = create<GlobalZustanProps>()(
         getSelectItems: () => get().data.selectItems,
 
         // Función para establecer directamente los elementos seleccionados
-        setSelectItems: (items: any[]) => set(
+        setSelectItems: (items: DataItem[]) => set(
             (state) => ({
                 data: {
                     ...state.data,
@@ -264,15 +279,29 @@ const useGlobalZustand = create<GlobalZustanProps>()(
             'setSelectItems'
         ),
 
+        // Corregir updateItem para usar number como id
+        updateItem: (id: number, newData: Partial<DataItem>) => set(
+            (state) => ({
+                data: {
+                    ...state.data,
+                    items: state.data.items.map(item =>
+                        item.id === id ? { ...item, ...newData } : item
+                    )
+                }
+            }),
+            false,
+            'updateItem'
+        ),
+
         // Función principal para alternar selección de un elemento
-        toggleSelectItem: (item: any, uniqueKey: string = 'id') => set(
+        toggleSelectItem: (item: DataItem, uniqueKey: keyof DataItem = 'id') => set(
             (state) => {
                 const currentSelectItems = state.data.selectItems;
                 const itemExists = currentSelectItems.some(selectedItem =>
                     selectedItem[uniqueKey] === item[uniqueKey]
                 );
 
-                let newSelectItems;
+                let newSelectItems: DataItem[];
                 if (itemExists) {
                     // Si existe, lo eliminamos (deseleccionar)
                     newSelectItems = currentSelectItems.filter(selectedItem =>
@@ -329,7 +358,7 @@ const useGlobalZustand = create<GlobalZustanProps>()(
         ),
 
         // Función para verificar si un elemento está seleccionado
-        isItemSelected: (item: any, uniqueKey: string = 'id') => {
+        isItemSelected: (item: DataItem, uniqueKey: keyof DataItem = 'id') => {
             const selectItems = get().data.selectItems;
             return selectItems.some(selectedItem =>
                 selectedItem[uniqueKey] === item[uniqueKey]
@@ -353,3 +382,4 @@ const useGlobalZustand = create<GlobalZustanProps>()(
 );
 
 export { useGlobalZustand };
+export type { DataItem, DataState, GlobalZustanProps, ThemeState };

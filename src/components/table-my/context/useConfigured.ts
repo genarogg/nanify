@@ -12,7 +12,7 @@ const useConfigured = ({ rolUser, roles }: any) => {
         columns: [
             { column: "id" },
             { column: "nombre" },
-            { column: "correo", key: "correo" },
+
             { column: "telefono" },
             { column: "cedula" },
 
@@ -30,6 +30,8 @@ const useConfigured = ({ rolUser, roles }: any) => {
 
     switch (rolUser) {
         case SUPER:
+            config.columns.splice(6, 0, { column: "correo" });
+            break
         case DEV:
             //columns
             config.columns.splice(7, 0, { column: "rol" });

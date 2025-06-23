@@ -86,7 +86,6 @@
   border-bottom: 1px solid #f3f4f6;
   vertical-align: middle;
   white-space: nowrap;
-  overflow: hidden;
   text-overflow: ellipsis;
 }
 

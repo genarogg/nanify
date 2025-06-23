@@ -202,70 +202,10 @@ const AddUsuario: React.FC<AddUsuarioProps> = () => {
               </SelectContent>
             </Select>
           </div>
-          <div style={{ marginBottom: "16px" }}>
-            <Input
-              name="correo"
-              type="email"
-              placeholder="ejemplo@correo.com"
-              required
-              onChange={handleChange}
-              error={errors.correo}
-              value={formData.correo}
-            />
-          </div>
 
-          <div style={{ marginBottom: "16px" }}>
-            <Input
-              name="telefono"
-              type="tel"
-              placeholder="04XX-XXXXXXX"
-              onChange={handleChange}
-              value={formData.telefono}
-            />
-          </div>
 
-          <div style={{ marginBottom: "16px" }}>
-            <Input
-              name="cedula"
-              type="text"
-              placeholder="12345678"
-              required
-              onChange={handleChange}
-              error={errors.cedula}
-              value={formData.cedula}
-            />
-          </div>
-
-          <div style={{ marginBottom: "16px" }}>
-            <label style={{
-              display: "flex",
-              alignItems: "center",
-              marginBottom: "8px",
-              fontSize: "14px",
-              fontWeight: "500",
-              color: "#374151"
-            }}>
-              <Shield size={16} style={{ marginRight: "8px" }} />
-              Rol del usuario
-            </label>
-            <Select
-              value={formData.rol}
-              onValueChange={handleSelectChange}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Seleccionar rol" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectLabel>Roles disponibles</SelectLabel>
-                <SelectSeparator />
-                <SelectItem value="ADMIN_DACE">Admin DACE</SelectItem>
-                <SelectItem value="ADMIN_FUNDESUR">Admin FUNDESUR</SelectItem>
-                <SelectItem value="SUPER_USUARIO">Super Usuario</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
         </div>
-      </Modal>
+      </Modal >
     </>
   )
 }
