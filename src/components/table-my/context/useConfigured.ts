@@ -19,11 +19,11 @@ const useConfigured = ({ rolUser, roles }: any) => {
         ],
         rowActions: [
             { name: "view", type: "btn" },
-            { name: "doc", type: "btn" },
+            { name: "report", type: "btn" },
         ],
-        headerFilter: [{}],
-        headerActions: [{}],
-        footerActions: [{}],
+        headerFilter: ["estado", "rol"],
+        headerActions: [],
+        footerActions: [],
     };
 
 
@@ -31,6 +31,7 @@ const useConfigured = ({ rolUser, roles }: any) => {
     switch (rolUser) {
         case SUPER:
             config.columns.splice(6, 0, { column: "correo" });
+            config.rowActions.splice(4, 0, { name: "edit", type: "btn" });
             break
         case DEV:
             //columns
@@ -38,7 +39,7 @@ const useConfigured = ({ rolUser, roles }: any) => {
             config.columns.splice(6, 0, { column: "estado" });
 
             // rowActions
-            config.rowActions.splice(0, 0, { name: "changeEstado", type: "select" });
+            config.rowActions.splice(0, 0, { name: "changeRol", type: "select" });
             config.rowActions.splice(4, 0, { name: "edit", type: "btn" });
             break
         case ESTANDAR:
