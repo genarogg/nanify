@@ -25,7 +25,7 @@ export default function TableView() {
     updateItem
   } = useGlobalZustand()
 
-  const { select, cuadricula, columns, rowActions } = configured
+  const { select, cuadricula, columns } = configured
 
   const { estados, roles } = badges
 

@@ -104,12 +104,18 @@ const Input = forwardRef<InputRef, InputProps>(({
         restProps.onBlur?.(e);
     };
 
+    // SOLUCIÓN: Sincronizar hasContent con hasContentState y value
     useEffect(() => {
         if (inputRef.current) {
             const initialValue = isControlled ? (value || '') : (inputRef.current.value || '');
-            setHasContent(initialValue !== "");
+            setHasContent(initialValue !== "" || hasContentState);
         }
-    }, [value, isControlled]);
+    }, [value, isControlled, hasContentState]); // ← Agregamos hasContentState a las dependencias
+
+    // ALTERNATIVA: Si quieres que hasContentState tenga prioridad total
+    useEffect(() => {
+        setHasContent(hasContentState);
+    }, [hasContentState]);
 
     // IDs únicos para accesibilidad
     const errorId = error ? `${id}-error` : undefined;

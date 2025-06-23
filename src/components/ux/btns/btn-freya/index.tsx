@@ -1,6 +1,6 @@
 import React from 'react'
 import "./btnFreya.css"
-import { $ } from "@fn"
+
 
 interface BtnFreyaProps {
     onClick?: () => void;
@@ -13,7 +13,8 @@ const BtnFreya: React.FC<BtnFreyaProps> = ({
 }) => {
 
     const active = () => {
-        $("btn-hamburguer-freya")?.classList.toggle("active");
+        
+        document.getElementById("btn-hamburguer-freya")?.classList.toggle("active");
     }
 
     return (

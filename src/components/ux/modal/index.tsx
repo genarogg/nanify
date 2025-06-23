@@ -11,6 +11,8 @@ interface ModalProps {
   buttonClassName?: string
   buttonText?: string
   onclick?: () => void
+  maxWidth?: string // Añadido para permitir personalización del ancho máximo
+  
 }
 
 export default function Modal({ 
@@ -19,7 +21,8 @@ export default function Modal({
   children, 
   buttonClassName, 
   buttonText = "Guardar", 
-  onclick
+  onclick,
+  maxWidth = "500px" 
 }: ModalProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [isClosing, setIsClosing] = useState(false)
@@ -135,7 +138,7 @@ export default function Modal({
       </button>
 
       <div className={`modal-overlay ${isClosing ? "modal-overlay-closing" : ""}`} onClick={handleOverlayClick}>
-        <div ref={contentRef} className={`modal-content ${isClosing ? "modal-content-closing" : ""}`}>
+        <div ref={contentRef} className={`modal-content ${isClosing ? "modal-content-closing" : ""}`} style={{ maxWidth }}>
           <div className="modal-header">
             <h2 className="modal-title">
               {icon && <span className="modal-title-icon">{icon}</span>}

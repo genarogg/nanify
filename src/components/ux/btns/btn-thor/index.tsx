@@ -1,5 +1,5 @@
 import React from "react";
-import { $ } from "@fn";
+
 import "./btnThor.css";
 
 interface BtnThorProps {
@@ -13,7 +13,7 @@ const BtnThor: React.FC<BtnThorProps> = ({
 }) => {
 
   const active = () => {
-    $("btn-hamburguer-thor")?.classList.toggle("active")
+    document.getElementById("btn-hamburguer-thor")?.classList.toggle("active")
   }
 
   return (

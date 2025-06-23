@@ -1,6 +1,6 @@
 'use client'
 import React, { useState, useEffect } from 'react'
-import { SquarePen, UserPlus, Shield, FileText } from 'lucide-react'
+import { SquarePen, UserPlus, Shield, FileText, User, Mail, Phone, CreditCard, Hash } from 'lucide-react'
 import { useGlobalZustand, type DataItem } from '../../../context/Global'
 import Modal from '../../../../ux/modal'
 import Input from '../../../../ux/input'
@@ -23,6 +23,9 @@ const AggEditar: React.FC<AggEditarProps> = ({ item }) => {
     const { updateItem, setData, data, roles, badges } = useGlobalZustand();
     const isEditMode = !!item;
 
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [isLoading, setIsLoading] = useState(false);
+
     const [formData, setFormData] = useState({
         nombre: '',
         correo: '',
@@ -33,10 +36,6 @@ const AggEditar: React.FC<AggEditarProps> = ({ item }) => {
         limite: 0,
         doc: ''
     });
-
-    const [selectedFile, setSelectedFile] = useState<File | null>(null);
-    const [fileName, setFileName] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
 
     const resetForm = () => {
         setFormData({
@@ -50,7 +49,6 @@ const AggEditar: React.FC<AggEditarProps> = ({ item }) => {
             doc: ''
         });
         setSelectedFile(null);
-        setFileName('');
     };
 
     useEffect(() => {
@@ -65,7 +63,8 @@ const AggEditar: React.FC<AggEditarProps> = ({ item }) => {
                 limite: item.limite || 0,
                 doc: item.doc || ''
             });
-            setFileName(item.doc ? `Archivo actual: ${item.doc}` : '');
+            // En modo edición, no establecemos el archivo ya que solo tenemos el nombre
+            setSelectedFile(null);
         } else {
             resetForm();
         }
@@ -93,12 +92,13 @@ const AggEditar: React.FC<AggEditarProps> = ({ item }) => {
         setFormData(prev => ({ ...prev, estado: stateValue as "ACTIVO" | "INACTIVO" }));
     };
 
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
+    // Nueva función para manejar el cambio de archivo que coincide con la interfaz de InputFile
+    const handleFileChange = (file: File | null) => {
+        setSelectedFile(file);
         if (file) {
-            setSelectedFile(file);
-            setFileName(file.name);
             setFormData(prev => ({ ...prev, doc: file.name }));
+        } else {
+            setFormData(prev => ({ ...prev, doc: '' }));
         }
     };
 
@@ -160,6 +160,9 @@ const AggEditar: React.FC<AggEditarProps> = ({ item }) => {
                         onChange={handleChange}
                         value={formData.nombre}
                         disabled={isLoading}
+                        icon={<User size={16} />}
+                        hasContentState={true}
+
                     />
                 </div>
                 <div style={{ marginBottom: "42px" }}>
@@ -171,6 +174,8 @@ const AggEditar: React.FC<AggEditarProps> = ({ item }) => {
                         onChange={handleChange}
                         value={formData.correo}
                         disabled={isLoading}
+                        icon={<Mail size={16} />}
+                        hasContentState={true}
                     />
                 </div>
                 <div style={{ marginBottom: "42px" }}>
@@ -181,6 +186,8 @@ const AggEditar: React.FC<AggEditarProps> = ({ item }) => {
                         onChange={handleChange}
                         value={formData.telefono}
                         disabled={isLoading}
+                        icon={<Phone size={16} />}
+                        hasContentState={true}
                     />
                 </div>
                 <div style={{ marginBottom: "42px" }}>
@@ -192,6 +199,8 @@ const AggEditar: React.FC<AggEditarProps> = ({ item }) => {
                         onChange={handleChange}
                         value={formData.cedula}
                         disabled={isLoading}
+                        icon={<CreditCard size={16} />}
+                        hasContentState={true}
                     />
                 </div>
                 <div style={{ marginBottom: "15px" }}>
@@ -204,11 +213,13 @@ const AggEditar: React.FC<AggEditarProps> = ({ item }) => {
                         value={formData.limite.toString()}
                         disabled={isLoading}
                         min={1}
+                        icon={<Hash size={16} />}
+                        hasContentState={true}
                     />
                 </div>
-                <div style={{ marginBottom: "42px" }}>
+                <div style={{ marginBottom: "15px" }}>
                     <label style={{ display: "flex", alignItems: "center", marginBottom: "8px", fontSize: "14px", fontWeight: "500", color: "#374151" }}>
-                        <Shield size={16} style={{ marginRight: "8px" }} />
+                        <Shield size={16} style={{ marginRight: "8px", marginLeft: "10px" }} />
                         Rol del usuario
                     </label>
                     <Select
@@ -231,6 +242,7 @@ const AggEditar: React.FC<AggEditarProps> = ({ item }) => {
                 </div>
                 <div style={{ marginBottom: "15px" }}>
                     <label style={{ display: "flex", alignItems: "center", marginBottom: "8px", fontSize: "14px", fontWeight: "500", color: "#374151" }}>
+                        <Shield size={16} style={{ marginRight: "8px", marginLeft: "10px" }} />
                         Estado del usuario
                     </label>
                     <Select
@@ -256,18 +268,22 @@ const AggEditar: React.FC<AggEditarProps> = ({ item }) => {
                         </SelectContent>
                     </Select>
                 </div>
-                <div style={{ marginBottom: "15px" }}>
+                <div style={{ marginBottom: "7px" }}>
                     <InputFile
                         name="doc"
                         label="Documento PDF"
-                        value={fileName}
+                        value={selectedFile}
                         onChange={handleFileChange}
                         accept=".pdf"
-                        placeholder="Haz clic para seleccionar un archivo PDF"
+                        placeholder={
+                            isEditMode && formData.doc && !selectedFile
+                                ? `Archivo actual: ${formData.doc}`
+                                : "Haz clic para seleccionar un archivo PDF"
+                        }
                         required={!isEditMode}
                         disabled={isLoading}
                         maxSize="Máximo 10MB"
-                        icon={<FileText size={16} />}
+                        icon={<FileText size={16} style={{ marginLeft: "10px" }} />}
                     />
                 </div>
             </div>
