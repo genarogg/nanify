@@ -11,7 +11,7 @@ interface DataItem {
     estado: "ACTIVO" | "INACTIVO";
     limite: number;
     doc: string;
-   
+
 }
 
 interface DataState {
@@ -92,6 +92,28 @@ const useGlobalZustand = create<GlobalZustanProps>()(
             headerActions: [],
             footerActions: [],
         },
+
+
+        data: {
+            items: [],
+            selectItems: [],
+
+            filterValue: {
+                search: '',
+                date: {
+                    start: null,
+                    end: null
+                },
+                rol: "",
+                estado: ""
+            },
+            page: 1,
+            totalPages: 1,
+            loading: true,
+            error: null,
+
+        },
+
         roles: {
             SUPER: "SUPER",
             ESTANDAR: "ESTANDAR",
@@ -113,24 +135,6 @@ const useGlobalZustand = create<GlobalZustanProps>()(
                 ACTIVO: { name: "ACTIVO", color: "#22c55e" },
                 INACTIVO: { name: "INACTIVO", color: "#f97316" },
             }
-        },
-
-        data: {
-            items: [],
-            selectItems: [],
-
-            filterValue: {
-                search: '',
-                date: {
-                    start: null,
-                    end: null
-                }
-            },
-            page: 1,
-            totalPages: 1,
-            loading: true,
-            error: null,
-
         },
 
         //FUNCIONES PARA CONFIGURAR EL ESTADO GLOBAL

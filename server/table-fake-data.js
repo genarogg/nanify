@@ -34,7 +34,7 @@ const data = {
         maxLimit: 45
       }
     },
-    data: Array.from({ length: 45 }, (_, i) => generateUser(i + 1))
+    data: Array.from({ length: 20 }, (_, i) => generateUser(i + 1))
   },
   rol: roles,
   status: status

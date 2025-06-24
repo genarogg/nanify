@@ -1,12 +1,14 @@
 'use client'
 import React, { useState } from 'react'
-import { useFilterConfig } from "../../../../context/TableContext"
+import { useGlobalZustand } from '../../../../../context/Global'
 import "./css/from-to-date.css"
 
 interface FromToDateProps { }
 
 const FromToDate: React.FC<FromToDateProps> = () => {
-    const { dateFrom, dateTo, onDateFromChange, onDateToChange } = useFilterConfig()
+    // Obtener valores y funciones del store de Zustand
+    const { getDate, setDateStart, setDateEnd } = useGlobalZustand()
+    const dateRange = getDate()
 
     const [fromInputType, setFromInputType] = useState<'text' | 'date'>('text')
     const [toInputType, setToInputType] = useState<'text' | 'date'>('text')
@@ -16,7 +18,7 @@ const FromToDate: React.FC<FromToDateProps> = () => {
     }
 
     const handleFromBlur = () => {
-        if (!dateFrom) {
+        if (!dateRange.start) {
             setFromInputType('text')
         }
     }
@@ -26,9 +28,17 @@ const FromToDate: React.FC<FromToDateProps> = () => {
     }
 
     const handleToBlur = () => {
-        if (!dateTo) {
+        if (!dateRange.end) {
             setToInputType('text')
         }
+    }
+
+    const handleDateFromChange = (value: string) => {
+        setDateStart(value || null)
+    }
+
+    const handleDateToChange = (value: string) => {
+        setDateEnd(value || null)
     }
 
     return (
@@ -38,9 +48,9 @@ const FromToDate: React.FC<FromToDateProps> = () => {
                     id="fecha-desde"
                     type={fromInputType}
                     className="table-date-input"
-                    value={dateFrom}
+                    value={dateRange.start || ''}
                     placeholder={fromInputType === 'text' ? 'Fecha desde' : ''}
-                    onChange={(e) => onDateFromChange(e.target.value)}
+                    onChange={(e) => handleDateFromChange(e.target.value)}
                     onFocus={handleFromFocus}
                     onBlur={handleFromBlur}
                 />
@@ -49,9 +59,9 @@ const FromToDate: React.FC<FromToDateProps> = () => {
                     id="fecha-hasta"
                     type={toInputType}
                     className="table-date-input"
-                    value={dateTo}
+                    value={dateRange.end || ''}
                     placeholder={toInputType === 'text' ? 'Fecha hasta' : ''}
-                    onChange={(e) => onDateToChange(e.target.value)}
+                    onChange={(e) => handleDateToChange(e.target.value)}
                     onFocus={handleToFocus}
                     onBlur={handleToBlur}
                 />

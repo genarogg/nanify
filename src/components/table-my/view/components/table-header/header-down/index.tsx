@@ -1,14 +1,11 @@
 'use client'
 import React from 'react'
 import Search from "./Search"
-import Filter from "./Filters"
-
+import Filter from "./filters"
 import AggEditar from "../../../components/modals/AggEditar"
 
 
-interface HeaderDownProps {
-
-}
+interface HeaderDownProps { }
 
 const HeaderDown: React.FC<HeaderDownProps> = () => {
     return (

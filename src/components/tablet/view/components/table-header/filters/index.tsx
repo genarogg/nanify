@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import "./css/index.css"
 
 // Importar los componentes de filtros
-import FromToDate from "./FromToDates"
+import FromToDate from "../../../../../table-my/view/components/table-header/header-down/filters/FromToDates"
 import { SelectStatus, SelectRol } from "./SelectedFilter"
 // import TableConfigModal from "./TableConfigModal"
 
