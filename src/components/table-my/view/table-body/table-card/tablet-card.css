@@ -293,18 +293,18 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 700px) {
   .card-view-container {
     grid-template-columns: 1fr;
     gap: 10px;
   }
 
-  .card-field {
+  /* .card-field {
     flex-direction: column;
     align-items: flex-start;
     gap: 4px;
     padding: 6px 8px;
-  }
+  } */
 
   .field-label {
     min-width: auto;
@@ -312,10 +312,10 @@
   }
 
   .field-value {
-    text-align: left;
-    width: 100%;
+    /* text-align: left; */
+    /* width: 100%; */
     font-size: 12px;
-    justify-content: flex-start;
+    /* justify-content: flex-start; */
   }
 
   .status-switch-container {

@@ -74,6 +74,18 @@
   }
 }
 
+@media (max-width: 950px) {
+  .date-filter-group {
+    width: 100%;
+  }
+
+  .table-date-input {
+    max-width: 100%;
+    width: 100%; /* Ensures it takes full width */
+    min-width: 150px; /* Ensures it doesn't shrink too much */
+  }
+}
+
 @media (max-width: 768px) {
   .date-filter-group {
     width: 100%;
@@ -84,6 +96,11 @@
     font-size: 16px; /* Previene zoom en iOS */
     height: 42px;
     padding: 12px;
+  }
+  .table-date-input {
+    max-width: 100%; /* Full width on smaller screens */
+    width: 100%; /* Ensures it takes full width */
+    min-width: 150px; /* Ensures it doesn't shrink too much */
   }
 }
 

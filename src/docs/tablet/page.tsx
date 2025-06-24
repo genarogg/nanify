@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import Tablet from '@components/tablet'
+// import Tablet from '@components/tablet'
 
 interface pageProps { }
 
@@ -36,10 +36,10 @@ const page: React.FC<pageProps> = () => {
         <main style={{ padding: "20px", backgroundColor: "#f5f5f5", minHeight: "100vh" }}>
 
             {/* Ejemplo 1: Uso básico - sin props */}
-            <div style={{ marginBottom: "40px" }}>
+            {/* <div style={{ marginBottom: "40px" }}>
                 <h2 style={{ marginBottom: "20px" }}>Tabla Básica (sin configuración)</h2>
                 <Tablet />
-            </div>
+            </div> */}
 
             {/* Ejemplo 2: Con título personalizado */}
             {/* <div style={{ marginBottom: "40px" }}>
