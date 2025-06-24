@@ -5,7 +5,7 @@ import { Check, Minus } from "lucide-react"
 import ActionRow from "../../components/actions/ActionRow"
 
 import { Badge } from "../../../../ux"
-import "./user-management-table.css"
+import "./tablet-view.css"
 
 import { useGlobalZustand } from "../../../context/Global"
 
@@ -20,20 +20,12 @@ export default function TableView() {
     toggleAllSelect,
     isItemSelected,
     toggleSelectItem,
-
     badges,
-    updateItem
   } = useGlobalZustand()
 
   const { select, cuadricula, columns } = configured
 
   const { estados, roles } = badges
-
-  const handleRoleChange = (item: any, value: string | string[]) => {
-    const newRole = Array.isArray(value) ? value[0] : value
-    updateItem(item.id, { rol: newRole })
-  }
-
 
   return (
     <>

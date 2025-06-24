@@ -7,8 +7,11 @@ import { useGlobalZustand } from "./context/Global";
 import useData from "./context/data/useData";
 
 import TableView from "./view/table-body/table-view";
+import TableCardView from "./view/table-body/table-card";
 
 import TablePagination from "./view/components/paginacion";
+
+import useIsLargeScreen from "./view/hook/useIsLargeScreen"
 
 const HolaMundo: React.FC = () => {
 
@@ -25,20 +28,15 @@ const HolaMundo: React.FC = () => {
         setConfigured(config);
     }, [configured.rolUser]);
 
+    const isLargeScreen = useIsLargeScreen({ dimension: 768 });
 
     return (
         <div className="table-management-container">
             <TableHeader />
 
-            <TableView />
-            {/* 
-            {hasFilteredItems && (
-                <>
-                    {responsiveViewState.viewMode === "table" ?  : <TableCardView />}
-                    
-                    <TableFooter />
-                </>
-            )} */}
+            {isLargeScreen ? <TableView /> : <TableCardView />}
+
+            {/* <TableFooter /> */}
             <TablePagination />
         </div>
     );
