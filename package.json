@@ -38,6 +38,7 @@
     "algoliasearch": "^5.23.3",
     "crypto-js": "^4.2.0",
     "graphql": "^16.10.0",
+    "immer": "^10.1.1",
     "json-server": "^1.0.0-beta.3",
     "lucide-react": "^0.488.0",
     "motion": "^12.7.2",

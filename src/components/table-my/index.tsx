@@ -8,6 +8,8 @@ import useData from "./context/data/useData";
 
 import TableView from "./view/table-body/table-view";
 
+import TablePagination from "./view/components/paginacion";
+
 const HolaMundo: React.FC = () => {
 
     const { roles, configured, setConfigured } = useGlobalZustand();
@@ -33,10 +35,11 @@ const HolaMundo: React.FC = () => {
             {hasFilteredItems && (
                 <>
                     {responsiveViewState.viewMode === "table" ?  : <TableCardView />}
-                    <TablePagination showEllipsis={true} />
+                    
                     <TableFooter />
                 </>
             )} */}
+            <TablePagination />
         </div>
     );
 }

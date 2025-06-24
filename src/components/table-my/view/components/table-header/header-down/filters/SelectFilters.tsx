@@ -45,8 +45,6 @@ const SelectFilters: React.FC<SelectFiltersProps> = () => {
                         <SelectValue placeholder="Filtrar por rol" />
                     </SelectTrigger>
                     <SelectContent>
-
-                        <SelectSeparator />
                         <SelectItem value="Todos">Todos</SelectItem>
                         {Object.entries(roles).map(([key, value]) => (
                             <SelectItem key={key} value={value as string}>
@@ -67,8 +65,6 @@ const SelectFilters: React.FC<SelectFiltersProps> = () => {
                         <SelectValue placeholder="Filtrar por estado" />
                     </SelectTrigger>
                     <SelectContent>
-
-                        <SelectSeparator />
                         <SelectItem value="Todos">Todos</SelectItem>
                         {Object.entries(estados).map(([key, value]) => (
                             <SelectItem key={key} value={value as string}>

@@ -21,8 +21,6 @@ export default function ActionsCell({ item }: any) {
         updateItem(item.id, { rol: newRole })
     }
 
-    console.log("rowActions", rowActions)
-
     // Función helper para verificar si una acción existe
     const hasAction = (actionName: string) => {
         return rowActions?.some((action: any) => action.name === actionName)
