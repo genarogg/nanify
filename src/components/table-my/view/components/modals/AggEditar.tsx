@@ -1,7 +1,7 @@
 'use client'
 import React, { useState, useEffect } from 'react'
 import { SquarePen, UserPlus, Shield, FileText, User, Mail, Phone, CreditCard, Hash } from 'lucide-react'
-import { useGlobalZustand, type DataItem } from '../../../context/Global'
+import { useGlobalZustand, type DataItem, type UserRole, type UserStatus } from '../../../context/Global'
 import Modal from '../../../../ux/modal'
 import Input from '../../../../ux/input'
 import InputFile from '../../../../ux/input-file'
@@ -19,6 +19,18 @@ interface AggEditarProps {
     item?: DataItem;
 }
 
+// Interface para el formulario
+interface FormData {
+    nombre: string;
+    correo: string;
+    telefono: string;
+    cedula: string;
+    rol: UserRole | undefined;
+    estado: UserStatus;
+    limite: number;
+    doc: string;
+}
+
 const AggEditar: React.FC<AggEditarProps> = ({ item }) => {
     const { updateItem, setData, data, roles, badges } = useGlobalZustand();
     const isEditMode = !!item;
@@ -26,13 +38,13 @@ const AggEditar: React.FC<AggEditarProps> = ({ item }) => {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [isLoading, setIsLoading] = useState(false);
 
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<FormData>({
         nombre: '',
         correo: '',
         telefono: '',
         cedula: '',
-        rol: undefined as "DEV" | "ESTANDAR" | "SUPER" | undefined,
-        estado: 'ACTIVO' as "ACTIVO" | "INACTIVO",
+        rol: undefined,
+        estado: 'ACTIVO',
         limite: 0,
         doc: ''
     });
@@ -58,7 +70,7 @@ const AggEditar: React.FC<AggEditarProps> = ({ item }) => {
                 correo: item.correo || '',
                 telefono: item.telefono || '',
                 cedula: item.cedula || '',
-                rol: item.rol || '',
+                rol: item.rol,
                 estado: item.estado || 'ACTIVO',
                 limite: item.limite || 0,
                 doc: item.doc || ''
@@ -84,12 +96,28 @@ const AggEditar: React.FC<AggEditarProps> = ({ item }) => {
 
     const handleSelectChange = (value: string | string[]) => {
         const roleValue = Array.isArray(value) ? value[0] : value;
-        setFormData(prev => ({ ...prev, rol: roleValue as "DEV" | "ESTANDAR" | "SUPER" }));
+        
+        // Type guard para validar que el rol es válido
+        const isValidRole = (val: string): val is UserRole => {
+            return Object.values(roles).includes(val as UserRole);
+        };
+        
+        if (isValidRole(roleValue)) {
+            setFormData(prev => ({ ...prev, rol: roleValue }));
+        }
     };
 
     const handleEstadoChange = (value: string | string[]) => {
         const stateValue = Array.isArray(value) ? value[0] : value;
-        setFormData(prev => ({ ...prev, estado: stateValue as "ACTIVO" | "INACTIVO" }));
+        
+        // Type guard para validar que el estado es válido
+        const isValidStatus = (val: string): val is UserStatus => {
+            return val === 'ACTIVO' || val === 'INACTIVO';
+        };
+        
+        if (isValidStatus(stateValue)) {
+            setFormData(prev => ({ ...prev, estado: stateValue }));
+        }
     };
 
     // Nueva función para manejar el cambio de archivo que coincide con la interfaz de InputFile
@@ -110,6 +138,12 @@ const AggEditar: React.FC<AggEditarProps> = ({ item }) => {
     };
 
     const handleSave = async () => {
+        // Validación: el rol es requerido
+        if (!formData.rol) {
+            console.error('El rol es requerido');
+            return;
+        }
+
         setIsLoading(true);
         try {
             let docUrl = formData.doc;
@@ -117,17 +151,16 @@ const AggEditar: React.FC<AggEditarProps> = ({ item }) => {
                 docUrl = await uploadFile(selectedFile);
             }
             await new Promise(resolve => setTimeout(resolve, 1000));
-            const itemData = { ...formData, doc: docUrl };
+            
+            const itemData = { ...formData, doc: docUrl, rol: formData.rol };
+            
             if (isEditMode) {
                 if (!item?.id) throw new Error('No se puede actualizar: ID del item no encontrado');
-                const updateData = { ...itemData, rol: itemData.rol as "DEV" | "ESTANDAR" | "SUPER" };
-                updateItem(item.id, updateData);
+                updateItem(item.id, itemData);
             } else {
                 const newItem: DataItem = {
                     id: generateId(),
                     ...itemData,
-                    rol: itemData.rol as "DEV" | "ESTANDAR" | "SUPER",
-                    estado: itemData.estado as "ACTIVO" | "INACTIVO"
                 };
                 const currentItems = data.items;
                 setData({ items: [...currentItems, newItem] });
@@ -149,7 +182,7 @@ const AggEditar: React.FC<AggEditarProps> = ({ item }) => {
     };
 
     return (
-        <Modal {...modalProps}>
+        <Modal {...modalProps} cancel={isEditMode}>
             <div className="user-form">
                 <div style={{ marginBottom: "42px", marginTop: "32px" }}>
                     <Input
@@ -162,7 +195,6 @@ const AggEditar: React.FC<AggEditarProps> = ({ item }) => {
                         disabled={isLoading}
                         icon={<User size={16} />}
                         hasContentState={true}
-
                     />
                 </div>
                 <div style={{ marginBottom: "42px" }}>
@@ -232,9 +264,9 @@ const AggEditar: React.FC<AggEditarProps> = ({ item }) => {
                         <SelectContent>
                             <SelectLabel>Roles disponibles</SelectLabel>
                             <SelectSeparator />
-                            {Object.entries(roles).map(([key, value]) => (
-                                <SelectItem key={key} value={value as string}>
-                                    {badges.roles[key as keyof typeof badges.roles]?.name || value as string}
+                            {(Object.entries(roles) as [keyof typeof roles, UserRole][]).map(([key, value]) => (
+                                <SelectItem key={key} value={value}>
+                                    {badges.roles[key]?.name || value}
                                 </SelectItem>
                             ))}
                         </SelectContent>

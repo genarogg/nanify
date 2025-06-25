@@ -2,85 +2,165 @@ import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
+// ===== TIPOS BÁSICOS =====
+type UserRole = "DEV" | "ESTANDAR" | "SUPER" | "Todos";
+type UserStatus = "ACTIVO" | "INACTIVO" | "Todos";
+
+// ===== INTERFACES DE CONFIGURACIÓN =====
+interface RoleConfig {
+    DEV: "DEV";
+    ESTANDAR: "ESTANDAR";
+    SUPER: "SUPER";
+}
+
+interface StatusConfig {
+    ACTIVO: "ACTIVO";
+    INACTIVO: "INACTIVO";
+}
+
+// ===== INTERFACES PARA BADGES =====
+interface RoleBadge {
+    name: string;
+    color: string;
+}
+
+interface StatusBadge {
+    name: string;
+    color: string;
+}
+
+interface RoleBadges {
+    SUPER: RoleBadge;
+    ESTANDAR: RoleBadge;
+    DEV: RoleBadge;
+}
+
+interface StatusBadges {
+    ACTIVO: StatusBadge;
+    INACTIVO: StatusBadge;
+}
+
+interface BadgeConfig {
+    roles: RoleBadges;
+    estados: StatusBadges;
+}
+
+// ===== INTERFACE PRINCIPAL DE DATOS =====
 interface DataItem {
     id: number;
     nombre: string;
     correo: string;
     telefono: string;
     cedula: string;
-    rol: "DEV" | "ESTANDAR" | "SUPER";
-    estado: "ACTIVO" | "INACTIVO";
+    rol: UserRole;
+    estado: UserStatus;
     limite: number;
     doc: string;
 }
 
+// ===== INTERFACES DE FILTROS =====
+interface DateRange {
+    start: string | null;
+    end: string | null;
+}
+
+interface FilterValue {
+    search: string;
+    date: DateRange;
+    rol: UserRole | "";
+    estado: UserStatus | "";
+}
+
+// ===== INTERFACES DE ESTADO =====
 interface DataState {
     items: DataItem[];
     selectItems: DataItem[];
-    filterValue: {
-        search: string;
-        date: {
-            start: null | string;
-            end: null | string;
-        };
-    };
+    filterValue: FilterValue;
     page: number;
     totalPages: number;
     totalItems: number;
     loading: boolean;
-    error: null | string;
+    error: string | null;
 }
 
 interface ThemeState {
     dark: boolean;
 }
 
-interface GlobalZustanProps {
-    configured: any;
-    setConfigured: (value: any) => void;
-    data: DataState;
-    setData: (value: Partial<DataState>) => void;
-    theme: ThemeState;
-    roles: any;
-    badges: any;
-    estados: any;
+interface ColumnConfig {
+    column: string;
+}
 
+interface ActionConfig {
+    name: string;
+    type: string;
+}
+
+interface ConfiguredState {
+    rolUser: UserRole;
+    cuadricula: boolean;
+    select: boolean;
+    columns: ColumnConfig[]; 
+    rowActions: ActionConfig[]; 
+    headerFilter: string[];
+    headerActions: string[];
+    footerActions: string[];
+}
+// ===== TIPO DE ESTADO DE SELECCIÓN =====
+type SelectAllState = 'none' | 'some' | 'all';
+
+// ===== INTERFACE PRINCIPAL DEL STORE =====
+interface GlobalZustanProps {
+    // Estados
+    configured: ConfiguredState;
+    data: DataState;
+    theme: ThemeState;
+    roles: RoleConfig;
+    badges: BadgeConfig;
+    estados: StatusConfig;
+
+    // Métodos de configuración
+    setConfigured: (value: Partial<ConfiguredState>) => void;
+    setData: (value: Partial<DataState>) => void;
+
+    // Métodos de búsqueda
     getSearch: () => string;
     setSearch: (search: string) => void;
-    getDate: () => { start: null | string; end: null | string };
-    setDate: (date: { start: null | string; end: null | string }) => void;
-    setDateStart: (start: null | string) => void;
-    setDateEnd: (end: null | string) => void;
 
+    // Métodos de fecha
+    getDate: () => DateRange;
+    setDate: (date: DateRange) => void;
+    setDateStart: (start: string | null) => void;
+    setDateEnd: (end: string | null) => void;
+
+    // Métodos de items
     updateItem: (id: number, newData: Partial<DataItem>) => void;
 
+    // Métodos de tema
     getTheme: () => ThemeState;
     setTheme: (theme: Partial<ThemeState>) => void;
     setDark: (dark: boolean) => void;
 
+    // Métodos de cuadrícula
     getCuadricula: () => boolean;
     setCuadricula: (cuadricula: boolean) => void;
 
+    // Métodos de selección
     getSelectItems: () => DataItem[];
     setSelectItems: (items: DataItem[]) => void;
     toggleSelectItem: (item: DataItem, uniqueKey?: keyof DataItem) => void;
     selectAllItems: () => void;
     clearSelection: () => void;
     isItemSelected: (item: DataItem, uniqueKey?: keyof DataItem) => boolean;
-    getSelectAllState: () => 'none' | 'some' | 'all';
+    getSelectAllState: () => SelectAllState;
     toggleAllSelect: () => void;
 }
 
-// Crear mapas para búsquedas O(1) en lugar de O(n)
-const createSelectedItemsMap = (items: DataItem[], uniqueKey: keyof DataItem = 'id') => {
-    const map = new Map();
-    items.forEach(item => map.set(item[uniqueKey], item));
-    return map;
-};
-
+// ===== IMPLEMENTACIÓN DEL STORE =====
 const useGlobalZustand = create<GlobalZustanProps>()(
     devtools(
         immer((set, get) => ({
+            // Estados iniciales
             theme: {
                 dark: false
             },
@@ -115,43 +195,44 @@ const useGlobalZustand = create<GlobalZustanProps>()(
                 error: null,
             },
 
+            // Configuraciones tipadas
             roles: {
                 SUPER: "SUPER",
                 ESTANDAR: "ESTANDAR",
                 DEV: "DEV",
-            },
+            } as RoleConfig,
 
             estados: {
                 ACTIVO: "ACTIVO",
                 INACTIVO: "INACTIVO",
-            },
+            } as StatusConfig,
 
             badges: {
                 roles: {
                     SUPER: { name: "SUPER", color: "#ef4444" },
-                    ESTANDAR: { name: "ESTANDAR", color: "blue" },
+                    ESTANDAR: { name: "ESTANDAR", color: "#3b82f6" },
                     DEV: { name: "DEV", color: "#020817" },
                 },
                 estados: {
                     ACTIVO: { name: "ACTIVO", color: "#22c55e" },
                     INACTIVO: { name: "INACTIVO", color: "#f97316" },
                 }
-            },
+            } as BadgeConfig,
 
-            // FUNCIONES OPTIMIZADAS
-            setConfigured: (value) => set(
+            // ===== MÉTODOS DE CONFIGURACIÓN =====
+            setConfigured: (value: Partial<ConfiguredState>) => set(
                 (state) => {
-                    state.configured = value;
+                    Object.assign(state.configured, value);
                 }
             ),
 
-            setData: (value) => set(
+            setData: (value: Partial<DataState>) => set(
                 (state) => {
                     Object.assign(state.data, value);
                 }
             ),
 
-            // Optimización: usar referencia directa sin crear nuevo objeto
+            // ===== MÉTODOS DE BÚSQUEDA =====
             getSearch: () => get().data.filterValue.search,
 
             setSearch: (search: string) => set(
@@ -160,27 +241,28 @@ const useGlobalZustand = create<GlobalZustanProps>()(
                 }
             ),
 
+            // ===== MÉTODOS DE FECHA =====
             getDate: () => get().data.filterValue.date,
 
-            setDate: (date: { start: null | string; end: null | string }) => set(
+            setDate: (date: DateRange) => set(
                 (state) => {
                     state.data.filterValue.date = date;
                 }
             ),
 
-            setDateStart: (start: null | string) => set(
+            setDateStart: (start: string | null) => set(
                 (state) => {
                     state.data.filterValue.date.start = start;
                 }
             ),
 
-            setDateEnd: (end: null | string) => set(
+            setDateEnd: (end: string | null) => set(
                 (state) => {
                     state.data.filterValue.date.end = end;
                 }
             ),
 
-            // THEME METHODS - Optimizados
+            // ===== MÉTODOS DE TEMA =====
             getTheme: () => get().theme,
 
             setTheme: (theme: Partial<ThemeState>) => set(
@@ -195,7 +277,7 @@ const useGlobalZustand = create<GlobalZustanProps>()(
                 }
             ),
 
-            // CONFIGURED METHODS - Optimizados
+            // ===== MÉTODOS DE CUADRÍCULA =====
             getCuadricula: () => get().configured.cuadricula,
 
             setCuadricula: (cuadricula: boolean) => set(
@@ -204,16 +286,7 @@ const useGlobalZustand = create<GlobalZustanProps>()(
                 }
             ),
 
-            // SELECTION METHODS - Altamente optimizados
-            getSelectItems: () => get().data.selectItems,
-
-            setSelectItems: (items: DataItem[]) => set(
-                (state) => {
-                    state.data.selectItems = items;
-                }
-            ),
-
-            // Optimización crítica: usar Map para búsquedas O(1)
+            // ===== MÉTODOS DE ITEMS =====
             updateItem: (id: number, newData: Partial<DataItem>) => set(
                 (state) => {
                     const itemIndex = state.data.items.findIndex(item => item.id === id);
@@ -223,11 +296,19 @@ const useGlobalZustand = create<GlobalZustanProps>()(
                 }
             ),
 
-            // Optimización crítica para selección
+            // ===== MÉTODOS DE SELECCIÓN =====
+            getSelectItems: () => get().data.selectItems,
+
+            setSelectItems: (items: DataItem[]) => set(
+                (state) => {
+                    state.data.selectItems = items;
+                }
+            ),
+
             toggleSelectItem: (item: DataItem, uniqueKey: keyof DataItem = 'id') => set(
                 (state) => {
                     const selectItems = state.data.selectItems;
-                    const itemIndex = selectItems.findIndex(selectedItem => 
+                    const itemIndex = selectItems.findIndex(selectedItem =>
                         selectedItem[uniqueKey] === item[uniqueKey]
                     );
 
@@ -242,11 +323,11 @@ const useGlobalZustand = create<GlobalZustanProps>()(
             ),
 
             toggleAllSelect: () => set((state) => {
-                const allSelected = state.data.selectItems.length === state.data.items.length && 
-                                   state.data.items.length > 0;
-                
+                const allSelected = state.data.selectItems.length === state.data.items.length &&
+                    state.data.items.length > 0;
+
                 if (allSelected) {
-                    state.data.selectItems.length = 0; // Más rápido que = []
+                    state.data.selectItems.length = 0;
                 } else {
                     state.data.selectItems = [...state.data.items];
                 }
@@ -260,21 +341,20 @@ const useGlobalZustand = create<GlobalZustanProps>()(
 
             clearSelection: () => set(
                 (state) => {
-                    state.data.selectItems.length = 0; // Más rápido que = []
+                    state.data.selectItems.length = 0;
                 }
             ),
 
-            // Optimización: usar caché para isItemSelected si es necesario
-            isItemSelected: (item: DataItem, uniqueKey: keyof DataItem = 'id') => {
+            isItemSelected: (item: DataItem, uniqueKey: keyof DataItem = 'id'): boolean => {
                 const selectItems = get().data.selectItems;
                 return selectItems.some(selectedItem =>
                     selectedItem[uniqueKey] === item[uniqueKey]
                 );
             },
 
-            getSelectAllState: () => {
+            getSelectAllState: (): SelectAllState => {
                 const { selectItems, items } = get().data;
-                
+
                 if (selectItems.length === 0) return 'none';
                 if (selectItems.length === items.length && items.length > 0) return 'all';
                 return 'some';
@@ -287,4 +367,18 @@ const useGlobalZustand = create<GlobalZustanProps>()(
 );
 
 export { useGlobalZustand };
-export type { DataItem, DataState, GlobalZustanProps, ThemeState };
+export type {
+    DataItem,
+    DataState,
+    GlobalZustanProps,
+    ThemeState,
+    ConfiguredState,
+    FilterValue,
+    DateRange,
+    UserRole,
+    UserStatus,
+    RoleBadge,
+    StatusBadge,
+    BadgeConfig,
+    SelectAllState
+};

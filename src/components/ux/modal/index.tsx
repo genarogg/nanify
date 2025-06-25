@@ -12,7 +12,9 @@ interface ModalProps {
   buttonText?: string
   onclick?: () => void
   maxWidth?: string // Añadido para permitir personalización del ancho máximo
-  
+  cancel?: boolean // Nueva prop para mostrar botón cancelar
+  onCancel?: () => void // Callback para el botón cancelar
+  cancelText?: string // Texto personalizable para el botón cancelar
 }
 
 export default function Modal({ 
@@ -22,7 +24,10 @@ export default function Modal({
   buttonClassName, 
   buttonText = "Guardar", 
   onclick,
-  maxWidth = "500px" 
+  maxWidth = "500px",
+  cancel = false, // Por defecto false
+  onCancel,
+  cancelText = "Cancelar"
 }: ModalProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [isClosing, setIsClosing] = useState(false)
@@ -40,6 +45,13 @@ export default function Modal({
   const handleSave = () => {
     if (onclick) {
       onclick()
+    }
+    closeModal()
+  }
+
+  const handleCancel = () => {
+    if (onCancel) {
+      onCancel()
     }
     closeModal()
   }
@@ -150,9 +162,16 @@ export default function Modal({
           </div>
           <div className="modal-body">{children}</div>
           <div className="modal-footer">
-            <button className="modal-save-button" onClick={handleSave}>
-              {buttonText}
-            </button>
+            <div className={`modal-footer-buttons ${cancel ? 'modal-footer-buttons-with-cancel' : ''}`}>
+              {cancel && (
+                <button className="modal-cancel-button" onClick={handleCancel}>
+                  {cancelText}
+                </button>
+              )}
+              <button className="modal-save-button" onClick={handleSave}>
+                {buttonText}
+              </button>
+            </div>
           </div>
         </div>
       </div>
