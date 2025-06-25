@@ -1,5 +1,6 @@
 "use client"
 
+import { memo, useCallback, useMemo } from "react"
 import { FileText } from "lucide-react"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "../../../../ux/select"
 import { useGlobal, useGlobalStatic } from "../../../context/Global"
@@ -9,63 +10,96 @@ import "./actions-row.css"
 import AggEditar from "../modals/AggEditar"
 import ViewDetails from "../modals/ViewDatails"
 
-export default function ActionsCell({ item }: any) {
-    const { updateItem, } = useGlobal()
-    const { badges, configured } = useGlobalStatic()
+// Memoizamos los componentes internos para evitar re-creaciones
+const DescargarReporte = memo(({ itemId }: { itemId: number }) => {
+    const handleDownload = useCallback(() => {
+        console.log("Descargar reporte", itemId)
+    }, [itemId])
+
+    return (
+        <button
+            title="Descargar reporte"
+            className="action-btn"
+            onClick={handleDownload}
+        >
+            <FileText size={16} />
+        </button>
+    )
+})
+
+const ChangeRol = memo(({ item, roles, onRoleChange }: any) => {
+    // Memoizamos las opciones del select
+    const roleOptions = useMemo(() => 
+        Object.entries(roles).map(([key]) => (
+            <SelectItem key={key} value={key}>
+                {key}
+            </SelectItem>
+        )), [roles]
+    )
+
+    return (
+        <Select width={"140px"} value={item.rol} onValueChange={onRoleChange}>
+            <SelectTrigger>
+                <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+                {roleOptions}
+            </SelectContent>
+        </Select>
+    )
+})
+
+// Componente principal optimizado
+const ActionsCell = memo(({ item }: any) => {
+    // Optimización: Solo suscribirse a updateItem, no al estado completo
+    const updateItem = useGlobal(state => state.updateItem)
+    
+    // Optimización: Solo obtener lo que necesitamos del estado estático
+    const badges = useGlobalStatic(state => state.badges)
+    const rowActions = useGlobalStatic(state => state.configured.rowActions)
 
     const { roles } = badges
 
-    const { rowActions } = configured
-
-    const handleRoleChange = (value: any) => {
+    // Memoizamos el handler para evitar re-creaciones
+    const handleRoleChange = useCallback((value: any) => {
         const newRole = Array.isArray(value) ? value[0] : value
         updateItem(item.id, { rol: newRole })
-    }
+    }, [item.id, updateItem])
 
-    // Función helper para verificar si una acción existe
-    const hasAction = (actionName: string) => {
+    // Memoizamos la función de verificación de acciones
+    const hasAction = useCallback((actionName: string) => {
         return rowActions?.some((action: any) => action.name === actionName)
-    }
+    }, [rowActions])
 
-    const DescargarReporte = () => {
-        return (
-            <button
-                title="Descargar reporte"
-                className="action-btn"
-                onClick={() => {
-                    console.log("Descargar reporte", item.id)
-                }}
-            >
-                <FileText size={16} />
-            </button>
-        )
-    }
-
-    const ChangeRol = () => {
-        return (
-            <Select width={"140px"} value={item.rol} onValueChange={handleRoleChange}>
-                <SelectTrigger>
-                    <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                    {Object.entries(roles).map(([key]) => (
-                        <SelectItem key={key} value={key}>
-                            {key}
-                        </SelectItem>
-                    ))}
-                </SelectContent>
-            </Select>
-        )
-    }
+    // Memoizamos qué acciones están disponibles para evitar recálculos
+    const availableActions = useMemo(() => ({
+        changeRol: hasAction("changeRol"),
+        view: hasAction("view"),
+        report: hasAction("report"),
+        edit: hasAction("edit")
+    }), [hasAction])
 
     return (
         <div className="actions-cell">
-            {hasAction("changeRol") && (<ChangeRol />)}
+            {availableActions.changeRol && (
+                <ChangeRol 
+                    item={item} 
+                    roles={roles} 
+                    onRoleChange={handleRoleChange} 
+                />
+            )}
             <div className="action-buttons-container">
-                {hasAction("view") && (<ViewDetails item={item} />)}
-                {hasAction("report") && (<DescargarReporte />)}
-                {hasAction("edit") && (<AggEditar item={item} />)}
+                {availableActions.view && <ViewDetails item={item} />}
+                {availableActions.report && <DescargarReporte itemId={item.id} />}
+                {availableActions.edit && <AggEditar item={item} />}
             </div>
         </div>
     )
-}
+})
+
+// Establecemos displayName para debugging
+ActionsCell.displayName = 'ActionsCell'
+ChangeRol.displayName = 'ChangeRol'
+DescargarReporte.displayName = 'DescargarReporte'
+
+export default ActionsCell
