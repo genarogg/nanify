@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback, useMemo, memo } from 'react'
 import { SquarePen, UserPlus, Shield, FileText, User, Mail, Phone, CreditCard, Hash } from 'lucide-react'
 import { useGlobal, useGlobalStatic, type DataItem, type UserRole, type UserStatus } from '../../../context/Global'
 import Modal from '../../../../ux/modal'
@@ -31,9 +31,16 @@ interface FormData {
     doc: string;
 }
 
-const AggEditar: React.FC<AggEditarProps> = ({ item }) => {
-    const { updateItem, setData, data } = useGlobal();
-    const { roles, badges } = useGlobalStatic();
+const AggEditar: React.FC<AggEditarProps> = memo(({ item }) => {
+    // 🔥 OPTIMIZACIÓN CRÍTICA: Suscripción selectiva a Zustand
+    const updateItem = useGlobal(state => state.updateItem)
+    const setData = useGlobal(state => state.setData)
+    const dataItems = useGlobal(state => state.data.items)
+    
+    // 🔥 OPTIMIZACIÓN: Suscripción selectiva al estado estático
+    const roles = useGlobalStatic(state => state.roles)
+    const badges = useGlobalStatic(state => state.badges)
+    
     const isEditMode = !!item;
 
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -50,7 +57,8 @@ const AggEditar: React.FC<AggEditarProps> = ({ item }) => {
         doc: ''
     });
 
-    const resetForm = () => {
+    // 🔥 OPTIMIZACIÓN: Memoizar resetForm
+    const resetForm = useCallback(() => {
         setFormData({
             nombre: '',
             correo: '',
@@ -62,11 +70,13 @@ const AggEditar: React.FC<AggEditarProps> = ({ item }) => {
             doc: ''
         });
         setSelectedFile(null);
-    };
+    }, []);
 
+    // 🔥 OPTIMIZACIÓN CRÍTICA: useEffect con dependencias específicas
     useEffect(() => {
         if (isEditMode && item) {
-            setFormData({
+            // Solo actualizar si los datos realmente cambiaron
+            const newFormData = {
                 nombre: item.nombre || '',
                 correo: item.correo || '',
                 telefono: item.telefono || '',
@@ -75,15 +85,17 @@ const AggEditar: React.FC<AggEditarProps> = ({ item }) => {
                 estado: item.estado || 'ACTIVO',
                 limite: item.limite || 0,
                 doc: item.doc || ''
-            });
-            // En modo edición, no establecemos el archivo ya que solo tenemos el nombre
+            };
+            
+            setFormData(newFormData);
             setSelectedFile(null);
-        } else {
+        } else if (!isEditMode) {
             resetForm();
         }
-    }, [item, isEditMode]);
+    }, [item?.id, item?.nombre, item?.correo, item?.telefono, item?.cedula, item?.rol, item?.estado, item?.limite, item?.doc, isEditMode, resetForm]);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // 🔥 OPTIMIZACIÓN: Memoizar handlers
+    const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
 
         if (name === 'limite') {
@@ -93,9 +105,9 @@ const AggEditar: React.FC<AggEditarProps> = ({ item }) => {
         } else {
             setFormData(prev => ({ ...prev, [name]: value }));
         }
-    };
+    }, []);
 
-    const handleSelectChange = (value: string | string[]) => {
+    const handleSelectChange = useCallback((value: string | string[]) => {
         const roleValue = Array.isArray(value) ? value[0] : value;
 
         // Type guard para validar que el rol es válido
@@ -106,9 +118,9 @@ const AggEditar: React.FC<AggEditarProps> = ({ item }) => {
         if (isValidRole(roleValue)) {
             setFormData(prev => ({ ...prev, rol: roleValue }));
         }
-    };
+    }, [roles]);
 
-    const handleEstadoChange = (value: string | string[]) => {
+    const handleEstadoChange = useCallback((value: string | string[]) => {
         const stateValue = Array.isArray(value) ? value[0] : value;
 
         // Type guard para validar que el estado es válido
@@ -119,26 +131,27 @@ const AggEditar: React.FC<AggEditarProps> = ({ item }) => {
         if (isValidStatus(stateValue)) {
             setFormData(prev => ({ ...prev, estado: stateValue }));
         }
-    };
+    }, []);
 
-    // Nueva función para manejar el cambio de archivo que coincide con la interfaz de InputFile
-    const handleFileChange = (file: File | null) => {
+    // 🔥 OPTIMIZACIÓN: Memoizar handleFileChange
+    const handleFileChange = useCallback((file: File | null) => {
         setSelectedFile(file);
         if (file) {
             setFormData(prev => ({ ...prev, doc: file.name }));
         } else {
             setFormData(prev => ({ ...prev, doc: '' }));
         }
-    };
+    }, []);
 
-    const generateId = () => Date.now();
+    // 🔥 OPTIMIZACIÓN: Memoizar funciones auxiliares
+    const generateId = useCallback(() => Date.now(), []);
 
-    const uploadFile = async (file: File): Promise<string> => {
+    const uploadFile = useCallback(async (file: File): Promise<string> => {
         await new Promise(resolve => setTimeout(resolve, 1500));
         return file.name;
-    };
+    }, []);
 
-    const handleSave = async () => {
+    const handleSave = useCallback(async () => {
         // Validación: el rol es requerido
         if (!formData.rol) {
             console.error('El rol es requerido');
@@ -163,27 +176,45 @@ const AggEditar: React.FC<AggEditarProps> = ({ item }) => {
                     id: generateId(),
                     ...itemData,
                 };
-                const currentItems = data.items;
-                setData({ items: [...currentItems, newItem] });
+                setData({ items: [...dataItems, newItem] });
             }
         } catch (error) {
             console.error(`Error al ${isEditMode ? 'actualizar' : 'agregar'} item:`, error);
         } finally {
             setIsLoading(false);
         }
-    };
+    }, [formData, selectedFile, uploadFile, isEditMode, item?.id, updateItem, generateId, setData, dataItems]);
 
-    const modalProps = {
+    // 🔥 OPTIMIZACIÓN: Memoizar props del modal
+    const modalProps = useMemo(() => ({
         title: isEditMode ? "" : "Agregar Usuario",
         icon: isEditMode ? <SquarePen size={16} /> : <UserPlus size={16} />,
         buttonClassName: `table-modal-btn save-user-btn ${isEditMode ? 'action-btn' : ''}`,
         buttonText: isLoading ? (isEditMode ? "Actualizando..." : "Guardando...") : (isEditMode ? "Guardar Cambios" : "Guardar Usuario"),
         onclick: handleSave,
-        loading: isLoading
-    };
+        loading: isLoading,
+        cancel: isEditMode
+    }), [isEditMode, isLoading, handleSave]);
+
+    // 🔥 OPTIMIZACIÓN: Memoizar opciones de roles
+    const roleOptions = useMemo(() => 
+        (Object.entries(roles) as [keyof typeof roles, UserRole][]).map(([key, value]) => (
+            <SelectItem key={key} value={value}>
+                {badges.roles[key]?.name || value}
+            </SelectItem>
+        )), [roles, badges.roles]
+    );
+
+    // 🔥 OPTIMIZACIÓN: Memoizar placeholder del archivo
+    const filePlaceholder = useMemo(() => {
+        if (isEditMode && formData.doc && !selectedFile) {
+            return `Archivo actual: ${formData.doc}`;
+        }
+        return "Haz clic para seleccionar un archivo PDF";
+    }, [isEditMode, formData.doc, selectedFile]);
 
     return (
-        <Modal {...modalProps} cancel={isEditMode}>
+        <Modal {...modalProps}>
             <div className="user-form">
                 <div style={{ marginBottom: "42px", marginTop: "32px" }}>
                     <Input
@@ -265,11 +296,7 @@ const AggEditar: React.FC<AggEditarProps> = ({ item }) => {
                         <SelectContent>
                             <SelectLabel>Roles disponibles</SelectLabel>
                             <SelectSeparator />
-                            {(Object.entries(roles) as [keyof typeof roles, UserRole][]).map(([key, value]) => (
-                                <SelectItem key={key} value={value}>
-                                    {badges.roles[key]?.name || value}
-                                </SelectItem>
-                            ))}
+                            {roleOptions}
                         </SelectContent>
                     </Select>
                 </div>
@@ -308,11 +335,7 @@ const AggEditar: React.FC<AggEditarProps> = ({ item }) => {
                         value={selectedFile}
                         onChange={handleFileChange}
                         accept=".pdf"
-                        placeholder={
-                            isEditMode && formData.doc && !selectedFile
-                                ? `Archivo actual: ${formData.doc}`
-                                : "Haz clic para seleccionar un archivo PDF"
-                        }
+                        placeholder={filePlaceholder}
                         required={!isEditMode}
                         disabled={isLoading}
                         maxSize="Máximo 10MB"
@@ -322,6 +345,9 @@ const AggEditar: React.FC<AggEditarProps> = ({ item }) => {
             </div>
         </Modal>
     );
-};
+});
+
+// Establecer displayName para debugging
+AggEditar.displayName = 'AggEditar';
 
 export default AggEditar;

@@ -51,33 +51,38 @@ const ChangeRol = memo(({ item, roles, onRoleChange }: any) => {
 
 // Componente principal optimizado
 const ActionsCell = memo(({ item }: any) => {
-    // Optimización: Solo suscribirse a updateItem, no al estado completo
-    const updateItem = useGlobal(state => state.updateItem)
+    // OPTIMIZACIÓN CRÍTICA: Selector más específico para evitar re-renders
+    const updateItem = useGlobal(
+        useCallback((state) => state.updateItem, [])
+    )
     
-    // Optimización: Solo obtener lo que necesitamos del estado estático
-    const badges = useGlobalStatic(state => state.badges)
-    const rowActions = useGlobalStatic(state => state.configured.rowActions)
+    // OPTIMIZACIÓN: Selectores más específicos para badges y rowActions
+    const roles = useGlobalStatic(
+        useCallback((state) => state.badges.roles, [])
+    )
+    const rowActions = useGlobalStatic(
+        useCallback((state) => state.configured.rowActions, [])
+    )
 
-    const { roles } = badges
+    // OPTIMIZACIÓN: Memoizar rowActions para evitar recálculos
+    const availableActions = useMemo(() => {
+        if (!rowActions) return { changeRol: false, view: false, report: false, edit: false }
+        
+        const actionMap = new Map(rowActions.map((action: any) => [action.name, true]))
+        
+        return {
+            changeRol: actionMap.has("changeRol"),
+            view: actionMap.has("view"),
+            report: actionMap.has("report"),
+            edit: actionMap.has("edit")
+        }
+    }, [rowActions])
 
     // Memoizamos el handler para evitar re-creaciones
     const handleRoleChange = useCallback((value: any) => {
         const newRole = Array.isArray(value) ? value[0] : value
         updateItem(item.id, { rol: newRole })
     }, [item.id, updateItem])
-
-    // Memoizamos la función de verificación de acciones
-    const hasAction = useCallback((actionName: string) => {
-        return rowActions?.some((action: any) => action.name === actionName)
-    }, [rowActions])
-
-    // Memoizamos qué acciones están disponibles para evitar recálculos
-    const availableActions = useMemo(() => ({
-        changeRol: hasAction("changeRol"),
-        view: hasAction("view"),
-        report: hasAction("report"),
-        edit: hasAction("edit")
-    }), [hasAction])
 
     return (
         <div className="actions-cell">
