@@ -7,13 +7,13 @@ import {
     SelectContent,
     SelectItem,
 } from "../../../../../../ux/select"
-import { useGlobalZustand } from "../../../../../context/Global"
+import { useGlobal } from "../../../../../context/Global"
 import type { UserRole, UserStatus } from "../../../../../context/Global"
 
 type SelectFiltersProps = {}
 
 const SelectFilters: React.FC<SelectFiltersProps> = () => {
-    const { data, setData, roles, estados, badges } = useGlobalZustand()
+    const { data, setData, roles, estados, badges } = useGlobal()
     const { filterValue } = data
 
     const handleRolChange = (value: string | string[]) => {

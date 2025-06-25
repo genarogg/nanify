@@ -1,7 +1,7 @@
 'use client'
 import React, { useState, useEffect } from 'react'
 import { SquarePen, UserPlus, Shield, FileText, User, Mail, Phone, CreditCard, Hash } from 'lucide-react'
-import { useGlobalZustand, type DataItem, type UserRole, type UserStatus } from '../../../context/Global'
+import { useGlobal, type DataItem, type UserRole, type UserStatus } from '../../../context/Global'
 import Modal from '../../../../ux/modal'
 import Input from '../../../../ux/input'
 import InputFile from '../../../../ux/input-file'
@@ -32,7 +32,7 @@ interface FormData {
 }
 
 const AggEditar: React.FC<AggEditarProps> = ({ item }) => {
-    const { updateItem, setData, data, roles, badges } = useGlobalZustand();
+    const { updateItem, setData, data, roles, badges } = useGlobal();
     const isEditMode = !!item;
 
     const [selectedFile, setSelectedFile] = useState<File | null>(null);

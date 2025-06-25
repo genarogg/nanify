@@ -3,11 +3,11 @@
 import { Check } from "lucide-react"
 import { Badge, Switch } from "../../../../ux"
 import ActionRow from "../../components/actions/ActionRow"
-import { useGlobalZustand } from "../../../context/Global"
+import { useGlobal } from "../../../context/Global"
 import "./tablet-card.css"
 
 export default function TableCardView() {
-    const { configured, data, isItemSelected, toggleSelectItem, badges, updateItem } = useGlobalZustand()
+    const { configured, data, isItemSelected, toggleSelectItem, badges, updateItem } = useGlobal()
 
     const { select } = configured
     const { estados, roles } = badges

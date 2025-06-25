@@ -2,7 +2,7 @@
 import type React from "react"
 import { useMemo } from "react"
 import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react"
-import { useGlobalZustand } from "../../../context/Global"
+import { useGlobal } from "../../../context/Global"
 import useData from "../../../context/data/useData"
 import "./pagination.css"
 
@@ -23,7 +23,7 @@ const Paginacion: React.FC<PaginacionProps> = ({
     compact = false,
     itemsPerPage = 10,
 }) => {
-    const { data } = useGlobalZustand()
+    const { data } = useGlobal()
     const { initialData } = useData()
 
     const { page, loading, items } = data

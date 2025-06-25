@@ -1,13 +1,13 @@
 'use client'
 import React, { useState } from 'react'
-import { useGlobalZustand } from '../../../../../context/Global'
+import { useGlobal } from '../../../../../context/Global'
 import "./css/from-to-date.css"
 
 interface FromToDateProps { }
 
 const FromToDate: React.FC<FromToDateProps> = () => {
     // Obtener valores y funciones del store de Zustand
-    const { getDate, setDateStart, setDateEnd } = useGlobalZustand()
+    const { getDate, setDateStart, setDateEnd } = useGlobal()
     const dateRange = getDate()
 
     const [fromInputType, setFromInputType] = useState<'text' | 'date'>('text')

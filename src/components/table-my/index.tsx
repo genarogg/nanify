@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import TableHeader from "./view/components/table-header";
 import useConfigured from "./context/setConfigured";
 
-import { useGlobalZustand } from "./context/Global";
+import { useGlobalStatic } from "./context/Global";
 import useData from "./context/data/useData";
 
 import TableView from "./view/table-body/table-view";
@@ -15,7 +15,7 @@ import useIsLargeScreen from "./view/hook/useIsLargeScreen"
 
 const HolaMundo: React.FC = () => {
 
-    const { roles, configured, setConfigured } = useGlobalZustand();
+    const { setConfigured, configured, roles } = useGlobalStatic();
 
     const { initialData } = useData();
 

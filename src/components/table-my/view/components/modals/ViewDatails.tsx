@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import { Eye, Download, FileText } from 'lucide-react'
-import { useGlobalZustand, type DataItem } from '../../../context/Global'
+import { useGlobal, type DataItem } from '../../../context/Global'
 import Modal from '../../../../ux/modal'
 import { Badge } from '../../../../ux'
 import './css/viewDetails.css'
@@ -11,7 +11,7 @@ interface ViewDetailsProps {
 }
 
 const ViewDetails: React.FC<ViewDetailsProps> = ({ item }) => {
-    const { badges } = useGlobalZustand();
+    const { badges } = useGlobal();
 
     const handleDownloadDocument = () => {
         // Simulate document download

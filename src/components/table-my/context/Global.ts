@@ -100,27 +100,32 @@ interface ConfiguredState {
     rolUser: UserRole;
     cuadricula: boolean;
     select: boolean;
-    columns: ColumnConfig[]; 
-    rowActions: ActionConfig[]; 
+    columns: ColumnConfig[];
+    rowActions: ActionConfig[];
     headerFilter: string[];
     headerActions: string[];
     footerActions: string[];
 }
+
 // ===== TIPO DE ESTADO DE SELECCIÓN =====
 type SelectAllState = 'none' | 'some' | 'all';
 
-// ===== INTERFACE PRINCIPAL DEL STORE =====
-interface GlobalZustanProps {
-    // Estados
-    configured: ConfiguredState;
-    data: DataState;
-    theme: ThemeState;
+// ===== INTERFACE DEL STORE ESTÁTICO =====
+interface StaticGlobalProps {
+    // Estados estáticos
     roles: RoleConfig;
     badges: BadgeConfig;
     estados: StatusConfig;
+    theme: ThemeState;
+    configured: ConfiguredState;
+}
+
+// ===== INTERFACE DEL STORE GLOBAL =====
+interface GlobalZustanProps {
+    // Estados dinámicos
+    data: DataState;
 
     // Métodos de configuración
-    setConfigured: (value: Partial<ConfiguredState>) => void;
     setData: (value: Partial<DataState>) => void;
 
     // Métodos de búsqueda
@@ -136,15 +141,6 @@ interface GlobalZustanProps {
     // Métodos de items
     updateItem: (id: number, newData: Partial<DataItem>) => void;
 
-    // Métodos de tema
-    getTheme: () => ThemeState;
-    setTheme: (theme: Partial<ThemeState>) => void;
-    setDark: (dark: boolean) => void;
-
-    // Métodos de cuadrícula
-    getCuadricula: () => boolean;
-    setCuadricula: (cuadricula: boolean) => void;
-
     // Métodos de selección
     getSelectItems: () => DataItem[];
     setSelectItems: (items: DataItem[]) => void;
@@ -156,15 +152,25 @@ interface GlobalZustanProps {
     toggleAllSelect: () => void;
 }
 
-// ===== IMPLEMENTACIÓN DEL STORE =====
-const useGlobalZustand = create<GlobalZustanProps>()(
-    devtools(
-        immer((set, get) => ({
-            // Estados iniciales
-            theme: {
-                dark: false
-            },
+// ===== STORE ESTÁTICO =====
+// ===== INTERFACE DEL STORE ESTÁTICO =====
+interface StaticGlobalProps {
+    // Estados estáticos
+    roles: RoleConfig;
+    badges: BadgeConfig;
+    estados: StatusConfig;
+    theme: ThemeState;
+    configured: ConfiguredState;
 
+    // Nuevo método: cambia solo 'configured'
+    setConfigured: (value: Partial<ConfiguredState>) => void;
+}
+
+// ===== STORE ESTÁTICO =====
+const useGlobalStatic = create<StaticGlobalProps>()(
+    devtools(
+        (set, get) => ({
+            // --- estado inicial ---
             configured: {
                 rolUser: "DEV",
                 cuadricula: false,
@@ -176,26 +182,7 @@ const useGlobalZustand = create<GlobalZustanProps>()(
                 footerActions: [],
             },
 
-            data: {
-                items: [],
-                selectItems: [],
-                filterValue: {
-                    search: '',
-                    date: {
-                        start: null,
-                        end: null
-                    },
-                    rol: "",
-                    estado: ""
-                },
-                page: 1,
-                totalPages: 1,
-                totalItems: 0,
-                loading: true,
-                error: null,
-            },
-
-            // Configuraciones tipadas
+            // Configuraciones tipadas (estáticas)
             roles: {
                 SUPER: "SUPER",
                 ESTANDAR: "ESTANDAR",
@@ -216,15 +203,48 @@ const useGlobalZustand = create<GlobalZustanProps>()(
                 estados: {
                     ACTIVO: { name: "ACTIVO", color: "#22c55e" },
                     INACTIVO: { name: "INACTIVO", color: "#f97316" },
-                }
+                },
             } as BadgeConfig,
 
-            // ===== MÉTODOS DE CONFIGURACIÓN =====
-            setConfigured: (value: Partial<ConfiguredState>) => set(
-                (state) => {
-                    Object.assign(state.configured, value);
-                }
-            ),
+            // --- nuevo método ---
+            setConfigured: (value) =>
+                set((state) => ({
+                    configured: {
+                        ...state.configured,
+                        ...value,
+                    },
+                })),
+        }),
+        { name: "static-global-store" }
+    )
+);
+
+
+// ===== STORE GLOBAL DINÁMICO =====
+const useGlobal = create<GlobalZustanProps>()(
+    devtools(
+        immer((set, get) => ({
+
+            data: {
+                items: [],
+                selectItems: [],
+                filterValue: {
+                    search: '',
+                    date: {
+                        start: null,
+                        end: null
+                    },
+                    rol: "",
+                    estado: ""
+                },
+                page: 1,
+                totalPages: 1,
+                totalItems: 0,
+                loading: true,
+                error: null,
+            },
+
+
 
             setData: (value: Partial<DataState>) => set(
                 (state) => {
@@ -259,30 +279,6 @@ const useGlobalZustand = create<GlobalZustanProps>()(
             setDateEnd: (end: string | null) => set(
                 (state) => {
                     state.data.filterValue.date.end = end;
-                }
-            ),
-
-            // ===== MÉTODOS DE TEMA =====
-            getTheme: () => get().theme,
-
-            setTheme: (theme: Partial<ThemeState>) => set(
-                (state) => {
-                    Object.assign(state.theme, theme);
-                }
-            ),
-
-            setDark: (dark: boolean) => set(
-                (state) => {
-                    state.theme.dark = dark;
-                }
-            ),
-
-            // ===== MÉTODOS DE CUADRÍCULA =====
-            getCuadricula: () => get().configured.cuadricula,
-
-            setCuadricula: (cuadricula: boolean) => set(
-                (state) => {
-                    state.configured.cuadricula = cuadricula;
                 }
             ),
 
@@ -366,11 +362,14 @@ const useGlobalZustand = create<GlobalZustanProps>()(
     )
 );
 
-export { useGlobalZustand };
+// ===== EXPORTS =====
+export { useGlobal, useGlobalStatic };
+
 export type {
     DataItem,
     DataState,
     GlobalZustanProps,
+    StaticGlobalProps,
     ThemeState,
     ConfiguredState,
     FilterValue,
@@ -380,5 +379,7 @@ export type {
     RoleBadge,
     StatusBadge,
     BadgeConfig,
-    SelectAllState
+    SelectAllState,
+    RoleConfig,
+    StatusConfig
 };

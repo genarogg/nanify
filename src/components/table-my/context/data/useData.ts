@@ -1,11 +1,11 @@
 "use client"
 
 import { useCallback } from "react"
-import { useGlobalZustand } from "../Global"
+import { useGlobal } from "../Global"
 import dataFake from "./data-fake"
 
 const useData = () => {
-    const { setData } = useGlobalZustand()
+    const { setData } = useGlobal()
     const API = "http://localhost:3001/usuarios"
 
     const initialData = useCallback(
