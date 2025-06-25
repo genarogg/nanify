@@ -1,6 +1,5 @@
 
-
-const useConfigured = ({ rolUser, roles }: any) => {
+const setConfigured = ({ rolUser, roles }: any) => {
     const { DEV, SUPER, ESTANDAR } = roles;
 
     // Configuración base
@@ -51,4 +50,4 @@ const useConfigured = ({ rolUser, roles }: any) => {
     return config;
 };
 
-export default useConfigured;
+export default setConfigured;

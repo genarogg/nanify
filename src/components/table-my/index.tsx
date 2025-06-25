@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect } from "react";
 import TableHeader from "./view/components/table-header";
-import useConfigured from "./context/useConfigured";
+import useConfigured from "./context/setConfigured";
 
 import { useGlobalZustand } from "./context/Global";
 import useData from "./context/data/useData";
