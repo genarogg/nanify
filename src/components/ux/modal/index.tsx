@@ -1,23 +1,25 @@
 "use client"
 
 import type React from "react"
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, memo, useCallback } from "react"
 import "./modal.css"
 
 interface ModalProps {
-  title?: string // Ahora es opcional
+  title?: string
   icon?: React.ReactNode
-  children: React.ReactNode
+  children: React.ReactNode | (() => React.ReactNode) // 🔥 NUEVA: Permite children como función
   buttonClassName?: string
   buttonText?: string
   onclick?: () => void
-  maxWidth?: string // Añadido para permitir personalización del ancho máximo
-  cancel?: boolean // Nueva prop para mostrar botón cancelar
-  onCancel?: () => void // Callback para el botón cancelar
-  cancelText?: string // Texto personalizable para el botón cancelar
+  maxWidth?: string
+  cancel?: boolean
+  onCancel?: () => void
+  cancelText?: string
+  lazy?: boolean // 🔥 NUEVA: Controla si usar lazy loading
 }
 
-export default function Modal({ 
+// 🔥 OPTIMIZACIÓN CRÍTICA: Memoizar el Modal
+const Modal = memo(function Modal({ 
   title, 
   icon, 
   children, 
@@ -25,36 +27,39 @@ export default function Modal({
   buttonText = "Guardar", 
   onclick,
   maxWidth = "500px",
-  cancel = false, // Por defecto false
+  cancel = false,
   onCancel,
-  cancelText = "Cancelar"
+  cancelText = "Cancelar",
+  lazy = true // 🔥 NUEVA: Por defecto lazy loading está activado
 }: ModalProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [isClosing, setIsClosing] = useState(false)
+  const [hasBeenOpened, setHasBeenOpened] = useState(false)
   const contentRef = useRef<HTMLDivElement>(null)
 
-  const openModal = () => {
+  const openModal = useCallback(() => {
     setIsOpen(true)
     setIsClosing(false)
-  }
+    setHasBeenOpened(true)
+  }, [])
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     setIsClosing(true)
-  }
+  }, [])
 
-  const handleSave = () => {
+  const handleSave = useCallback(() => {
     if (onclick) {
       onclick()
     }
     closeModal()
-  }
+  }, [onclick, closeModal])
 
-  const handleCancel = () => {
+  const handleCancel = useCallback(() => {
     if (onCancel) {
       onCancel()
     }
     closeModal()
-  }
+  }, [onCancel, closeModal])
 
   // Manejar el evento animationend para detectar cuando termina la animación de cierre
   useEffect(() => {
@@ -87,16 +92,13 @@ export default function Modal({
     }
 
     if (isOpen && !isClosing) {
-      // Solo establecer overflow hidden cuando el modal está completamente abierto
       document.addEventListener("keydown", handleEsc)
       document.body.style.overflow = "hidden"
     } else {
-      // Restaurar overflow cuando el modal no está abierto o se está cerrando
       document.removeEventListener("keydown", handleEsc)
       document.body.style.overflow = "unset"
     }
 
-    // Cleanup function que siempre restaura el overflow
     return () => {
       document.removeEventListener("keydown", handleEsc)
       document.body.style.overflow = "unset"
@@ -104,17 +106,17 @@ export default function Modal({
   }, [isOpen, isClosing])
 
   // Cerrar modal al hacer click fuera del contenido
-  const handleOverlayClick = (e: React.MouseEvent) => {
+  const handleOverlayClick = useCallback((e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
       closeModal()
     }
-  }
+  }, [closeModal])
 
   // Determinar si es solo icono basado en la presencia del título
   const isIconOnly = !title && icon
 
   // Renderizar el contenido del botón basado en isIconOnly
-  const renderButtonContent = () => {
+  const renderButtonContent = useCallback(() => {
     if (isIconOnly) {
       return <span className="modal-trigger-icon onli-icon">{icon}</span>
     }
@@ -125,42 +127,58 @@ export default function Modal({
         <span>{title}</span>
       </>
     )
-  }
+  }, [isIconOnly, icon, title])
 
+  // 🔥 OPTIMIZACIÓN CRÍTICA: Renderizar contenido solo cuando sea necesario
+  const renderModalContent = useCallback(() => {
+    if (!lazy) {
+      // Si no es lazy, renderizar children normalmente
+      return typeof children === 'function' ? children() : children
+    }
+
+    // Si es lazy, solo renderizar después de la primera apertura
+    if (!hasBeenOpened) {
+      return null
+    }
+
+    return typeof children === 'function' ? children() : children
+  }, [lazy, hasBeenOpened, children])
+
+  // 🔥 OPTIMIZACIÓN CRÍTICA: Botón trigger siempre presente
+  const triggerButton = (
+    <button 
+      className={`modal-trigger ${isIconOnly ? 'modal-trigger-icon-only' : ''} ${buttonClassName || ""}`} 
+      onClick={openModal}
+      title={isIconOnly ? "Abrir modal" : undefined}
+    >
+      {renderButtonContent()}
+    </button>
+  )
+
+  // 🔥 OPTIMIZACIÓN CRÍTICA: Solo renderizar overlay cuando esté abierto
   if (!isOpen) {
-    return (
-      <button 
-        className={`modal-trigger ${isIconOnly ? 'modal-trigger-icon-only' : ''} ${buttonClassName || ""}`} 
-        onClick={openModal}
-        title={isIconOnly ? "Abrir modal" : undefined} // Tooltip genérico para solo icono
-      >
-        {renderButtonContent()}
-      </button>
-    )
+    return triggerButton
   }
 
   return (
     <>
-      <button 
-        className={`modal-trigger ${isIconOnly ? 'modal-trigger-icon-only' : ''} ${buttonClassName || ""}`} 
-        onClick={openModal}
-        title={isIconOnly ? "Abrir modal" : undefined}
-      >
-        {renderButtonContent()}
-      </button>
+      {triggerButton}
 
       <div className={`modal-overlay ${isClosing ? "modal-overlay-closing" : ""}`} onClick={handleOverlayClick}>
         <div ref={contentRef} className={`modal-content ${isClosing ? "modal-content-closing" : ""}`} style={{ maxWidth }}>
           <div className="modal-header">
             <h2 className="modal-title">
               {icon && <span className="modal-title-icon">{icon}</span>}
-              {title || "Modal"} {/* Fallback si no hay título */}
+              {title || "Modal"}
             </h2>
             <button className="modal-close" onClick={closeModal}>
               ×
             </button>
           </div>
-          <div className="modal-body">{children}</div>
+          <div className="modal-body">
+            {/* 🔥 OPTIMIZACIÓN CRÍTICA: Renderizado lazy del contenido */}
+            {renderModalContent()}
+          </div>
           <div className="modal-footer">
             <div className={`modal-footer-buttons ${cancel ? 'modal-footer-buttons-with-cancel' : ''}`}>
               {cancel && (
@@ -177,4 +195,6 @@ export default function Modal({
       </div>
     </>
   )
-}
+})
+
+export default Modal
