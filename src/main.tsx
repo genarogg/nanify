@@ -58,6 +58,7 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
       <AuthProvider>
+        
         <Routes>
           <Route path="/" element={<Home />} />
 
@@ -67,8 +68,6 @@ createRoot(document.getElementById('root')!).render(
           <Route path="/btns/hamburguesa" element={<Hamburger />} />
 
           <Route path="/btns/basico" element={<BtnBasico />} />
-
-
 
           <Route path="/form/form-loki" element={<FormLoki />} />
 

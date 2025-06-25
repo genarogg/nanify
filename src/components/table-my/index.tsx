@@ -32,6 +32,7 @@ const HolaMundo: React.FC = () => {
 
     return (
         <div className="table-management-container">
+            
             <TableHeader />
 
             {isLargeScreen ? <TableView /> : <TableCardView />}
