@@ -114,7 +114,7 @@ interface GlobalZustanProps {
     // Estados
     configured: ConfiguredState;
     data: DataState;
-    theme: ThemeState;
+ 
     roles: RoleConfig;
     badges: BadgeConfig;
     estados: StatusConfig;
@@ -136,10 +136,7 @@ interface GlobalZustanProps {
     // Métodos de items
     updateItem: (id: number, newData: Partial<DataItem>) => void;
 
-    // Métodos de tema
-    getTheme: () => ThemeState;
-    setTheme: (theme: Partial<ThemeState>) => void;
-    setDark: (dark: boolean) => void;
+
 
     // Métodos de cuadrícula
     getCuadricula: () => boolean;
@@ -161,9 +158,7 @@ const useGlobalZustand = create<GlobalZustanProps>()(
     devtools(
         immer((set, get) => ({
             // Estados iniciales
-            theme: {
-                dark: false
-            },
+         
 
             configured: {
                 rolUser: "DEV",
@@ -262,20 +257,7 @@ const useGlobalZustand = create<GlobalZustanProps>()(
                 }
             ),
 
-            // ===== MÉTODOS DE TEMA =====
-            getTheme: () => get().theme,
-
-            setTheme: (theme: Partial<ThemeState>) => set(
-                (state) => {
-                    Object.assign(state.theme, theme);
-                }
-            ),
-
-            setDark: (dark: boolean) => set(
-                (state) => {
-                    state.theme.dark = dark;
-                }
-            ),
+          
 
             // ===== MÉTODOS DE CUADRÍCULA =====
             getCuadricula: () => get().configured.cuadricula,

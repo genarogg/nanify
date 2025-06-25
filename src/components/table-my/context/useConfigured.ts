@@ -1,54 +1,77 @@
+import { create } from 'zustand';
+import { devtools } from 'zustand/middleware';
+import { immer } from 'zustand/middleware/immer';
 
+// ===== TIPOS BÁSICOS =====
+type UserRole = "DEV" | "ESTANDAR" | "SUPER" | "Todos";
 
-const useConfigured = ({ rolUser, roles }: any) => {
-    const { DEV, SUPER, ESTANDAR } = roles;
+// ===== INTERFACES DE CONFIGURACIÓN =====
+interface ColumnConfig {
+    column: string;
+}
 
-    // Configuración base
-    let config = {
-        rolUser: rolUser,
-        select: true,
-        cuadricula: true,
+interface ActionConfig {
+    name: string;
+    type: string;
+}
 
-        columns: [
-            { column: "id" },
-            { column: "nombre" },
+interface ConfiguredState {
+    rolUser: UserRole;
+    cuadricula: boolean;
+    select: boolean;
+    columns: ColumnConfig[];
+    rowActions: ActionConfig[];
+    headerFilter: string[];
+    headerActions: string[];
+    footerActions: string[];
+}
 
-            { column: "telefono" },
-            { column: "cedula" },
+// ===== INTERFACE DEL STORE DE CONFIGURACIÓN =====
+interface ConfigZustanProps {
+    // Estado de configuración
+    configured: ConfiguredState;
 
-        ],
-        rowActions: [
-            { name: "view", type: "btn" },
-            { name: "report", type: "btn" },
-        ],
-        headerFilter: ["estado", "rol"],
-        headerActions: [],
-        footerActions: [],
-    };
+    // Método principal para configurar todo de una vez
+    setConfigured: (value: Partial<ConfiguredState>) => void;
+}
 
-
-
-    switch (rolUser) {
-        case SUPER:
-            config.columns.splice(6, 0, { column: "correo" });
-            config.rowActions.splice(4, 0, { name: "edit", type: "btn" });
-            break
-        case DEV:
-            //columns
-            config.columns.splice(7, 0, { column: "rol" });
-            config.columns.splice(6, 0, { column: "estado" });
-
-            // rowActions
-            config.rowActions.splice(0, 0, { name: "changeRol", type: "select" });
-            config.rowActions.splice(4, 0, { name: "edit", type: "btn" });
-            break
-        case ESTANDAR:
-            break
-    }
-
-    config.columns.splice(10, 0, { column: "acciones" });
-
-    return config;
+// ===== CONFIGURACIÓN INICIAL =====
+const initialConfigState: ConfiguredState = {
+    rolUser: "DEV",
+    cuadricula: false,
+    select: true,
+    columns: [],
+    rowActions: [],
+    headerFilter: [],
+    headerActions: [],
+    footerActions: [],
 };
 
-export default useConfigured;
+// ===== IMPLEMENTACIÓN DEL STORE =====
+const useConfigZustand = create<ConfigZustanProps>()(
+    devtools(
+        immer((set) => ({
+            // Estado inicial
+            configured: initialConfigState,
+
+            // ===== MÉTODO PRINCIPAL DE CONFIGURACIÓN =====
+            setConfigured: (value: Partial<ConfiguredState>) => set(
+                (state) => {
+                    Object.assign(state.configured, value);
+                }
+            ),
+        })),
+        {
+            name: 'config-store',
+        }
+    )
+);
+
+export { useConfigZustand };
+export type {
+    ConfiguredState,
+    ColumnConfig,
+    ActionConfig,
+    ConfigZustanProps,
+    UserRole
+};

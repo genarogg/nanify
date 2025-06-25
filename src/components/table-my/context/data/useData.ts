@@ -13,18 +13,25 @@ const useData = () => {
             setData({ loading: true })
             try {
                 
-                const res = await fetch(`${API}?_page=${page}&_limit=${limit}`)
+                const res = await fetch(API)
+
                 const json = await res.json()
+                
+                console.log("Datos obtenidos:",json)
+
+
+              
+                console.log(json.data)
 
                 // Calcular paginación para datos locales
-                const allItems = json.usuarios.data
+                const allItems = json.data
                 const startIndex = (page - 1) * limit
                 const endIndex = startIndex + limit
                 const paginatedItems = allItems.slice(startIndex, endIndex)
                 const totalPages = Math.ceil(allItems.length / limit)
 
                 setData({
-                    items: paginatedItems,
+                    items: allItems,
                     totalItems: allItems.length,
                     page,
                     totalPages,

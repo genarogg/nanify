@@ -30,7 +30,7 @@ const data = {
   usuarios: {
     config: {
       pagination: {
-        defaultLimit: 10,
+        defaultLimit: 20,
         maxLimit: 45
       }
     },
