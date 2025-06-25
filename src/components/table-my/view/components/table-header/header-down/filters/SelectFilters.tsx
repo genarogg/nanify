@@ -7,14 +7,14 @@ import {
     SelectContent,
     SelectItem,
 } from "../../../../../../ux/select"
-import { useGlobal } from "../../../../../context/Global"
+import { useGlobalStatic, useGlobalFilter } from "../../../../../context/Global"
 import type { UserRole, UserStatus } from "../../../../../context/Global"
 
 type SelectFiltersProps = {}
 
 const SelectFilters: React.FC<SelectFiltersProps> = () => {
-    const { data, setData, roles, estados, badges } = useGlobal()
-    const { filterValue } = data
+    const { filterValue, setRol, setEstado } = useGlobalFilter()
+    const { roles, estados, badges } = useGlobalStatic()
 
     const handleRolChange = (value: string | string[]) => {
         const rolValue = Array.isArray(value) ? value[0] : value
@@ -26,12 +26,7 @@ const SelectFilters: React.FC<SelectFiltersProps> = () => {
         
         if (isValidRole(rolValue)) {
             const finalRolValue = rolValue === "Todos" ? "" : (rolValue as UserRole | "")
-            setData({
-                filterValue: {
-                    ...filterValue,
-                    rol: finalRolValue,
-                },
-            })
+            setRol(finalRolValue)
         }
     }
 
@@ -45,12 +40,7 @@ const SelectFilters: React.FC<SelectFiltersProps> = () => {
         
         if (isValidStatus(estadoValue)) {
             const finalEstadoValue = estadoValue === "Todos" ? "" : (estadoValue as UserStatus | "")
-            setData({
-                filterValue: {
-                    ...filterValue,
-                    estado: finalEstadoValue,
-                },
-            })
+            setEstado(finalEstadoValue)
         }
     }
 

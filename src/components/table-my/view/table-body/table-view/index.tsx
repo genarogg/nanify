@@ -7,22 +7,27 @@ import ActionRow from "../../components/actions/ActionRow"
 import { Badge } from "../../../../ux"
 import "./tablet-view.css"
 
-import { useGlobal } from "../../../context/Global"
+import { useGlobal, useGlobalStatic } from "../../../context/Global"
 
 
 
 export default function TableView() {
 
   const {
-    configured,
+
     data,
     getSelectAllState,
     toggleAllSelect,
     isItemSelected,
     toggleSelectItem,
-    badges,
+
   } = useGlobal()
 
+  const {
+    configured,
+
+    badges,
+  } = useGlobalStatic()
   const { select, cuadricula, columns } = configured
 
   const { estados, roles } = badges

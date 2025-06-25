@@ -2,10 +2,10 @@
 
 import type React from "react"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "../../../../../ux/select"
-import { useGlobal } from "../../../../context/Global"
+import { useGlobalStatic } from "../../../../context/Global"
 
 const SelectRol: React.FC = () => {
-  const { roles, configured, setConfigured } = useGlobal()
+  const { roles, configured, setConfigured } = useGlobalStatic()
   const userRole = configured.rolUser
 
   const handleRoleChange = (value: string | string[]) => {

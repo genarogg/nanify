@@ -1,13 +1,13 @@
 'use client'
 import React, { useState } from 'react'
-import { useGlobal } from '../../../../../context/Global'
+import { useGlobalFilter } from '../../../../../context/Global'
 import "./css/from-to-date.css"
 
 interface FromToDateProps { }
 
 const FromToDate: React.FC<FromToDateProps> = () => {
-    // Obtener valores y funciones del store de Zustand
-    const { getDate, setDateStart, setDateEnd } = useGlobal()
+    // Obtener valores y funciones del store de filtros
+    const { getDate, setDateStart, setDateEnd } = useGlobalFilter()
     const dateRange = getDate()
 
     const [fromInputType, setFromInputType] = useState<'text' | 'date'>('text')

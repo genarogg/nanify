@@ -2,7 +2,7 @@
 
 import { FileText } from "lucide-react"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "../../../../ux/select"
-import { useGlobal } from "../../../context/Global"
+import { useGlobal, useGlobalStatic } from "../../../context/Global"
 
 import "./actions-row.css"
 
@@ -10,7 +10,8 @@ import AggEditar from "../modals/AggEditar"
 import ViewDetails from "../modals/ViewDatails"
 
 export default function ActionsCell({ item }: any) {
-    const { badges, updateItem, configured } = useGlobal()
+    const { updateItem, } = useGlobal()
+    const { badges, configured } = useGlobalStatic()
 
     const { roles } = badges
 

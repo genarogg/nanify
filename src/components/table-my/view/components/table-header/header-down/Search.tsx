@@ -1,12 +1,12 @@
 import { Search as Lupita } from "lucide-react"
 import "../css/search.css"
-import { useGlobal } from "../../../../context/Global"
+import { useGlobalFilter } from "../../../../context/Global"
 
 interface SearchProps { }
 
 const Search: React.FC<SearchProps> = () => {
 
-    const { getSearch, setSearch } = useGlobal();
+    const { getSearch, setSearch } = useGlobalFilter();
     const searchValue = getSearch();
 
     const handleSearch = (value: string) => {

@@ -30,11 +30,11 @@ const data = {
   usuarios: {
     config: {
       pagination: {
-        defaultLimit: 200,
-        maxLimit: 200
+        defaultLimit: 45,
+        maxLimit: 45
       }
     },
-    data: Array.from({ length: 200 }, (_, i) => generateUser(i + 1))
+    data: Array.from({ length: 45 }, (_, i) => generateUser(i + 1))
   },
   rol: roles,
   status: status

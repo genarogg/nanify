@@ -1,7 +1,7 @@
 'use client'
 import React, { useState, useEffect } from 'react'
 import { SquarePen, UserPlus, Shield, FileText, User, Mail, Phone, CreditCard, Hash } from 'lucide-react'
-import { useGlobal, type DataItem, type UserRole, type UserStatus } from '../../../context/Global'
+import { useGlobal, useGlobalStatic, type DataItem, type UserRole, type UserStatus } from '../../../context/Global'
 import Modal from '../../../../ux/modal'
 import Input from '../../../../ux/input'
 import InputFile from '../../../../ux/input-file'
@@ -32,7 +32,8 @@ interface FormData {
 }
 
 const AggEditar: React.FC<AggEditarProps> = ({ item }) => {
-    const { updateItem, setData, data, roles, badges } = useGlobal();
+    const { updateItem, setData, data } = useGlobal();
+    const { roles, badges } = useGlobalStatic();
     const isEditMode = !!item;
 
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -96,12 +97,12 @@ const AggEditar: React.FC<AggEditarProps> = ({ item }) => {
 
     const handleSelectChange = (value: string | string[]) => {
         const roleValue = Array.isArray(value) ? value[0] : value;
-        
+
         // Type guard para validar que el rol es válido
         const isValidRole = (val: string): val is UserRole => {
             return Object.values(roles).includes(val as UserRole);
         };
-        
+
         if (isValidRole(roleValue)) {
             setFormData(prev => ({ ...prev, rol: roleValue }));
         }
@@ -109,12 +110,12 @@ const AggEditar: React.FC<AggEditarProps> = ({ item }) => {
 
     const handleEstadoChange = (value: string | string[]) => {
         const stateValue = Array.isArray(value) ? value[0] : value;
-        
+
         // Type guard para validar que el estado es válido
         const isValidStatus = (val: string): val is UserStatus => {
             return val === 'ACTIVO' || val === 'INACTIVO';
         };
-        
+
         if (isValidStatus(stateValue)) {
             setFormData(prev => ({ ...prev, estado: stateValue }));
         }
@@ -151,9 +152,9 @@ const AggEditar: React.FC<AggEditarProps> = ({ item }) => {
                 docUrl = await uploadFile(selectedFile);
             }
             await new Promise(resolve => setTimeout(resolve, 1000));
-            
+
             const itemData = { ...formData, doc: docUrl, rol: formData.rol };
-            
+
             if (isEditMode) {
                 if (!item?.id) throw new Error('No se puede actualizar: ID del item no encontrado');
                 updateItem(item.id, itemData);
