@@ -13,6 +13,16 @@ interface ViewDetailsProps {
 const ViewDetails: React.FC<ViewDetailsProps> = ({ item }) => {
     const { badges } = useGlobalStatic();
 
+    // Función auxiliar para verificar si un valor es un rol válido
+    const isValidRole = (value: any): value is keyof typeof badges.roles => {
+        return typeof value === 'string' && value in badges.roles
+    }
+
+    // Función auxiliar para verificar si un valor es un estado válido
+    const isValidStatus = (value: any): value is keyof typeof badges.estados => {
+        return typeof value === 'string' && value in badges.estados
+    }
+
     const handleDownloadDocument = () => {
         // Simulate document download
         console.log(`Downloading document: ${item.doc}`);
@@ -97,12 +107,16 @@ const ViewDetails: React.FC<ViewDetailsProps> = ({ item }) => {
                     <span className="field-label">
                         ROL:
                     </span>
-                    <Badge
-                        customColor={badges.roles[item.rol]?.color}
-                        width="110px"
-                    >
-                        {badges.roles[item.rol]?.name}
-                    </Badge>
+                    {isValidRole(item.rol) ? (
+                        <Badge
+                            customColor={badges.roles[item.rol].color}
+                            width="110px"
+                        >
+                            {badges.roles[item.rol].name}
+                        </Badge>
+                    ) : (
+                        <span className="field-value">{item.rol}</span>
+                    )}
                 </div>
 
                 {/* Estado Field */}
@@ -110,12 +124,16 @@ const ViewDetails: React.FC<ViewDetailsProps> = ({ item }) => {
                     <span className="field-label">
                         ESTADO:
                     </span>
-                    <Badge
-                        customColor={badges.estados[item.estado]?.color}
-                        width="110px"
-                    >
-                        {badges.estados[item.estado]?.name}
-                    </Badge>
+                    {isValidStatus(item.estado) ? (
+                        <Badge
+                            customColor={badges.estados[item.estado].color}
+                            width="110px"
+                        >
+                            {badges.estados[item.estado].name}
+                        </Badge>
+                    ) : (
+                        <span className="field-value">{item.estado}</span>
+                    )}
                 </div>
 
                 {/* Document Section */}

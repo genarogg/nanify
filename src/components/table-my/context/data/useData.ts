@@ -12,13 +12,12 @@ const useData = () => {
         async (page = 1, limit = 10) => {
             setData({ loading: true })
             try {
-                
                 const res = await fetch(API)
                 const json = await res.json()
                 
                 console.log("Datos obtenidos:", json.data)
 
-                // Calcular paginación para datos locales
+                // Calcular paginación para datos de la API
                 const allItems = json.data
                 const startIndex = (page - 1) * limit
                 const endIndex = startIndex + limit
@@ -26,12 +25,13 @@ const useData = () => {
                 const totalPages = Math.ceil(allItems.length / limit)
 
                 setData({
-                    items: json.data,
+                    items: paginatedItems.reverse(),
                     totalItems: allItems.length,
                     page,
                     totalPages,
                     loading: false,
                 })
+              
             } catch (error) {
                 console.error("Error fetching data:", error)
                 // Fallback con datos fake paginados
@@ -47,6 +47,7 @@ const useData = () => {
                     page,
                     totalPages,
                     loading: false,
+                    error: "Error al cargar datos desde la API"
                 })
             }
         },

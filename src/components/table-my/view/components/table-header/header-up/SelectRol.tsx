@@ -2,14 +2,19 @@
 
 import type React from "react"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "../../../../../ux/select"
-import { useGlobalStatic } from "../../../../context/Global"
+import { useGlobalStatic, type UserRole } from "../../../../context/Global"
 
 const SelectRol: React.FC = () => {
   const { roles, configured, setConfigured } = useGlobalStatic()
   const userRole = configured.rolUser
 
+  // Función auxiliar para verificar si un valor es un rol válido
+  const isValidRole = (value: string): value is UserRole => {
+    return value === "DEV" || value === "ESTANDAR" || value === "SUPER"
+  }
+
   const handleRoleChange = (value: string | string[]) => {
-    if (typeof value === "string") {
+    if (typeof value === "string" && isValidRole(value)) {
       setConfigured({
         ...configured,
         rolUser: value,
@@ -24,8 +29,8 @@ const SelectRol: React.FC = () => {
           <SelectValue placeholder="Selecciona un rol" />
         </SelectTrigger>
         <SelectContent>
-          {Object.entries(roles).map(([key, value]) => (
-            <SelectItem key={key} value={String(value)}>
+          {(Object.entries(roles) as Array<[keyof typeof roles, UserRole]>).map(([key, value]) => (
+            <SelectItem key={key} value={value}>
               {key.charAt(0) + key.slice(1).toLowerCase()}
             </SelectItem>
           ))}

@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect, useCallback, useMemo, memo } from 'react'
+import React, { useState, useEffect, useCallback, useMemo, memo, useRef, useImperativeHandle, forwardRef } from 'react'
 import { SquarePen, UserPlus, Shield, FileText, User, Mail, Phone, CreditCard, Hash } from 'lucide-react'
 import { useGlobal, useGlobalStatic, type DataItem, type UserRole, type UserStatus } from '../../../context/Global'
 import Modal from '../../../../ux/modal'
@@ -31,9 +31,15 @@ interface FormData {
     doc: string;
 }
 
-// 🔥 OPTIMIZACIÓN CRÍTICA: Componente del formulario separado
-const AggEditarForm = memo(({ item }: AggEditarProps) => {
-    // 🔥 OPTIMIZACIÓN CRÍTICA: Suscripción selectiva a Zustand
+// Interface para el ref del formulario
+interface FormRef {
+    handleSave: () => Promise<void>;
+    isLoading: boolean;
+}
+
+// 🔥 OPTIMIZACIÓN CRÍTICA: Componente del formulario con forwardRef
+const AggEditarForm = memo(forwardRef<FormRef, AggEditarProps>(({ item }, ref) => {
+    // 🔥 OPTIMIZACIÓN CRÍTICA: Usar métodos específicos de Zustand
     const updateItem = useGlobal(state => state.updateItem)
     const setData = useGlobal(state => state.setData)
     const dataItems = useGlobal(state => state.data.items)
@@ -144,8 +150,16 @@ const AggEditarForm = memo(({ item }: AggEditarProps) => {
         }
     }, []);
 
-    // 🔥 OPTIMIZACIÓN: Memoizar funciones auxiliares
-    const generateId = useCallback(() => Date.now(), []);
+    // 🔥 OPTIMIZACIÓN CORREGIDA: Generar ID basado en el máximo existente + 1
+    const generateId = useCallback(() => {
+        if (dataItems.length === 0) {
+            return 1; // Si no hay elementos, comenzar con 1
+        }
+        
+        // Encontrar el ID máximo y sumarle 1
+        const maxId = Math.max(...dataItems.map(item => item.id));
+        return maxId + 1;
+    }, [dataItems]);
 
     const uploadFile = useCallback(async (file: File): Promise<string> => {
         await new Promise(resolve => setTimeout(resolve, 1500));
@@ -171,20 +185,32 @@ const AggEditarForm = memo(({ item }: AggEditarProps) => {
 
             if (isEditMode) {
                 if (!item?.id) throw new Error('No se puede actualizar: ID del item no encontrado');
+                
+                // 🔥 USAR MÉTODO ESPECÍFICO: updateItem para edición
                 updateItem(item.id, itemData);
             } else {
                 const newItem: DataItem = {
                     id: generateId(),
                     ...itemData,
                 };
-                setData({ items: [...dataItems, newItem] });
+                
+                // 🔥 USAR MÉTODO ESPECÍFICO: setData con preservación de selecciones
+                // El método setData ya maneja automáticamente la preservación de selecciones
+                const updatedItems = [newItem, ...dataItems];
+                setData({ items: updatedItems });
             }
         } catch (error) {
             console.error(`Error al ${isEditMode ? 'actualizar' : 'agregar'} item:`, error);
         } finally {
             setIsLoading(false);
         }
-    }, [formData, selectedFile, uploadFile, isEditMode, item?.id, updateItem, generateId, setData, dataItems]);
+    }, [formData, selectedFile, uploadFile, isEditMode, item?.id, updateItem, setData, generateId, dataItems]);
+
+    // 🔥 NUEVO: Exponer funciones a través del ref
+    useImperativeHandle(ref, () => ({
+        handleSave,
+        isLoading
+    }), [handleSave, isLoading]);
 
     // 🔥 OPTIMIZACIÓN: Memoizar opciones de roles
     const roleOptions = useMemo(() => 
@@ -333,25 +359,25 @@ const AggEditarForm = memo(({ item }: AggEditarProps) => {
             </div>
         </div>
     );
-});
+}));
 
 // Establecer displayName para debugging
 AggEditarForm.displayName = 'AggEditarForm';
 
-// 🔥 OPTIMIZACIÓN CRÍTICA: Componente principal solo maneja la modal
+// 🔥 OPTIMIZACIÓN CRÍTICA: Componente principal conectado al formulario
 const AggEditar: React.FC<AggEditarProps> = memo(({ item }) => {
     const isEditMode = !!item;
-    const [isLoading, setIsLoading] = useState(false);
+    const formRef = useRef<FormRef>(null);
 
-    // 🔥 OPTIMIZACIÓN: Memoizar handleSave para el modal
+    // 🔥 SOLUCIONADO: handleSave ahora conecta con el formulario
     const handleSave = useCallback(async () => {
-        // Esta función se ejecutará cuando se haga click en el botón de guardar
-        // La lógica real está en AggEditarForm
-        setIsLoading(true);
-        // Simular operación
-        await new Promise(resolve => setTimeout(resolve, 100));
-        setIsLoading(false);
+        if (formRef.current) {
+            await formRef.current.handleSave();
+        }
     }, []);
+
+    // 🔥 OPTIMIZACIÓN: Obtener isLoading del formulario
+    const isLoading = formRef.current?.isLoading || false;
 
     // 🔥 OPTIMIZACIÓN: Memoizar props del modal
     const modalProps = useMemo(() => ({
@@ -366,7 +392,7 @@ const AggEditar: React.FC<AggEditarProps> = memo(({ item }) => {
 
     // 🔥 OPTIMIZACIÓN CRÍTICA: Renderizar el formulario como función lazy
     const renderForm = useCallback(() => {
-        return <AggEditarForm item={item} />;
+        return <AggEditarForm ref={formRef} item={item} />;
     }, [item]);
 
     return (

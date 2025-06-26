@@ -9,28 +9,32 @@ import "./tablet-view.css"
 
 import { useGlobal, useGlobalStatic } from "../../../context/Global"
 
-
-
 export default function TableView() {
-
   const {
-
     data,
     getSelectAllState,
     toggleAllSelect,
     isItemSelected,
     toggleSelectItem,
-
   } = useGlobal()
 
   const {
     configured,
-
     badges,
   } = useGlobalStatic()
-  const { select, cuadricula, columns } = configured
 
+  const { select, cuadricula, columns } = configured
   const { estados, roles } = badges
+
+  // Función auxiliar para verificar si un valor es un rol válido
+  const isValidRole = (value: any): value is keyof typeof roles => {
+    return typeof value === 'string' && value in roles
+  }
+
+  // Función auxiliar para verificar si un valor es un estado válido
+  const isValidStatus = (value: any): value is keyof typeof estados => {
+    return typeof value === 'string' && value in estados
+  }
 
   return (
     <>
@@ -82,8 +86,8 @@ export default function TableView() {
                   const fieldKey = column.key || column.column;
                   const value = item[fieldKey];
 
-                  // Renderizar badge para 'rol' y 'estado'
-                  if (column.column === "rol" && value && roles[value]) {
+                  // Renderizar badge para 'rol'
+                  if (column.column === "rol" && isValidRole(value)) {
                     return (
                       <td key={Index}>
                         <Badge customColor={roles[value].color} width="110px">
@@ -92,7 +96,9 @@ export default function TableView() {
                       </td>
                     );
                   }
-                  if (column.column === "estado" && value && estados[value]) {
+
+                  // Renderizar badge para 'estado'
+                  if (column.column === "estado" && isValidStatus(value)) {
                     return (
                       <td key={Index}>
                         <Badge customColor={estados[value].color} width="110px">

@@ -3,24 +3,34 @@
 import { Check } from "lucide-react"
 import { Badge, Switch } from "../../../../ux"
 import ActionRow from "../../components/actions/ActionRow"
-import { useGlobal, useGlobalStatic } from "../../../context/Global"
+import { useGlobal, useGlobalStatic, type DataItem, type UserStatus } from "../../../context/Global"
 import "./tablet-card.css"
 
 export default function TableCardView() {
-    const {  data, isItemSelected, toggleSelectItem,  updateItem } = useGlobal()
+    const { data, isItemSelected, toggleSelectItem, updateItem } = useGlobal()
     const { configured, badges } = useGlobalStatic()
 
     const { select } = configured
     const { estados, roles } = badges
 
-    const handleStatusToggle = (item: any) => {
-        const newStatus = item.estado === "ACTIVO" ? "INACTIVO" : "ACTIVO"
+    // Función auxiliar para verificar si un valor es un rol válido
+    const isValidRole = (value: any): value is keyof typeof roles => {
+        return typeof value === 'string' && value in roles
+    }
+
+    // Función auxiliar para verificar si un valor es un estado válido
+    const isValidStatus = (value: any): value is keyof typeof estados => {
+        return typeof value === 'string' && value in estados
+    }
+
+    const handleStatusToggle = (item: DataItem) => {
+        const newStatus: UserStatus = item.estado === "ACTIVO" ? "INACTIVO" : "ACTIVO"
         updateItem(item.id, { estado: newStatus })
     }
 
     return (
         <div className="card-view-container">
-            {data.items.map((item: any) => (
+            {data.items.map((item: DataItem) => (
                 <div key={item.id} className={`item-card ${isItemSelected(item) ? "selected" : ""}`}>
                     {/* Status indicator */}
                     <div className="status-indicator"></div>
@@ -42,8 +52,13 @@ export default function TableCardView() {
 
                         {/* Switch de estado */}
                         <div className="status-switch-container">
-                            <span className={`status-text ${item.estado === "ACTIVO" ? "active" : "inactive"}`}>{item.estado}</span>
-                            <Switch isOn={item.estado === "ACTIVO"} onToggle={() => handleStatusToggle(item)} />
+                            <span className={`status-text ${item.estado === "ACTIVO" ? "active" : "inactive"}`}>
+                                {item.estado}
+                            </span>
+                            <Switch
+                                isOn={item.estado === "ACTIVO"}
+                                onToggle={() => handleStatusToggle(item)}
+                            />
                         </div>
                     </div>
 
@@ -72,18 +87,26 @@ export default function TableCardView() {
                         <div className="card-field">
                             <span className="field-label">Rol:</span>
                             <div className="field-value">
-                                <Badge customColor={roles[item.rol]?.color} width="90px">
-                                    {roles[item.rol]?.name}
-                                </Badge>
+                                {isValidRole(item.rol) ? (
+                                    <Badge customColor={roles[item.rol].color} width="90px">
+                                        {roles[item.rol].name}
+                                    </Badge>
+                                ) : (
+                                    <span>{item.rol}</span>
+                                )}
                             </div>
                         </div>
 
                         <div className="card-field">
                             <span className="field-label">Estado:</span>
                             <div className="field-value">
-                                <Badge customColor={estados[item.estado]?.color} width="90px">
-                                    {estados[item.estado]?.name}
-                                </Badge>
+                                {isValidStatus(item.estado) ? (
+                                    <Badge customColor={estados[item.estado].color} width="90px">
+                                        {estados[item.estado].name}
+                                    </Badge>
+                                ) : (
+                                    <span>{item.estado}</span>
+                                )}
                             </div>
                         </div>
 
