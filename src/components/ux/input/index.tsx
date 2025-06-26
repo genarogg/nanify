@@ -1,6 +1,6 @@
 "use client"
 import React, { useState, useRef, useEffect, forwardRef, useImperativeHandle } from 'react'
-import { Icon } from '@components/ux'
+import Icon from '../icon'
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import './input.css';
 
@@ -9,6 +9,7 @@ interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, '
     name: string;
     type: 'password' | 'text' | 'email' | 'date' | 'number' | 'tel' | 'url';
     icon?: React.ReactNode;
+    iconFixed?: boolean;
     id?: string;
     required?: boolean;
     disabled?: boolean;
@@ -20,7 +21,6 @@ interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, '
     value?: string;
     defaultValue?: string;
     error?: string;
-    helperText?: string;
     label?: string;
     'aria-label'?: string;
     'aria-describedby'?: string;
@@ -36,6 +36,7 @@ export interface InputRef {
 const Input = forwardRef<InputRef, InputProps>(({
     className = "",
     icon,
+    iconFixed = false,
     name,
     id = name,
     type,
@@ -49,7 +50,6 @@ const Input = forwardRef<InputRef, InputProps>(({
     value,
     defaultValue,
     error,
-    helperText,
     label,
     'aria-label': ariaLabel,
     'aria-describedby': ariaDescribedBy,
@@ -104,21 +104,26 @@ const Input = forwardRef<InputRef, InputProps>(({
         restProps.onBlur?.(e);
     };
 
+    // SOLUCIÓN: Sincronizar hasContent con hasContentState y value
     useEffect(() => {
         if (inputRef.current) {
             const initialValue = isControlled ? (value || '') : (inputRef.current.value || '');
-            setHasContent(initialValue !== "");
+            setHasContent(initialValue !== "" || hasContentState);
         }
-    }, [value, isControlled]);
+    }, [value, isControlled, hasContentState]); // ← Agregamos hasContentState a las dependencias
+
+    // ALTERNATIVA: Si quieres que hasContentState tenga prioridad total
+    useEffect(() => {
+        setHasContent(hasContentState);
+    }, [hasContentState]);
 
     // IDs únicos para accesibilidad
     const errorId = error ? `${id}-error` : undefined;
-    const helperTextId = helperText ? `${id}-helper` : undefined;
-    const describedBy = [ariaDescribedBy, errorId, helperTextId].filter(Boolean).join(' ') || undefined;
+    const describedBy = [ariaDescribedBy, errorId].filter(Boolean).join(' ') || undefined;
 
     return (
-        <div className={`input-wrapper ${className}`}>
-            {/* Label opcional */}
+        <div className={`input-wrapper ${className} `}>
+
             {label && (
                 <label htmlFor={id} className="input-label">
                     {label}
@@ -127,11 +132,18 @@ const Input = forwardRef<InputRef, InputProps>(({
             )}
 
             <div
-                className={`container-input ${isFocused ? "focus" : ""} ${icon ? "" : "no-icon"} ${error ? "error" : ""} ${disabled ? "disabled" : ""}`}
+                className={`
+                    container-input 
+                    ${isFocused ? "focus" : ""} 
+                    ${icon ? "" : "no-icon"} 
+                    ${error ? "error" : ""} 
+                    ${disabled ? "disabled" : ""} 
+                    ${!iconFixed && icon ? "icon-placehorder" : ""}
+                    `}
                 onClick={handleClick}
             >
                 {/* Icono */}
-                {icon && (
+                {(icon && iconFixed) && (
                     <div className='label-ico' aria-hidden="true">
                         <Icon icon={icon} />
                     </div>
@@ -177,20 +189,19 @@ const Input = forwardRef<InputRef, InputProps>(({
                     className={`holder ${hasContent || isFocused ? "has-content" : ""}`}
                     aria-hidden="true"
                 >
+                    {(icon && !iconFixed) && (
+                        <div className='label-ico' aria-hidden="true">
+                            <Icon icon={icon} />
+                        </div>
+                    )}
                     {placeholder}
                 </span>
             </div>
 
-            {/* Mensajes de error y ayuda */}
+            {/* Mensaje de error */}
             {error && (
                 <div id={errorId} className="error-message" role="alert" aria-live="polite">
                     {error}
-                </div>
-            )}
-
-            {helperText && !error && (
-                <div id={helperTextId} className="helper-text">
-                    {helperText}
                 </div>
             )}
         </div>

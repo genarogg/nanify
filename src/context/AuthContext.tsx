@@ -201,7 +201,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
             const storedToken = getTokenFromStorage();
 
-            console.log(isCurrentRoute('/'))
+            // console.log(isCurrentRoute('/'))
 
             if (!storedToken && isCurrentRoute('/')) {
                 dispatch({ type: 'VERIFY_TOKEN_FAILURE' });

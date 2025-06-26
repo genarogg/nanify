@@ -1,6 +1,9 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+
+
 import AuthProvider from '@context/AuthContext';
 
 import "./sass/style.scss"
@@ -41,6 +44,7 @@ import AnimatedBackgroundWrapper from './docs/wrapper/animated-background-wrappe
 
 import ModalPage from './docs/ux/modal/page';
 import TabletPage from './docs/tablet/page';
+import TabletMyPage from './docs/tablet-my/page';
 
 import SelectPage from './docs/ux/select/page';
 
@@ -54,6 +58,7 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
       <AuthProvider>
+        
         <Routes>
           <Route path="/" element={<Home />} />
 
@@ -63,8 +68,6 @@ createRoot(document.getElementById('root')!).render(
           <Route path="/btns/hamburguesa" element={<Hamburger />} />
 
           <Route path="/btns/basico" element={<BtnBasico />} />
-
-
 
           <Route path="/form/form-loki" element={<FormLoki />} />
 
@@ -104,6 +107,8 @@ createRoot(document.getElementById('root')!).render(
 
           <Route path="/table" element={<TabletPage />} />
 
+          <Route path="/table-my" element={<TabletMyPage />} />
+
           <Route path="/layout/clean" element={<LayoutClean />} />
 
 
@@ -111,6 +116,7 @@ createRoot(document.getElementById('root')!).render(
           {/* Fallback route for unknown paths */}
 
         </Routes>
+
       </AuthProvider>
     </BrowserRouter>
   </StrictMode>,

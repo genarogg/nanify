@@ -4,6 +4,7 @@
   "author": "Genaro Gonzalez",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "type": "module",
   "license": "MIT",
   "version": "0.2.51",
   "files": [
@@ -15,7 +16,7 @@
     "fn"
   ],
   "scripts": {
-    "dev": "vite",
+    "vit": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "start": "vite preview",
@@ -25,16 +26,23 @@
     "publicar": "npm run upVersion && npm run update:jsx && npm publish",
     "postinstall": "node ./fn/postinstall.js",
     "nanify": "node ./node_modules/nanify/fn/moveComponents.js",
-    "@nano": "node ./node_modules/nanify/fn/moveComponents.js"
+    "@nano": "node ./node_modules/nanify/fn/moveComponents.js",
+    "server": "json-server --port 3001 --watch server/db.json",
+    "dev": "npm-run-all --parallel vit server",
+    "generate": "node ./server/table-fake-data.js"
   },
   "dependencies": {
+    "@faker-js/faker": "^9.8.0",
     "@justinribeiro/lite-youtube": "^1.7.1",
     "@tippyjs/react": "^4.2.6",
     "algoliasearch": "^5.23.3",
     "crypto-js": "^4.2.0",
     "graphql": "^16.10.0",
+    "immer": "^10.1.1",
+    "json-server": "^1.0.0-beta.3",
     "lucide-react": "^0.488.0",
     "motion": "^12.7.2",
+    "npm-run-all": "^4.1.5",
     "ogl": "^1.0.11",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -49,7 +57,8 @@
     "react-youtube": "^10.1.0",
     "sass": "^1.86.3",
     "simplex-noise": "^4.0.3",
-    "swiper": "^11.2.6"
+    "swiper": "^11.2.6",
+    "zustand": "^5.0.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",

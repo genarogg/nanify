@@ -20,7 +20,13 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
+<<<<<<< HEAD
   font-weight: 500; }
+=======
+  font-weight: 500;
+  min-width: 140px;
+}
+>>>>>>> tablet
 
 .select-trigger:focus,
 .select-trigger:active,
@@ -41,10 +47,19 @@
   height: 18px;
   color: #111827;
   transition: transform 0.6s ease;
+<<<<<<< HEAD
   flex-shrink: 0; }
 
 .select-trigger[data-state="open"] .select-icon {
   transform: rotate(180deg); }
+=======
+  flex-shrink: 0;
+}
+
+.select-trigger[data-state="open"] .select-icon {
+  transform: rotate(180deg);
+}
+>>>>>>> tablet
 
 .select-content {
   position: absolute;
@@ -55,7 +70,12 @@
   background: #ffffff;
   border: 1px solid #e2e8f0;
   border-radius: 6px;
+<<<<<<< HEAD
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+=======
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+>>>>>>> tablet
   overflow: hidden;
   max-height: 240px;
   overflow-y: auto; }
@@ -106,7 +126,12 @@
   height: 16px;
   color: #6b7280;
   opacity: 0;
+<<<<<<< HEAD
   transition: opacity 0.15s ease; }
+=======
+  transition: opacity 0.15s ease;
+}
+>>>>>>> tablet
 
 .select-item[data-selected] .select-item-indicator {
   opacity: 1; }
@@ -137,7 +162,12 @@
   align-items: center;
   justify-content: center;
   background: #ffffff;
+<<<<<<< HEAD
   transition: all 0.15s ease; }
+=======
+  transition: all 0.15s ease;
+}
+>>>>>>> tablet
 
 .select-item[data-selected] .select-item-checkbox {
   background: #f3f4f6;
@@ -148,7 +178,12 @@
   width: 12px;
   height: 12px;
   opacity: 0;
+<<<<<<< HEAD
   transition: opacity 0.15s ease; }
+=======
+  transition: opacity 0.15s ease;
+}
+>>>>>>> tablet
 
 .select-item[data-selected] .select-item-checkbox svg {
   opacity: 1; }

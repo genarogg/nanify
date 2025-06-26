@@ -1,6 +1,6 @@
 import React from "react";
-import { $ } from "@fn";
-import "./_btnThor.scss";
+
+import "./btnThor.css";
 
 interface BtnThorProps {
   onClick?: () => void;
@@ -13,7 +13,7 @@ const BtnThor: React.FC<BtnThorProps> = ({
 }) => {
 
   const active = () => {
-    $("btn-hamburguer-thor")?.classList.toggle("active")
+    document.getElementById("btn-hamburguer-thor")?.classList.toggle("active")
   }
 
   return (

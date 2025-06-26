@@ -1,20 +1,32 @@
 "use client"
 
+<<<<<<< HEAD
 import type React from "react"
 import { createContext, useContext, useState, useMemo, useEffect, type ReactNode } from "react"
+=======
+import { createContext, useContext, useState, useMemo, type ReactNode, useCallback, useEffect } from "react"
+
+>>>>>>> tablet
 import { useResponsiveView, type UseResponsiveViewReturn } from "../fn/useResponsiveView"
-import { defaultData } from "../fn/defaultData"
+
 import type { DataTable, TableConfig } from "./types"
 import { usePagination } from "../hooks/usePagination"
 
-// Tipos para el estado de la tabla (movidos desde useTable)
+import { useTableData } from "./data/useTableData"
+
+// Tipo genérico para filtros
+interface GenericFilter {
+  [key: string]: string
+}
+
+// Tipos para el estado de la tabla
 interface TableState {
   // Estados principales
-  items: DataTable[]
-  searchTerm: string
-  currentPage: number
-  selectedItems: number[]
-  filteredItems: DataTable[]
+  items: DataTable[] 
+  searchTerm: string 
+  currentPage: number 
+  selectedItems: number[] 
+  filteredItems: DataTable[] 
   currentItems: DataTable[]
   totalPages: number
 
@@ -43,17 +55,63 @@ interface TableState {
   deleteSelectedItems: () => void
   setItems: React.Dispatch<React.SetStateAction<DataTable[]>>
 
+  // Funciones de cambio masivo
+  updateSelectedItemsRole: (newRole: string) => void
+  updateSelectedItemsStatus: (newStatus: string) => void
+
   // Información adicional
   hasItems: boolean
   hasFilteredItems: boolean
   selectedCount: number
   totalItems: number
   filteredCount: number
+  dataLoading: boolean
+  dataError: string | null
+  refetchData: () => Promise<void>
+
+  updateTableConfig: (newConfig: Partial<TableConfig>) => void
+  updateItemsPerPage: (newItemsPerPage: number) => void
+  itemsPerPage: number
+  userRole: "super" | "asistente"
+  updateUserRole: (role: "super" | "asistente") => void
+}
+
+// Configuración extendida de filtros
+interface ExtendedFilterConfig {
+  // Filtros de fecha
+  dateFrom: string
+  dateTo: string
+  onDateFromChange: (date: string) => void
+  onDateToChange: (date: string) => void
+
+  // Filtros de selección específicos (compatibilidad hacia atrás)
+  showStatusFilter: boolean
+  statusOptions: { value: string; label: string }[]
+  selectedStatus: string
+  onStatusChange: (status: string) => void
+  selectedRole: string
+  onRoleChange: (role: string) => void
+
+  // Sistema de filtros genéricos
+  genericFilters: GenericFilter
+  onGenericFilterChange: (filterType: string, value: string) => void
+  clearAllFilters: () => void
+  getFilterValue: (filterType: string) => string
+  setFilterValue: (filterType: string, value: string) => void
+
+  // Configuración de filtros disponibles
+  availableFilters: {
+    [key: string]: {
+      defaultValue: string
+      resetPage?: boolean
+      accessor?: string // Campo del item a comparar
+    }
+  }
 }
 
 // Tipos para el contexto
 interface TableContextType {
-  // Estado de la tabla (ahora incluye toda la lógica de useTable)
+  // Estado de la tabla
   tableState: TableState
 
   // Estado de vista responsive
@@ -63,37 +121,14 @@ interface TableContextType {
   config: TableConfig
 
   // Callbacks CRUD
-  onAddItem?: () => void
-  onEditItem?: (item: DataTable) => void
-  onViewItem?: (item: DataTable) => void
-  onDeleteItem?: (item: DataTable) => void
-  onSelectItem?: (item: DataTable) => void
+  onAddItem: () => void
+  onEditItem: (item: DataTable) => void
+  onViewItem: (item: DataTable) => void
+  onDeleteItem: (item: DataTable) => void
+  onSelectItem: (item: DataTable) => void
 
-  // Configuración de UI
-  uiConfig: {
-    title: string
-    searchPlaceholder: string
-    addButtonText: string
-    showAddButton: boolean
-    showPaginationInfo: boolean
-    paginationInfoText?: string
-    previousText: string
-    nextText: string
-    showViewToggle: boolean
-    showAutoToggle: boolean
-  }
-
-  // Configuración de filtros
-  filterConfig: {
-    dateFrom?: string
-    dateTo?: string
-    onDateFromChange?: (date: string) => void
-    onDateToChange?: (date: string) => void
-    showStatusFilter: boolean
-    statusOptions?: { value: string; label: string }[]
-    selectedStatus?: string
-    onStatusChange?: (status: string) => void
-  }
+  // Configuración de filtros extendida
+  filterConfig: ExtendedFilterConfig
 }
 
 // Crear el contexto
@@ -102,6 +137,7 @@ const TableContext = createContext<TableContextType | null>(null)
 // Props del provider
 interface TableProviderProps {
   children: ReactNode
+<<<<<<< HEAD
 
   // Configuración de la tabla
   config?: Partial<TableConfig>
@@ -141,56 +177,195 @@ interface TableProviderProps {
   statusOptions?: { value: string; label: string }[]
   selectedStatus?: string
   onStatusChange?: (status: string) => void
+=======
+>>>>>>> tablet
 }
 
+// Configuración de filtros disponibles - Mover fuera del componente para evitar recreación
+const AVAILABLE_FILTERS = {
+  role: {
+    defaultValue: "todos",
+    resetPage: true,
+    accessor: "rol",
+  },
+  status: {
+    defaultValue: "todos",
+    resetPage: true,
+    accessor: "status",
+  },
+  department: {
+    defaultValue: "todos",
+    resetPage: true,
+    accessor: "departamento",
+  },
+  priority: {
+    defaultValue: "todos",
+    resetPage: true,
+    accessor: "prioridad",
+  },
+  category: {
+    defaultValue: "todos",
+    resetPage: true,
+    accessor: "categoria",
+  },
+} as const
+
 // Provider del contexto
-export const TableProvider: React.FC<TableProviderProps> = ({
-  children,
-  config = {},
-  initialData = defaultData,
-  itemsPerPage = 5,
-  defaultViewMode = "table",
-  autoResponsive = true,
-  breakpoint = 768,
-  onAddItem,
-  onEditItem,
-  onViewItem,
-  onDeleteItem,
-  onSelectItem,
-  title = "Gestión de Datos",
-  searchPlaceholder = "Buscar elementos...",
-  addButtonText = "Agregar Elemento",
-  showAddButton = true,
-  showPaginationInfo = true,
-  paginationInfoText,
-  previousText = "Anterior",
-  nextText = "Siguiente",
-  showViewToggle = true,
-  showAutoToggle = true,
-  dateFrom,
-  dateTo,
-  onDateFromChange,
-  onDateToChange,
-  showStatusFilter = false,
-  statusOptions,
-  selectedStatus,
-  onStatusChange,
-}) => {
-  // Estados principales de la tabla (lógica movida desde useTable)
-  const [items, setItems] = useState<DataTable[]>(initialData)
+export const TableProvider: React.FC<TableProviderProps> = ({ children }) => {
+  // Configuración por defecto
+  const defaultConfig: TableConfig = {
+    select: true,
+    cuadricula: true,
+    columns: [
+      { id: "id", header: "Id", accessor: "id", sortable: true },
+      { id: "nombre", header: "Nombre", accessor: "nombre", sortable: true },
+      { id: "correo", header: "Correo", accessor: "correo", sortable: true },
+      { id: "telefono", header: "Teléfono", accessor: "telefono", sortable: true },
+      { id: "cedula", header: "Cédula", accessor: "cedula", sortable: true },
+      { id: "rol", header: "Rol", accessor: "rol", sortable: true },
+      { id: "status", header: "Estado", accessor: "status", sortable: true },
+      { id: "acciones", header: "Acciones", accessor: "", sortable: true },
+    ],
+  }
+
+  // Estados de configuración
+  const [dynamicItemsPerPage, setDynamicItemsPerPage] = useState(10)
+
+  // Estado para el rol del usuario
+  const [userRole, setUserRole] = useState<"super" | "asistente">("super")
+
+  const [dynamicConfig, setDynamicConfig] = useState<TableConfig>(() => {
+    const baseConfig = { ...defaultConfig }
+    // Hide role column for asistente users
+    if (userRole === "asistente") {
+      baseConfig.columns = baseConfig.columns.map((col) => (col.id === "rol" ? { ...col, hidden: true } : col))
+    }
+    return baseConfig
+  })
+
+  // Estados de datos
+  const {
+    data: items,
+    loading: dataLoading,
+    error: dataError,
+    refetch: refetchData,
+    setData: setItems,
+  } = useTableData()
+
+  // Estados de la tabla
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedItems, setSelectedItems] = useState<number[]>([])
 
-  // Elementos filtrados según el término de búsqueda
+  // Estados de filtros de fecha
+  const [dateFrom, setDateFrom] = useState("")
+  const [dateTo, setDateTo] = useState("")
+
+  // Estado para filtros genéricos
+  const [genericFilters, setGenericFilters] = useState<GenericFilter>({
+    role: "todos",
+    status: "todos",
+  })
+
+  // Función genérica para cambiar filtros
+  const handleGenericFilterChange = useCallback((filterType: string, value: string) => {
+    setGenericFilters((prev) => ({
+      ...prev,
+      [filterType]: value,
+    }))
+
+    // Resetear página si está configurado
+    if (AVAILABLE_FILTERS[filterType as keyof typeof AVAILABLE_FILTERS]?.resetPage) {
+      setCurrentPage(1)
+    }
+
+    console.log(`Filtro genérico ${filterType} cambiado a:`, value)
+  }, [])
+
+  // Función para obtener valor de filtro
+  const getFilterValue = useCallback(
+    (filterType: string): string => {
+      return (
+        genericFilters[filterType] ||
+        AVAILABLE_FILTERS[filterType as keyof typeof AVAILABLE_FILTERS]?.defaultValue ||
+        "todos"
+      )
+    },
+    [genericFilters],
+  )
+
+  // Función para establecer valor de filtro
+  const setFilterValue = useCallback(
+    (filterType: string, value: string) => {
+      handleGenericFilterChange(filterType, value)
+    },
+    [handleGenericFilterChange],
+  )
+
+  // Función para limpiar todos los filtros
+  const clearAllFilters = useCallback(() => {
+    const clearedFilters: GenericFilter = {}
+    Object.keys(AVAILABLE_FILTERS).forEach((filterType) => {
+      clearedFilters[filterType] = AVAILABLE_FILTERS[filterType as keyof typeof AVAILABLE_FILTERS].defaultValue
+    })
+
+    setGenericFilters(clearedFilters)
+    setDateFrom("")
+    setDateTo("")
+    setSearchTerm("")
+    setCurrentPage(1)
+
+    console.log("Todos los filtros han sido limpiados")
+  }, [])
+
+  // Cargar configuración desde localStorage
+  const loadConfigFromStorage = useCallback(() => {
+    try {
+      const savedConfig = localStorage.getItem("tableConfig")
+      if (savedConfig) {
+        const parsedConfig = JSON.parse(savedConfig)
+
+        if (parsedConfig.itemsPerPage) {
+          setDynamicItemsPerPage(parsedConfig.itemsPerPage)
+        }
+
+        if (parsedConfig.hiddenColumns) {
+          setDynamicConfig((prev) => ({
+            ...prev,
+            columns: prev.columns.map((col) => ({
+              ...col,
+              hidden: parsedConfig.hiddenColumns.includes(col.id),
+            })),
+          }))
+        }
+
+        if (typeof parsedConfig.select === "boolean") {
+          setDynamicConfig((prev) => ({ ...prev, select: parsedConfig.select }))
+        }
+
+        if (typeof parsedConfig.cuadricula === "boolean") {
+          setDynamicConfig((prev) => ({ ...prev, cuadricula: parsedConfig.cuadricula }))
+        }
+      }
+    } catch (error) {
+      console.warn("Error loading table configuration from localStorage:", error)
+    }
+  }, [])
+
+  // Cargar configuración al montar
+  useEffect(() => {
+    loadConfigFromStorage()
+  }, [loadConfigFromStorage])
+
+  // Elementos filtrados con sistema genérico
   const filteredItems = useMemo(() => {
-    return items.filter(
-      (item) =>
+    return items.filter((item) => {
+      // Filtro de búsqueda
+      const matchesSearch =
         item.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.correo.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.rol.toLowerCase().includes(searchTerm.toLowerCase()),
-    )
-  }, [items, searchTerm])
+        item.rol.toLowerCase().includes(searchTerm.toLowerCase())
 
+<<<<<<< HEAD
   // Usar el hook de paginación
   const pagination = usePagination({
     items: filteredItems,
@@ -202,19 +377,111 @@ export const TableProvider: React.FC<TableProviderProps> = ({
   useEffect(() => {
     pagination.resetToFirstPage()
   }, [searchTerm]) // Removido pagination de las dependencias
+=======
+      // Filtros genéricos
+      const matchesGenericFilters = Object.keys(genericFilters).every((filterType) => {
+        const filterValue = genericFilters[filterType]
+        if (filterValue === "todos") return true
 
-  // Funciones para manejar la búsqueda
+        // Obtener el accessor del filtro
+        const accessor = AVAILABLE_FILTERS[filterType as keyof typeof AVAILABLE_FILTERS]?.accessor
+        if (!accessor) return true
+
+        // Comparar el valor del item con el filtro
+        const itemValue = (item as any)[accessor]
+        return itemValue === filterValue
+      })
+
+      // Filtros de fecha (si existen campos de fecha)
+      let matchesDateRange = true
+      if (dateFrom || dateTo) {
+        const itemDate = (item as any).fecha || (item as any).createdAt
+        if (itemDate) {
+          const date = new Date(itemDate)
+          if (dateFrom && date < new Date(dateFrom)) matchesDateRange = false
+          if (dateTo && date > new Date(dateTo)) matchesDateRange = false
+        }
+      }
+
+      return matchesSearch && matchesGenericFilters && matchesDateRange
+    })
+  }, [items, searchTerm, genericFilters, dateFrom, dateTo])
+
+  // Calcular páginas
+  const totalPages = useMemo(() => {
+    return Math.ceil(filteredItems.length / dynamicItemsPerPage)
+  }, [filteredItems.length, dynamicItemsPerPage])
+
+  // Elementos de la página actual
+  const currentItems = useMemo(() => {
+    return filteredItems.slice((currentPage - 1) * dynamicItemsPerPage, currentPage * dynamicItemsPerPage)
+  }, [filteredItems, currentPage, dynamicItemsPerPage])
+>>>>>>> tablet
+
+  // Funciones de configuración
+  const updateTableConfig = (newConfig: Partial<TableConfig>) => {
+    setDynamicConfig((prev) => ({ ...prev, ...newConfig }))
+  }
+
+  const updateItemsPerPage = (newItemsPerPage: number) => {
+    setDynamicItemsPerPage(newItemsPerPage)
+    setCurrentPage(1)
+  }
+
+  const updateUserRole = (newRole: "super" | "asistente") => {
+    setUserRole(newRole)
+
+    // Update column visibility based on role
+    setDynamicConfig((prev) => ({
+      ...prev,
+      columns: prev.columns.map((col) => {
+        if (col.id === "rol") {
+          return { ...col, hidden: newRole === "asistente" }
+        }
+        return col
+      }),
+    }))
+  }
+
+  // Funciones de búsqueda
   const handleSearch = (term: string) => {
     setSearchTerm(term)
+<<<<<<< HEAD
     // No necesitamos llamar resetToFirstPage aquí ya que se maneja en el useEffect
+=======
+    setCurrentPage(1)
+>>>>>>> tablet
   }
 
   const clearSearch = () => {
     setSearchTerm("")
+<<<<<<< HEAD
     // No necesitamos llamar resetToFirstPage aquí ya que se maneja en el useEffect
+=======
+    setCurrentPage(1)
   }
 
-  // Funciones para manejar la selección
+  // Funciones de paginación
+  const goToPage = (page: number) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page)
+    }
+  }
+
+  const goToNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage((prev) => prev + 1)
+    }
+  }
+
+  const goToPreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage((prev) => prev - 1)
+    }
+>>>>>>> tablet
+  }
+
+  // Funciones de selección
   const handleSelectItem = (itemId: number) => {
     setSelectedItems((prev) => {
       if (prev.includes(itemId)) {
@@ -229,11 +496,14 @@ export const TableProvider: React.FC<TableProviderProps> = ({
     const currentItemIds = pagination.currentItems.map((item) => item.id)
     const selectedCurrentItems = selectedItems.filter((id) => currentItemIds.includes(id))
 
+<<<<<<< HEAD
     if (selectedCurrentItems.length === pagination.currentItems.length) {
       // Si todos están seleccionados, deseleccionar todos
+=======
+    if (selectedCurrentItems.length === currentItems.length) {
+>>>>>>> tablet
       setSelectedItems((prev) => prev.filter((id) => !currentItemIds.includes(id)))
     } else {
-      // Si ninguno o algunos están seleccionados, seleccionar todos
       setSelectedItems((prev) => {
         const newSelected = [...prev]
         currentItemIds.forEach((id) => {
@@ -254,21 +524,26 @@ export const TableProvider: React.FC<TableProviderProps> = ({
     setSelectedItems(items.map((item) => item.id))
   }
 
-  // Determinar el estado del botón de selección maestro
   const getSelectAllState = (): "none" | "some" | "all" => {
     const currentItemIds = pagination.currentItems.map((item) => item.id)
     const selectedCurrentItems = selectedItems.filter((id) => currentItemIds.includes(id))
 
     if (selectedCurrentItems.length === 0) {
+<<<<<<< HEAD
       return "none" // Sin selección
     } else if (selectedCurrentItems.length === pagination.currentItems.length) {
       return "all" // Todos seleccionados
+=======
+      return "none"
+    } else if (selectedCurrentItems.length === currentItems.length) {
+      return "all"
+>>>>>>> tablet
     } else {
-      return "some" // Algunos seleccionados
+      return "some"
     }
   }
 
-  // Funciones para manejar los datos
+  // Funciones de datos
   const addItem = (newItem: DataTable) => {
     setItems((prev) => [...prev, newItem])
   }
@@ -287,19 +562,77 @@ export const TableProvider: React.FC<TableProviderProps> = ({
     setSelectedItems([])
   }
 
+<<<<<<< HEAD
   // Obtener elementos seleccionados
+=======
+  const updateSelectedItemsRole = (newRole: string) => {
+    setItems((prev) => prev.map((item) => (selectedItems.includes(item.id) ? { ...item, rol: newRole } : item)))
+  }
+
+  const updateSelectedItemsStatus = (newStatus: string) => {
+    setItems((prev) => prev.map((item) => (selectedItems.includes(item.id) ? { ...item, status: newStatus } : item)))
+  }
+
+
+
+>>>>>>> tablet
   const getSelectedItems = () => {
     return items.filter((item) => selectedItems.includes(item.id))
   }
 
-  // Crear el estado de la tabla
-  const tableState: TableState = {
-    // Estados
+  // Handlers de filtros de fecha
+  const handleDateFromChange = (date: string) => {
+    setDateFrom(date)
+  }
+
+  const handleDateToChange = (date: string) => {
+    setDateTo(date)
+  }
+
+  // Handlers de filtros específicos (compatibilidad hacia atrás)
+  const handleRoleChange = useCallback(
+    (role: string) => {
+      handleGenericFilterChange("role", role)
+    },
+    [handleGenericFilterChange],
+  )
+
+  const handleStatusChange = useCallback(
+    (status: string) => {
+      handleGenericFilterChange("status", status)
+    },
+    [handleGenericFilterChange],
+  )
+
+  // Callbacks CRUD por defecto
+  const onAddItem = () => {
+    console.log("Add item clicked")
+  }
+
+  const onEditItem = (item: DataTable) => {
+    console.log("Edit item:", item)
+  }
+
+  const onViewItem = (item: DataTable) => {
+    console.log("View item:", item)
+  }
+
+  const onDeleteItem = (item: DataTable) => {
+    deleteItem(item.id)
+  }
+
+  const onSelectItem = (item: DataTable) => {
+    handleSelectItem(item.id)
+  }
+
+  // Estado de la tabla
+  const tableState: any = {
     items,
     searchTerm,
     currentPage: pagination.currentPage,
     selectedItems,
     filteredItems,
+<<<<<<< HEAD
     currentItems: pagination.currentItems,
     totalPages: pagination.totalPages,
 
@@ -312,94 +645,91 @@ export const TableProvider: React.FC<TableProviderProps> = ({
     goToNextPage: pagination.goToNextPage,
     goToPreviousPage: pagination.goToPreviousPage,
     getPageNumbers: pagination.getPageNumbers,
+=======
+    currentItems,
+    totalPages,
+    handleSearch,
+    clearSearch,
+    goToPage,
+    goToNextPage,
+    goToPreviousPage,
+>>>>>>> tablet
 
-    // Funciones de selección
     handleSelectItem,
     handleSelectAll,
     clearSelection,
     selectAllItems,
     getSelectAllState,
     getSelectedItems,
-
-    // Funciones de datos
     addItem,
     updateItem,
     deleteItem,
     deleteSelectedItems,
     setItems,
-
-    // Información adicional
+    updateSelectedItemsRole,
+    updateSelectedItemsStatus,
     hasItems: items.length > 0,
     hasFilteredItems: filteredItems.length > 0,
     selectedCount: selectedItems.length,
     totalItems: items.length,
     filteredCount: filteredItems.length,
+    dataLoading,
+    dataError,
+    refetchData,
+    updateTableConfig,
+    updateItemsPerPage,
+    itemsPerPage: dynamicItemsPerPage,
+    userRole,
+    updateUserRole,
   }
 
-  // Inicializar el estado responsive
+  // Estado responsive
   const responsiveViewState = useResponsiveView({
-    autoResponsive,
-    breakpoint,
-    defaultViewMode,
+    autoResponsive: true,
+    breakpoint: 768,
+    defaultViewMode: "table",
   })
 
-  // Combinar configuración por defecto con la proporcionada
-  const defaultConfig: TableConfig = {
-    select: true,
-    cuadricula: true,
-    columns: [
-      { id: "id", header: "Id", accessor: "id", sortable: true },
-      { id: "nombre", header: "Nombre", accessor: "nombre", sortable: true },
-      { id: "correo", header: "Correo", accessor: "correo", sortable: true },
-      { id: "telefono", header: "Teléfono", accessor: "telefono", sortable: true },
-      { id: "cedula", header: "Cédula", accessor: "cedula", sortable: true },
-      { id: "rol", header: "Rol", accessor: "rol", sortable: true },
-      { id: "acciones", header: "Acciones", accessor: "", sortable: true },
-    ],
-  }
-
-  const finalConfig: TableConfig = {
-    ...defaultConfig,
-    ...config,
-    columns: config.columns || defaultConfig.columns,
-  }
-
-  // Configuración de UI
-  const uiConfig = {
-    title,
-    searchPlaceholder,
-    addButtonText,
-    showAddButton,
-    showPaginationInfo,
-    paginationInfoText,
-    previousText,
-    nextText,
-    showViewToggle,
-    showAutoToggle,
-  }
-
-  // Configuración de filtros
-  const filterConfig = {
+  // Configuración de filtros extendida
+  const filterConfig: ExtendedFilterConfig = {
+    // Filtros de fecha
     dateFrom,
     dateTo,
-    onDateFromChange,
-    onDateToChange,
-    showStatusFilter,
-    statusOptions,
-    selectedStatus,
-    onStatusChange,
+    onDateFromChange: handleDateFromChange,
+    onDateToChange: handleDateToChange,
+
+    // Filtros específicos (compatibilidad hacia atrás)
+    showStatusFilter: true,
+    statusOptions: [
+      { value: "todos", label: "Todos" },
+      { value: "ACTIVO", label: "Activo" },
+      { value: "INACTIVO", label: "Inactivo" },
+      { value: "PENDIENTE", label: "Pendiente" },
+    ],
+    selectedStatus: getFilterValue("status"),
+    onStatusChange: handleStatusChange,
+    selectedRole: getFilterValue("role"),
+    onRoleChange: handleRoleChange,
+
+    // Sistema de filtros genéricos
+    genericFilters,
+    onGenericFilterChange: handleGenericFilterChange,
+    clearAllFilters,
+    getFilterValue,
+    setFilterValue,
+    availableFilters: AVAILABLE_FILTERS,
   }
 
+  // Valor del contexto
   const contextValue: TableContextType = {
     tableState,
     responsiveViewState,
-    config: finalConfig,
+    config: dynamicConfig,
     onAddItem,
     onEditItem,
     onViewItem,
     onDeleteItem,
     onSelectItem,
-    uiConfig,
     filterConfig,
   }
 
@@ -417,41 +747,62 @@ export const useTableContext = (): TableContextType => {
   return context
 }
 
-// Hook para acceder solo al estado de la tabla
+// Hooks específicos
 export const useTableState = (): TableState => {
   const { tableState } = useTableContext()
   return tableState
 }
 
-// Hook para acceder solo al estado responsive
 export const useResponsiveState = (): UseResponsiveViewReturn => {
   const { responsiveViewState } = useTableContext()
   return responsiveViewState
 }
 
-// Hook para acceder a la configuración
 export const useTableConfig = (): TableConfig => {
   const { config } = useTableContext()
   return config
 }
 
-// Hook para acceder a los callbacks CRUD
 export const useTableCallbacks = () => {
   const { onAddItem, onEditItem, onViewItem, onDeleteItem, onSelectItem } = useTableContext()
   return { onAddItem, onEditItem, onViewItem, onDeleteItem, onSelectItem }
 }
 
-// Hook para acceder a la configuración de UI
-export const useUIConfig = () => {
-  const { uiConfig } = useTableContext()
-  return uiConfig
-}
-
-// Hook para acceder a la configuración de filtros
 export const useFilterConfig = () => {
   const { filterConfig } = useTableContext()
   return filterConfig
 }
 
+<<<<<<< HEAD
 // Exportar tipos para compatibilidad
 export type { DataTable, TableState }
+=======
+// Hooks para filtros genéricos
+export const useGenericFilters = () => {
+  const { filterConfig } = useTableContext()
+
+  return {
+    filters: filterConfig.genericFilters,
+    getFilterValue: filterConfig.getFilterValue,
+    setFilterValue: filterConfig.setFilterValue,
+    onFilterChange: filterConfig.onGenericFilterChange,
+    clearAllFilters: filterConfig.clearAllFilters,
+    availableFilters: filterConfig.availableFilters,
+  }
+}
+
+// Hook para un filtro específico
+export const useSpecificFilter = (filterType: string) => {
+  const { filterConfig } = useTableContext()
+
+  return {
+    value: filterConfig.getFilterValue(filterType),
+    setValue: (value: string) => filterConfig.setFilterValue(filterType, value),
+    defaultValue:
+      filterConfig.availableFilters[filterType as keyof typeof filterConfig.availableFilters]?.defaultValue || "todos",
+  }
+}
+
+// Exportar tipos
+export type { DataTable, TableState, ExtendedFilterConfig, GenericFilter }
+>>>>>>> tablet

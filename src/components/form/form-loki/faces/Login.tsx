@@ -2,8 +2,8 @@ import React, { useRef, useState } from 'react'
 import { BsFillEnvelopeHeartFill } from 'react-icons/bs';
 import { MdLock } from "react-icons/md";
 
-import { $ } from "@fn";
-import { Input, BtnText } from "@components/ux";
+import { $ } from "../../../../functions";
+import { Input, BtnText, CheckBox } from "../../../ux";
 import BtnSubmitBasic from './btn-submit';
 import HeadBtn from "./global/HeadBtn";
 import RedesLogin from './global/RedesLogin';
@@ -77,10 +77,11 @@ const Login: React.FC<LoginProps> = ({ cardState, register, reset, social = fals
                         onChange={handleChange}
                     />
 
-                    {/* <CheckBoxBasic
-                        text="Mantener sesión"
-                        onClick={toogleChecked}
-                    /> */}
+                    <CheckBox
+                        isChecked={isChecked}
+                        onToggle={() => setIsChecked(!isChecked)}
+                        label="Mantener sesión iniciada"
+                    />
 
                     {social && <RedesLogin />}
 

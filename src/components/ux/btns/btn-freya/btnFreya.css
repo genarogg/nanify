@@ -1,12 +1,23 @@
 .btn-freya {
   border: none;
   outline: none;
+<<<<<<< HEAD
   background-color: transparent; }
   .btn-freya span {
     color: #ffac32;
     display: block;
     border-top: 0.125rem solid;
     width: 20px; }
+=======
+  background-color: transparent;
+}
+.btn-freya span {
+  color: #ffac32;
+  display: block;
+  border-top: 0.125rem solid;
+  width: 20px;
+}
+>>>>>>> tablet
 
 .btn-freya span::after,
 .btn-freya span::before {
@@ -17,6 +28,7 @@
   background-color: currentColor;
   margin-top: 5px;
   transition: 0.5s;
+<<<<<<< HEAD
   position: relative; }
 
 .btn-freya.active span {
@@ -30,3 +42,20 @@
   top: -0.4375rem; }
 
 /*# sourceMappingURL=btnFreya.css.map */
+=======
+  position: relative;
+}
+
+.btn-freya.active span {
+  border-top-color: transparent;
+}
+
+.btn-freya.active span::before {
+  transform: rotate(135deg);
+}
+
+.btn-freya.active span::after {
+  transform: rotate(-135deg);
+  top: -0.4375rem;
+}
+>>>>>>> tablet

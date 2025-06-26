@@ -21,6 +21,17 @@ import Spinner from "./spinner/Spinner";
 
 import Badge from "./badge"
 
+import {
+    Select,
+    SelectTrigger,
+    SelectValue,
+    SelectTags,
+    SelectContent,
+    SelectItem,
+    SelectSeparator,
+    SelectLabel
+} from './select';
+
 export {
     Modal,
     Input,
@@ -35,5 +46,13 @@ export {
     BtnNormalBasic,
     BtnText,
     BtnRowCircle,
-    Badge
+    Badge,
+    Select,
+    SelectTrigger,
+    SelectValue,
+    SelectTags,
+    SelectContent,
+    SelectItem,
+    SelectSeparator,
+    SelectLabel
 }

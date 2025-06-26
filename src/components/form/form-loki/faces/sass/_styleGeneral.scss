@@ -39,7 +39,7 @@
             z-index: 4;
 
             &.social {
-                @include fn.height(630px);
+                @include fn.height(650px);
             }
         }
     }
@@ -119,7 +119,7 @@
         backface-visibility: hidden;
 
         &.social {
-            @include fn.height(530px);
+            @include fn.height(540px);
         }
     }
 
@@ -151,7 +151,7 @@
     form {
         @include fn.center-x;
         display: grid;
-        gap: 35px;
+        // gap: 40px;
         grid-template-columns: 1fr;
     }
 }

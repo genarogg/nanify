@@ -1,6 +1,10 @@
 import React from 'react'
 import "./btnFreya.css"
+<<<<<<< HEAD
 import { $ } from "@fn"
+=======
+
+>>>>>>> tablet
 
 interface BtnFreyaProps {
     onClick?: () => void;
@@ -13,7 +17,8 @@ const BtnFreya: React.FC<BtnFreyaProps> = ({
 }) => {
 
     const active = () => {
-        $("btn-hamburguer-freya")?.classList.toggle("active");
+        
+        document.getElementById("btn-hamburguer-freya")?.classList.toggle("active");
     }
 
     return (
