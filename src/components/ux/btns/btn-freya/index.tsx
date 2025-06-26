@@ -1,10 +1,6 @@
 import React from 'react'
 import "./btnFreya.css"
-<<<<<<< HEAD
-import { $ } from "@fn"
-=======
 
->>>>>>> tablet
 
 interface BtnFreyaProps {
     onClick?: () => void;

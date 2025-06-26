@@ -1,16 +1,10 @@
 "use client"
 
-<<<<<<< HEAD
-import type React from "react"
-import { createContext, useContext, useState, useMemo, useEffect, type ReactNode } from "react"
-=======
 import { createContext, useContext, useState, useMemo, type ReactNode, useCallback, useEffect } from "react"
 
->>>>>>> tablet
 import { useResponsiveView, type UseResponsiveViewReturn } from "../fn/useResponsiveView"
 
 import type { DataTable, TableConfig } from "./types"
-import { usePagination } from "../hooks/usePagination"
 
 import { useTableData } from "./data/useTableData"
 
@@ -137,48 +131,6 @@ const TableContext = createContext<TableContextType | null>(null)
 // Props del provider
 interface TableProviderProps {
   children: ReactNode
-<<<<<<< HEAD
-
-  // Configuración de la tabla
-  config?: Partial<TableConfig>
-  initialData?: DataTable[]
-  itemsPerPage?: number
-
-  // Configuración responsive
-  defaultViewMode?: "table" | "cards"
-  autoResponsive?: boolean
-  breakpoint?: number
-
-  // Callbacks CRUD
-  onAddItem?: () => void
-  onEditItem?: (item: DataTable) => void
-  onViewItem?: (item: DataTable) => void
-  onDeleteItem?: () => void
-  onSelectItem?: (item: DataTable) => void
-
-  // Configuración de UI
-  title?: string
-  searchPlaceholder?: string
-  addButtonText?: string
-  showAddButton?: boolean
-  showPaginationInfo?: boolean
-  paginationInfoText?: string
-  previousText?: string
-  nextText?: string
-  showViewToggle?: boolean
-  showAutoToggle?: boolean
-
-  // Configuración de filtros
-  dateFrom?: string
-  dateTo?: string
-  onDateFromChange?: (date: string) => void
-  onDateToChange?: (date: string) => void
-  showStatusFilter?: boolean
-  statusOptions?: { value: string; label: string }[]
-  selectedStatus?: string
-  onStatusChange?: (status: string) => void
-=======
->>>>>>> tablet
 }
 
 // Configuración de filtros disponibles - Mover fuera del componente para evitar recreación
@@ -254,6 +206,7 @@ export const TableProvider: React.FC<TableProviderProps> = ({ children }) => {
 
   // Estados de la tabla
   const [searchTerm, setSearchTerm] = useState("")
+  const [currentPage, setCurrentPage] = useState(1)
   const [selectedItems, setSelectedItems] = useState<number[]>([])
 
   // Estados de filtros de fecha
@@ -365,19 +318,6 @@ export const TableProvider: React.FC<TableProviderProps> = ({ children }) => {
         item.correo.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.rol.toLowerCase().includes(searchTerm.toLowerCase())
 
-<<<<<<< HEAD
-  // Usar el hook de paginación
-  const pagination = usePagination({
-    items: filteredItems,
-    itemsPerPage,
-  })
-
-  // Efecto para resetear la paginación solo cuando cambia la búsqueda
-  // Removido el bucle infinito - solo resetear cuando searchTerm cambia
-  useEffect(() => {
-    pagination.resetToFirstPage()
-  }, [searchTerm]) // Removido pagination de las dependencias
-=======
       // Filtros genéricos
       const matchesGenericFilters = Object.keys(genericFilters).every((filterType) => {
         const filterValue = genericFilters[filterType]
@@ -416,7 +356,6 @@ export const TableProvider: React.FC<TableProviderProps> = ({ children }) => {
   const currentItems = useMemo(() => {
     return filteredItems.slice((currentPage - 1) * dynamicItemsPerPage, currentPage * dynamicItemsPerPage)
   }, [filteredItems, currentPage, dynamicItemsPerPage])
->>>>>>> tablet
 
   // Funciones de configuración
   const updateTableConfig = (newConfig: Partial<TableConfig>) => {
@@ -446,18 +385,11 @@ export const TableProvider: React.FC<TableProviderProps> = ({ children }) => {
   // Funciones de búsqueda
   const handleSearch = (term: string) => {
     setSearchTerm(term)
-<<<<<<< HEAD
-    // No necesitamos llamar resetToFirstPage aquí ya que se maneja en el useEffect
-=======
     setCurrentPage(1)
->>>>>>> tablet
   }
 
   const clearSearch = () => {
     setSearchTerm("")
-<<<<<<< HEAD
-    // No necesitamos llamar resetToFirstPage aquí ya que se maneja en el useEffect
-=======
     setCurrentPage(1)
   }
 
@@ -478,7 +410,6 @@ export const TableProvider: React.FC<TableProviderProps> = ({ children }) => {
     if (currentPage > 1) {
       setCurrentPage((prev) => prev - 1)
     }
->>>>>>> tablet
   }
 
   // Funciones de selección
@@ -493,15 +424,10 @@ export const TableProvider: React.FC<TableProviderProps> = ({ children }) => {
   }
 
   const handleSelectAll = () => {
-    const currentItemIds = pagination.currentItems.map((item) => item.id)
+    const currentItemIds = currentItems.map((item) => item.id)
     const selectedCurrentItems = selectedItems.filter((id) => currentItemIds.includes(id))
 
-<<<<<<< HEAD
-    if (selectedCurrentItems.length === pagination.currentItems.length) {
-      // Si todos están seleccionados, deseleccionar todos
-=======
     if (selectedCurrentItems.length === currentItems.length) {
->>>>>>> tablet
       setSelectedItems((prev) => prev.filter((id) => !currentItemIds.includes(id)))
     } else {
       setSelectedItems((prev) => {
@@ -525,19 +451,13 @@ export const TableProvider: React.FC<TableProviderProps> = ({ children }) => {
   }
 
   const getSelectAllState = (): "none" | "some" | "all" => {
-    const currentItemIds = pagination.currentItems.map((item) => item.id)
+    const currentItemIds = currentItems.map((item) => item.id)
     const selectedCurrentItems = selectedItems.filter((id) => currentItemIds.includes(id))
 
     if (selectedCurrentItems.length === 0) {
-<<<<<<< HEAD
-      return "none" // Sin selección
-    } else if (selectedCurrentItems.length === pagination.currentItems.length) {
-      return "all" // Todos seleccionados
-=======
       return "none"
     } else if (selectedCurrentItems.length === currentItems.length) {
       return "all"
->>>>>>> tablet
     } else {
       return "some"
     }
@@ -562,9 +482,6 @@ export const TableProvider: React.FC<TableProviderProps> = ({ children }) => {
     setSelectedItems([])
   }
 
-<<<<<<< HEAD
-  // Obtener elementos seleccionados
-=======
   const updateSelectedItemsRole = (newRole: string) => {
     setItems((prev) => prev.map((item) => (selectedItems.includes(item.id) ? { ...item, rol: newRole } : item)))
   }
@@ -575,7 +492,6 @@ export const TableProvider: React.FC<TableProviderProps> = ({ children }) => {
 
 
 
->>>>>>> tablet
   const getSelectedItems = () => {
     return items.filter((item) => selectedItems.includes(item.id))
   }
@@ -629,23 +545,9 @@ export const TableProvider: React.FC<TableProviderProps> = ({ children }) => {
   const tableState: any = {
     items,
     searchTerm,
-    currentPage: pagination.currentPage,
+    currentPage,
     selectedItems,
     filteredItems,
-<<<<<<< HEAD
-    currentItems: pagination.currentItems,
-    totalPages: pagination.totalPages,
-
-    // Funciones de búsqueda
-    handleSearch,
-    clearSearch,
-
-    // Funciones de paginación
-    goToPage: pagination.goToPage,
-    goToNextPage: pagination.goToNextPage,
-    goToPreviousPage: pagination.goToPreviousPage,
-    getPageNumbers: pagination.getPageNumbers,
-=======
     currentItems,
     totalPages,
     handleSearch,
@@ -653,7 +555,6 @@ export const TableProvider: React.FC<TableProviderProps> = ({ children }) => {
     goToPage,
     goToNextPage,
     goToPreviousPage,
->>>>>>> tablet
 
     handleSelectItem,
     handleSelectAll,
@@ -773,10 +674,6 @@ export const useFilterConfig = () => {
   return filterConfig
 }
 
-<<<<<<< HEAD
-// Exportar tipos para compatibilidad
-export type { DataTable, TableState }
-=======
 // Hooks para filtros genéricos
 export const useGenericFilters = () => {
   const { filterConfig } = useTableContext()
@@ -805,4 +702,3 @@ export const useSpecificFilter = (filterType: string) => {
 
 // Exportar tipos
 export type { DataTable, TableState, ExtendedFilterConfig, GenericFilter }
->>>>>>> tablet
