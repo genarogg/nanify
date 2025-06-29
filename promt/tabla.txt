@@ -1,0 +1,14 @@
+promt para editar la tabla
+
+1) en headerUp el titulo de la tabla debe ser []
+2) en headerUp los roles del select deben ser []
+
+3)en headerDown los filtros deben ser search de busqueda global, [mas filtros] y el btn de agregar
+
+4) las columnas que se van a mostrar son las siguientes []
+
+5) las rowActions llevaran las acciones []
+
+5) sera cuadriculada: false
+6) sera seleccionable: false
+
