@@ -1,6 +1,14 @@
 import fs from 'fs';
 import path from 'path';
 
+// Verificar si estamos en producción
+const isProduction = process.env.NODE_ENV === 'production';
+
+if (isProduction) {
+    console.log('🚫 Script cancelado: No se puede ejecutar en producción por seguridad.');
+    process.exit(0);
+}
+
 // Función para copiar recursivamente una carpeta
 function copyFolderSync(from, to) {
     fs.mkdirSync(to, { recursive: true });
@@ -41,12 +49,12 @@ directories.forEach(dir => {
     if (!fs.existsSync(dir.target)) {
         try {
             copyFolderSync(dir.source, dir.target);
-            console.log(`Carpeta copiada ${dir.name}`);
+            console.log(`✅ Carpeta copiada ${dir.name}`);
         } catch (error) {
-            console.error(`Error al copiar la carpeta ${dir.name}`, error);
+            console.error(`❌ Error al copiar la carpeta ${dir.name}`, error);
         }
     } else {
-        console.log(`La carpeta de destino ${dir.name} ya existe. No se copian los archivos.`);
+        console.log(`⚠️ La carpeta de destino ${dir.name} ya existe. No se copian los archivos.`);
     }
 });
 
@@ -59,7 +67,7 @@ function addScriptToPackageJson(scriptName, scriptCommand) {
     packageJson.scripts[scriptName] = scriptCommand;
 
     fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2), 'utf8');
-    console.log(`Script "${scriptName}" agregado a package.json`);
+    console.log(`✅ Script "${scriptName}" agregado a package.json`);
 }
 
 // Agrega el script moveComponents a package.json
