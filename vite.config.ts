@@ -18,7 +18,8 @@ export default defineConfig({
       '@sections': path.resolve(__dirname, './src/components/sections'),
       '@ui': path.resolve(__dirname, './src/components/ui'),
       '@context': path.resolve(__dirname, './src/context'),
-      '@hook':  path.resolve(__dirname, './src/hook'),
+      '@hook': path.resolve(__dirname, './src/hook'),
+      "@/*": path.resolve(__dirname, '"./*"')
     }
   }
 })

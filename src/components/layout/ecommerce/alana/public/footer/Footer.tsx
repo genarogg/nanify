@@ -1,6 +1,7 @@
 import React from 'react';
 import './sass/_footer.scss';
-import { LogoGenarogg, A, Icon } from "@nano";
+import { A } from "@/src/components/nano";
+import { Icon } from "@/src/components/ux";
 import { FaHourglassEnd } from "react-icons/fa6";
 
 interface FooterProps { }

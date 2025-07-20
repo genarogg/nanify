@@ -1,6 +1,11 @@
-const fs = require('fs');
-const path = require('path');
-const readline = require('readline');
+import fs from 'fs';
+import path from 'path';
+import readline from 'readline';
+import { fileURLToPath } from 'url';
+
+// Para obtener __dirname en ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Rutas preestablecidas
 const predefinedPaths = {
@@ -27,7 +32,6 @@ const predefinedPaths = {
     tabletAg: transformPath('tablet'),
 
     mentorBasicImgcomponent: transformPath('mentor/basico/bentorgrid'),
-
 };
 
 // Dependencias de cada opción
@@ -43,9 +47,7 @@ const dependencies = {
     tabletExample: ["tabletAg"],
 
     mentorBasicImgcomponent: [''],
-
 };
-
 
 // Función para copiar recursivamente una carpeta
 function copyFolderSync(from, to) {
