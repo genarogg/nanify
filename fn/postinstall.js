@@ -1,5 +1,5 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 // Función para copiar recursivamente una carpeta
 function copyFolderSync(from, to) {
@@ -20,18 +20,18 @@ function copyFolderSync(from, to) {
 // Arreglo de directorios a copiar
 const directories = [
     {
-        source: path.join(__dirname, "..", 'src', 'sass'),
-        target: path.join(__dirname, "..", '..', '..', 'src', 'sass'),
+        source: path.join(path.dirname(import.meta.url.replace('file://', '')), "..", 'src', 'sass'),
+        target: path.join(path.dirname(import.meta.url.replace('file://', '')), "..", '..', '..', 'src', 'sass'),
         name: 'STYLES'
     },
     {
-        source: path.join(__dirname, "..", 'src', 'app', 'api'),
-        target: path.join(__dirname, "..", '..', '..', 'src', 'app', 'api'),
+        source: path.join(path.dirname(import.meta.url.replace('file://', '')), "..", 'src', 'app', 'api'),
+        target: path.join(path.dirname(import.meta.url.replace('file://', '')), "..", '..', '..', 'src', 'app', 'api'),
         name: 'API'
     },
     {
-        source: path.join(__dirname, "..", 'src', 'functions'),
-        target: path.join(__dirname, "..", '..', '..', 'src', 'functions'),
+        source: path.join(path.dirname(import.meta.url.replace('file://', '')), "..", 'src', 'functions'),
+        target: path.join(path.dirname(import.meta.url.replace('file://', '')), "..", '..', '..', 'src', 'functions'),
         name: 'FUNCIONES'
     }
 ];
@@ -52,7 +52,7 @@ directories.forEach(dir => {
 
 // Función para agregar un script a package.json
 function addScriptToPackageJson(scriptName, scriptCommand) {
-    const packageJsonPath = path.join(__dirname, '..', 'package.json');
+    const packageJsonPath = path.join(path.dirname(import.meta.url.replace('file://', '')), '..', 'package.json');
     const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
 
     packageJson.scripts = packageJson.scripts || {};
