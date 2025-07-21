@@ -58,20 +58,20 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        
+
         <Routes>
           <Route path="/" element={<Home />} />
 
           <Route path="/gravatar" element={<Gravatar />} />
-          <Route path="/nano" element={<Nano />} />
+          {/* <Route path="/nano" element={<Nano />} /> */}
 
-          <Route path="/btns/hamburguesa" element={<Hamburger />} />
+          {/* <Route path="/btns/hamburguesa" element={<Hamburger />} /> */}
 
-          <Route path="/btns/basico" element={<BtnBasico />} />
+          {/* <Route path="/btns/basico" element={<BtnBasico />} /> */}
 
-          <Route path="/form/form-loki" element={<FormLoki />} />
+          {/* <Route path="/form/form-loki" element={<FormLoki />} /> */}
 
-          <Route path="/slider/background" element={<SliderBG />} />
+          {/* <Route path="/slider/background" element={<SliderBG />} />
 
           <Route path="/card/alana-ecomerce" element={<CardProductoAlana />} />
 
@@ -91,25 +91,25 @@ createRoot(document.getElementById('root')!).render(
 
           <Route path="/wrapper/grid" element={<Grid />} />
 
-          <Route path="/wrapper/animated-background-wrapper" element={<AnimatedBackgroundWrapper />} />
+          <Route path="/wrapper/animated-background-wrapper" element={<AnimatedBackgroundWrapper />} /> */}
 
           {/* Catch-all route for 404 */}
 
-          <Route path="/ui/modal" element={<ModalPage />} />
+          {/* <Route path="/ui/modal" element={<ModalPage />} />
 
           <Route path="/ui/select" element={<SelectPage />} />
 
           <Route path="/ui/tabs" element={<TabsPage />} />
 
-          <Route path="/ui/btns" element={<BtnPage />} />
+          <Route path="/ui/btns" element={<BtnPage />} /> */}
 
           {/* Tablet page */}
 
-          <Route path="/table" element={<TabletPage />} />
+          {/* <Route path="/table" element={<TabletPage />} />
 
-          <Route path="/table-my" element={<TabletMyPage />} />
+          <Route path="/table-my" element={<TabletMyPage />} /> */}
 
-          <Route path="/layout/clean" element={<LayoutClean />} />
+          {/* <Route path="/layout/clean" element={<LayoutClean />} /> */}
 
 
 

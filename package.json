@@ -16,7 +16,7 @@
     "fn"
   ],
   "scripts": {
-    "vit": "vite",
+    "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "start": "vite preview",
@@ -28,7 +28,7 @@
     "nanify": "node ./node_modules/nanify/fn/moveComponents.js",
     "@nano": "node ./node_modules/nanify/fn/moveComponents.js",
     "server": "json-server --port 3001 --watch server/db.json",
-    "dev": "npm-run-all --parallel vit server",
+
     "generate": "node ./server/table-fake-data.js"
   },
   "dependencies": {
