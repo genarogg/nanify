@@ -19,7 +19,7 @@ export default defineConfig({
       '@ui': path.resolve(__dirname, './src/components/ui'),
       '@context': path.resolve(__dirname, './src/context'),
       '@hook': path.resolve(__dirname, './src/hook'),
-      "@/*": path.resolve(__dirname, '"./*"')
+      "@": path.resolve(__dirname, './src/')
     }
   }
 })

@@ -1,6 +1,7 @@
 import React from "react";
 import md5 from "crypto-js/md5";
-import { isValidEmail } from "@fn";
+import { isValidEmail } from "@/functions";
+import { Img } from "@/components/nano"
 
 interface GravatarProps {
   email: string;
@@ -25,11 +26,12 @@ const Gravatar: React.FC<GravatarProps> = ({
   const url = `https://www.gravatar.com/avatar/${hash}`;
 
   return (
-    <img
+    <Img
       src={url}
       alt={alt}
       width={size}
       height={size}
+      maxWidth={size}
       className={className}
       style={style}
     />

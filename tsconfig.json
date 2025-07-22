@@ -8,7 +8,7 @@
         "./src/components/*"
       ],
       "@fn": [
-        "./src/functions/index.ts"
+        "src/functions/index.ts"
       ],
       "@env": [
         "./env.ts"
@@ -17,28 +17,28 @@
         "./public/*"
       ],
       "@nano": [
-        "./src/components/nano/index.tsx"
+        "src/components/nano/index.tsx"
       ],
       "@btn/*": [
         "./src/components/btns/*"
       ],
       "@slider/*": [
-        "./src/components/slider/*"
+        "src/components/OLD/slider/*"
       ],
       "@hook/*": [
-        "./src/hook/*"
+        "src/components/OLD/hook/*"
       ],
       "@tooltip": [
-        "./src/components/tooltip/index.tsx"
+        "src/components/OLD/tooltip/index.tsx"
       ],
       "@sections/*": [
-        "./src/components/sections/*"
+        "src/components/OLD/sections/*"
       ],
       "@ux": [
-        "./src/components/ux/index.tsx"
+        "src/components/ux/index.tsx"
       ],
       "@context/*": [
-        "./src/context/*"
+        "src/components/OLD/context/*"
       ],
     },
     "jsx": "react-jsx",
