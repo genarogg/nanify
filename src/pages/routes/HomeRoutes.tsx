@@ -1,6 +1,6 @@
 // src/routes/homeRoutes.ts
 import { RouteGroup } from './types';
-import Home from "../docs/ux/page";
+import Home from "../docs/home/page";
 import Gravatar from '../docs/gravatar/page';
 import Nano from "../docs/nono/page";
 import Ux from "../docs/ux/page";
