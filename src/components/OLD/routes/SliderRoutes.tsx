@@ -1,5 +1,5 @@
 // src/routes/mediaRoutes.ts
-import { RouteGroup } from '../../routes/types';
+import { RouteGroup } from '../../../pages/routes/types';
 import SliderBG from "../docs/slider/background/page";
 import Youtube from '../docs/youtube/page';
 import Img from "../docs/img/page";

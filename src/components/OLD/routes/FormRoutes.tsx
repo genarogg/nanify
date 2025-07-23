@@ -1,5 +1,5 @@
 // src/routes/formRoutes.ts
-import { RouteGroup } from '../../routes/types';
+import { RouteGroup } from '../../../pages/routes/types';
 import FormLoki from "../docs/form/form-loki/page";
 
 export const FormRoutes: RouteGroup = {

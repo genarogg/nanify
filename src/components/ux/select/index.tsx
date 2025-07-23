@@ -1,19 +1,10 @@
 "use client"
 
-import React, {
-  createContext,
-  useContext,
-  useState,
-  useRef,
-  useEffect,
-  useCallback,
-  useMemo,
-  memo
-} from "react"
+import React, { createContext, useContext, useState, useRef, useEffect, useCallback, useMemo, memo } from "react"
 import { ChevronDown, Check, X } from "lucide-react"
-import "./select.css" 
+import "./select.css"
 
-type DropdownDirection = 'up' | 'down' | 'auto'
+type DropdownDirection = "up" | "down" | "auto"
 
 interface SelectContextType {
   value: string | string[]
@@ -27,14 +18,17 @@ interface SelectContextType {
   registerOption: (value: string, label: string) => void
   longestOptionWidth: number
   direction: DropdownDirection
-  calculatedDirection: 'up' | 'down'
-  setCalculatedDirection: React.Dispatch<React.SetStateAction<'up' | 'down'>>
+  calculatedDirection: "up" | "down"
+  setCalculatedDirection: React.Dispatch<React.SetStateAction<"up" | "down">>
   desiredWidth?: number | string
+  searchQuery: string // Added for filtering
+  setSearchQuery: (query: string) => void // Added for filtering
 }
 
 const SelectContext = createContext<SelectContextType | null>(null)
 
-const useSelectContext = () => {
+export const useSelectContext = () => {
+  // Exported for use in app/page.tsx
   const context = useContext(SelectContext)
   if (!context) {
     throw new Error("Select components must be used within a Select")
@@ -58,37 +52,37 @@ export const Select = memo(function Select({
   onValueChange,
   children,
   multiple = false,
-  direction = 'auto',
-  width
+  direction = "auto",
+  width,
 }: SelectProps) {
-  const [internalValue, setInternalValue] = useState<string | string[]>(
-    () => defaultValue || (multiple ? [] : "")
-  )
-  const [selectedLabels, setSelectedLabelsState] = useState<Map<string, string>>(
-    () => new Map()
-  )
+  const [internalValue, setInternalValue] = useState<string | string[]>(() => defaultValue || (multiple ? [] : ""))
+  const [selectedLabels, setSelectedLabelsState] = useState<Map<string, string>>(() => new Map())
   const [open, setOpen] = useState(false)
   const [optionsMap, setOptionsMap] = useState<Map<string, string>>(new Map())
   const [longestOptionWidth, setLongestOptionWidth] = useState(0)
-  const [calculatedDirection, setCalculatedDirection] = useState<'up' | 'down'>('down')
+  const [calculatedDirection, setCalculatedDirection] = useState<"up" | "down">("down")
+  const [searchQuery, setSearchQuery] = useState("") // New state for search query
   const measureRef = useRef<HTMLSpanElement>(null)
 
   const currentValue = value !== undefined ? value : internalValue
 
-  const handleValueChange = useCallback((newValue: string | string[]) => {
-    if (value === undefined) {
-      setInternalValue(newValue)
-    }
-    onValueChange?.(newValue)
+  const handleValueChange = useCallback(
+    (newValue: string | string[]) => {
+      if (value === undefined) {
+        setInternalValue(newValue)
+      }
+      onValueChange?.(newValue)
 
-    // In single select mode, close the dropdown after selection
-    if (!multiple) {
-      setOpen(false)
-    }
-  }, [value, onValueChange, multiple])
+      // In single select mode, close the dropdown after selection
+      if (!multiple) {
+        setOpen(false)
+      }
+    },
+    [value, onValueChange, multiple],
+  )
 
   const setSelectedLabel = useCallback((value: string, label: string) => {
-    setSelectedLabelsState(prev => {
+    setSelectedLabelsState((prev) => {
       const newMap = new Map(prev)
       newMap.set(value, label)
       return newMap
@@ -96,7 +90,7 @@ export const Select = memo(function Select({
   }, [])
 
   const registerOption = useCallback((value: string, label: string) => {
-    setOptionsMap(prev => {
+    setOptionsMap((prev) => {
       const newMap = new Map(prev)
       newMap.set(value, label)
       return newMap
@@ -108,55 +102,68 @@ export const Select = memo(function Select({
     if (measureRef.current && optionsMap.size > 0) {
       let maxWidth = 0
       const measurer = measureRef.current
-      
-      // Obtener el estilo computado del elemento de medición
-      // const computedStyle = window.getComputedStyle(measurer)
-      
+
       optionsMap.forEach((label) => {
-        // Establecer el texto y medir
         measurer.textContent = label
         const width = measurer.getBoundingClientRect().width
         maxWidth = Math.max(maxWidth, width)
       })
-      
-      // Agregar padding y margen extra para iconos y espaciado
-      const extraWidth = 60 // Espacio para iconos, padding, etc.
+
+      const extraWidth = 60
       setLongestOptionWidth(Math.ceil(maxWidth) + extraWidth)
     }
   }, [optionsMap])
 
-  const contextValue = useMemo(() => ({
-    value: currentValue,
-    onValueChange: handleValueChange,
-    open,
-    onOpenChange: setOpen,
-    multiple,
-    selectedLabels,
-    setSelectedLabel,
-    registerOption,
-    longestOptionWidth,
-    direction,
-    calculatedDirection,
-    setCalculatedDirection,
-    desiredWidth: width,
-  }), [currentValue, handleValueChange, open, multiple, selectedLabels, setSelectedLabel, registerOption, longestOptionWidth, direction, calculatedDirection, width])
+  const contextValue = useMemo(
+    () => ({
+      value: currentValue,
+      onValueChange: handleValueChange,
+      open,
+      onOpenChange: setOpen,
+      multiple,
+      selectedLabels,
+      setSelectedLabel,
+      registerOption,
+      longestOptionWidth,
+      direction,
+      calculatedDirection,
+      setCalculatedDirection,
+      desiredWidth: width,
+      searchQuery, // Added to context
+      setSearchQuery, // Added to context
+    }),
+    [
+      currentValue,
+      handleValueChange,
+      open,
+      multiple,
+      selectedLabels,
+      setSelectedLabel,
+      registerOption,
+      longestOptionWidth,
+      direction,
+      calculatedDirection,
+      width,
+      searchQuery,
+      setSearchQuery,
+    ],
+  )
 
   return (
     <SelectContext.Provider value={contextValue}>
-      <div className="select-root" style={{ width: typeof width === 'number' ? `${width}px` : width }}>
-  
+      <div className="select-root" style={{ width: typeof width === "number" ? `${width}px` : width }}>
         <span
           ref={measureRef}
           style={{
-            position: 'absolute',
-            visibility: 'hidden',
-            whiteSpace: 'nowrap',
-            fontSize: 'inherit',
-            fontFamily: 'inherit',
-            fontWeight: 'inherit',
-            letterSpacing: 'inherit',
-            top: '-9999px',
-            left: '-9999px'
+            position: "absolute",
+            visibility: "hidden",
+            whiteSpace: "nowrap",
+            fontSize: "inherit",
+            fontFamily: "inherit",
+            fontWeight: "inherit",
+            letterSpacing: "inherit",
+            top: "-9999px",
+            left: "-9999px",
           }}
           aria-hidden="true"
         />
@@ -175,76 +182,79 @@ interface SelectTriggerProps {
  */
 const findScrollableContainer = (element: HTMLElement): HTMLElement | null => {
   let current = element.parentElement
-  
+
   while (current && current !== document.body) {
     const computedStyle = window.getComputedStyle(current)
-    const hasScrollableOverflow = ['auto', 'scroll', 'overlay'].includes(computedStyle.overflowY) ||
-                                  ['auto', 'scroll', 'overlay'].includes(computedStyle.overflow)
-    
+    const hasScrollableOverflow =
+      ["auto", "scroll", "overlay"].includes(computedStyle.overflowY) ||
+      ["auto", "scroll", "overlay"].includes(computedStyle.overflow)
+
     // También verificar si tiene una altura fija que podría crear scroll
-    const hasFixedHeight = computedStyle.height !== 'auto' && 
-                           computedStyle.maxHeight !== 'none' &&
-                           current.scrollHeight > current.clientHeight
-    
+    const hasFixedHeight =
+      computedStyle.height !== "auto" &&
+      computedStyle.maxHeight !== "none" &&
+      current.scrollHeight > current.clientHeight
+
     // Detectar contenedores comunes de modales, overlays y tablas
-    const isModalContainer = current.classList.contains('modal') ||
-                            current.classList.contains('dialog') ||
-                            current.classList.contains('popover') ||
-                            current.classList.contains('overlay') ||
-                            current.classList.contains('table-container') ||
-                            current.tagName === 'TABLE' ||
-                            current.tagName === 'TBODY' ||
-                            current.hasAttribute('role') && ['dialog', 'alertdialog', 'grid'].includes(current.getAttribute('role') || '') ||
-                            computedStyle.position === 'fixed' ||
-                            computedStyle.position === 'absolute'
-    
+    const isModalContainer =
+      current.classList.contains("modal") ||
+      current.classList.contains("dialog") ||
+      current.classList.contains("popover") ||
+      current.classList.contains("overlay") ||
+      current.classList.contains("table-container") ||
+      current.tagName === "TABLE" ||
+      current.tagName === "TBODY" ||
+      (current.hasAttribute("role") &&
+        ["dialog", "alertdialog", "grid"].includes(current.getAttribute("role") || "")) ||
+      computedStyle.position === "fixed" ||
+      computedStyle.position === "absolute"
+
     if (hasScrollableOverflow || hasFixedHeight || isModalContainer) {
       return current
     }
-    
+
     current = current.parentElement
   }
-  
+
   return null
 }
 
 /**
  * Calcula el espacio disponible considerando contenedores scrollables, modales y tablas
  */
-const calculateAvailableSpace = (
-  triggerRect: DOMRect, 
-  scrollableContainer: HTMLElement | null
-) => {
+const calculateAvailableSpace = (triggerRect: DOMRect, scrollableContainer: HTMLElement | null) => {
   const safetyMargin = 20
   let spaceAbove: number
   let spaceBelow: number
-  
+
   if (scrollableContainer) {
     const containerRect = scrollableContainer.getBoundingClientRect()
     const containerStyle = window.getComputedStyle(scrollableContainer)
-    
+
     // Considerar padding del contenedor
-    const paddingTop = parseInt(containerStyle.paddingTop, 10) || 0
-    const paddingBottom = parseInt(containerStyle.paddingBottom, 10) || 0
-    
+    const paddingTop = Number.parseInt(containerStyle.paddingTop, 10) || 0
+    const paddingBottom = Number.parseInt(containerStyle.paddingBottom, 10) || 0
+
     // Calcular espacio dentro del contenedor
     spaceAbove = triggerRect.top - containerRect.top - paddingTop
     spaceBelow = containerRect.bottom - triggerRect.bottom - paddingBottom
-    
+
     // Caso especial para tablas: usar espacio visible del viewport
-    if (scrollableContainer.classList.contains('table-container') || 
-        scrollableContainer.tagName === 'TABLE' ||
-        scrollableContainer.tagName === 'TBODY') {
+    if (
+      scrollableContainer.classList.contains("table-container") ||
+      scrollableContainer.tagName === "TABLE" ||
+      scrollableContainer.tagName === "TBODY"
+    ) {
       const viewportHeight = window.innerHeight
       spaceAbove = Math.min(spaceAbove, triggerRect.top)
       spaceBelow = Math.min(spaceBelow, viewportHeight - triggerRect.bottom)
     }
-    
+
     // Si el contenedor es scrollable, considerar el scroll actual
     if (scrollableContainer.scrollHeight > scrollableContainer.clientHeight) {
       const scrollTop = scrollableContainer.scrollTop
       const scrollBottom = scrollableContainer.scrollHeight - scrollableContainer.clientHeight - scrollTop
-      
+
       // Ajustar espacios considerando el scroll disponible
       spaceAbove += Math.min(scrollTop, 0) // Solo si podemos scroll hacia arriba
       spaceBelow += Math.min(scrollBottom, 0) // Solo si podemos scroll hacia abajo
@@ -255,11 +265,11 @@ const calculateAvailableSpace = (
     spaceAbove = triggerRect.top
     spaceBelow = viewportHeight - triggerRect.bottom
   }
-  
+
   return {
     spaceAbove: Math.max(0, spaceAbove),
     spaceBelow: Math.max(0, spaceBelow),
-    safetyMargin
+    safetyMargin,
   }
 }
 
@@ -269,30 +279,27 @@ const calculateAvailableSpace = (
 const calculateDropdownDirection = (
   trigger: HTMLElement,
   direction: DropdownDirection,
-  optionsCount: number = 5
-): 'up' | 'down' => {
+  optionsCount = 5,
+): "up" | "down" => {
   // Si la dirección está forzada, respetarla
-  if (direction === 'up') return 'up'
-  if (direction === 'down') return 'down'
-  
+  if (direction === "up") return "up"
+  if (direction === "down") return "down"
+
   // Para dirección 'auto', calcular basado en espacio disponible
   const triggerRect = trigger.getBoundingClientRect()
   const scrollableContainer = findScrollableContainer(trigger)
-  
+
   // Estimar altura del contenido basado en número de opciones
   const estimatedItemHeight = 32 // altura aproximada de cada item
   const estimatedContentHeight = Math.min(240, optionsCount * estimatedItemHeight + 16) // padding
-  
-  const { spaceAbove, spaceBelow, safetyMargin } = calculateAvailableSpace(
-    triggerRect, 
-    scrollableContainer
-  )
-  
+
+  const { spaceAbove, spaceBelow, safetyMargin } = calculateAvailableSpace(triggerRect, scrollableContainer)
+
   // Lógica de decisión
   const isInTable = trigger.closest('table, .table-container, [role="grid"]')
-  
+
   let shouldOpenUpward = false
-  
+
   if (isInTable) {
     // En tablas, priorizar abrir hacia arriba si hay poco espacio abajo
     if (spaceBelow < estimatedContentHeight + safetyMargin) {
@@ -308,116 +315,132 @@ const calculateDropdownDirection = (
       }
     }
   }
-  
+
   // Debug log
-  if (process.env.NODE_ENV === 'development') {
-    console.log('Pre-calculated dropdown direction:', {
+  if (process.env.NODE_ENV === "development") {
+    console.log("Pre-calculated dropdown direction:", {
       direction,
       spaceAbove: Math.round(spaceAbove),
       spaceBelow: Math.round(spaceBelow),
       estimatedContentHeight,
       shouldOpenUpward,
       hasScrollableContainer: !!scrollableContainer,
-      containerType: scrollableContainer?.tagName || 'none',
+      containerType: scrollableContainer?.tagName || "none",
       isInTable: !!isInTable,
-      optionsCount
+      optionsCount,
     })
   }
-  
-  return shouldOpenUpward ? 'up' : 'down'
+
+  return shouldOpenUpward ? "up" : "down"
 }
 
 export const SelectTrigger = memo(function SelectTrigger({ children }: SelectTriggerProps) {
-  const { 
-    open, 
-    onOpenChange, 
-    longestOptionWidth, 
+  const {
+    open,
+    onOpenChange,
+    longestOptionWidth,
     direction,
     selectedLabels,
     setCalculatedDirection,
-    desiredWidth
+    desiredWidth,
+    setSearchQuery,
   } = useSelectContext()
   const triggerRef = useRef<HTMLButtonElement>(null)
 
-  const handleMouseDown = useCallback((e: React.MouseEvent) => {
-    e.preventDefault()
-    e.stopPropagation()
-    
-    if (!open && triggerRef.current) {
-      // Calcular dirección ANTES de abrir
-      const optionsCount = selectedLabels?.size || 5 // usar número de opciones registradas
-      const calculatedDir = calculateDropdownDirection(triggerRef.current, direction, optionsCount)
-      
-      // Actualizar la dirección calculada
-      setCalculatedDirection(calculatedDir)
-      
-      // Pequeño delay para asegurar que el estado se actualice antes de abrir
-      requestAnimationFrame(() => {
-        onOpenChange(true)
-      })
-    } else {
-      onOpenChange(false)
-    }
-  }, [open, onOpenChange, direction, selectedLabels, setCalculatedDirection])
-
-  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
-    if (e.key === "Enter" || e.key === " ") {
+  const handleMouseDown = useCallback(
+    (e: React.MouseEvent) => {
       e.preventDefault()
-      
+      e.stopPropagation()
+
       if (!open && triggerRef.current) {
+        // Clear search query when opening
+        setSearchQuery("")
         // Calcular dirección ANTES de abrir
-        const optionsCount = selectedLabels?.size || 5
+        const optionsCount = selectedLabels?.size || 5 // usar número de opciones registradas
         const calculatedDir = calculateDropdownDirection(triggerRef.current, direction, optionsCount)
-        
+
+        // Actualizar la dirección calculada
         setCalculatedDirection(calculatedDir)
-        
+
+        // Pequeño delay para asegurar que el estado se actualice antes de abrir
         requestAnimationFrame(() => {
           onOpenChange(true)
         })
       } else {
         onOpenChange(false)
       }
-    } else if (e.key === "ArrowDown") {
-      e.preventDefault()
-      if (!open && triggerRef.current) {
-        const optionsCount = selectedLabels?.size || 5
-        const calculatedDir = calculateDropdownDirection(triggerRef.current, direction, optionsCount)
-        
-        setCalculatedDirection(calculatedDir)
-        
-        requestAnimationFrame(() => {
-          onOpenChange(true)
-        })
-      }
-    } else if (e.key === "ArrowUp") {
-      e.preventDefault()
-      onOpenChange(false)
-    }
-  }, [open, onOpenChange, direction, selectedLabels, setCalculatedDirection])
+    },
+    [open, onOpenChange, direction, selectedLabels, setCalculatedDirection, setSearchQuery],
+  )
 
-  const handleBlur = useCallback((e: React.FocusEvent) => {
-    // Check if focus moved outside the select component
-    const currentTarget = e.currentTarget
-    const relatedTarget = e.relatedTarget as Node
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault()
 
-    // If the new focus is outside the select root, close it
-    setTimeout(() => {
-      const selectRoot = currentTarget.closest('.select-root')
-      if (selectRoot && relatedTarget && !selectRoot.contains(relatedTarget)) {
+        if (!open && triggerRef.current) {
+          // Clear search query when opening
+          setSearchQuery("")
+          // Calcular dirección ANTES de abrir
+          const optionsCount = selectedLabels?.size || 5
+          const calculatedDir = calculateDropdownDirection(triggerRef.current, direction, optionsCount)
+
+          setCalculatedDirection(calculatedDir)
+
+          requestAnimationFrame(() => {
+            onOpenChange(true)
+          })
+        } else {
+          onOpenChange(false)
+        }
+      } else if (e.key === "ArrowDown") {
+        e.preventDefault()
+        if (!open && triggerRef.current) {
+          // Clear search query when opening
+          setSearchQuery("")
+          const optionsCount = selectedLabels?.size || 5
+          const calculatedDir = calculateDropdownDirection(triggerRef.current, direction, optionsCount)
+
+          setCalculatedDirection(calculatedDir)
+
+          requestAnimationFrame(() => {
+            onOpenChange(true)
+          })
+        }
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault()
         onOpenChange(false)
       }
-    }, 0)
-  }, [onOpenChange])
+    },
+    [open, onOpenChange, direction, selectedLabels, setCalculatedDirection, setSearchQuery],
+  )
+
+  const handleBlur = useCallback(
+    (e: React.FocusEvent) => {
+      // Check if focus moved outside the select component
+      const currentTarget = e.currentTarget
+      const relatedTarget = e.relatedTarget as Node
+
+      // If the new focus is outside the select root, close it
+      setTimeout(() => {
+        const selectRoot = currentTarget.closest(".select-root")
+        if (selectRoot && relatedTarget && !selectRoot.contains(relatedTarget)) {
+          onOpenChange(false)
+        }
+      }, 0)
+    },
+    [onOpenChange],
+  )
 
   // Aplicar el ancho: priorizar desiredWidth, luego longestOptionWidth
   const triggerStyle: React.CSSProperties = useMemo(() => {
     if (desiredWidth) {
       return {
-        width: typeof desiredWidth === 'number' ? `${desiredWidth}px` : desiredWidth
+        width: typeof desiredWidth === "number" ? `${desiredWidth}px` : desiredWidth,
       }
     } else if (longestOptionWidth > 0) {
       return {
-        minWidth: `${longestOptionWidth}px`
+        minWidth: `${longestOptionWidth}px`,
       }
     }
     return {}
@@ -465,18 +488,21 @@ export const SelectValue = memo(function SelectValue({ placeholder }: SelectValu
   )
 })
 
-interface SelectTagsProps { }
+type SelectTagsProps = {}
 
-export const SelectTags = memo(function SelectTags({ }: SelectTagsProps) {
+export const SelectTags = memo(function SelectTags({}: SelectTagsProps) {
   const { value, multiple, selectedLabels, onValueChange } = useSelectContext()
 
-  const removeTag = useCallback((valueToRemove: string, e: React.MouseEvent) => {
-    e.stopPropagation()
-    if (multiple && Array.isArray(value)) {
-      const newValue = value.filter((v) => v !== valueToRemove)
-      onValueChange(newValue)
-    }
-  }, [multiple, value, onValueChange])
+  const removeTag = useCallback(
+    (valueToRemove: string, e: React.MouseEvent) => {
+      e.stopPropagation()
+      if (multiple && Array.isArray(value)) {
+        const newValue = value.filter((v) => v !== valueToRemove)
+        onValueChange(newValue)
+      }
+    },
+    [multiple, value, onValueChange],
+  )
 
   const tags = useMemo(() => {
     if (!multiple) return null
@@ -484,22 +510,13 @@ export const SelectTags = memo(function SelectTags({ }: SelectTagsProps) {
     if (values.length === 0) return null
 
     return values.map((val) => (
-      <SelectTag
-        key={val}
-        value={val}
-        label={selectedLabels.get(val) || val}
-        onRemove={removeTag}
-      />
+      <SelectTag key={val} value={val} label={selectedLabels.get(val) || val} onRemove={removeTag} />
     ))
   }, [multiple, value, selectedLabels, removeTag])
 
   if (!tags) return null
 
-  return (
-    <div className="select-tags-wrapper">
-      {tags}
-    </div>
-  )
+  return <div className="select-tags-wrapper">{tags}</div>
 })
 
 interface SelectTagProps {
@@ -509,9 +526,12 @@ interface SelectTagProps {
 }
 
 const SelectTag = memo(function SelectTag({ value, label, onRemove }: SelectTagProps) {
-  const handleRemove = useCallback((e: React.MouseEvent) => {
-    onRemove(value, e)
-  }, [value, onRemove])
+  const handleRemove = useCallback(
+    (e: React.MouseEvent) => {
+      onRemove(value, e)
+    },
+    [value, onRemove],
+  )
 
   return (
     <div className="select-tag">
@@ -528,19 +548,89 @@ interface SelectContentProps {
 }
 
 export const SelectContent = memo(function SelectContent({ children }: SelectContentProps) {
-  const { open, onOpenChange, direction, calculatedDirection, desiredWidth, longestOptionWidth } = useSelectContext()
+  const {
+    open,
+    onOpenChange,
+    direction,
+    calculatedDirection,
+    desiredWidth,
+    longestOptionWidth,
+    searchQuery,
+    setSearchQuery,
+  } = useSelectContext()
   const contentRef = useRef<HTMLDivElement>(null)
+  const searchInputRef = useRef<HTMLInputElement>(null)
 
-  // Aplicar el ancho al contenido del dropdown para que coincida con el trigger
-  // IMPORTANTE: Este useMemo debe estar ANTES del early return para no violar las Rules of Hooks
+  // Function to filter children based on search query
+  const filterChildren = useCallback((children: React.ReactNode, query: string): React.ReactNode => {
+    if (!query) return children
+
+    const lowerQuery = query.toLowerCase()
+
+    const filterElement = (element: React.ReactNode): React.ReactNode => {
+      if (!React.isValidElement(element)) return null
+
+      // Handle SelectItem
+      if (element.type === SelectItem) {
+        const props = element.props as { children: React.ReactNode; value: string }
+        const label = typeof props.children === "string" ? props.children : props.value
+
+        if (label.toLowerCase().includes(lowerQuery)) {
+          return element
+        }
+        return null
+      }
+
+      // Handle SelectLabel (categories)
+      if (element.type === SelectLabel) {
+        return element
+      }
+
+      // Handle SelectSeparator
+      if (element.type === SelectSeparator) {
+        return element
+      }
+
+      // Handle React.Fragment
+      if (element.type === React.Fragment) {
+        const filteredChildren = React.Children.toArray(element.props.children).map(filterElement).filter(Boolean)
+
+        if (filteredChildren.length === 0) return null
+
+        return React.createElement(React.Fragment, { key: element.key }, ...filteredChildren)
+      }
+
+      // Handle other elements with children
+      if (element.props && element.props.children) {
+        const filteredChildren = React.Children.toArray(element.props.children).map(filterElement).filter(Boolean)
+
+        if (filteredChildren.length === 0) return null
+
+        return React.cloneElement(element, { key: element.key }, ...filteredChildren)
+      }
+
+      return element
+    }
+
+    const filteredChildren = React.Children.toArray(children).map(filterElement).filter(Boolean)
+
+    return filteredChildren.length > 0 ? filteredChildren : <div className="select-no-results">No results found.</div>
+  }, [])
+
+  // Apply filtering to children
+  const filteredChildren = useMemo(() => {
+    return filterChildren(children, searchQuery)
+  }, [children, searchQuery, filterChildren])
+
+  // Rest of the component remains the same...
   const contentStyle: React.CSSProperties = useMemo(() => {
     if (desiredWidth) {
       return {
-        width: typeof desiredWidth === 'number' ? `${desiredWidth}px` : desiredWidth
+        width: typeof desiredWidth === "number" ? `${desiredWidth}px` : desiredWidth,
       }
     } else if (longestOptionWidth > 0) {
       return {
-        minWidth: `${longestOptionWidth}px`
+        minWidth: `${longestOptionWidth}px`,
       }
     }
     return {}
@@ -548,42 +638,59 @@ export const SelectContent = memo(function SelectContent({ children }: SelectCon
 
   useEffect(() => {
     if (open) {
+      // Focus the search input when the dropdown opens
       const timeoutId = setTimeout(() => {
+        searchInputRef.current?.focus()
+
         const handleClickOutside = (event: MouseEvent) => {
           const target = event.target as Node
-          const selectRoot = contentRef.current?.closest('.select-root')
+          const selectRoot = contentRef.current?.closest(".select-root")
 
           if (selectRoot && !selectRoot.contains(target)) {
             onOpenChange(false)
           }
         }
 
-        document.addEventListener('click', handleClickOutside, true)
+        document.addEventListener("click", handleClickOutside, true)
 
         return () => {
-          document.removeEventListener('click', handleClickOutside, true)
+          document.removeEventListener("click", handleClickOutside, true)
         }
       }, 0)
 
       const handleEscape = (event: KeyboardEvent) => {
-        if (event.key === 'Escape') {
+        if (event.key === "Escape") {
           onOpenChange(false)
         }
       }
 
-      document.addEventListener('keydown', handleEscape)
+      document.addEventListener("keydown", handleEscape)
 
       return () => {
         clearTimeout(timeoutId)
-        document.removeEventListener('keydown', handleEscape)
+        document.removeEventListener("keydown", handleEscape)
       }
     }
   }, [open, onOpenChange])
 
+  const handleSearchChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setSearchQuery(e.target.value)
+    },
+    [setSearchQuery],
+  )
+
+  const handleSearchKeyDown = useCallback((e: React.KeyboardEvent) => {
+    // Prevent closing the select when pressing Enter or Space in the search input
+    if (e.key === "Enter" || e.key === " ") {
+      e.stopPropagation()
+    }
+  }, [])
+
   if (!open) return null
 
   // Usar la dirección pre-calculada
-  const shouldOpenUpward = direction === 'up' || (direction === 'auto' && calculatedDirection === 'up')
+  const shouldOpenUpward = direction === "up" || (direction === "auto" && calculatedDirection === "up")
 
   return (
     <div
@@ -593,7 +700,18 @@ export const SelectContent = memo(function SelectContent({ children }: SelectCon
       data-open-upward={shouldOpenUpward}
       role="listbox"
     >
-      {children}
+      <div className="select-search-wrapper">
+        <input
+          ref={searchInputRef}
+          type="text"
+          className="select-search-input"
+          value={searchQuery}
+          onChange={handleSearchChange}
+          onKeyDown={handleSearchKeyDown}
+          aria-label="Search select options"
+        />
+      </div>
+      {filteredChildren}
     </div>
   )
 })
@@ -608,9 +726,7 @@ export const SelectItem = memo(function SelectItem({ value, children, disabled }
   const { value: selectedValue, onValueChange, multiple, setSelectedLabel, registerOption } = useSelectContext()
 
   const isSelected = useMemo(() => {
-    return multiple
-      ? Array.isArray(selectedValue) && selectedValue.includes(value)
-      : selectedValue === value
+    return multiple ? Array.isArray(selectedValue) && selectedValue.includes(value) : selectedValue === value
   }, [multiple, selectedValue, value])
 
   useEffect(() => {
@@ -642,23 +758,24 @@ export const SelectItem = memo(function SelectItem({ value, children, disabled }
 
     if (multiple) {
       const currentValues = Array.isArray(selectedValue) ? selectedValue : []
-      const newValues = isSelected
-        ? currentValues.filter((v) => v !== value)
-        : [...currentValues, value]
+      const newValues = isSelected ? currentValues.filter((v) => v !== value) : [...currentValues, value]
       onValueChange(newValues)
     } else {
       onValueChange(value)
     }
   }, [disabled, multiple, selectedValue, isSelected, value, onValueChange])
 
-  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault()
-      if (!disabled) {
-        handleClick()
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault()
+        if (!disabled) {
+          handleClick()
+        }
       }
-    }
-  }, [disabled, handleClick])
+    },
+    [disabled, handleClick],
+  )
 
   return (
     <div

@@ -1,5 +1,5 @@
 // src/routes/layoutRoutes.ts
-import { RouteGroup } from '../../routes/types';
+import { RouteGroup } from '../../../pages/routes/types';
 import ThreeColumns from '../docs/three-colunm/page';
 import TwoColumns from '../docs/two-colunm/page';
 import LayoutExample from '../docs/layout-example/page';

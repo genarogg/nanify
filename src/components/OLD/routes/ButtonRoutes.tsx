@@ -1,5 +1,5 @@
 // src/routes/buttonRoutes.ts
-import { RouteGroup } from '../../routes/types';
+import { RouteGroup } from '../../../pages/routes/types';
 import Hamburger from "../docs/btns/hamburguesa/page";
 import BtnBasico from "../docs/btns/basico/page";
 

@@ -1,5 +1,5 @@
 // src/routes/tableRoutes.ts
-import { RouteGroup } from '../../routes/types';
+import { RouteGroup } from '../../../pages/routes/types';
 import TabletPage from '../docs/tablet/page';
 import TabletMyPage from '../docs/tablet-my/page';
 
