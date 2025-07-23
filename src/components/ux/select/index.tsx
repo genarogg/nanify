@@ -562,60 +562,63 @@ export const SelectContent = memo(function SelectContent({ children }: SelectCon
   const searchInputRef = useRef<HTMLInputElement>(null)
 
   // Function to filter children based on search query
-  const filterChildren = useCallback((children: React.ReactNode, query: string): React.ReactNode => {
-    if (!query) return children
+// Function to filter children based on search query
+const filterChildren = useCallback((children: React.ReactNode, query: string): React.ReactNode => {
+  if (!query) return children
 
-    const lowerQuery = query.toLowerCase()
+  const lowerQuery = query.toLowerCase()
 
-    const filterElement = (element: React.ReactNode): React.ReactNode => {
-      if (!React.isValidElement(element)) return null
+  const filterElement = (element: React.ReactNode): React.ReactNode => {
+    if (!React.isValidElement(element)) return null
 
-      // Handle SelectItem
-      if (element.type === SelectItem) {
-        const props = element.props as { children: React.ReactNode; value: string }
-        const label = typeof props.children === "string" ? props.children : props.value
+    // Handle SelectItem
+    if (element.type === SelectItem) {
+      const props = element.props as { children: React.ReactNode; value: string }
+      const label = typeof props.children === "string" ? props.children : props.value
 
-        if (label.toLowerCase().includes(lowerQuery)) {
-          return element
-        }
-        return null
-      }
-
-      // Handle SelectLabel (categories)
-      if (element.type === SelectLabel) {
+      if (label.toLowerCase().includes(lowerQuery)) {
         return element
       }
+      return null
+    }
 
-      // Handle SelectSeparator
-      if (element.type === SelectSeparator) {
-        return element
-      }
-
-      // Handle React.Fragment
-      if (element.type === React.Fragment) {
-        const filteredChildren = React.Children.toArray(element.props.children).map(filterElement).filter(Boolean)
-
-        if (filteredChildren.length === 0) return null
-
-        return React.createElement(React.Fragment, { key: element.key }, ...filteredChildren)
-      }
-
-      // Handle other elements with children
-      if (element.props && element.props.children) {
-        const filteredChildren = React.Children.toArray(element.props.children).map(filterElement).filter(Boolean)
-
-        if (filteredChildren.length === 0) return null
-
-        return React.cloneElement(element, { key: element.key }, ...filteredChildren)
-      }
-
+    // Handle SelectLabel (categories)
+    if (element.type === SelectLabel) {
       return element
     }
 
-    const filteredChildren = React.Children.toArray(children).map(filterElement).filter(Boolean)
+    // Handle SelectSeparator
+    if (element.type === SelectSeparator) {
+      return element
+    }
 
-    return filteredChildren.length > 0 ? filteredChildren : <div className="select-no-results">No results found.</div>
-  }, [])
+    // Handle React.Fragment
+    if (element.type === React.Fragment) {
+      const fragmentProps = element.props as { children: React.ReactNode }
+      const filteredChildren = React.Children.toArray(fragmentProps.children).map(filterElement).filter(Boolean)
+
+      if (filteredChildren.length === 0) return null
+
+      return React.createElement(React.Fragment, { key: element.key }, ...filteredChildren)
+    }
+
+    // Handle other elements with children
+    if (element.props && typeof element.props === 'object' && element.props !== null && 'children' in element.props) {
+      const elementProps = element.props as { children: React.ReactNode }
+      const filteredChildren = React.Children.toArray(elementProps.children).map(filterElement).filter(Boolean)
+
+      if (filteredChildren.length === 0) return null
+
+      return React.cloneElement(element, { key: element.key }, ...filteredChildren)
+    }
+
+    return element
+  }
+
+  const filteredChildren = React.Children.toArray(children).map(filterElement).filter(Boolean)
+
+  return filteredChildren.length > 0 ? filteredChildren : <div className="select-no-results">No results found.</div>
+}, [])
 
   // Apply filtering to children
   const filteredChildren = useMemo(() => {
