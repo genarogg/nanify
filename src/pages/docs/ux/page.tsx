@@ -29,27 +29,7 @@ const Routes: React.FC<RouteProps> = () => {
         </p>
       </header>
 
-      <section className="documentation-section">
-        <h2 className="section-title">Componentes Base</h2>
-
-        <div className="routes-grid">
-          {/* Icon Component */}
-          <div className="route-card">
-            <div className="route-icon">
-              <Icon icon={<Palette size={32} />} />
-            </div>
-            <div className="route-content">
-              <h3 className="route-title">Icon</h3>
-              <p className="route-description">
-                Sistema de iconos consistente y personalizable para toda la aplicación.
-              </p>
-              <A href="/ux/icon" className="route-link">
-                Ver componente <Icon icon={<ArrowRight size={16} />} />
-              </A>
-            </div>
-          </div>
-        </div>
-      </section>
+   
 
       <section className="documentation-section">
         <h2 className="section-title">Componentes de Formulario</h2>

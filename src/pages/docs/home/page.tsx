@@ -3,7 +3,7 @@
 import type React from "react"
 import { A } from "@nano"
 import { Icon } from "@components/ux"
-import { ArrowRight, BoxIcon, UserCircle, Layout, FileText, Sliders, ImageIcon } from "lucide-react"
+import { ArrowRight, BoxIcon, UserCircle, Layout, FileText, Sliders, ImageIcon, Palette } from "lucide-react"
 import "./styles.css"
 
 type RouteProps = {}
@@ -63,6 +63,22 @@ const Routes: React.FC<RouteProps> = () => {
                 Componente de imagen optimizado con lazy loading, blur placeholder y contenido superpuesto.
               </p>
               <A href="/img" className="route-link">
+                Ver componente <Icon icon={<ArrowRight size={16} />} />
+              </A>
+            </div>
+          </div>
+
+          {/* UX Component */}
+          <div className="route-card">
+            <div className="route-icon">
+              <Icon icon={<Palette size={32} />} />
+            </div>
+            <div className="route-content">
+              <h3 className="route-title">UX</h3>
+              <p className="route-description">
+                Componentes de experiencia de usuario para interfaces intuitivas y atractivas.
+              </p>
+              <A href="/ux" className="route-link">
                 Ver componente <Icon icon={<ArrowRight size={16} />} />
               </A>
             </div>

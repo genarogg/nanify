@@ -18,6 +18,7 @@ interface ModalProps {
   lazy?: boolean
   preventClose?: boolean // 🔥 NUEVA: Previene el cierre del modal
   onValidateClose?: () => boolean // 🔥 NUEVA: Función de validación antes de cerrar
+  type?: "btn" // 🔥 NUEVA: Tipo de modal - cuando es "btn" muestra solo el icono
 }
 
 // 🔥 OPTIMIZACIÓN CRÍTICA: Memoizar el Modal
@@ -34,7 +35,8 @@ const Modal = memo(function Modal({
   cancelText = "Cancelar",
   lazy = true,
   preventClose = false, // 🔥 NUEVA: Por defecto se puede cerrar
-  onValidateClose // 🔥 NUEVA: Función de validación opcional
+  onValidateClose, // 🔥 NUEVA: Función de validación opcional
+  type // 🔥 NUEVA: Tipo de modal
 }: ModalProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [isClosing, setIsClosing] = useState(false)
@@ -130,8 +132,8 @@ const Modal = memo(function Modal({
     }
   }, [closeModal])
 
-  // Determinar si es solo icono basado en la presencia del título
-  const isIconOnly = !title && icon
+  // 🔥 MODIFICADO: Determinar si es solo icono basado en type="btn" o la ausencia del título
+  const isIconOnly = type === "btn" 
 
   // Renderizar el contenido del botón basado en isIconOnly
   const renderButtonContent = useCallback(() => {
@@ -167,7 +169,7 @@ const Modal = memo(function Modal({
     <button 
       className={`modal-trigger ${isIconOnly ? 'modal-trigger-icon-only' : ''} ${buttonClassName || ""}`} 
       onClick={openModal}
-      title={isIconOnly ? "Abrir modal" : undefined}
+      title={isIconOnly ? (title || "Abrir modal") : undefined}
     >
       {renderButtonContent()}
     </button>

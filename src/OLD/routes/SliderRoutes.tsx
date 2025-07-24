@@ -2,7 +2,7 @@
 import { RouteGroup } from '../../pages/routes/types';
 import SliderBG from "../docs/slider/background/page";
 import Youtube from '../docs/youtube/page';
-import Img from "../docs/img/page";
+import Img from "../../pages/docs/img/page";
 import CardProductoAlana from '../docs/card/alana-ecomerce/page';
 
 export const SliderRoutes: RouteGroup = {

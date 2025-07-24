@@ -3,7 +3,7 @@
 import type React from "react"
 
 import { useState, useRef } from "react"
-import { Input, type InputRef } from "@/components/ux"
+import { Input } from "@/components/ux"
 import { User, Mail, Lock, Phone, Calendar, DollarSign, Search, Globe } from "lucide-react"
 import "./styles.css"
 
@@ -20,7 +20,7 @@ export default function InputPage() {
   })
 
   const [errors, setErrors] = useState<Record<string, string>>({})
-  const inputRef = useRef<InputRef>(null)
+  const inputRef = useRef<any>(null)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
@@ -204,6 +204,10 @@ export default function InputPage() {
               required
               label="Sitio web"
             />
+          </div>
+          <div className="input-example">
+
+            <Input name="fixed" type="text" hasContentState={true} placeholder="placeholder fixed" icon={<Search size={18} />} />
           </div>
         </div>
       </section>

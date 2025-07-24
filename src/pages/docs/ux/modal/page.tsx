@@ -4,6 +4,7 @@ import { Input } from "@/components/ux"
 import { useRef } from "react"
 
 import { BsFillEnvelopeHeartFill } from "react-icons/bs"
+import { HiAdjustmentsVertical } from "react-icons/hi2";
 
 // Iconos SVG simples
 const DocumentIcon = () => (
@@ -69,14 +70,14 @@ export default function Home() {
                         icon={<BsFillEnvelopeHeartFill />}
                         onChange={handleChange}
                     />
-                    <br /><br /><br /><br />
+                
 
-                     <Input
+                    <Input
                         type="password"
                         name="pass"
                         id="passLogin"
                         placeholder="pass"
-                      
+
                         onChange={handleChange}
                     />
 
@@ -132,6 +133,14 @@ export default function Home() {
                         </div>
                         <p className="modal-info-message">No hay requisitos agregados para este documento.</p>
                     </div>
+                </Modal>
+
+                <Modal
+                    title="Editar Usuario"
+                    icon={<HiAdjustmentsVertical />}
+                    type="btn"
+                >
+                    <p>Contenido del modal</p>
                 </Modal>
             </div>
         </div>
