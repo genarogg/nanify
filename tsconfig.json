@@ -23,22 +23,22 @@
         "./src/components/btns/*"
       ],
       "@slider/*": [
-        "src/components/OLD/slider/*"
+        "src/OLD/slider/*"
       ],
       "@hook/*": [
-        "src/components/OLD/hook/*"
+        "src/OLD/hook/*"
       ],
       "@tooltip": [
-        "src/components/OLD/tooltip/index.tsx"
+        "src/OLD/tooltip/index.tsx"
       ],
       "@sections/*": [
-        "src/components/OLD/sections/*"
+        "src/OLD/sections/*"
       ],
       "@ux": [
         "src/components/ux/index.tsx"
       ],
       "@context/*": [
-        "src/components/OLD/context/*"
+        "src/OLD/context/*"
       ],
     },
     "jsx": "react-jsx",

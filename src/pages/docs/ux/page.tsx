@@ -3,11 +3,8 @@
 import type React from "react"
 import { A } from "@/components/nano"
 import { Icon } from "@/components/ux"
-import { 
-  ArrowRight, 
-  UserCircle, 
-  Layout, 
-  ImageIcon, 
+import {
+  ArrowRight,
   Palette,
   MousePointer,
   Menu,
@@ -16,7 +13,7 @@ import {
   ToggleLeft,
   List,
   Layers,
-  Settings
+  Settings,
 } from "lucide-react"
 import "./styles.css"
 
@@ -36,10 +33,6 @@ const Routes: React.FC<RouteProps> = () => {
         <h2 className="section-title">Componentes Base</h2>
 
         <div className="routes-grid">
-         
-
-     
-
           {/* Icon Component */}
           <div className="route-card">
             <div className="route-icon">
@@ -85,9 +78,7 @@ const Routes: React.FC<RouteProps> = () => {
             </div>
             <div className="route-content">
               <h3 className="route-title">Select</h3>
-              <p className="route-description">
-                Componente de selección múltiple y simple con etiquetas y búsqueda.
-              </p>
+              <p className="route-description">Componente de selección múltiple y simple con etiquetas y búsqueda.</p>
               <A href="/ux/select" className="route-link">
                 Ver componente <Icon icon={<ArrowRight size={16} />} />
               </A>
@@ -123,9 +114,7 @@ const Routes: React.FC<RouteProps> = () => {
             </div>
             <div className="route-content">
               <h3 className="route-title">Tabs</h3>
-              <p className="route-description">
-                Sistema de pestañas con animaciones fluidas y contenido dinámico.
-              </p>
+              <p className="route-description">Sistema de pestañas con animaciones fluidas y contenido dinámico.</p>
               <A href="/ux/tabs" className="route-link">
                 Ver componente <Icon icon={<ArrowRight size={16} />} />
               </A>
@@ -139,9 +128,7 @@ const Routes: React.FC<RouteProps> = () => {
             </div>
             <div className="route-content">
               <h3 className="route-title">Botones Hamburguesa</h3>
-              <p className="route-description">
-                Colección de botones hamburguesa animados para menús de navegación.
-              </p>
+              <p className="route-description">Colección de botones hamburguesa animados para menús de navegación.</p>
               <A href="/btns/hamburguesa" className="route-link">
                 Ver botones <Icon icon={<ArrowRight size={16} />} />
               </A>
@@ -161,9 +148,7 @@ const Routes: React.FC<RouteProps> = () => {
             </div>
             <div className="route-content">
               <h3 className="route-title">Modal</h3>
-              <p className="route-description">
-                Ventanas modales personalizables con diferentes tamaños y estilos.
-              </p>
+              <p className="route-description">Ventanas modales personalizables con diferentes tamaños y estilos.</p>
               <A href="/ux/modal" className="route-link">
                 Ver componente <Icon icon={<ArrowRight size={16} />} />
               </A>
@@ -205,43 +190,33 @@ const Routes: React.FC<RouteProps> = () => {
       </section>
 
       <section className="documentation-section">
-        <h2 className="section-title">Formularios Especializados</h2>
+        <h2 className="section-title">Componentes de Visualización</h2>
 
         <div className="routes-grid">
-          {/* Loki Form */}
+          {/* Badge Component */}
           <div className="route-card">
             <div className="route-icon">
-              <Icon icon={<FileText size={32} />} />
+              <Icon icon={<Palette size={32} />} />
             </div>
             <div className="route-content">
-              <h3 className="route-title">Formulario Loki</h3>
-              <p className="route-description">
-                Formulario de inicio de sesión con estilo Loki, elegante y funcional.
-              </p>
-              <A href="/form/form-loki" className="route-link">
-                Ver formulario <Icon icon={<ArrowRight size={16} />} />
+              <h3 className="route-title">Badge</h3>
+              <p className="route-description">Etiquetas para mostrar estados, categorías y información destacada.</p>
+              <A href="/ux/badge" className="route-link">
+                Ver componente <Icon icon={<ArrowRight size={16} />} />
               </A>
             </div>
           </div>
-        </div>
-      </section>
 
-      <section className="documentation-section">
-        <h2 className="section-title">Componentes Avanzados</h2>
-
-        <div className="routes-grid">
-          {/* Background Slider */}
+          {/* Tabs Component */}
           <div className="route-card">
             <div className="route-icon">
-              <Icon icon={<ImageIcon size={32} />} />
+              <Icon icon={<Layers size={32} />} />
             </div>
             <div className="route-content">
-              <h3 className="route-title">Slider de Fondo</h3>
-              <p className="route-description">
-                Componente de slider para cambiar el fondo de la página con transiciones suaves.
-              </p>
-              <A href="/slider/background" className="route-link">
-                Ver slider <Icon icon={<ArrowRight size={16} />} />
+              <h3 className="route-title">Tabs</h3>
+              <p className="route-description">Sistema de pestañas con animaciones fluidas y contenido dinámico.</p>
+              <A href="/ux/tabs" className="route-link">
+                Ver componente <Icon icon={<ArrowRight size={16} />} />
               </A>
             </div>
           </div>
