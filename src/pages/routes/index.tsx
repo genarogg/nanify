@@ -4,6 +4,7 @@ import { Routes, Route as RouterRoute } from 'react-router-dom';
 import { RouteGroup, RouteConfig } from './types';
 import { HomeRoutes } from './HomeRoutes';
 import { UxRoutes } from './UxRoutes';
+import { NanoRoutes } from './NanoRoutes'
 // import { ButtonRoutes } from './ButtonRoutes';
 // import { FormRoutes } from './FormRoutes';
 // import { SliderRoutes, cardRoutes, mediaRoutes } from './SliderRoutes';
@@ -24,6 +25,7 @@ const expandRouteGroup = (routeGroup: RouteGroup): RouteConfig[] => {
 const allRouteGroups: RouteGroup[] = [
   HomeRoutes,
   UxRoutes,
+  NanoRoutes,
   // ButtonRoutes,
   // FormRoutes,
   // SliderRoutes,

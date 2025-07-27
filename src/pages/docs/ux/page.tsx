@@ -7,13 +7,12 @@ import {
   ArrowRight,
   Palette,
   MousePointer,
-  Menu,
+
   FileText,
-  CheckSquare,
-  ToggleLeft,
+
   List,
   Layers,
-  Settings,
+
 } from "lucide-react"
 import "./styles.css"
 
@@ -29,7 +28,7 @@ const Routes: React.FC<RouteProps> = () => {
         </p>
       </header>
 
-   
+
 
       <section className="documentation-section">
         <h2 className="section-title">Componentes de Formulario</h2>
@@ -65,21 +64,7 @@ const Routes: React.FC<RouteProps> = () => {
             </div>
           </div>
 
-          {/* Checkbox & Switch */}
-          <div className="route-card">
-            <div className="route-icon">
-              <Icon icon={<CheckSquare size={32} />} />
-            </div>
-            <div className="route-content">
-              <h3 className="route-title">CheckBox & Switch</h3>
-              <p className="route-description">
-                Controles de selección incluyendo checkboxes, grupos y switches animados.
-              </p>
-              <A href="/ux/checkbox" className="route-link">
-                Ver componentes <Icon icon={<ArrowRight size={16} />} />
-              </A>
-            </div>
-          </div>
+
         </div>
       </section>
 
@@ -101,19 +86,7 @@ const Routes: React.FC<RouteProps> = () => {
             </div>
           </div>
 
-          {/* Botones Hamburguesa */}
-          <div className="route-card">
-            <div className="route-icon">
-              <Icon icon={<Menu size={32} />} />
-            </div>
-            <div className="route-content">
-              <h3 className="route-title">Botones Hamburguesa</h3>
-              <p className="route-description">Colección de botones hamburguesa animados para menús de navegación.</p>
-              <A href="/btns/hamburguesa" className="route-link">
-                Ver botones <Icon icon={<ArrowRight size={16} />} />
-              </A>
-            </div>
-          </div>
+
         </div>
       </section>
 
@@ -135,37 +108,7 @@ const Routes: React.FC<RouteProps> = () => {
             </div>
           </div>
 
-          {/* Toggle Components */}
-          <div className="route-card">
-            <div className="route-icon">
-              <Icon icon={<ToggleLeft size={32} />} />
-            </div>
-            <div className="route-content">
-              <h3 className="route-title">Toggle & Controls</h3>
-              <p className="route-description">
-                Controles interactivos incluyendo switches, toggles y selectores múltiples.
-              </p>
-              <A href="/ux/controls" className="route-link">
-                Ver controles <Icon icon={<ArrowRight size={16} />} />
-              </A>
-            </div>
-          </div>
 
-          {/* Botones Básicos */}
-          <div className="route-card">
-            <div className="route-icon">
-              <Icon icon={<Settings size={32} />} />
-            </div>
-            <div className="route-content">
-              <h3 className="route-title">Botones Básicos</h3>
-              <p className="route-description">
-                Componentes de botones básicos para diferentes acciones en la interfaz.
-              </p>
-              <A href="/btns/basico" className="route-link">
-                Ver botones <Icon icon={<ArrowRight size={16} />} />
-              </A>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -187,19 +130,7 @@ const Routes: React.FC<RouteProps> = () => {
             </div>
           </div>
 
-          {/* Tabs Component */}
-          <div className="route-card">
-            <div className="route-icon">
-              <Icon icon={<Layers size={32} />} />
-            </div>
-            <div className="route-content">
-              <h3 className="route-title">Tabs</h3>
-              <p className="route-description">Sistema de pestañas con animaciones fluidas y contenido dinámico.</p>
-              <A href="/ux/tabs" className="route-link">
-                Ver componente <Icon icon={<ArrowRight size={16} />} />
-              </A>
-            </div>
-          </div>
+
         </div>
       </section>
     </div>
