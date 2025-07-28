@@ -65,10 +65,10 @@ export const UxRoutes: RouteGroup = {
       component: InputFilePage,
       key: "input-file",
     },
-    // {
-    //   path: "/icon",
-    //   component: IconPage,
-    //   key: "icon",
-    // },
+    {
+      path: "/icon",
+      component: IconPage,
+      key: "icon",
+    },
   ],
 }

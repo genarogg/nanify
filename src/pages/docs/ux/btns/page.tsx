@@ -2,11 +2,17 @@
 
 import { useState } from "react"
 
-
 import {
   CheckBox,
   CheckboxGroup,
-  Switch
+  Switch,
+  BtnFreya,
+  BtnLoki,
+  BtnNormalBasic,
+  BtnRowCircle,
+  BtnText,
+  BtnThor,
+  BtnExpansion,
 } from "@/components/ux"
 
 export default function Home() {
@@ -56,6 +62,43 @@ export default function Home() {
         <h1>🎛️ Demo de Componentes Interactivos</h1>
         <p>Explora toggles, checkboxes y selecciones múltiples con animaciones</p>
       </header>
+
+      {/* Button Components Section */}
+      <section className="demo-section">
+        <h2>✨ Componentes de Botones</h2>
+        <p>Explora diferentes estilos de botones interactivos.</p>
+
+        <div className="button-grid">
+          <div className="button-item">
+            <h3>BtnFreya (Hamburguer)</h3>
+            <BtnFreya onClick={() => alert("BtnFreya clicked!")} />
+          </div>
+          <div className="button-item">
+            <h3>BtnLoki (Hamburguer)</h3>
+            <BtnLoki onClick={() => alert("BtnLoki clicked!")} />
+          </div>
+          <div className="button-item">
+            <h3>BtnNormalBasic</h3>
+            <BtnNormalBasic onClick={() => alert("BtnNormalBasic clicked!")}>Click Me</BtnNormalBasic>
+          </div>
+          <div className="button-item">
+            <h3>BtnRowCircle</h3>
+            <BtnRowCircle onClick={() => alert("BtnRowCircle clicked!")} />
+          </div>
+          <div className="button-item">
+            <h3>BtnText</h3>
+            <BtnText onClick={() => alert("BtnText clicked!")}>Learn More</BtnText>
+          </div>
+          <div className="button-item">
+            <h3>BtnThor (Hamburguer)</h3>
+            <BtnThor onClick={() => alert("BtnThor clicked!")} />
+          </div>
+          <div className="button-item">
+            <h3>BtnExpansion (Ripple)</h3>
+            <BtnExpansion onClick={() => alert("BtnExpansion clicked!")}>Expand</BtnExpansion>
+          </div>
+        </div>
+      </section>
 
       {/* Toggle Buttons Section */}
       <section className="demo-section">
@@ -205,6 +248,8 @@ export default function Home() {
         </div>
       </section>
 
+
+
       {/* Summary Section */}
       <section className="demo-section summary-section">
         <h2>📋 Resumen de Configuración</h2>
@@ -243,219 +288,245 @@ export default function Home() {
       </section>
 
       <style>{`
+      .demo-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        min-height: 100vh;
+      }
+
+      .demo-header {
+        text-align: center;
+        margin-bottom: 40px;
+        padding: 30px;
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+
+      .demo-header h1 {
+        color: #1e293b;
+        margin-bottom: 10px;
+        font-size: 2.5rem;
+      }
+
+      .demo-header p {
+        color: #64748b;
+        font-size: 1.1rem;
+      }
+
+      .demo-section {
+        margin-bottom: 40px;
+        padding: 30px;
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+
+      .demo-section h2 {
+        color: #1e293b;
+        margin-bottom: 25px;
+        font-size: 1.8rem;
+        border-bottom: 2px solid #e2e8f0;
+        padding-bottom: 10px;
+      }
+
+      .toggle-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
+      }
+
+      .control-item {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 20px;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        background: #f8fafc;
+      }
+
+      .control-info h3 {
+        margin: 0 0 5px 0;
+        color: #374151;
+        font-size: 1.1rem;
+      }
+
+      .control-info p {
+        margin: 0;
+        color: #6b7280;
+        font-size: 0.9rem;
+      }
+
+      .status-on {
+        color: #059669;
+        font-weight: 600;
+      }
+
+      .status-off {
+        color: #dc2626;
+        font-weight: 600;
+      }
+
+      .checkbox-list {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-bottom: 25px;
+      }
+
+      .data-display {
+        padding: 20px;
+        background: #f1f5f9;
+        border-radius: 12px;
+        border-left: 4px solid #3b82f6;
+      }
+
+      .data-display h4 {
+        margin: 0 0 15px 0;
+        color: #1e293b;
+      }
+
+      .data-display ul {
+        margin: 0;
+        padding-left: 20px;
+      }
+
+      .data-display li {
+        margin-bottom: 8px;
+        color: #475569;
+      }
+
+      .multiple-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 30px;
+      }
+
+      .multiple-item.full-width {
+        grid-column: 1 / -1;
+      }
+
+      .selection-display {
+        margin-top: 20px;
+        padding: 15px;
+        background: #f8fafc;
+        border-radius: 8px;
+        border: 1px solid #e2e8f0;
+      }
+
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 10px;
+      }
+
+      .tag {
+        background: #3b82f6;
+        color: white;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 500;
+      }
+
+      .tag-single {
+        background: #059669;
+      }
+
+      .no-selection {
+        color: #9ca3af;
+        font-style: italic;
+      }
+
+      .button-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 25px;
+        margin-top: 25px;
+      }
+
+      .button-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        padding: 20px;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        background: #f8fafc;
+        text-align: center;
+      }
+
+      .button-item h3 {
+        margin: 0;
+        color: #374151;
+        font-size: 1.1rem;
+      }
+
+      .summary-section {
+        background: linear-gradient(135deg, #1e293b, #334155);
+        color: white;
+      }
+
+      .summary-section h2 {
+        color: white;
+        border-bottom-color: #475569;
+      }
+
+      .summary-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
+      }
+
+      .summary-card {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 25px;
+        border-radius: 12px;
+        backdrop-filter: blur(10px);
+      }
+
+      .summary-card h3 {
+        margin: 0 0 15px 0;
+        color: #f1f5f9;
+      }
+
+      .summary-card ul {
+        margin: 0;
+        padding-left: 20px;
+      }
+
+      .summary-card li {
+        margin-bottom: 8px;
+        color: #cbd5e1;
+      }
+
+      .summary-card p {
+        margin: 8px 0;
+        color: #cbd5e1;
+      }
+
+      @media (max-width: 768px) {
         .demo-container {
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 20px;
-          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-          background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-          min-height: 100vh;
-        }
-
-        .demo-header {
-          text-align: center;
-          margin-bottom: 40px;
-          padding: 30px;
-          background: white;
-          border-radius: 16px;
-          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        .demo-header h1 {
-          color: #1e293b;
-          margin-bottom: 10px;
-          font-size: 2.5rem;
-        }
-
-        .demo-header p {
-          color: #64748b;
-          font-size: 1.1rem;
-        }
-
-        .demo-section {
-          margin-bottom: 40px;
-          padding: 30px;
-          background: white;
-          border-radius: 16px;
-          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        .demo-section h2 {
-          color: #1e293b;
-          margin-bottom: 25px;
-          font-size: 1.8rem;
-          border-bottom: 2px solid #e2e8f0;
-          padding-bottom: 10px;
-        }
-
-        .toggle-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-          gap: 25px;
-        }
-
-        .control-item {
-          display: flex;
-          align-items: center;
-          gap: 15px;
-          padding: 20px;
-          border: 1px solid #e2e8f0;
-          border-radius: 12px;
-          background: #f8fafc;
-        }
-
-        .control-info h3 {
-          margin: 0 0 5px 0;
-          color: #374151;
-          font-size: 1.1rem;
-        }
-
-        .control-info p {
-          margin: 0;
-          color: #6b7280;
-          font-size: 0.9rem;
-        }
-
-        .status-on {
-          color: #059669;
-          font-weight: 600;
-        }
-
-        .status-off {
-          color: #dc2626;
-          font-weight: 600;
-        }
-
-        .checkbox-list {
-          display: flex;
-          flex-direction: column;
-          gap: 15px;
-          margin-bottom: 25px;
-        }
-
-        .data-display {
-          padding: 20px;
-          background: #f1f5f9;
-          border-radius: 12px;
-          border-left: 4px solid #3b82f6;
-        }
-
-        .data-display h4 {
-          margin: 0 0 15px 0;
-          color: #1e293b;
-        }
-
-        .data-display ul {
-          margin: 0;
-          padding-left: 20px;
-        }
-
-        .data-display li {
-          margin-bottom: 8px;
-          color: #475569;
-        }
-
-        .multiple-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-          gap: 30px;
-        }
-
-        .multiple-item.full-width {
-          grid-column: 1 / -1;
-        }
-
-        .selection-display {
-          margin-top: 20px;
           padding: 15px;
-          background: #f8fafc;
-          border-radius: 8px;
-          border: 1px solid #e2e8f0;
         }
-
-        .tags {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 8px;
-          margin-top: 10px;
+        
+        .toggle-grid,
+        .multiple-grid,
+        .button-grid {
+          grid-template-columns: 1fr;
         }
-
-        .tag {
-          background: #3b82f6;
-          color: white;
-          padding: 4px 12px;
-          border-radius: 20px;
-          font-size: 0.85rem;
-          font-weight: 500;
+        
+        .demo-header h1 {
+          font-size: 2rem;
         }
-
-        .tag-single {
-          background: #059669;
-        }
-
-        .no-selection {
-          color: #9ca3af;
-          font-style: italic;
-        }
-
-        .summary-section {
-          background: linear-gradient(135deg, #1e293b, #334155);
-          color: white;
-        }
-
-        .summary-section h2 {
-          color: white;
-          border-bottom-color: #475569;
-        }
-
-        .summary-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-          gap: 25px;
-        }
-
-        .summary-card {
-          background: rgba(255, 255, 255, 0.1);
-          padding: 25px;
-          border-radius: 12px;
-          backdrop-filter: blur(10px);
-        }
-
-        .summary-card h3 {
-          margin: 0 0 15px 0;
-          color: #f1f5f9;
-        }
-
-        .summary-card ul {
-          margin: 0;
-          padding-left: 20px;
-        }
-
-        .summary-card li {
-          margin-bottom: 8px;
-          color: #cbd5e1;
-        }
-
-        .summary-card p {
-          margin: 8px 0;
-          color: #cbd5e1;
-        }
-
-        @media (max-width: 768px) {
-          .demo-container {
-            padding: 15px;
-          }
-          
-          .toggle-grid,
-          .multiple-grid {
-            grid-template-columns: 1fr;
-          }
-          
-          .demo-header h1 {
-            font-size: 2rem;
-          }
-        }
-      `}</style>
+      }
+    `}</style>
     </div>
   )
 }

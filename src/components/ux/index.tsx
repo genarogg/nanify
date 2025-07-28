@@ -15,6 +15,8 @@ import BtnRowCircle from "./btns/btn-row-circle";
 
 // Importing Loki buttons
 import BtnLoki from "./btns/btn-loki";
+import BtnFreya from "./btns/btn-freya";
+import BtnThor from "./btns/btn-thor";
 
 
 import Spinner from "./spinner/Spinner";
@@ -62,5 +64,7 @@ export {
     SelectLabel,
     Textarea,
     InputFile,
-    InputList
+    InputList,
+    BtnFreya,
+    BtnThor
 }

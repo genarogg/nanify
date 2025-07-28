@@ -3,7 +3,17 @@
 import type React from "react"
 import { A } from "@/components/nano"
 import { Icon } from "@/components/ux"
-import { ArrowRight, Palette, MousePointer, FileText, List, Layers, Upload, Loader } from "lucide-react"
+import {
+  ArrowRight,
+  Palette,
+  MousePointer,
+  FileText,
+  List,
+  Layers,
+  Upload,
+  Loader,
+  MousePointerClick,
+} from "lucide-react" // Added MousePointerClick
 import "./styles.css"
 
 // Tipo para la información de cada ruta
@@ -67,55 +77,56 @@ const Routes: React.FC<RouteProps> = () => {
           icon: <FileText size={32} />,
           title: "Input",
           description: "Campos de entrada con validación, iconos y diferentes estados visuales.",
-          href: "/ux/input"
+          href: "/ux/input",
         },
         {
           icon: <List size={32} />,
           title: "Select",
           description: "Componente de selección múltiple y simple con etiquetas y búsqueda.",
-          href: "/ux/select"
+          href: "/ux/select",
         },
         {
           icon: <FileText size={32} />,
           title: "Textarea",
           description: "Área de texto multilínea con contador de caracteres y validación.",
-          href: "/ux/textarea"
+          href: "/ux/textarea",
         },
         {
           icon: <List size={32} />,
           title: "Input List",
           description: "Lista dinámica de elementos con funcionalidad de agregar y eliminar.",
-          href: "/ux/input-list"
+          href: "/ux/input-list",
         },
         {
           icon: <Upload size={32} />,
           title: "Input File",
           description: "Carga de archivos con arrastrar y soltar, validación y vista previa.",
-          href: "/ux/input-file"
-        }
-      ]
+          href: "/ux/input-file",
+        },
+      ],
     },
     {
-      title: "Componentes de Navegación",
+      title: "Componentes de Interacción", // New section for interaction components
       routes: [
+        {
+          icon: <MousePointerClick size={32} />, // Icon for buttons
+          title: "Botones",
+          description: "Colección de botones interactivos con diversos estilos y animaciones.",
+          href: "/ux/btns",
+        },
         {
           icon: <Layers size={32} />,
           title: "Tabs",
           description: "Sistema de pestañas con animaciones fluidas y contenido dinámico.",
-          href: "/ux/tabs"
-        }
-      ]
-    },
-    {
-      title: "Componentes de Interfaz",
-      routes: [
+          href: "/ux/tabs",
+        },
         {
           icon: <MousePointer size={32} />,
           title: "Modal",
           description: "Ventanas modales personalizables con diferentes tamaños y estilos.",
-          href: "/ux/modal"
-        }
-      ]
+          href: "/ux/modal",
+        },
+      ],
     },
     {
       title: "Componentes de Visualización",
@@ -124,9 +135,9 @@ const Routes: React.FC<RouteProps> = () => {
           icon: <Palette size={32} />,
           title: "Badge",
           description: "Etiquetas para mostrar estados, categorías y información destacada.",
-          href: "/ux/badge"
-        }
-      ]
+          href: "/ux/badge",
+        },
+      ],
     },
     {
       title: "Componentes de Estado",
@@ -135,9 +146,9 @@ const Routes: React.FC<RouteProps> = () => {
           icon: <Loader size={32} />,
           title: "Spinner",
           description: "Indicador de carga animado con diferentes tamaños y colores.",
-          href: "/ux/spinner"
-        }
-      ]
+          href: "/ux/spinner",
+        },
+      ],
     },
     {
       title: "Componentes de Utilidad",
@@ -146,10 +157,10 @@ const Routes: React.FC<RouteProps> = () => {
           icon: <Palette size={32} />,
           title: "Icon",
           description: "Wrapper para iconos con diferentes tamaños, colores y animaciones.",
-          href: "/ux/icon"
-        }
-      ]
-    }
+          href: "/ux/icon",
+        },
+      ],
+    },
   ]
 
   return (
