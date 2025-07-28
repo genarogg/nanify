@@ -60,11 +60,11 @@ export const UxRoutes: RouteGroup = {
       component: InputListPage,
       key: "input-list",
     },
-    // {
-    //   path: "/input-file",
-    //   component: InputFilePage,
-    //   key: "input-file",
-    // },
+    {
+      path: "/input-file",
+      component: InputFilePage,
+      key: "input-file",
+    },
     // {
     //   path: "/icon",
     //   component: IconPage,

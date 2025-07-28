@@ -39,27 +39,29 @@ const InputFile: React.FC<InputFileProps> = ({
   }
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0] || null
+    const file = e.target.files?.[0]
 
-    if (file) {
-      setIsUploading(true)
-
-      // Simular tiempo de carga
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-
-      if (isImage(file)) {
-        const reader = new FileReader()
-        reader.onload = (e) => {
-          setImagePreview(e.target?.result as string)
-        }
-        reader.readAsDataURL(file)
-      } else {
-        setImagePreview(null)
-      }
-
-      setIsUploading(false)
+    // Si no se seleccionó ningún archivo (canceló la selección), mantener el archivo actual
+    if (!file) {
+      return
     }
 
+    setIsUploading(true)
+
+    // Simular tiempo de carga
+    await new Promise((resolve) => setTimeout(resolve, 1000))
+
+    if (isImage(file)) {
+      const reader = new FileReader()
+      reader.onload = (e) => {
+        setImagePreview(e.target?.result as string)
+      }
+      reader.readAsDataURL(file)
+    } else {
+      setImagePreview(null)
+    }
+
+    setIsUploading(false)
     onChange(file)
   }
 
