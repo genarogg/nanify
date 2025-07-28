@@ -6,7 +6,7 @@ import { FaGoogle, FaFacebookF, FaInstagram } from "react-icons/fa";
 
 import { A } from "@/components/nano"
 import { Icon } from "@/components/ux"
-import "./_redesLogin.scss"
+import "./redesLogin.css"
 
 interface RedesLoginProps {
 

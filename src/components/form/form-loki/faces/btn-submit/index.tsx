@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v4';
 import { print } from 'graphql';
-import { RECAPTCHA_KEY, URL_BACKEND } from "@env";
+import { RECAPTCHA_KEY, URL_BACKEND } from "@/env";
 import { notify } from "@/components/nano"
 import { isStrongPassword, isValidEmail } from "@/functions"
-import "./_btnSubmitBasic.scss"
+import "./btnSubmitBasic.css"
 import { useNavigate as useRouter } from 'react-router-dom';
 
 

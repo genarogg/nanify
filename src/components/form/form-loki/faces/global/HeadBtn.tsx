@@ -1,6 +1,6 @@
 import { $ } from "@/functions";
 import { BtnText } from "@/components/ux";
-import "./_headBtn.scss"
+import "./headBtn.css"
 
 interface HeadBtnProps {
     cardState: (css: string) => void;

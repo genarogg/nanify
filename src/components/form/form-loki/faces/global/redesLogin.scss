@@ -1,5 +1,6 @@
-@use "/src/sass/global/mixin" as fn;
-@use "/src/sass/global/variables" as var;
+@import "../../../../../sass/global/variables";
+
+
 
 .redesSocialesAnimadas {
     margin-top: -10px;
@@ -86,7 +87,7 @@
 
             a {
                 align-items: center;
-                background-color: var.$color-secondary;
+                background-color: $color-secondary;
                 border-radius: 50%;
                 display: flex;
                 flex-grow: 0;

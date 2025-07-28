@@ -1,0 +1,162 @@
+@keyframes border-gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@supports (-moz-appearance: none) {
+  .container-form-loki {
+    backface-visibility: hidden;
+  }
+}
+/* Logica para voltear la tarjeta */
+.container-form-loki {
+  display: flex;
+  justify-content: center;
+  height: 630px;
+  position: relative;
+  transform: rotateY(0deg);
+  transform-style: preserve-3d;
+  transition: 1s all ease-in-out;
+  width: 360px;
+  z-index: 2;
+}
+.container-form-loki.right-active {
+  transform: rotateY(180deg);
+}
+.container-form-loki.right-active.active .right {
+  animation: colorChange 1s forwards;
+}
+.container-form-loki.right-active .front {
+  z-index: 1;
+}
+.container-form-loki.right-active .right {
+  height: 550px;
+  min-height: 550px;
+  max-height: 550px;
+  border: rgba(28, 28, 28, 0.5);
+  transition: all ease 1.6s;
+  z-index: 4;
+}
+.container-form-loki.right-active .right.social {
+  height: 650px;
+  min-height: 650px;
+  max-height: 650px;
+}
+.container-form-loki.front-active {
+  transform: rotateY(0deg);
+}
+.container-form-loki.front-active.active .front {
+  animation: colorChange 1s forwards;
+}
+.container-form-loki.front-active .front {
+  border: 1px solid #fff;
+  transition: all ease 1.6s;
+  z-index: 4;
+}
+.container-form-loki.front-active .right {
+  z-index: 1;
+}
+.container-form-loki.left-active {
+  transform: rotateY(-180deg);
+}
+.container-form-loki.left-active.active .left {
+  animation: colorChange 1s forwards;
+}
+.container-form-loki.left-active .left {
+  border: 1px solid #fff;
+  transition: all ease 1.6s;
+  z-index: 4;
+}
+.container-form-loki.left-active .right {
+  display: none;
+  z-index: 1;
+}
+.container-form-loki .login,
+.container-form-loki .register,
+.container-form-loki .left {
+  width: 440px;
+  min-width: 440px;
+  max-width: 440px;
+  align-items: center;
+  border: 1px solid #fff;
+  border-radius: 6px;
+  box-shadow: 0px 0 30px rgba(1, 42, 112, 0.1);
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  padding-top: 30px;
+  width: 100%;
+}
+.container-form-loki .login .text-recovery,
+.container-form-loki .register .text-recovery,
+.container-form-loki .left .text-recovery {
+  background-color: transparent;
+  border: none;
+  color: #1c1c1c;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  max-width: 333px;
+  outline: none;
+  transition: all ease 500ms;
+}
+.container-form-loki .front {
+  height: 480px;
+  min-height: 480px;
+  max-height: 480px;
+  position: absolute;
+  backface-visibility: hidden;
+}
+.container-form-loki .front.social {
+  height: 540px;
+  min-height: 540px;
+  max-height: 540px;
+}
+.container-form-loki .right {
+  height: 450px;
+  min-height: 450px;
+  max-height: 450px;
+  backface-visibility: hidden;
+  overflow: hidden;
+  position: absolute;
+  transform: rotateY(180deg);
+  transition: all ease 0.8s;
+}
+.container-form-loki .left {
+  height: 340px;
+  min-height: 340px;
+  max-height: 340px;
+  backface-visibility: hidden;
+  display: none;
+  overflow: hidden;
+  position: absolute;
+  transform: rotateY(-180deg);
+  transition: all ease 0.8s;
+}
+.container-form-loki .icon {
+  font-size: 20px;
+}
+.container-form-loki form {
+  display: flex;
+  justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+@keyframes colorChange {
+  0% {
+    border-color: #fff;
+  }
+  50% {
+    border-color: #ffac32;
+  }
+  100% {
+    border-color: #fff;
+  }
+}

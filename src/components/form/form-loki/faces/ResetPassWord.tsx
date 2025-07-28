@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import { BsFillEnvelopeHeartFill } from 'react-icons/bs';
-import "./sass/_resetPassword.scss"
+import "./sass/resetPassword.css"
 
 import { $ } from "@/functions";
 import { Input } from "@/components/ux";

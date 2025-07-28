@@ -11,7 +11,7 @@
         "src/functions/index.ts"
       ],
       "@env": [
-        "./env.ts"
+        "src/env.ts"
       ],
       "@public/*": [
         "./public/*"
