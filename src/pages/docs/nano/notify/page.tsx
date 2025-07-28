@@ -2,10 +2,11 @@
 
 import type React from "react"
 import { useState } from "react"
-import { A, notify } from "@nano"
+import { A, notify } from "@/components/nano"
 import { Icon } from "@components/ux"
 import { ArrowLeft, Bell, CheckCircle, AlertTriangle, XCircle } from "lucide-react"
 import "./styles.css"
+import { ToastContainer } from 'react-toastify'
 
 type NotifyDocProps = {}
 
@@ -339,6 +340,7 @@ export default function Layout({ children }) {
           </div>
         </div>
       </section>
+      <ToastContainer />
     </div>
   )
 }

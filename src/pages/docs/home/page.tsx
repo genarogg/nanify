@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { A } from "@nano"
+import { A } from "@/components/nano"
 import { Icon } from "@components/ux"
 import { ArrowRight, UserCircle, Layout, FileText, Palette } from "lucide-react"
 import "./styles.css"

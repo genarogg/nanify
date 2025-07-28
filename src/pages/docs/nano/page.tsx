@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { A } from "@nano"
+import { A } from "@/components/nano"
 import { Icon } from "@components/ux"
 import { ArrowRight, Link, Bell, ImageIcon, Layers } from "lucide-react"
 import "./styles.css"
@@ -19,8 +19,6 @@ const Routes: React.FC<RouteProps> = () => {
       </header>
 
       <section className="documentation-section">
-        <h2 className="section-title">Componentes de Navegación</h2>
-
         <div className="routes-grid">
           {/* A Component */}
           <div className="route-card">
@@ -37,13 +35,7 @@ const Routes: React.FC<RouteProps> = () => {
               </A>
             </div>
           </div>
-        </div>
-      </section>
 
-      <section className="documentation-section">
-        <h2 className="section-title">Componentes de Notificación</h2>
-
-        <div className="routes-grid">
           {/* Notify Function */}
           <div className="route-card">
             <div className="route-icon">
@@ -59,13 +51,7 @@ const Routes: React.FC<RouteProps> = () => {
               </A>
             </div>
           </div>
-        </div>
-      </section>
 
-      <section className="documentation-section">
-        <h2 className="section-title">Componentes de Imagen</h2>
-
-        <div className="routes-grid">
           {/* Img Component */}
           <div className="route-card">
             <div className="route-icon">
@@ -82,13 +68,7 @@ const Routes: React.FC<RouteProps> = () => {
               </A>
             </div>
           </div>
-        </div>
-      </section>
 
-      <section className="documentation-section">
-        <h2 className="section-title">Componentes de Carga</h2>
-
-        <div className="routes-grid">
           {/* Squeleto Component */}
           <div className="route-card">
             <div className="route-icon">

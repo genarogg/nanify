@@ -21,6 +21,11 @@ import Spinner from "./spinner/Spinner";
 
 import Badge from "./badge"
 
+import Textarea from "./textarea";
+import InputFile from "./input-file";
+import InputList from "./input-list";
+
+
 import {
     Select,
     SelectTrigger,
@@ -54,5 +59,8 @@ export {
     SelectContent,
     SelectItem,
     SelectSeparator,
-    SelectLabel
+    SelectLabel,
+    Textarea,
+    InputFile,
+    InputList
 }

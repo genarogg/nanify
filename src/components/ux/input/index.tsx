@@ -44,7 +44,7 @@ const Input = forwardRef<InputRef, InputProps>(({
     disabled = false,
     min,
     max,
-    hasContentState = false,
+    hasContentState = true,
     placeholder,
     onChange,
     value,
