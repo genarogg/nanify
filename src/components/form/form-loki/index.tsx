@@ -8,7 +8,7 @@ import ResetPassWord from './faces/ResetPassWord';
 import Login from './faces/Login';
 import Register from './faces/Register';
 
-import "./faces/sass/styleGeneral.css"
+import "./faces/css/styleGeneral.css"
 
 interface LokiLoginProps {
     register?: boolean;

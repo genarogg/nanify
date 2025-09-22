@@ -6,7 +6,8 @@ import { HomeRoutes } from './HomeRoutes';
 import { UxRoutes } from './UxRoutes';
 import { NanoRoutes } from './NanoRoutes'
 // import { ButtonRoutes } from './ButtonRoutes';
-// import { FormRoutes } from './FormRoutes';
+import { FormRoutes } from './FormRoutes';
+import { DashboardLayout } from '.';
 // import { SliderRoutes, cardRoutes, mediaRoutes } from './SliderRoutes';
 // import { ColumnsRoutes, layoutRoutes } from './ColumnsRoutes';
 // import { WrapperRoutes } from './WrapperRoutes';
@@ -27,7 +28,7 @@ const allRouteGroups: RouteGroup[] = [
   UxRoutes,
   NanoRoutes,
   // ButtonRoutes,
-  // FormRoutes,
+  FormRoutes,
   // SliderRoutes,
   // cardRoutes,
   // mediaRoutes,

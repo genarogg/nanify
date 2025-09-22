@@ -1,3 +1,11 @@
+.input-wrapper {
+  margin-bottom: 40px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
 .input-wrapper .container-input {
   display: flex;
   justify-content: center;
@@ -8,6 +16,8 @@
   height: 46px;
   position: relative;
   width: 100%;
+
+
 
   &:hover {
     border: 1px solid #e5eaf1;

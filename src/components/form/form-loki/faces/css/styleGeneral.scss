@@ -19,6 +19,24 @@
     width: 360px;
     z-index: 2;
 
+    // .container-input {
+    //     margin-bottom: 40px;
+    // }
+
+    .checkbox-container {
+        margin-top: -10px;
+        margin-bottom: 0px;
+    }
+
+    // .redesSocialesAnimadas {
+    //     margin-top: 10px;
+    //     margin-bottom: 30px;
+    // }
+
+    .btn-text.reset {
+        margin-top: 30px;
+    }
+
     &.right-active {
         transform: rotateY(180deg);
 
@@ -37,6 +55,12 @@
             border: $border-color;
             transition: all ease 1.6s;
             z-index: 4;
+
+            form {
+                .input-wrapper:nth-child(4) {
+                    margin-bottom: 0px;
+                }
+            }
 
             &.social {
                 @include height(650px);
@@ -110,6 +134,7 @@
             max-width: 333px;
             outline: none;
             transition: all ease 500ms;
+            margin-top: 20px
         }
     }
 
@@ -119,7 +144,7 @@
         backface-visibility: hidden;
 
         &.social {
-            @include height(540px);
+            @include height(520px);
         }
     }
 

@@ -1,3 +1,10 @@
+.input-wrapper {
+  margin-bottom: 40px;
+}
+.input-wrapper:last-child {
+  margin-bottom: 0;
+}
+
 .input-wrapper .container-input {
   display: flex;
   justify-content: center;

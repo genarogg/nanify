@@ -68,5 +68,5 @@
     "src",
     "vite.config.ts",
     "src/types/declarations.d.ts"
-  ]
+, "../frida-frontend/src/components/dashboard"  ]
 }

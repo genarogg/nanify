@@ -26,6 +26,13 @@
   width: 360px;
   z-index: 2;
 }
+.container-form-loki .checkbox-container {
+  margin-top: -10px;
+  margin-bottom: 0px;
+}
+.container-form-loki .btn-text.reset {
+  margin-top: 30px;
+}
 .container-form-loki.right-active {
   transform: rotateY(180deg);
 }
@@ -42,6 +49,9 @@
   border: rgba(28, 28, 28, 0.5);
   transition: all ease 1.6s;
   z-index: 4;
+}
+.container-form-loki.right-active .right form .input-wrapper:nth-child(4) {
+  margin-bottom: 0px;
 }
 .container-form-loki.right-active .right.social {
   height: 650px;
@@ -105,6 +115,7 @@
   max-width: 333px;
   outline: none;
   transition: all ease 500ms;
+  margin-top: 20px;
 }
 .container-form-loki .front {
   height: 480px;
@@ -114,9 +125,9 @@
   backface-visibility: hidden;
 }
 .container-form-loki .front.social {
-  height: 540px;
-  min-height: 540px;
-  max-height: 540px;
+  height: 520px;
+  min-height: 520px;
+  max-height: 520px;
 }
 .container-form-loki .right {
   height: 450px;

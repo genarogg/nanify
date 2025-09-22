@@ -32,7 +32,11 @@ const quitarAcentos = (cadena: string): string => {
     Í: "I",
     Ó: "O",
     Ú: "U",
-  };
+    ñ: "n",
+    Ñ: "N",
+    ü: "u",
+    Ü: "U",
+      };
   return cadena
     .split("")
     .map((letra) => acentos[letra] || letra)

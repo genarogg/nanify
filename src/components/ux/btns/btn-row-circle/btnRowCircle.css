@@ -23,6 +23,7 @@
   transform: translate(-50%, -50%);
   width: 24px;
   color: #ffac32;
+  top: -6px;
 }
 .container-row-circle.active button .icon {
   color: #ffac32;

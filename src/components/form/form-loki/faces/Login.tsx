@@ -65,6 +65,7 @@ const Login: React.FC<LoginProps> = ({ cardState, register, reset, social = fals
                         placeholder="Email"
                         icon={<BsFillEnvelopeHeartFill />}
                         onChange={handleChange}
+                        hasContentState={false}
                     />
 
                     <Input
@@ -73,6 +74,7 @@ const Login: React.FC<LoginProps> = ({ cardState, register, reset, social = fals
                         placeholder={"Contraseña"}
                         icon={<MdLock />}
                         onChange={handleChange}
+                        hasContentState={false}
                     />
 
                     <CheckBox
@@ -94,7 +96,7 @@ const Login: React.FC<LoginProps> = ({ cardState, register, reset, social = fals
                     </BtnSubmitBasic>
 
                     {reset && (
-                        <BtnText onClick={() => {
+                        <BtnText className="reset" onClick={() => {
                             active();
                             cardState("left-active");
                         }} >
