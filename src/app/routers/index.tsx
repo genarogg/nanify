@@ -6,8 +6,7 @@ import HomeRoutes from './HomeRoutes';
 import NanoRoutes from "./NanoRoutes"
 import UxRoutes from './UxRoutes';
 import WrapperRoutes from "./WrapperRoutes"
-
-
+import SliderRoutes from "./SliderRoutes"
 
 // Función para convertir RouteGroup a RouteConfig[]
 const expandRouteGroup = (routeGroup: RouteGroup): RouteConfig[] => {
@@ -22,7 +21,8 @@ const allRouteGroups: RouteGroup[] = [
     HomeRoutes,
     NanoRoutes,
     UxRoutes,
-    WrapperRoutes
+    WrapperRoutes,
+    SliderRoutes
 ];
 
 const allRoutes: RouteConfig[] = allRouteGroups.flatMap(expandRouteGroup);

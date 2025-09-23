@@ -1,0 +1,212 @@
+/* Contenedor general */
+.documentation-container {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  font-family: system-ui, sans-serif;
+  line-height: 1.6;
+}
+
+.documentation-header {
+  margin-bottom: 2.5rem;
+  text-align: center;
+}
+
+.documentation-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 0.5rem;
+}
+
+.documentation-description {
+  font-size: 1.125rem;
+  color: #374151;
+}
+
+/* Secciones */
+.documentation-section {
+  margin-bottom: 3rem;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+/* Tarjetas de componente */
+.component-card {
+  background-color: #ffffff;
+  border-radius: 0.75rem;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  padding: 1.75rem;
+  margin-bottom: 2rem;
+}
+
+.component-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 0.5rem;
+}
+
+.component-description {
+  color: #4b5563;
+  margin-bottom: 1.25rem;
+}
+
+.component-preview {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
+/* Bloques de código */
+.usage-section {
+  margin-bottom: 1.25rem;
+}
+
+.usage-title {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #1f2937;
+}
+
+.code-block {
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+}
+
+.code-text {
+  font-size: 0.875rem;
+  color: #2563eb;
+  font-family: 'Courier New', monospace;
+  white-space: pre-wrap;
+}
+
+/* Inline code */
+.inline-code {
+  background-color: #f3f4f6;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  color: #7c3aed;
+  font-family: 'Courier New', monospace;
+}
+
+/* Props */
+.props-title {
+  font-weight: 600;
+  margin-top: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.props-list {
+  list-style-type: disc;
+  padding-left: 1.25rem;
+}
+
+.props-list li {
+  margin-bottom: 0.5rem;
+  color: #374151;
+}
+
+.props-name {
+  font-weight: 600;
+  color: #111827;
+}
+
+/* Botones demo */
+.demo-tooltip-trigger,
+.demo-menu-trigger {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.demo-tooltip-trigger {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.demo-tooltip-trigger:hover {
+  background-color: #2563eb;
+}
+
+.demo-menu-trigger {
+  background-color: #10b981;
+  color: white;
+}
+
+.demo-menu-trigger:hover {
+  background-color: #059669;
+}
+
+/* Tooltip personalizado */
+.tooltip {
+  background-color: #1f2937;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Menú dentro del tooltip */
+.tooltip ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tooltip li {
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease-in-out;
+}
+
+.tooltip li:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.tooltip li:not(:last-child) {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Flecha tooltip */
+.tippy-arrow {
+  color: #1f2937;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .documentation-container {
+    padding: 1rem;
+  }
+
+  .documentation-title {
+    font-size: 1.5rem;
+  }
+
+  .code-block {
+    font-size: 0.75rem;
+  }
+
+  .component-preview {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}

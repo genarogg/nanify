@@ -2,7 +2,9 @@ import { RouteGroup } from './types';
 import Home from "../docs/home/page";
 import Gravatar from '../docs/gravatar/page';
 import Ux from "../docs/ux/page";
-
+import Tablet from "../docs/table/page"
+import Youtube from '../docs/youtube/page';
+import Tooltip from "../docs/tooltip/page"
 
 
 const HomeRoutes: RouteGroup = {
@@ -25,6 +27,21 @@ const HomeRoutes: RouteGroup = {
       key: "Ux"
     },
 
+    {
+      path: "/tablet",
+      component: Tablet,
+      key: "tablet"
+    },
+    {
+      path: "/youtube",
+      component: Youtube,
+      key: "youtube"
+    },
+    {
+      path: "/tooltip",
+      component: Tooltip,
+      key: "tooltip"
+    },
   ]
 };
 

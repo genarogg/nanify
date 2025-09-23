@@ -1,0 +1,19 @@
+'use client'
+import React from 'react'
+
+import YoutubeLite from '@/components/youtube-lite'
+
+interface YoutubeProps {
+
+}
+
+const Youtube: React.FC<YoutubeProps> = () => {
+    return (
+        <YoutubeLite
+            videoId='GyRq69v-NfA'
+            posterImage="/img/nanify.webp"
+        />
+    );
+}
+
+export default Youtube;

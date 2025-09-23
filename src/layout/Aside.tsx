@@ -23,6 +23,7 @@ const Aside: React.FC<AsideProps> = () => {
                             <LI link="/nano/img" text="img" />
                             <li><A href="/nano/nanify">nanify</A></li>
                             <li><A href="/nano/squeleto">squeleto</A></li>
+
                         </ul>
                     </li>
 
@@ -41,6 +42,17 @@ const Aside: React.FC<AsideProps> = () => {
                             <li><A href="/ux/textarea">textarea</A></li>
                         </ul>
                     </li>
+
+                      <li>
+
+                        <A href="/slider"><h4>slider</h4></A>
+                        <ul>
+                            <LI link="/slider/slider-background" text="slider-bg" />
+                         
+
+                        </ul>
+                    </li>
+
                     <li>
 
                         <A href="/wrapper"><h4>wrapper</h4></A>
@@ -48,16 +60,20 @@ const Aside: React.FC<AsideProps> = () => {
                             <LI link="/wrapper/particulas" text="particulas" />
                             <LI link="/wrapper/grid" text="grid" />
                             <li><A href="/wrapper/animated-background">animated-background</A></li>
-                           
+
                         </ul>
                     </li>
                     <li>
                         <h4>Varios</h4>
                         <ul>
                             <li><A href="/gravatar">gravatar</A></li>
+                            <LI link="/tablet" text="tablet" />
+                            <LI link="/youtube" text="youtube" />
+                            <LI link="/tooltip" text="tooltip" />
+                            
                         </ul>
                     </li>
-                    <li>
+                    {/* <li>
                         <h4>Varios</h4>
                         <ul>
                             <li><A href="/gravatar">gravatar</A></li>
@@ -70,8 +86,8 @@ const Aside: React.FC<AsideProps> = () => {
                                 </ul>
                             </li>
                         </ul>
-                    </li>
-                    <li><a href="#">Sección 3</a></li>
+                    </li> */}
+
                 </ul>
             </nav>
         </aside>
