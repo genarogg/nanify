@@ -32,7 +32,7 @@ const Aside: React.FC<AsideProps> = () => {
                     <li>
                         <A href="/ux"><h4>ux</h4></A>
                         <ul>
-
+                            <LI link="ux/badge" text="badge" />
                             <li><A href="/ux/icon">icon</A></li>
                             <li><A href="/ux/input">input</A></li>
                             <li><A href="/ux/input-file">input-file</A></li>
