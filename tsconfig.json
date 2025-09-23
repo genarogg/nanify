@@ -1,45 +1,16 @@
 {
   "compilerOptions": {
+    "baseUrl": "./",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "@components/*": [
-        "src/components/*"
-      ],
-      "@fn": [
-        "src/functions/index.ts"
-      ],
-      "@env": [
-        "thrash/env.ts"
-      ],
-      "@public/*": [
-        "./public/*"
-      ],
-      "@nano": [
-        "src/components/nano/index.tsx"
-      ],
-      "@btn/*": [
-        "src/components/btns/*"
-      ],
-      "@slider/*": [
-        "thrash/OLD/slider/*"
-      ],
-      "@hook/*": [
-        "thrash/OLD/hook/*"
-      ],
-      "@tooltip": [
-        "thrash/OLD/tooltip/index.tsx"
-      ],
-      "@sections/*": [
-        "thrash/OLD/sections/*"
-      ],
-      "@ux": [
-        "src/components/ux/index.tsx"
-      ],
-      "@context/*": [
-        "thrash/OLD/context/*"
-      ],
+      // Globales
+      "@/*": ["./src/*"],
+      "@components/*": ["./src/components/*"],
+      "@nano": ["./src/components/nano/index.tsx"],
+      "@fn": ["src/functions/index.ts"],
+      "@env": ["./env.ts"]
+
+      // components varios
+     
     },
     "jsx": "react-jsx",
     "target": "ES2022",
@@ -68,5 +39,5 @@
     "src",
     "vite.config.ts",
     "src/types/declarations.d.ts"
-, "../frida-frontend/src/components/dashboard", "thrash/app", "src/components", "src/functions", "thrash/OLD", "thrash/thrash", "thrash/env.ts"  ]
+   ]
 }

@@ -4,9 +4,9 @@ import { Routes, Route as RouterRoute } from 'react-router-dom';
 import { RouteGroup, RouteConfig } from '../../../src/app/routers/types';
 import { HomeRoutes } from '../../../src/app/routers/HomeRoutes';
 import { UxRoutes } from './UxRoutes';
-import { NanoRoutes } from './NanoRoutes'
+import { NanoRoutes } from '../../../src/app/routers/NanoRoutes'
 // import { ButtonRoutes } from './ButtonRoutes';
-import { FormRoutes } from './FormRoutes';
+import { FormRoutes } from '../../../src/app/routers/FormRoutes';
 // import { DashboardLayout } from '.';
 // import { SliderRoutes, cardRoutes, mediaRoutes } from './SliderRoutes';
 // import { ColumnsRoutes, layoutRoutes } from './ColumnsRoutes';

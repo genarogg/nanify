@@ -29,8 +29,6 @@ const Login: React.FC<LoginProps> = ({ cardState, register, reset, social = fals
 
     const [isChecked, setIsChecked] = useState(false);
 
-
-
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 

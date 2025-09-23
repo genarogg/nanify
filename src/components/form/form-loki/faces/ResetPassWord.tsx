@@ -3,7 +3,7 @@ import { BsFillEnvelopeHeartFill } from 'react-icons/bs';
 import "./css/resetPassword.css"
 
 import { $ } from "@/functions";
-import { Input, BtnRowCircle } from "@ux";
+import { Input, BtnRowCircle } from "@/components/ux";
 
 import BtnSubmitBasic from './btn-submit';
 

@@ -1,34 +1,26 @@
-import { toast, ToastOptions, ToastPosition, Flip } from 'react-toastify';
+import { toast } from 'sonner';
+import 'sonner/dist/styles.css';
 
 interface ToastProps {
-  type: 'success' | 'error' | 'warning';
+  type: 'success' | 'error' | 'warning' | 'info';
   message: string;
-  config?: Partial<ToastOptions>;
 }
 
-const defaultToastConfig: ToastOptions = {
-  position: 'bottom-center' as ToastPosition,
-  autoClose: 5000,
-  hideProgressBar: false,
-  closeOnClick: true,
-  pauseOnHover: true,
-  draggable: true,
-  progress: undefined,
-  transition: Flip,
-};
+const notify = ({ type, message }: ToastProps) => {
 
-const notify = ({ type, message, config = {} }: ToastProps) => {
-  const finalConfig = { ...defaultToastConfig, ...config };
 
   switch (type) {
     case 'success':
-      toast.success(message, finalConfig);
+      toast.success(message);
       break;
     case 'error':
-      toast.error(message, finalConfig);
+      toast.error(message);
       break;
     case 'warning':
-      toast.warning(message, finalConfig);
+      toast.warning(message);
+      break;
+    case 'info':
+      toast.info(message);
       break;
     default:
       break;

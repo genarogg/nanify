@@ -28,7 +28,6 @@
     "nanify": "node ./node_modules/nanify/fn/moveComponents.js",
     "@nano": "node ./node_modules/nanify/fn/moveComponents.js",
     "server": "json-server --port 3001 --watch server/db.json",
-
     "generate": "node ./server/table-fake-data.js"
   },
   "dependencies": {
@@ -57,6 +56,7 @@
     "react-youtube": "^10.1.0",
     "sass": "^1.86.3",
     "simplex-noise": "^4.0.3",
+    "sonner": "^2.0.7",
     "swiper": "^11.2.6",
     "zustand": "^5.0.5"
   },

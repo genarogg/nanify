@@ -1,0 +1,63 @@
+.layout-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header y Footer ocupan 100% */
+.layout-header,
+.layout-footer {
+  background: #222;
+  color: #fff;
+  padding: 1rem;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+/* Cuerpo con aside y main */
+.layout-body {
+  display: flex;
+  flex: 1;
+  min-height: 0; /* evita overflow */
+}
+
+.layout-aside {
+  width: 250px;
+  background: #f5f5f5;
+  border-right: 1px solid #ddd;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+/* Navegación multinivel */
+.layout-aside ul {
+  list-style: none;
+  padding-left: 0.5rem;
+}
+
+.layout-aside li {
+  margin: 0.5rem 0;
+}
+
+.layout-aside a {
+  text-decoration: none;
+  color: #333;
+  transition: color 0.2s;
+}
+
+.layout-aside a:hover {
+  color: #0070f3;
+}
+
+/* Estilo indentado para subniveles */
+.layout-aside ul ul {
+  margin-left: 1rem;
+  border-left: 2px solid #ddd;
+  padding-left: 0.5rem;
+}
+
+.layout-main {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+}

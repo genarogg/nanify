@@ -3,6 +3,9 @@ import { Routes, Route as RouterRoute } from 'react-router-dom';
 import { RouteGroup, RouteConfig } from './types';
 
 import HomeRoutes from './HomeRoutes';
+import NanoRoutes from "./NanoRoutes"
+import UxRoutes from './UxRoutes';
+
 
 
 // Función para convertir RouteGroup a RouteConfig[]
@@ -16,6 +19,8 @@ const expandRouteGroup = (routeGroup: RouteGroup): RouteConfig[] => {
 // Combinar todas las rutas
 const allRouteGroups: RouteGroup[] = [
     HomeRoutes,
+    NanoRoutes,
+    UxRoutes
 ];
 
 const allRoutes: RouteConfig[] = allRouteGroups.flatMap(expandRouteGroup);
@@ -23,10 +28,12 @@ const allRoutes: RouteConfig[] = allRouteGroups.flatMap(expandRouteGroup);
 const AppRoutes: React.FC = () => {
     return (
         <Routes>
+            
             {allRoutes.map(({ path, component: Component, key }) => (
                 <RouterRoute key={key} path={path} element={<Component />} />
             ))}
             <RouterRoute path="*" element={<div>Página no encontrada - 404</div>} />
+
         </Routes>
     );
 };
