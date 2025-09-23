@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import ParticleWrapper from "@/OLD/wrapper/ParticleWrapper"
+import ParticleWrapper from "@/components/wrapper/particleWrapper"
 import "./styles.css"
 
 interface pageProps {

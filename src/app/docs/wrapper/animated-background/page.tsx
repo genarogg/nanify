@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import AnimatedBackgroundWrapper from "@/OLD/wrapper/animated-background-wrapper"
+import AnimatedBackgroundWrapper from "@/components/wrapper/animated-background-wrapper"
 
 interface pageProps {
 

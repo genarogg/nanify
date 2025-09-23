@@ -5,6 +5,7 @@ import { RouteGroup, RouteConfig } from './types';
 import HomeRoutes from './HomeRoutes';
 import NanoRoutes from "./NanoRoutes"
 import UxRoutes from './UxRoutes';
+import WrapperRoutes from "./WrapperRoutes"
 
 
 
@@ -20,7 +21,8 @@ const expandRouteGroup = (routeGroup: RouteGroup): RouteConfig[] => {
 const allRouteGroups: RouteGroup[] = [
     HomeRoutes,
     NanoRoutes,
-    UxRoutes
+    UxRoutes,
+    WrapperRoutes
 ];
 
 const allRoutes: RouteConfig[] = allRouteGroups.flatMap(expandRouteGroup);
@@ -28,7 +30,7 @@ const allRoutes: RouteConfig[] = allRouteGroups.flatMap(expandRouteGroup);
 const AppRoutes: React.FC = () => {
     return (
         <Routes>
-            
+
             {allRoutes.map(({ path, component: Component, key }) => (
                 <RouterRoute key={key} path={path} element={<Component />} />
             ))}

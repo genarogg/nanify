@@ -1,10 +1,10 @@
 // src/routes/wrapperRoutes.ts
-import { RouteGroup } from '../../../src/app/routers/types';
+import { RouteGroup } from './types';
 import ParticleWrapper from "../docs/wrapper/particulas/page";
 import Grid from "../docs/wrapper/grid/page";
-import AnimatedBackgroundWrapper from '../docs/wrapper/animated-background-wrapper/page';
+import AnimatedBackgroundWrapper from '../docs/wrapper/animated-background/page';
 
-export const WrapperRoutes: RouteGroup = {
+const WrapperRoutes: RouteGroup = {
   prefix: "/wrapper",
   routes: [
     {
@@ -18,9 +18,11 @@ export const WrapperRoutes: RouteGroup = {
       key: "grid"
     },
     {
-      path: "/animated-background-wrapper",
+      path: "/animated-background",
       component: AnimatedBackgroundWrapper,
       key: "animated-bg"
     }
   ]
 };
+
+export default WrapperRoutes

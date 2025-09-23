@@ -9,11 +9,7 @@ interface AsideProps {
 const Aside: React.FC<AsideProps> = () => {
 
     const LI = ({ text, link }: any) => {
-        return (
-            <>
-                <li><A href={link}>{text}</A></li>
-            </>
-        )
+        return (<li><A href={link}>{text}</A></li>)
     }
     return (
         <aside className="layout-aside">
@@ -29,18 +25,30 @@ const Aside: React.FC<AsideProps> = () => {
                             <li><A href="/nano/squeleto">squeleto</A></li>
                         </ul>
                     </li>
+
                     <li>
                         <A href="/ux"><h4>ux</h4></A>
                         <ul>
                             <LI link="ux/badge" text="badge" />
+                            <li><A href="/ux/btns">btns</A></li>
                             <li><A href="/ux/icon">icon</A></li>
                             <li><A href="/ux/input">input</A></li>
                             <li><A href="/ux/input-file">input-file</A></li>
                             <li><A href="/ux/input-list">input-list</A></li>
                             <li><A href="/ux/modal">modal</A></li>
-                            <li><A href="/ux/btns">btns</A></li>
+                            <li><A href="/ux/select">select</A></li>
                             <li><A href="/ux/tabs">tabs</A></li>
                             <li><A href="/ux/textarea">textarea</A></li>
+                        </ul>
+                    </li>
+                    <li>
+
+                        <A href="/wrapper"><h4>wrapper</h4></A>
+                        <ul>
+                            <LI link="/wrapper/particulas" text="particulas" />
+                            <LI link="/wrapper/grid" text="grid" />
+                            <li><A href="/wrapper/animated-background">animated-background</A></li>
+                           
                         </ul>
                     </li>
                     <li>
