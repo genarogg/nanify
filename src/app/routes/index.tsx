@@ -7,7 +7,7 @@ import { UxRoutes } from './UxRoutes';
 import { NanoRoutes } from './NanoRoutes'
 // import { ButtonRoutes } from './ButtonRoutes';
 import { FormRoutes } from './FormRoutes';
-import { DashboardLayout } from '.';
+// import { DashboardLayout } from '.';
 // import { SliderRoutes, cardRoutes, mediaRoutes } from './SliderRoutes';
 // import { ColumnsRoutes, layoutRoutes } from './ColumnsRoutes';
 // import { WrapperRoutes } from './WrapperRoutes';

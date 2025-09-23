@@ -1,5 +1,5 @@
 // src/routes/wrapperRoutes.ts
-import { RouteGroup } from '../../pages/routes/types';
+import { RouteGroup } from '../../app/routes/types';
 import ParticleWrapper from "../docs/wrapper/particulas/page";
 import Grid from "../docs/wrapper/grid/page";
 import AnimatedBackgroundWrapper from '../docs/wrapper/animated-background-wrapper/page';

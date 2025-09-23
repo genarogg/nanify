@@ -1,5 +1,5 @@
 // src/routes/sectionRoutes.ts
-import { RouteGroup } from '../../pages/routes/types';
+import { RouteGroup } from '../../app/routes/types';
 import MainContent from '@/OLD/sections/dinamicSection/index';
 
 

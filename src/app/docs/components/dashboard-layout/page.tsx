@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import DashboardLayout from "../../../../../../frida-frontend/src/components/dashboard/dashboard-layout"
+// import DashboardLayout from "../../../../../../frida-frontend/src/components/dashboard/dashboard-layout"
 import "./styles.css"
 
 type DocumentationProps = {}
@@ -20,7 +20,7 @@ const Documentation: React.FC<DocumentationProps> = () => {
         <h2 className="section-title">Formularios</h2>
 
         {/* LokiLogin Component */}
-        <DashboardLayout />
+        {/* <DashboardLayout /> */}
       </section>
     </div>
   )

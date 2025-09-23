@@ -1,8 +1,8 @@
 // src/routes/mediaRoutes.ts
-import { RouteGroup } from '../../pages/routes/types';
+import { RouteGroup } from '../../app/routes/types';
 import SliderBG from "../docs/slider/background/page";
 import Youtube from '../docs/youtube/page';
-import Img from "../../pages/docs/img/page";
+import Img from "../../app/docs/img/page";
 import CardProductoAlana from '../docs/card/alana-ecomerce/page';
 
 export const SliderRoutes: RouteGroup = {
