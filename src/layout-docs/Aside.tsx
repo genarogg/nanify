@@ -7,6 +7,14 @@ interface AsideProps {
 }
 
 const Aside: React.FC<AsideProps> = () => {
+
+    const LI = ({ text, link }: any) => {
+        return (
+            <>
+                <li><A href={link}>{text}</A></li>
+            </>
+        )
+    }
     return (
         <aside className="layout-aside">
             <nav>
@@ -15,8 +23,8 @@ const Aside: React.FC<AsideProps> = () => {
 
                         <A href="/nano"><h4>nano</h4></A>
                         <ul>
-                            <li><A href="/nano/a">A</A></li>
-                            <li><A href="/nano/img">img</A></li>
+                            <LI link="/nano/a" text="A" />
+                            <LI link="/nano/img" text="img" />
                             <li><A href="/nano/nanify">nanify</A></li>
                             <li><A href="/nano/squeleto">squeleto</A></li>
                         </ul>
@@ -24,14 +32,15 @@ const Aside: React.FC<AsideProps> = () => {
                     <li>
                         <A href="/ux"><h4>ux</h4></A>
                         <ul>
+
+                            <li><A href="/ux/icon">icon</A></li>
                             <li><A href="/ux/input">input</A></li>
                             <li><A href="/ux/input-file">input-file</A></li>
                             <li><A href="/ux/input-list">input-list</A></li>
-                            <li><A href="/ux/icon">icon</A></li>
                             <li><A href="/ux/modal">modal</A></li>
-                            <li><A href="/ux/textarea">textarea</A></li>
                             <li><A href="/ux/btns">btns</A></li>
                             <li><A href="/ux/tabs">tabs</A></li>
+                            <li><A href="/ux/textarea">textarea</A></li>
                         </ul>
                     </li>
                     <li>

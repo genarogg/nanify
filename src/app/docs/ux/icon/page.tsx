@@ -59,27 +59,27 @@ export default function IconPage() {
           <div style={{ display: "flex", gap: "2rem", alignItems: "center" }}>
             <div>
               <p>Pequeño (16px)</p>
-              <Icon icon={<Heart />} size={16} />
+              <Icon icon={<Heart />} />
             </div>
             <div>
               <p>Mediano (24px)</p>
-              <Icon icon={<Heart />} size={24} />
+              <Icon icon={<Heart />} />
             </div>
             <div>
               <p>Grande (32px)</p>
-              <Icon icon={<Heart />} size={32} />
+              <Icon icon={<Heart />} />
             </div>
             <div>
               <p>Extra Grande (48px)</p>
-              <Icon icon={<Heart />} size={48} />
+              <Icon icon={<Heart />} />
             </div>
           </div>
         </div>
         <div className="code-block">
-          <pre>{`<Icon icon={<Heart />} size={16} />
-<Icon icon={<Heart />} size={24} />
-<Icon icon={<Heart />} size={32} />
-<Icon icon={<Heart />} size={48} />`}</pre>
+          <pre>{`<Icon icon={<Heart />} />
+<Icon icon={<Heart />} />
+<Icon icon={<Heart />} />
+<Icon icon={<Heart />} />`}</pre>
         </div>
       </section>
 
@@ -87,21 +87,21 @@ export default function IconPage() {
         <h2>Diferentes Colores</h2>
         <div className="example-container">
           <div className="icon-grid">
-            <Icon icon={<Heart />}  />
-            <Icon icon={<Star />}  />
-            <Icon icon={<Home />} color="#3498db" />
-            <Icon icon={<User />} color="#2ecc71" />
-            <Icon icon={<Settings />} color="#9b59b6" />
-            <Icon icon={<Search />} color="#34495e" />
+            <Icon icon={<Heart />} />
+            <Icon icon={<Star />} />
+            <Icon icon={<Home />} />
+            <Icon icon={<User />} />
+            <Icon icon={<Settings />} />
+            <Icon icon={<Search />} />
           </div>
         </div>
         <div className="code-block">
           <pre>{`<Icon icon={<Heart />}  />
-<Icon icon={<Star />} color="#f39c12" />
-<Icon icon={<Home />} color="#3498db" />
-<Icon icon={<User />} color="#2ecc71" />
-<Icon icon={<Settings />} color="#9b59b6" />
-<Icon icon={<Search />} color="#34495e" />`}</pre>
+<Icon icon={<Star />}  />
+<Icon icon={<Home />}  />
+<Icon icon={<User />}  />
+<Icon icon={<Settings />}  />
+<Icon icon={<Search />}  />`}</pre>
         </div>
       </section>
 
