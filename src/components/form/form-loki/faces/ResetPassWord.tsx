@@ -3,11 +3,9 @@ import { BsFillEnvelopeHeartFill } from 'react-icons/bs';
 import "./css/resetPassword.css"
 
 import { $ } from "@/functions";
-import { Input } from "@/components/ux";
+import { Input, BtnRowCircle } from "@ux";
 
 import BtnSubmitBasic from './btn-submit';
-import { BtnRowCircle } from "@/components/ux";
-
 
 interface ResetPassWordProps {
     cardState: (css: string) => void;

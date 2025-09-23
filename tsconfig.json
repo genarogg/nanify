@@ -5,13 +5,13 @@
         "./src/*"
       ],
       "@components/*": [
-        "./src/components/*"
+        "src/components/*"
       ],
       "@fn": [
         "src/functions/index.ts"
       ],
       "@env": [
-        "src/env.ts"
+        "thrash/env.ts"
       ],
       "@public/*": [
         "./public/*"
@@ -20,25 +20,25 @@
         "src/components/nano/index.tsx"
       ],
       "@btn/*": [
-        "./src/components/btns/*"
+        "src/components/btns/*"
       ],
       "@slider/*": [
-        "src/OLD/slider/*"
+        "thrash/OLD/slider/*"
       ],
       "@hook/*": [
-        "src/OLD/hook/*"
+        "thrash/OLD/hook/*"
       ],
       "@tooltip": [
-        "src/OLD/tooltip/index.tsx"
+        "thrash/OLD/tooltip/index.tsx"
       ],
       "@sections/*": [
-        "src/OLD/sections/*"
+        "thrash/OLD/sections/*"
       ],
       "@ux": [
         "src/components/ux/index.tsx"
       ],
       "@context/*": [
-        "src/OLD/context/*"
+        "thrash/OLD/context/*"
       ],
     },
     "jsx": "react-jsx",
@@ -68,5 +68,5 @@
     "src",
     "vite.config.ts",
     "src/types/declarations.d.ts"
-, "../frida-frontend/src/components/dashboard"  ]
+, "../frida-frontend/src/components/dashboard", "thrash/app", "src/components", "src/functions", "thrash/OLD", "thrash/thrash", "thrash/env.ts"  ]
 }

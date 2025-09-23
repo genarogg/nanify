@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import { GoogleReCaptchaProvider } from "react-google-recaptcha-v4";
-import { RECAPTCHA_KEY } from "@/env";
+import { RECAPTCHA_KEY } from "@env";
 
 import ResetPassWord from './faces/ResetPassWord';
 import Login from './faces/Login';
