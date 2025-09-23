@@ -1,6 +1,6 @@
 import React from 'react'
 
-import "./_simpleTitle.scss"
+import "./impleTitle.scss"
 
 interface SimpleTitleProps {
   id?: string;

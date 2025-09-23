@@ -1,8 +1,8 @@
 'use client';
 import React from 'react';
 
-import SimpleTitle from "@/OLD/sections/simple-title";
-import "./_style.scss";
+import SimpleTitle from "@/components/sections/simple-title";
+import "./style.css";
 
 interface TwoColumnsProps {
     left: React.ReactNode;

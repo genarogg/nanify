@@ -43,16 +43,25 @@ const Aside: React.FC<AsideProps> = () => {
                         </ul>
                     </li>
 
-                      <li>
+                    <li>
 
                         <A href="/slider"><h4>slider</h4></A>
                         <ul>
                             <LI link="/slider/slider-background" text="slider-bg" />
-                         
+
 
                         </ul>
                     </li>
+                    <li>
 
+                        <A href="/sections"><h4>sections</h4></A>
+                        <ul>
+                            <LI link="/sections/three-columns" text="three-columns" />
+                            <LI link="/sections/two-columns" text="two-columns" />
+                            <li><A href="/sections/simple-title">simple-title</A></li>
+
+                        </ul>
+                    </li>
                     <li>
 
                         <A href="/wrapper"><h4>wrapper</h4></A>
@@ -70,7 +79,7 @@ const Aside: React.FC<AsideProps> = () => {
                             <LI link="/tablet" text="tablet" />
                             <LI link="/youtube" text="youtube" />
                             <LI link="/tooltip" text="tooltip" />
-                            
+
                         </ul>
                     </li>
                     {/* <li>

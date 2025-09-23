@@ -1,15 +1,12 @@
-@use "/src/sass/global/variables" as var;
-
 .title-section {
   height: 150px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var.$color-primary;
+  background-color: #f2f;
   width: 100%;
-  text-align: center;
-
-  label {
+  text-align: center; }
+  .title-section label {
     border: none;
     color: #fff;
     font-size: 22px;
@@ -19,39 +16,27 @@
     text-decoration: none;
     text-transform: uppercase;
     flex-direction: column;
-
     display: flex;
     justify-content: center;
-    align-items: center;
-
-    &::after {
+    align-items: center; }
+    .title-section label::after {
       border-top: 2px solid #fff;
       content: "";
       display: block;
       position: relative;
       width: 50px;
       z-index: 15;
-      margin-top: 20px;
-    }
-  }
-}
+      margin-top: 20px; }
 
 @media screen and (max-width: 768px) {
   .title-section {
-    height: 100px;
-
-    label {
-      font-size: 20px;
-    }
-  }
-}
-
+    height: 100px; }
+    .title-section label {
+      font-size: 20px; } }
 @media screen and (max-width: 500px) {
   .title-section {
-    height: 80px;
+    height: 80px; }
+    .title-section label {
+      font-size: 18px; } }
 
-    label {
-      font-size: 18px;
-    }
-  }
-}
+/*# sourceMappingURL=impleTitle.css.map */
