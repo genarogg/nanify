@@ -1,5 +1,9 @@
-import REGISTER_USUARIO from "./usuario/REGISTER_USUARIO";  
+import REGISTER_USUARIO from "./usuario/REGISTER_USUARIO";
+import LOGIN_USUARIO from "./usuario/LOGIN_USUARIO"
+import RESET_PASSWORD from "./usuario/RESET_PASSWORD"
 
 export {
-    REGISTER_USUARIO
+    REGISTER_USUARIO,
+    LOGIN_USUARIO,
+    RESET_PASSWORD
 }

@@ -9,11 +9,9 @@ import { useNavigate as useRouter } from 'react-router-dom';
 
 import {
   REGISTER_USUARIO,
-
+  LOGIN_USUARIO,
+  RESET_PASSWORD
 } from "@/query"
-
-
-
 
 interface BtnSubmitBasicProps<> {
   children: React.ReactNode;
@@ -21,7 +19,7 @@ interface BtnSubmitBasicProps<> {
   id?: string;
   disable?: boolean;
   formData: any;
-  constext: string;
+  context: string;
 }
 
 const BtnSubmitBasic = ({
@@ -29,7 +27,7 @@ const BtnSubmitBasic = ({
   className = "",
   id = "",
   formData,
-  constext,
+  context,
 }: BtnSubmitBasicProps) => {
 
   const [loading, setLoading] = useState(false);
@@ -56,40 +54,41 @@ const BtnSubmitBasic = ({
       ...formData.data.current,
     };
 
-    if (constext === "login") {
+    console.log(data)
+
+    if (context === "login") {
       queriesConfig = {
-        query: null,
+        query: LOGIN_USUARIO,
         variables: {
           email: data.email.toLowerCase(),
-          password: data.password,
+          password: data.passwordLogin,
+          tokenCaptcha
         }
       }
     }
 
-    if (constext === "register") {
+    if (context === "register") {
       queriesConfig = {
         query: REGISTER_USUARIO,
         variables: {
           name: data.name,
           email: data.email.toLowerCase(),
           password: data.password,
-          confirmPassword: data.confirmPassword,
+          tokenCaptcha
         }
       }
     }
 
-    console.log(queriesConfig.query)
-
-    if (constext === "recover-password") {
+    if (context === "recover-password") {
       queriesConfig = {
-        query: null,
+        query: RESET_PASSWORD,
         variables: {
           email: data.email.toLowerCase(),
         }
       }
     }
 
-    if (constext === "reboot-password") {
+    if (context === "reboot-password") {
       queriesConfig = {
         query: null,
         variables: {
@@ -101,19 +100,21 @@ const BtnSubmitBasic = ({
       }
     }
 
+    const dataPull = queriesConfig.variables
+
     try {
       // validaciones
-      if (!data.email && constext !== "reboot-password") {
+      if (!dataPull.email && context !== "reboot-password") {
         notify({ type: "error", message: "El email es requerido" })
         return
       }
 
-      if (!data.password && constext !== "recover-password") {
+      if (!dataPull.password && context !== "recover-password") {
         notify({ type: "error", message: "La contraseña es requerida" })
         return
       }
 
-      if (constext === "register" || constext === "reboot-password") {
+      if (context === "register" || context === "reboot-password") {
 
         if (!data.confirmPassword) {
           notify({ type: "error", message: "La confirmación de la contraseña es requerida" })
@@ -132,8 +133,7 @@ const BtnSubmitBasic = ({
       }
 
 
-      if (constext === "register") {
-
+      if (context === "register") {
 
         if (!isValidEmail(data.email)) {
           notify({ type: "error", message: "El email no es válido" })
@@ -145,6 +145,9 @@ const BtnSubmitBasic = ({
           return
         }
       }
+
+      console.log(queriesConfig)
+
 
 
       response = await fetch(endpoint, {
@@ -165,15 +168,36 @@ const BtnSubmitBasic = ({
 
       const responseData = await response.json();
 
-      const { data: datos, type, message } = responseData;
+      let dataContext;
+
+      if (context === "login") {
+        dataContext = responseData.data.loginUsuario
+      }
+
+      else if (context === "register") {
+        dataContext = responseData.data.registerUsuario
+      }
+
+      else if (context === "recover-password") {
+        dataContext = responseData.data.resetPassword
+      }
+
+      const { data: datos, type, message } = dataContext
+
+      console.log(datos, type, message)
+
+      if (type === "error") {
+        notify({ type, message });
+        return
+      }
 
       notify({ type, message });
 
-      console.log(datos)
+      if (context === "recover-password") {
+        return
+      }
 
-      router("/dashboard");
-
-      return
+      router("/");
 
     }
     catch (error) {

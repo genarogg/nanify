@@ -8,7 +8,6 @@ interface ToastProps {
 
 const notify = ({ type, message }: ToastProps) => {
 
-
   switch (type) {
     case 'success':
       toast.success(message);

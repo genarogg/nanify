@@ -31,8 +31,6 @@ const Login: React.FC<LoginProps> = ({ cardState, register, reset, social = fals
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-
-        console.log(inputRef.current);
     };
 
     const active = () => {
@@ -88,7 +86,7 @@ const Login: React.FC<LoginProps> = ({ cardState, register, reset, social = fals
                             data: inputRef,
                             check: isChecked
                         }}
-                        constext="login"
+                        context="login"
                     >
                         Iniciar sesión
                     </BtnSubmitBasic>
