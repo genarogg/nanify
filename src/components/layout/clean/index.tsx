@@ -6,8 +6,6 @@ import "./css/layout.scss"
 import { Spinner } from '@/components/ux';
 // import { useAuth } from '@/OLD/context/AuthContext';
 
-
-
 interface LayoutProps {
     children: React.ReactNode;
     where?: string;

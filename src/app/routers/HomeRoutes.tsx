@@ -1,5 +1,5 @@
 import { RouteGroup } from './types';
-import Home from "../docs/home/page";
+import Home from "../docs/layout/page";
 import Gravatar from '../docs/gravatar/page';
 import Ux from "../docs/ux/page";
 import Tablet from "../docs/table/page"

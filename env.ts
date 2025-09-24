@@ -1,13 +1,13 @@
 const DEBUG = false
 
-const BACKEND_DEV = "DEV"
+const BACKEND_DEV = "http://localhost:4000"
 const BACKEND_PROD = "PROD"
 
 const FRONTEND_DEV = "http://localhost:3000"
 const FRONTEND_PROD = "PROD"
 
 /* GOOGLE */
-const RECAPTCHA_KEY = "6LfVlLUqAAAAAHSxM5KYvmr--NOupZdKFu-JYIwf"
+const RECAPTCHA_KEY = "6LftVtMrAAAAAJLjNlwnzuak4g3g1vNY8eRtj5AC"
 
 // saber si estoy en produccion
 const NODE_ENV = process.env.NODE_ENV;
