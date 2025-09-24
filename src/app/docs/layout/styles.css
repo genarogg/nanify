@@ -1,0 +1,122 @@
+/* Routes page styles */
+.documentation-container {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.documentation-header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.documentation-title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 0.75rem;
+}
+
+.documentation-description {
+  font-size: 1.25rem;
+  color: #4b5563;
+  max-width: 42rem;
+  margin: 0 auto;
+}
+
+.documentation-section {
+  margin-bottom: 3rem;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.routes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.route-card {
+  background-color: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  padding: 1.5rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.route-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.route-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  background-color: #f3f4f6;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  color: #4f46e5;
+}
+
+.route-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.route-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+}
+
+.route-description {
+  color: #4b5563;
+  margin-bottom: 1.25rem;
+  flex: 1;
+}
+
+.route-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #4f46e5;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 0.5rem 0;
+  transition: color 0.2s;
+}
+
+.route-link:hover {
+  color: #4338ca;
+  text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .routes-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .documentation-title {
+    font-size: 1.875rem;
+  }
+
+  .documentation-description {
+    font-size: 1.125rem;
+  }
+}
