@@ -9,6 +9,7 @@ import UxRoutes from './UxRoutes';
 import WrapperRoutes from "./WrapperRoutes"
 import SliderRoutes from "./SliderRoutes"
 import SectionsRoutes from "./SectionsRoutes"
+import FormRoutes from "./FormRoutes"
 
 import ComponentePrueba from "../../components/layout/clean"
 
@@ -27,7 +28,8 @@ const allRouteGroups: RouteGroup[] = [
     UxRoutes,
     WrapperRoutes,
     SliderRoutes,
-    SectionsRoutes
+    SectionsRoutes,
+    FormRoutes
 ];
 
 const allRoutes: RouteConfig[] = allRouteGroups.flatMap(expandRouteGroup);

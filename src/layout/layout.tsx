@@ -14,10 +14,8 @@ const LayoutDocs: React.FC<LayoutDocsProps> = ({ children }) => {
 
             <div className="layout-body">
                 <Aside />
-
                 <main className="layout-main">{children}</main>
             </div>
-
             <footer className="layout-footer">Footer</footer>
         </div>
     )

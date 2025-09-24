@@ -54,6 +54,15 @@ const Aside: React.FC<AsideProps> = () => {
                     </li>
                     <li>
 
+                        <A href="/form"><h4>form</h4></A>
+                        <ul>
+                            <LI link="/form/loki" text="form-loki" />
+
+
+                        </ul>
+                    </li>
+                    <li>
+
                         <A href="/sections"><h4>sections</h4></A>
                         <ul>
                             <LI link="/sections/three-columns" text="three-columns" />
