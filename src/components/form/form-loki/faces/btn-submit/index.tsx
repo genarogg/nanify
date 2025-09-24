@@ -7,6 +7,8 @@ import { isStrongPassword, isValidEmail } from "@fn"
 import "./btnSubmitBasic.css"
 import { useNavigate as useRouter } from 'react-router-dom';
 
+import { useAuthStore } from "@/context/AuthContext"
+
 import {
   REGISTER_USUARIO,
   LOGIN_USUARIO,
@@ -29,6 +31,8 @@ const BtnSubmitBasic = ({
   formData,
   context,
 }: BtnSubmitBasicProps) => {
+
+  const { setLogin } = useAuthStore();
 
   const [loading, setLoading] = useState(false);
   const { executeRecaptcha } = useGoogleReCaptcha();
@@ -196,6 +200,16 @@ const BtnSubmitBasic = ({
       if (context === "recover-password") {
         return
       }
+
+      localStorage.setItem("token", datos.token)
+
+      setLogin({
+        token: datos.token,
+        usuario: {
+          nombre: datos.name,
+          rol: datos.rol
+        }
+      })
 
       router("/");
 
