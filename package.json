@@ -24,13 +24,13 @@
     "upVersion": "node ./fn/upVersion.js",
     "update:jsx": "node ./fn/updateTsconfig.js",
     "publicar": "npm run upVersion && npm run update:jsx && npm publish",
-
     "nanify": "node ./node_modules/nanify/fn/moveComponents.js",
     "@nano": "node ./node_modules/nanify/fn/moveComponents.js",
     "server": "json-server --port 3001 --watch server/db.json",
     "generate": "node ./server/table-fake-data.js"
   },
   "dependencies": {
+    "@apollo/client": "^4.0.5",
     "@faker-js/faker": "^9.8.0",
     "@justinribeiro/lite-youtube": "^1.7.1",
     "@tippyjs/react": "^4.2.6",

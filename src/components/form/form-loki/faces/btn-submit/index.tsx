@@ -7,6 +7,13 @@ import { isStrongPassword, isValidEmail } from "@fn"
 import "./btnSubmitBasic.css"
 import { useNavigate as useRouter } from 'react-router-dom';
 
+import {
+  REGISTER_USUARIO,
+
+} from "@/query"
+
+
+
 
 interface BtnSubmitBasicProps<> {
   children: React.ReactNode;
@@ -61,16 +68,17 @@ const BtnSubmitBasic = ({
 
     if (constext === "register") {
       queriesConfig = {
-        query: null,
+        query: REGISTER_USUARIO,
         variables: {
           name: data.name,
-          apellido: data.apellido,
           email: data.email.toLowerCase(),
           password: data.password,
           confirmPassword: data.confirmPassword,
         }
       }
     }
+
+    console.log(queriesConfig.query)
 
     if (constext === "recover-password") {
       queriesConfig = {
@@ -123,7 +131,9 @@ const BtnSubmitBasic = ({
         }
       }
 
+
       if (constext === "register") {
+
 
         if (!isValidEmail(data.email)) {
           notify({ type: "error", message: "El email no es válido" })
@@ -134,12 +144,8 @@ const BtnSubmitBasic = ({
           notify({ type: "error", message: "El nombre es requerido" })
           return
         }
-
-        if (!data.apellido) {
-          notify({ type: "error", message: "El apellido es requerido" })
-          return
-        }
       }
+
 
       response = await fetch(endpoint, {
         method: 'POST',
