@@ -48,10 +48,17 @@ const Aside: React.FC<AsideProps> = () => {
                         <A href="/slider"><h4>slider</h4></A>
                         <ul>
                             <LI link="/slider/slider-background" text="slider-bg" />
-
-
                         </ul>
                     </li>
+
+                    <li>
+
+                        <A href="/layout"><h4>layout</h4></A>
+                        <ul>
+                            <LI link="/layout/layout-clean" text="clean-layout" />
+                        </ul>
+                    </li>
+
                     <li>
 
                         <A href="/form"><h4>form</h4></A>
