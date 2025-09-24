@@ -1,6 +1,5 @@
-@use '/src/css/global/variables' as var;
-@use '/src/css/init/global/mixin' as fn;
-
+@import '/src/css/global/variables' ;
+@import '/src/css/init/global/mixin';
 
 .header {
   .container-nav {
@@ -21,7 +20,7 @@
 
           .container-icono {
             margin: 0 5px 0 25px;
-            color: var.$color-secondary;
+            color: $color-secondary;
 
             .icon {
               display: flex;
@@ -64,7 +63,7 @@
 }
 
 
-@include fn.max-width(1000px) {
+@include max-width(1000px) {
   .header .container-nav {
     nav {
       ul {
@@ -78,7 +77,7 @@
   }
 }
 
-/* @include fn.max-width(950px) {
+/* @include max-width(950px) {
 
   .header .container-nav {
     display: none;
@@ -86,7 +85,7 @@
 
 } */
 
-@include fn.max-width(950px) {
+@include max-width(950px) {
   .header {
     .nav-xs {
       display: flex;
@@ -95,14 +94,14 @@
 
 
     .container-nav.nav-xs {
-      background-color: rgba(var.$color-primary, 0.3);
-      background-color: var.$color-quaternary;
+      background-color: rgba($color-primary, 0.3);
+      background-color: $color-quaternary;
       backdrop-filter: blur(10px);
       height: 100vh;
       width: 200px;
       position: absolute;
       right: -100%;
-      border-left: var.$border;
+      border-left: $border;
 
       &.active {
         right: 0;
