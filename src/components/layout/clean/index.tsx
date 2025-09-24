@@ -1,10 +1,10 @@
 import React from 'react'
 import Header from "./header"
 import Footer from './Footer'
-import "./sass/layout.scss"
+import "./css/layout.scss"
 
 import { Spinner } from '@/components/ux';
-import { useAuth } from '@/OLD/context/AuthContext';
+// import { useAuth } from '@/OLD/context/AuthContext';
 
 
 
@@ -22,11 +22,11 @@ const Layout: React.FC<LayoutProps> = ({
     footer
 }) => {
 
-    const { state: { loading } } = useAuth();
+    // const { state: { loading } } = useAuth();
 
     return (
         <div className={`containerAll clean ${where}`}>
-            {loading ? (
+            {false ? (
                 <Spinner />
             ) : (
                 <>

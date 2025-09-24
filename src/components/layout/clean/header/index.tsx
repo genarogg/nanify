@@ -6,7 +6,7 @@ import { BtnLoki } from "@/components/ux";
 import Title from "./Title";
 import SideBar from "./sidebar";
 
-import Nav from "@/OLD/layout/nav/Nav";
+import Nav from "@/components/layout/nav";
 
 interface HeaderProps {
     children?: React.ReactNode;

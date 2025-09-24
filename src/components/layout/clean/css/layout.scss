@@ -1,7 +1,4 @@
-// @use "/src/sass/global/variables" as var;
-@use "./schema.scss" as var;
-
-
+@import "/src/css/global/variables";
 
 
 .clean.containerAll {
@@ -11,7 +8,7 @@
     grid-template-rows: auto 1fr auto;
 
 
-    background-color: var.$color-tertiary;
+    background-color: $color-tertiary;
     background-color: #f6f9ff;
     background-image: url(/img/logo-unerg.webp);
     background-size: contain;
@@ -22,21 +19,21 @@
 
 
     >header {
-        background-color: var.$colorHederFooter;
-        // border-bottom: 1px solid var.$color-secondary;
-        color: var.$text-color-white;
+        background-color: $colorHederFooter;
+        // border-bottom: 1px solid $color-secondary;
+        color: $text-color-white;
         position: sticky;
         top: 0;
         z-index: 1000;
     }
 
     // >main {
-    //     background-color: var.$color-tertiary;
+    //     background-color: $color-tertiary;
     // }
 
     >footer {
-        background-color: var.$colorHederFooter;
-        // border-top: 1px solid var.$color-secondary;
-        color: var.$text-color-white;
+        background-color: $colorHederFooter;
+        // border-top: 1px solid $color-secondary;
+        color: $text-color-white;
     }
 }

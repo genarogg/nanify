@@ -1,5 +1,5 @@
-@use "/src/sass/global/variables" as var;
-@use "/src/sass/global/mixin" as fn;
+@import "/src/css/global/variables";
+@import "/src/css/global/mixin";
 
 
 
@@ -17,7 +17,7 @@
 
         p {
             text-align: center;
-            color: var.$color-secondary;
+            color: $color-secondary;
             font-size: 18px;
             text-transform: uppercase;
             width: 100%;

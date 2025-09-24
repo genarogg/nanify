@@ -1,5 +1,5 @@
-@use "/src//sass/global/mixin" as fn;
-@use "/src//sass/global/variables" as var;
+@import "/src/css/global/mixin" ;
+@import "/src/css/global/variables";
 
 .header-container {
     width: 100%;
@@ -26,7 +26,7 @@
         font-weight: 600;
 
         h1 {
-            color: var.$color-secondary;
+            color: $color-secondary;
             font-size: 18px;
         }
 
@@ -44,7 +44,7 @@
                 position: relative;
 
                 a {
-                    color: var.$color-secondary;
+                    color: $color-secondary;
                     text-decoration: none;
                     font-size: 14px;
                     font-weight: bold;
@@ -62,7 +62,7 @@
                 .user-img {
                     border-radius: 50%;
                     overflow: hidden;
-                    // @include fn.square(40px);
+                    // @include square(40px);
                     border: 3px solid #fff;
                     display: flex;
                     justify-content: center;

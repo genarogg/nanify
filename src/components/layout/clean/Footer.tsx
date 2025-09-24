@@ -1,5 +1,5 @@
 import React from "react";
-import "./sass/footer.scss"
+import "./css/footer.scss"
 interface FooterProps {
     children?: React.ReactNode;
 }
