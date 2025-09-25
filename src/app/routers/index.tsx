@@ -12,7 +12,7 @@ import SectionsRoutes from "./SectionsRoutes"
 import FormRoutes from "./FormRoutes"
 import LayoutRoutes from "./LayoutRoutes"
 
-// import ComponentePrueba from "../../components/layout/clean"
+import ComponentePrueba from "../../components/layout/cleanDashboard"
 
 // Función para convertir RouteGroup a RouteConfig[]
 const expandRouteGroup = (routeGroup: RouteGroup): RouteConfig[] => {
@@ -39,7 +39,7 @@ const allRoutes: RouteConfig[] = allRouteGroups.flatMap(expandRouteGroup);
 const AppRoutes: React.FC = () => {
     return (
         <Routes>
-            {/* <RouterRoute path="nuevo" element={<ComponentePrueba>Página no encontrada - 405</ComponentePrueba>} /> */}
+            <RouterRoute path="nuevo" element={<ComponentePrueba>Página no encontrada - 405</ComponentePrueba>} />
             {allRoutes.map(({ path, component: Component, key }) => (
                 <RouterRoute key={key} path={path} element={<Component />} />
             ))}

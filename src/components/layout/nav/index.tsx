@@ -3,10 +3,10 @@ import React from 'react'
 import { A } from "@/components/nano";
 import { Icon } from "@/components/ux";
 
-// Definición de tipo flexible que permite cualquier combinación
 interface MenuItem {
-  href: string;
+  href?: string;
   label?: string;
+  component?: React.ReactNode;
   icon?: React.ReactNode;
   onClick?: () => void;
   visible?: boolean;
@@ -16,8 +16,8 @@ interface MenuItem {
 interface NavProps {
   className?: string;
   menuItems: MenuItem[];
-  onClick?: () => void; // Función global opcional
-  userRole?: string; // Rol del usuario actual
+  onClick?: () => void;
+  userRole?: string;
 }
 
 /* 
@@ -27,8 +27,9 @@ const menuItems = [
   { href: "/", label: "Inicio", icon: <TiHome /> },
   { href: "/dashboard/trabajos", label: "Trabajos", role: "admin" },
   { href: "/dashboard/usuarios", label: "Usuarios", role: ["admin", "moderator"] },
-  { href: "/", label: "Salir", onClick: () => borrarToken() },
+  { label: "Salir", onClick: () => borrarToken() }, // sin href, acción directa
   { href: "/login", label: "Login", visible: !isAuthenticated },
+  { component: <MiBotonCustom />, onClick: () => borrarToken() }, 
 ];
 
 const borrarToken = () => {
@@ -43,34 +44,18 @@ const Nav: React.FC<NavProps> = ({
   userRole
 }) => {
 
-  // Función para verificar si el usuario tiene el rol requerido
   const hasRequiredRole = (item: MenuItem): boolean => {
-    if (!item.role) return true; // Si no hay rol requerido, mostrar
-
-    if (!userRole) return false; // Si no hay rol de usuario, no mostrar
-
-    if (Array.isArray(item.role)) {
-      return item.role.includes(userRole);
-    }
-
-    return item.role === userRole;
+    if (!item.role) return true;
+    if (!userRole) return false;
+    return Array.isArray(item.role)
+      ? item.role.includes(userRole)
+      : item.role === userRole;
   };
 
-  // Función para verificar si el elemento debe ser visible
-  const isItemVisible = (item: MenuItem): boolean => {
-    // Si tiene propiedad visible definida, usar esa
-    if (item.visible !== undefined) {
-      return item.visible;
-    }
+  const isItemVisible = (item: MenuItem): boolean =>
+    item.visible !== undefined ? item.visible : hasRequiredRole(item);
 
-    // Si no, verificar por rol
-    return hasRequiredRole(item);
-  };
-
-  // Filtrar elementos visibles
   const visibleItems = menuItems.filter(isItemVisible);
-
-  // Verificar si hay iconos para aplicar la clase correspondiente
   const hasIcons = visibleItems.some(item => item.icon);
 
   return (
@@ -79,29 +64,43 @@ const Nav: React.FC<NavProps> = ({
     >
       <nav>
         <ul>
-          {visibleItems.map((item, index) => (
-            <li
-              key={`${item.href}-${index}`} // Mejor key para evitar problemas con índices
-              onClick={() => {
-                if (item.onClick) item.onClick();
-                if (onClick) onClick();
-              }}
-            >
-              <A href={item.href}>
+          {visibleItems.map((item, index) => {
+            const content = (
+              <>
                 {item.icon && (
                   <div className="container-icono">
                     <Icon icon={item.icon} />
                   </div>
                 )}
 
-                {item.label && (
-                  <label>
-                    {item.label}
-                  </label>
+                {item.component ? (
+                  <div className="container-component">
+                    {item.component}
+                  </div>
+                ) : item.label ? (
+                  <div className="container-label">
+                    <label>{item.label}</label>
+                  </div>
+                ) : null}
+              </>
+            );
+
+            return (
+              <li
+                key={`${item.href ?? "custom"}-${index}`}
+                onClick={() => {
+                  if (item.onClick) item.onClick();
+                  if (onClick) onClick();
+                }}
+              >
+                {item.href ? (
+                  <A href={item.href}>{content}</A>
+                ) : (
+                  <>{content}</>
                 )}
-              </A>
-            </li>
-          ))}
+              </li>
+            );
+          })}
         </ul>
       </nav>
     </div>

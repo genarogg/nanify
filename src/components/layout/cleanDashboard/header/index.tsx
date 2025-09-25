@@ -33,13 +33,13 @@ const Header: React.FC<HeaderProps> = () => {
 
 
     return (
-        <header className="header-container">
+        <header className="header-container aside">
             <div className="desktop-header">
                 <Title />
                 <Nav menuItems={menuItems} />
             </div>
 
-            <div className="movile-header">
+            {/* <div className="movile-header">
                 <nav>
                     <ul className="elements">
                         <li>
@@ -58,7 +58,7 @@ const Header: React.FC<HeaderProps> = () => {
                         />
                     </SideBar>
                 </nav>
-            </div>
+            </div> */}
 
         </header>
     );

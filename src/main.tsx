@@ -8,9 +8,9 @@ import "./css/style.css"
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
-      <LayoutDocs>
+      {/* <LayoutDocs> */}
         <AppRoutes />
-      </LayoutDocs>
+      {/* </LayoutDocs> */}
     </BrowserRouter>
   </StrictMode>,
 );
