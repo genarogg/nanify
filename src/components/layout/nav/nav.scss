@@ -1,65 +1,96 @@
 @import "../../../css/style.scss";
 
 .container-nav {
+  font-family: sans-serif;
 
-  .container-component {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
   }
 
-  nav {
-    ul {
+  nav>ul {
+    display: flex;
+    gap: 5px;
+  }
+
+  li {
+    position: relative;
+    cursor: pointer;
+
+    .container-component {
       display: flex;
+      justify-content: center;
       align-items: center;
+    }
+
+    .container-label {
+      // padding: 0.5rem 1rem;
+      white-space: nowrap;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      font-weight: 600;
+      // padding: 0.5rem 1rem;
+    }
+
+    // &:hover > a,
+    // &:hover > .container-label {
+    //   background: #f0f0f0;
+    // }
+
+    /* ===== SUBMENÚ SIEMPRE VISIBLE ===== */
+    .submenu {
+      display: block;
+      position: relative;
+
+      top: auto;
+      left: auto;
+      background: transparent;
+      border: none;
+      min-width: auto;
+      box-shadow: none;
+      margin-left: 10px;
+
+
+
+      ul {
+        display: flex;
+        flex-direction: column;
+        // padding-left: 1rem; /* indentación para diferenciar niveles */
+      }
 
       li {
-        display: flex;
-        align-items: center;
-        height: 25px;
-        color: #fff;
-        font-size: 13px;
-        font-weight: 700;
-        letter-spacing: 1px;
-        text-transform: uppercase;
+        width: 100%;
 
-        .container-icono {
-          margin: 0 5px 0 25px;
-          color: $color-secondary;
-
-          .icon {
-            display: flex;
-            font-size: 16px;
-          }
-        }
-
-
-        &.iconRight {
-          a {
-            .container-icono {
-              order: 2;
-              margin: 0 25px 0 5px;
-            }
-
-            label {
-              order: 1;
-            }
-          }
-
-
+        a {
+          font-weight: 500 !important;
         }
       }
+    }
+
+    /* Subniveles anidados */
+    .submenu .submenu {
+      // padding-left: 1rem; /* más indentación */
+      border-left: none;
     }
   }
 
-  &.sin-iconos {
-    nav {
-      ul {
-        li {
-          margin: 0 5px 0 25px;
-        }
-      }
-    }
+  &.sin-iconos li .container-label {
+    // padding-left: 1rem;
+  }
+
+  .container-icono {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 0.5rem;
+  }
+
+  .container-label {
+    display: inline-block;
   }
 }
 

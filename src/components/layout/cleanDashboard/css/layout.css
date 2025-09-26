@@ -302,10 +302,7 @@ ul {
     left: 0% !important; }
 
   .clean.containerAll.dashboard .masterMain {
-    margin-left: 0px; }
-
-  .clean.containerAll.dashboard .masterMain.active {
-    margin-left: 240px; } }
+    margin-left: 0px; } }
 @media screen and (max-width: 800px) {
   .container-aside {
     left: -100% !important; }
@@ -315,5 +312,8 @@ ul {
 
   .clean.containerAll.dashboard .masterMain {
     margin-left: 0px; } }
+@media screen and (min-width: 1800px) {
+  .aside-hidden-btn {
+    display: none; } }
 
 /*# sourceMappingURL=layout.css.map */

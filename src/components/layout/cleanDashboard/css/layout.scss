@@ -101,7 +101,7 @@
     }
 
     .clean.containerAll.dashboard .masterMain.active {
-        margin-left: 240px;
+        // margin-left: 240px;
     }
 }
 
@@ -119,3 +119,9 @@
         margin-left: 0px;
     }
 }
+
+@include min-width(1800px) {
+    .aside-hidden-btn{
+        display: none;
+    }
+ }

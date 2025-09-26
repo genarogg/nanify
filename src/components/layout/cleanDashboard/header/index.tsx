@@ -19,7 +19,7 @@ const Header: React.FC<HeaderProps> = () => {
     const imgGravatar = "https://www.gravatar.com/avatar/e0cd02f6bbabeb8f0aec1b6a090b7527"
 
     const menuItems = [
-        { component: <BtnAside onClick={() => { toggleAside() }} /> },
+        { component: <BtnAside className="aside-hidden-btn" onClick={() => { toggleAside() }} /> },
         { component: <Notificaciones /> },
         { component: <Perfil avatarUrl={imgGravatar} /> },
     ];
