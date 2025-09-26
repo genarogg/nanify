@@ -1,4 +1,4 @@
-@import "../../../../../../css/style.scss";
+@import "../../../../../css/style.scss";
 
 
 .container-aside {
@@ -6,7 +6,7 @@
   transition: all 0.5s ease;
 
   position: absolute;
-  left: 0;
+  // left: 0;
   height: calc(100vh - 70px);
   height: calc(100dvh - 70px);
   top: 70px;
@@ -30,8 +30,6 @@
 
     nav {
 
-
-
       width: 90%;
       margin-left: 40px;
 
@@ -48,7 +46,8 @@
         margin: 0 !important;
 
         a {
-
+          font-weight: 800;
+          color: $color-secondary;
 
           label {
             min-width: 160px;

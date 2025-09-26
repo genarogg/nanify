@@ -1,15 +1,13 @@
 import React from "react";
 import "./css/header.scss";
-
 import { BtnLoki } from "@/components/ux";
-import Gravatar from "@/components/gravatar";
-
 import Title from "./Title";
-import SideBar from "./sidebar";
 import Perfil from "./perfil";
-import Notificaciones from "./notificaciones";
-
 import Nav from "@/components/layout/nav";
+import Notificaciones from "./notificaciones";
+import {
+    toggleAside
+} from "../fn"
 
 interface HeaderProps {
     children?: React.ReactNode;
@@ -18,23 +16,16 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = () => {
 
-    const btnRemove = () => {
-        console.log("btnRemove");
-        const btn = document.getElementById("btn-hamburguer-loki");
-        btn?.classList.remove("active");
-    }
-
-    const toggleAside = () => {
-        const container = document.getElementById("container-aside");
-        container?.classList.toggle("sidebar-header");
-    }
-
     const imgGravatar = "https://www.gravatar.com/avatar/e0cd02f6bbabeb8f0aec1b6a090b7527"
 
     const menuItems = [
+        { component: <Notificaciones /> },
         { component: <Perfil avatarUrl={imgGravatar} /> },
     ];
 
+    const menuItemsMovile = [
+        { component: <Perfil avatarUrl={imgGravatar} /> },
+    ];
     return (
         <header className="header-container aside">
             <div className="desktop-header">
@@ -52,17 +43,10 @@ const Header: React.FC<HeaderProps> = () => {
                             <Title />
                         </li>
                         <li>
-                            <Nav className="elements-right" menuItems={menuItems} />
+                            <Nav className="elements-right" menuItems={menuItemsMovile} />
                         </li>
                     </ul>
-                    <SideBar
-                        logoutfn={() => { btnRemove(); toggleAside(); }}
-                    >
-                        <Nav
-                            menuItems={menuItems}
-                            onClick={() => { btnRemove(); toggleAside(); }}
-                        />
-                    </SideBar>
+
                 </nav>
             </div>
 

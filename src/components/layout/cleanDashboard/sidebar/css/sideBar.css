@@ -244,7 +244,6 @@ ul {
   max-width: 240px;
   transition: all 0.5s ease;
   position: absolute;
-  left: 0;
   height: calc(100vh - 70px);
   height: calc(100dvh - 70px);
   top: 70px;
@@ -270,12 +269,15 @@ ul {
       .container-aside .sidebar nav li {
         list-style: none;
         margin: 0 !important; }
-        .container-aside .sidebar nav li a label {
-          min-width: 160px;
-          display: flex;
-          height: 40px;
-          cursor: pointer;
-          align-items: center; }
+        .container-aside .sidebar nav li a {
+          font-weight: 800;
+          color: #ffac32; }
+          .container-aside .sidebar nav li a label {
+            min-width: 160px;
+            display: flex;
+            height: 40px;
+            cursor: pointer;
+            align-items: center; }
       .container-aside .sidebar nav button {
         display: none; }
   .container-aside .salirBtn {

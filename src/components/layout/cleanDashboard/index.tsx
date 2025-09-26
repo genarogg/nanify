@@ -4,7 +4,7 @@ import Footer from './Footer'
 import "./css/layout.scss"
 
 import { Spinner } from '@/components/ux';
-// import { useAuth } from '@/OLD/context/AuthContext';
+import SideBar from "./sidebar"
 
 interface LayoutProps {
     children: React.ReactNode;
@@ -29,10 +29,14 @@ const Layout: React.FC<LayoutProps> = ({
             ) : (
                 <>
                     {header ? header : <Header />}
-                    <main>
-                        {children}
-                    </main>
-                    {footer ? footer : <Footer />}
+                    {/* <SideBar />
+                    <div className="masterMain">
+
+                        <main>
+                            {children}
+                        </main>
+                        {footer ? footer : <Footer />}
+                    </div> */}
                 </>
             )}
         </div>

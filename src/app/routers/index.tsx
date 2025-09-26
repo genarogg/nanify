@@ -32,7 +32,7 @@ const allRouteGroups: RouteGroup[] = [
     SliderRoutes,
     SectionsRoutes,
     FormRoutes,
-    LayoutRoutes
+    // LayoutRoutes
 ];
 
 const allRoutes: RouteConfig[] = allRouteGroups.flatMap(expandRouteGroup);

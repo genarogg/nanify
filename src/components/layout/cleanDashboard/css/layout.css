@@ -4,10 +4,10 @@
   min-height: 100dvh;
   max-height: 100vh;
   max-height: 100dvh;
+  overflow: hidden;
   grid-template-rows: auto 1fr auto;
   background-color: #f5e6ed;
   background-color: #f6f9ff;
-  background-image: url(/img/logo-unerg.webp);
   background-size: contain;
   background-position: 50%;
   background-repeat: no-repeat;
@@ -19,6 +19,16 @@
     position: sticky;
     top: 0;
     z-index: 1000; }
+  .clean.containerAll.dashboard .masterMain {
+    display: grid;
+    min-height: 100vh;
+    min-height: 100dvh;
+    max-height: 100vh;
+    max-height: 100dvh;
+    overflow: hidden;
+    grid-template-rows: auto 1fr auto; }
+    .clean.containerAll.dashboard .masterMain > main {
+      background-image: url(/img/logo-unerg.webp); }
   .clean.containerAll.dashboard > footer {
     background-color: #fff;
     color: #fff; }
