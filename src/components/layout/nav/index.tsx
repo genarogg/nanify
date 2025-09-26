@@ -2,6 +2,7 @@
 import React from 'react'
 import { A } from "@/components/nano";
 import { Icon } from "@/components/ux";
+import "./nav.css"
 
 interface MenuItem {
   href?: string;

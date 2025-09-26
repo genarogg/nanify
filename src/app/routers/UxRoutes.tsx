@@ -11,6 +11,7 @@ import SpinnerPage from "../docs/ux/spinner/page"
 import InputListPage from "../docs/ux/input-list/page"
 import InputFilePage from "../docs/ux/input-file/page"
 import IconPage from "../docs/ux/icon/page"
+import DropdownPage from "../docs/ux/dropdown/page"
 
 const UxRoutes: RouteGroup = {
   prefix: "/ux",
@@ -34,6 +35,11 @@ const UxRoutes: RouteGroup = {
       path: "/btns",
       component: BtnPage,
       key: "ux-btns",
+    },
+    {
+      path: "/dropdown",
+      component: DropdownPage,
+      key: "ux-dropdown",
     },
     {
       path: "/badge",

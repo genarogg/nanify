@@ -23,7 +23,7 @@ const Layout: React.FC<LayoutProps> = ({
     // const { state: { loading } } = useAuth();
 
     return (
-        <div className={`containerAll clean ${where}`}>
+        <div className={`containerAll clean dashboard ${where}`}>
             {false ? (
                 <Spinner />
             ) : (

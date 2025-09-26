@@ -1,5 +1,6 @@
 import React from 'react';
 import { Routes, Route as RouterRoute } from 'react-router-dom';
+import LayoutDocs from '../../layout/layout';
 import { RouteGroup, RouteConfig } from './types';
 
 
@@ -38,13 +39,17 @@ const allRoutes: RouteConfig[] = allRouteGroups.flatMap(expandRouteGroup);
 
 const AppRoutes: React.FC = () => {
     return (
-        <Routes>
-            <RouterRoute path="nuevo" element={<ComponentePrueba>Página no encontrada - 405</ComponentePrueba>} />
-            {allRoutes.map(({ path, component: Component, key }) => (
-                <RouterRoute key={key} path={path} element={<Component />} />
-            ))}
-            <RouterRoute path="*" element={<div>Página no encontrada - 404</div>} />
-        </Routes>
+        <>
+            {/* <LayoutDocs> */}
+                <Routes>
+                    <RouterRoute path="nuevo" element={<ComponentePrueba>Página no encontrada - 405</ComponentePrueba>} />
+                    {allRoutes.map(({ path, component: Component, key }) => (
+                        <RouterRoute key={key} path={path} element={<Component />} />
+                    ))}
+                    <RouterRoute path="*" element={<div>Página no encontrada - 404</div>} />
+                </Routes>
+            {/* </LayoutDocs> */}
+        </>
     );
 };
 

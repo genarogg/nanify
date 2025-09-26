@@ -29,6 +29,15 @@ import InputList from "./input-list";
 
 
 import {
+    DropdownMenuSeparator,
+    DropdownMenuItem,
+    DropdownMenu,
+    DropdownMenuTrigger,
+    DropdownMenuContent
+} from "./dropdown/dropdown"
+
+
+import {
     Select,
     SelectTrigger,
     SelectValue,
@@ -66,5 +75,10 @@ export {
     InputFile,
     InputList,
     BtnFreya,
-    BtnThor
+    BtnThor,
+    DropdownMenuSeparator,
+    DropdownMenuItem,
+    DropdownMenu,
+    DropdownMenuTrigger,
+    DropdownMenuContent
 }

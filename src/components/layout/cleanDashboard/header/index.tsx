@@ -2,9 +2,12 @@ import React from "react";
 import "./css/header.scss";
 
 import { BtnLoki } from "@/components/ux";
+import Gravatar from "@/components/gravatar";
 
 import Title from "./Title";
 import SideBar from "./sidebar";
+import Perfil from "./perfil";
+import Notificaciones from "./notificaciones";
 
 import Nav from "@/components/layout/nav";
 
@@ -26,11 +29,11 @@ const Header: React.FC<HeaderProps> = () => {
         container?.classList.toggle("sidebar-header");
     }
 
-    const menuItems = [
-        { href: "#inicio", label: "Inicio" },
-        { href: "#servicios", label: "Servicios" },
-    ];
+    const imgGravatar = "https://www.gravatar.com/avatar/e0cd02f6bbabeb8f0aec1b6a090b7527"
 
+    const menuItems = [
+        { component: <Perfil avatarUrl={imgGravatar} /> },
+    ];
 
     return (
         <header className="header-container aside">
@@ -39,7 +42,7 @@ const Header: React.FC<HeaderProps> = () => {
                 <Nav menuItems={menuItems} />
             </div>
 
-            {/* <div className="movile-header">
+            <div className="movile-header">
                 <nav>
                     <ul className="elements">
                         <li>
@@ -47,6 +50,9 @@ const Header: React.FC<HeaderProps> = () => {
                         </li>
                         <li>
                             <Title />
+                        </li>
+                        <li>
+                            <Nav className="elements-right" menuItems={menuItems} />
                         </li>
                     </ul>
                     <SideBar
@@ -58,7 +64,7 @@ const Header: React.FC<HeaderProps> = () => {
                         />
                     </SideBar>
                 </nav>
-            </div> */}
+            </div>
 
         </header>
     );

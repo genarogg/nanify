@@ -1,10 +1,12 @@
 @import "../../../../css/global/variables";
 
 
-.clean.containerAll {
+.clean.containerAll.dashboard {
     display: grid;
-    min-height: 130vh;
-    min-height: 130dvh;
+    min-height: 100vh;
+    min-height: 100dvh;
+    max-height: 100vh;
+    max-height: 100dvh;
     grid-template-rows: auto 1fr auto;
 
 

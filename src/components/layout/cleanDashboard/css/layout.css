@@ -1,7 +1,9 @@
-.clean.containerAll {
+.clean.containerAll.dashboard {
   display: grid;
-  min-height: 130vh;
-  min-height: 130dvh;
+  min-height: 100vh;
+  min-height: 100dvh;
+  max-height: 100vh;
+  max-height: 100dvh;
   grid-template-rows: auto 1fr auto;
   background-color: #f5e6ed;
   background-color: #f6f9ff;
@@ -11,13 +13,13 @@
   background-repeat: no-repeat;
   background-blend-mode: soft-light;
   background-attachment: fixed; }
-  .clean.containerAll > header {
+  .clean.containerAll.dashboard > header {
     background-color: #fff;
     color: #fff;
     position: sticky;
     top: 0;
     z-index: 1000; }
-  .clean.containerAll > footer {
+  .clean.containerAll.dashboard > footer {
     background-color: #fff;
     color: #fff; }
 
