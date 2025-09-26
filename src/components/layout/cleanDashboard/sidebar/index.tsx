@@ -15,10 +15,7 @@ interface SideBarProps {
 
 
 const SideBar: React.FC<SideBarProps> = ({ className }) => {
-
-  const logoutfn = () => {
-    btnRemove(); toggleAside();
-  }
+  const logoutfn = () => { }
 
   const menuItems = [
     { href: "#inicio", label: "Inicio" },

@@ -238,10 +238,14 @@ ul {
   .hover-border-bottom:not(:hover)::before {
     transform: translateX(-105%); }
 
-.header .container-nav nav ul {
+.container-nav .container-component {
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+.container-nav nav ul {
   display: flex;
   align-items: center; }
-  .header .container-nav nav ul li {
+  .container-nav nav ul li {
     display: flex;
     align-items: center;
     height: 25px;
@@ -250,24 +254,25 @@ ul {
     font-weight: 700;
     letter-spacing: 1px;
     text-transform: uppercase; }
-    .header .container-nav nav ul li .container-icono {
+    .container-nav nav ul li .container-icono {
       margin: 0 5px 0 25px;
       color: #3d65fd; }
-      .header .container-nav nav ul li .container-icono .icon {
+      .container-nav nav ul li .container-icono .icon {
         display: flex;
         font-size: 16px; }
-    .header .container-nav nav ul li.iconRight a .container-icono {
+    .container-nav nav ul li.iconRight a .container-icono {
       order: 2;
       margin: 0 25px 0 5px; }
-    .header .container-nav nav ul li.iconRight a label {
+    .container-nav nav ul li.iconRight a label {
       order: 1; }
-.header .container-nav.sin-iconos nav ul li {
+.container-nav.sin-iconos nav ul li {
   margin: 0 5px 0 25px; }
-.header .nav-xs {
+
+.nav-xs {
   display: none; }
 
 @media screen and (max-width: 1000px) {
-  .header .container-nav nav ul li .container-icono {
+  .container-nav nav ul li .container-icono {
     margin: 0 5px 0 15px; } }
 /* @include max-width(950px) {
 
@@ -277,9 +282,10 @@ ul {
 
 } */
 @media screen and (max-width: 950px) {
-  .header .nav-xs {
+  .nav-xs {
     display: flex; }
-  .header .container-nav.nav-xs {
+
+  .container-nav.nav-xs {
     background-color: rgba(68, 40, 151, 0.3);
     background-color: #1c1c1c;
     backdrop-filter: blur(10px);
@@ -288,14 +294,14 @@ ul {
     position: absolute;
     right: -100%;
     border-left: 1px solid rgba(28, 28, 28, 0.5); }
-    .header .container-nav.nav-xs.active {
+    .container-nav.nav-xs.active {
       right: 0; }
-    .header .container-nav.nav-xs nav ul {
+    .container-nav.nav-xs nav ul {
       flex-direction: column;
       align-items: flex-start; }
-      .header .container-nav.nav-xs nav ul li {
+      .container-nav.nav-xs nav ul li {
         height: 36px; }
-        .header .container-nav.nav-xs nav ul li .container-icono {
+        .container-nav.nav-xs nav ul li .container-icono {
           margin: 0 7px 0 15px; } }
 
 /*# sourceMappingURL=nav.css.map */

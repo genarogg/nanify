@@ -1,0 +1,45 @@
+.btn-aside {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+    width: 28px;  
+  height: 28px; 
+
+/* Rectángulo */
+.btn-aside__rectangle {
+  width: 75%;
+  height: 75%;
+  border: 2px solid #3d65fd;
+  border-radius: 3px;
+  position: absolute;
+  top: 12.5%;
+  left: 12.5%;
+}
+
+/* Línea divisoria */
+.btn-aside__divider {
+  position: absolute;
+  top: 12.5%;
+  left: 37.5%;
+  width: 2px;
+  height: 75%;
+  background-color: #3d65fd;
+}
+
+/* Flecha */
+.btn-aside__arrow {
+  position: absolute;
+  top: 50%;
+  left: 53%;
+  transform: translateY(-50%) rotate(0deg);
+  width: 0;
+  height: 0;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-left: 6px solid #3d65fd;
+  transition: transform 0.3s ease-in-out;
+}
+
+.btn-aside__arrow.active {
+  transform: translateY(-50%) rotate(180deg);
+}

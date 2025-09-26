@@ -48,6 +48,8 @@ import {
     SelectLabel
 } from './select';
 
+import BtnAside from "./btns/btn-aside";
+
 export {
     Modal,
     Input,
@@ -62,6 +64,7 @@ export {
     BtnNormalBasic,
     BtnText,
     BtnRowCircle,
+    BtnAside,
     Badge,
     Select,
     SelectTrigger,
@@ -82,3 +85,7 @@ export {
     DropdownMenuTrigger,
     DropdownMenuContent
 }
+
+/* 
+agregar a la documentacion BtnAside
+*/

@@ -6,7 +6,9 @@ const btnRemove = () => {
 
 const toggleAside = () => {
     const container = document.getElementById("container-aside");
-    container?.classList.toggle("sidebar-header");
+    const masterMain = document.getElementById("masterMain");
+    container?.classList.toggle("active");
+    masterMain?.classList.toggle("active")
 }
 
 export {

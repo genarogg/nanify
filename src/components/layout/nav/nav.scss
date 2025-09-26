@@ -1,69 +1,76 @@
 @import "../../../css/style.scss";
 
-.header {
-  .container-nav {
-    nav {
-      ul {
+.container-nav {
+
+  .container-component {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  nav {
+    ul {
+      display: flex;
+      align-items: center;
+
+      li {
         display: flex;
         align-items: center;
+        height: 25px;
+        color: #fff;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
 
-        li {
-          display: flex;
-          align-items: center;
-          height: 25px;
-          color: #fff;
-          font-size: 13px;
-          font-weight: 700;
-          letter-spacing: 1px;
-          text-transform: uppercase;
+        .container-icono {
+          margin: 0 5px 0 25px;
+          color: $color-secondary;
 
-          .container-icono {
-            margin: 0 5px 0 25px;
-            color: $color-secondary;
-
-            .icon {
-              display: flex;
-              font-size: 16px;
-            }
-          }
-
-          &.iconRight {
-            a {
-              .container-icono {
-                order: 2;
-                margin: 0 25px 0 5px;
-              }
-
-              label {
-                order: 1;
-              }
-            }
-
-
+          .icon {
+            display: flex;
+            font-size: 16px;
           }
         }
-      }
-    }
 
-    &.sin-iconos {
-      nav {
-        ul {
-          li {
-            margin: 0 5px 0 25px;
+
+        &.iconRight {
+          a {
+            .container-icono {
+              order: 2;
+              margin: 0 25px 0 5px;
+            }
+
+            label {
+              order: 1;
+            }
           }
+
+
         }
       }
     }
   }
 
-  .nav-xs {
-    display: none;
+  &.sin-iconos {
+    nav {
+      ul {
+        li {
+          margin: 0 5px 0 25px;
+        }
+      }
+    }
   }
 }
 
+.nav-xs {
+  display: none;
+}
+
+
 
 @include max-width(1000px) {
-  .header .container-nav {
+  .container-nav {
     nav {
       ul {
         li {
@@ -85,40 +92,39 @@
 } */
 
 @include max-width(950px) {
-  .header {
-    .nav-xs {
-      display: flex;
 
+  .nav-xs {
+    display: flex;
+
+  }
+
+
+  .container-nav.nav-xs {
+    background-color: rgba($color-primary, 0.3);
+    background-color: $color-quaternary;
+    backdrop-filter: blur(10px);
+    height: 100vh;
+    width: 200px;
+    position: absolute;
+    right: -100%;
+    border-left: $border;
+
+    &.active {
+      right: 0;
     }
 
+    nav ul {
+      flex-direction: column;
+      align-items: flex-start;
 
-    .container-nav.nav-xs {
-      background-color: rgba($color-primary, 0.3);
-      background-color: $color-quaternary;
-      backdrop-filter: blur(10px);
-      height: 100vh;
-      width: 200px;
-      position: absolute;
-      right: -100%;
-      border-left: $border;
+      li {
+        height: 36px;
 
-      &.active {
-        right: 0;
-      }
-
-      nav ul {
-        flex-direction: column;
-        align-items: flex-start;
-
-        li {
-          height: 36px;
-
-          .container-icono {
-            margin: 0 7px 0 15px;
-          }
+        .container-icono {
+          margin: 0 7px 0 15px;
         }
-
       }
+
     }
   }
 }
