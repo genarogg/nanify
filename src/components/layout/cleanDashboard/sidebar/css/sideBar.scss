@@ -10,8 +10,9 @@
   height: calc(100vh - 70px);
   height: calc(100dvh - 70px);
   top: 70px;
-  left: -100%;
-  box-shadow: 20px 20px 30px 10px rgba(1, 42, 112, 0.1);
+  // left: -100%;
+  // box-shadow: 20px 20px 30px 10px rgba(1, 42, 112, 0.1);
+  border-right: 1px solid #ebe6e7;
   z-index: 1000;
   background-color: #fff;
 

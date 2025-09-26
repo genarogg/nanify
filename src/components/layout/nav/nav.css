@@ -185,10 +185,10 @@ ul {
   background: #1c1c1c; }
 
 ::-webkit-scrollbar-thumb {
-  background: #ffac32; }
+  background: #3d65fd; }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #ffac32; }
+  background: #3d65fd; }
 
 /* Animaciones */
 @keyframes bounceIn {
@@ -252,7 +252,7 @@ ul {
     text-transform: uppercase; }
     .header .container-nav nav ul li .container-icono {
       margin: 0 5px 0 25px;
-      color: #ffac32; }
+      color: #3d65fd; }
       .header .container-nav nav ul li .container-icono .icon {
         display: flex;
         font-size: 16px; }

@@ -34,22 +34,46 @@
 
     .masterMain {
         display: grid;
-        min-height: 100vh;
-        min-height: 100dvh;
-        max-height: 100vh;
-        max-height: 100dvh;
+
+
         overflow: hidden;
         grid-template-rows: auto 1fr auto;
 
+        &.active {
+            margin-left: 240px;
+        }
+
         >main {
-            // background-color: $color-tertiary;
+            min-height: calc(100vh - 120px);
+            min-height: calc(100vh - 120px);
+            max-height: calc(100vh - 120px);
+            max-height: calc(100vh - 120px);
+            background-color: #f6f9ff;
             background-image: url(/img/logo-unerg.webp);
+
+            background-color: #f6f9ff;
+            background-size: contain;
+            background-position: 50%;
+            background-repeat: no-repeat;
+            background-blend-mode: soft-light;
+            // background-attachment: fixed;
+        }
+
+        >footer {
+            background-color: $colorHederFooter;
+            // border-top: 1px solid $color-secondary;
+            color: $text-color-white;
+            background-color: #fff;
         }
     }
 
-    >footer {
-        background-color: $colorHederFooter;
-        // border-top: 1px solid $color-secondary;
-        color: $text-color-white;
+}
+
+@media screen and (max-width: 800px) {
+    .clean.containerAll.dashboard .masterMain>main {
+        min-height: calc(100vh - 120px);
+        min-height: calc(100vh - 120px);
+        max-height: calc(100vh - 120px);
+        max-height: calc(100vh - 120px);
     }
 }

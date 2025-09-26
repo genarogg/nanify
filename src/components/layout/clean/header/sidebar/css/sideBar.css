@@ -185,10 +185,10 @@ ul {
   background: #1c1c1c; }
 
 ::-webkit-scrollbar-thumb {
-  background: #ffac32; }
+  background: #3d65fd; }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #ffac32; }
+  background: #3d65fd; }
 
 /* Animaciones */
 @keyframes bounceIn {
@@ -285,14 +285,14 @@ ul {
     .container-aside .salirBtn button {
       width: 100%;
       height: 50px;
-      background-color: #ffac32;
+      background-color: #3d65fd;
       color: #fff;
       font-size: 16px;
       font-weight: bold;
       border: none;
       cursor: pointer; }
       .container-aside .salirBtn button:hover {
-        background-color: #ffac32; }
+        background-color: #3d65fd; }
 
 @media screen and (max-width: 799px) {
   .container-aside .salirBtn {

@@ -29,14 +29,13 @@ const Layout: React.FC<LayoutProps> = ({
             ) : (
                 <>
                     {header ? header : <Header />}
-                    {/* <SideBar />
-                    <div className="masterMain">
-
+                    <SideBar />
+                    <div className="masterMain active">
                         <main>
                             {children}
                         </main>
                         {footer ? footer : <Footer />}
-                    </div> */}
+                    </div>
                 </>
             )}
         </div>
