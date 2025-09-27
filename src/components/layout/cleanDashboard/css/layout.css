@@ -264,7 +264,13 @@ ul {
     transition: all 0.5s ease;
     overflow: hidden;
     grid-template-rows: auto 1fr auto;
-    margin-left: 240px; }
+    margin-left: 240px;
+    background-image: url(/img/logo-unerg.webp);
+    background-color: #f6f9ff;
+    background-size: contain;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-blend-mode: soft-light; }
     .clean.containerAll.dashboard .masterMain.active {
       margin-left: 0px; }
     .clean.containerAll.dashboard .masterMain > main {
@@ -272,13 +278,6 @@ ul {
       min-height: calc(100vh - 120px);
       max-height: calc(100vh - 120px);
       max-height: calc(100vh - 120px);
-      background-color: #f6f9ff;
-      background-image: url(/img/logo-unerg.webp);
-      background-color: #f6f9ff;
-      background-size: contain;
-      background-position: 50%;
-      background-repeat: no-repeat;
-      background-blend-mode: soft-light;
       overflow-y: auto; }
     .clean.containerAll.dashboard .masterMain > footer {
       background-color: #fff;

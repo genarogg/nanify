@@ -44,19 +44,21 @@
             margin-left: 0px;
         }
 
+        background-image: url(/img/logo-unerg.webp);
+        background-color: #f6f9ff;
+        background-size: contain;
+        background-position: 50%;
+        background-repeat: no-repeat;
+        background-blend-mode: soft-light;
+
         >main {
             min-height: calc(100vh - 120px);
             min-height: calc(100vh - 120px);
             max-height: calc(100vh - 120px);
             max-height: calc(100vh - 120px);
-            background-color: #f6f9ff;
-            background-image: url(/img/logo-unerg.webp);
 
-            background-color: #f6f9ff;
-            background-size: contain;
-            background-position: 50%;
-            background-repeat: no-repeat;
-            background-blend-mode: soft-light;
+
+
             // background-attachment: fixed;
             overflow-y: auto;
 
@@ -121,7 +123,7 @@
 }
 
 @include min-width(1800px) {
-    .aside-hidden-btn{
+    .aside-hidden-btn {
         display: none;
     }
- }
+}

@@ -12,6 +12,7 @@ import SliderRoutes from "./SliderRoutes"
 import SectionsRoutes from "./SectionsRoutes"
 import FormRoutes from "./FormRoutes"
 import LayoutRoutes from "./LayoutRoutes"
+import { A } from '@/components/nano';
 
 import ComponentePrueba from "../../components/layout/cleanDashboard"
 
@@ -32,7 +33,7 @@ const allRouteGroups: RouteGroup[] = [
     SliderRoutes,
     SectionsRoutes,
     FormRoutes,
-    // LayoutRoutes
+    LayoutRoutes
 ];
 
 const allRoutes: RouteConfig[] = allRouteGroups.flatMap(expandRouteGroup);
@@ -41,13 +42,19 @@ const AppRoutes: React.FC = () => {
     return (
         <>
             {/* <LayoutDocs> */}
-                <Routes>
-                    <RouterRoute path="nuevo" element={<ComponentePrueba>Página no encontrada - 405</ComponentePrueba>} />
-                    {allRoutes.map(({ path, component: Component, key }) => (
-                        <RouterRoute key={key} path={path} element={<Component />} />
-                    ))}
-                    <RouterRoute path="*" element={<div>Página no encontrada - 404</div>} />
-                </Routes>
+            <Routes>
+
+                <RouterRoute path="nuevo" element={
+                    <ComponentePrueba contentKey="home2">
+                        <A href="/nuevo">nuevo</A>
+                        <p>Página no encontrada - 406</p>
+                    </ComponentePrueba>}
+                />
+                {allRoutes.map(({ path, component: Component, key }) => (
+                    <RouterRoute key={key} path={path} element={<Component />} />
+                ))}
+                <RouterRoute path="*" element={<div>Página no encontrada - 404</div>} />
+            </Routes>
             {/* </LayoutDocs> */}
         </>
     );
