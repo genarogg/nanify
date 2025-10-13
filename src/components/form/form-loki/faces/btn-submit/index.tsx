@@ -15,7 +15,7 @@ import {
   RESET_PASSWORD
 } from "@/query"
 
-interface BtnSubmitBasicProps<> {
+interface BtnSubmitBasicProps {
   children: React.ReactNode;
   className?: string;
   id?: string;

@@ -33,7 +33,7 @@ const allRouteGroups: RouteGroup[] = [
     SliderRoutes,
     SectionsRoutes,
     FormRoutes,
-    LayoutRoutes
+    // LayoutRoutes
 ];
 
 const allRoutes: RouteConfig[] = allRouteGroups.flatMap(expandRouteGroup);
@@ -46,8 +46,14 @@ const AppRoutes: React.FC = () => {
 
                 <RouterRoute path="nuevo" element={
                     <ComponentePrueba contentKey="home2">
-                        <A href="/nuevo">nuevo</A>
+                        <A href="/nuevo2">nuevo</A>
                         <p>Página no encontrada - 406</p>
+                    </ComponentePrueba>}
+                />
+                <RouterRoute path="nuevo2" element={
+                    <ComponentePrueba contentKey="home22">
+                        <A href="/nuevo">nuevo</A>
+                        <p>Página no encontrada - 404</p>
                     </ComponentePrueba>}
                 />
                 {allRoutes.map(({ path, component: Component, key }) => (
