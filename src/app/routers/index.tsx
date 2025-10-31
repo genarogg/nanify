@@ -41,7 +41,7 @@ const allRoutes: RouteConfig[] = allRouteGroups.flatMap(expandRouteGroup);
 const AppRoutes: React.FC = () => {
     return (
         <>
-            {/* <LayoutDocs> */}
+            <LayoutDocs>
             <Routes>
 
                 <RouterRoute path="nuevo" element={
@@ -61,7 +61,7 @@ const AppRoutes: React.FC = () => {
                 ))}
                 <RouterRoute path="*" element={<div>Página no encontrada - 404</div>} />
             </Routes>
-            {/* </LayoutDocs> */}
+            </LayoutDocs>
         </>
     );
 };
