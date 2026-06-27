@@ -1,4 +1,4 @@
-import Modal from "./modal";
+
 import Input from "./input";
 import Icon from "./icon";
 import Tabs from "./tabs";
@@ -51,7 +51,7 @@ import {
 import BtnAside from "./btns/btn-aside";
 
 export {
-    Modal,
+
     Input,
     Icon,
     Tabs,

@@ -7,8 +7,8 @@ import { useGlobal, useGlobalStatic } from "../../../context/Global"
 
 import "./actions-row.css"
 
-import AggEditar from "../modals/AggEditar"
-import ViewDetails from "../modals/ViewDatails"
+
+
 
 // Memoizamos los componentes internos para evitar re-creaciones
 const DescargarReporte = memo(({ itemId }: { itemId: number }) => {
@@ -94,9 +94,9 @@ const ActionsCell = memo(({ item }: any) => {
                 />
             )}
             <div className="action-buttons-container">
-                {availableActions.view && <ViewDetails item={item} />}
+              
                 {availableActions.report && <DescargarReporte itemId={item.id} />}
-                {availableActions.edit && <AggEditar item={item} />}
+              
             </div>
         </div>
     )

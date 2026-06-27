@@ -2,7 +2,7 @@
 import React from 'react'
 import Search from "./Search"
 import Filter from "./filters"
-import AggEditar from "../../modals/AggEditar"
+
 
 
 interface HeaderDownProps { }
@@ -16,7 +16,7 @@ const HeaderDown: React.FC<HeaderDownProps> = () => {
             <div className="box-right">
                 <Filter />
                 <div className="modal-button-wrapper">
-                    <AggEditar />
+        
                 </div>
             </div>
         </div>
