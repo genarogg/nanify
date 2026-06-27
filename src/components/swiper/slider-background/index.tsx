@@ -1,6 +1,6 @@
 "use client";
 import React from 'react';
-import "./css/sliderBackgroud.css";
+import "./css/sliderBackgroud.scss";
 import { SwiperSlide } from 'swiper/react';
 import { A } from "@/components/nano";
 import { Icon } from "@/components/ux"
