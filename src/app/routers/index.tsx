@@ -8,7 +8,7 @@ import HomeRoutes from './HomeRoutes';
 import NanoRoutes from "./NanoRoutes"
 import UxRoutes from './UxRoutes';
 import WrapperRoutes from "./WrapperRoutes"
-import SliderRoutes from "./SliderRoutes"
+
 import SectionsRoutes from "./SectionsRoutes"
 import FormRoutes from "./FormRoutes"
 import LayoutRoutes from "./LayoutRoutes"
@@ -30,7 +30,6 @@ const allRouteGroups: RouteGroup[] = [
     NanoRoutes,
     UxRoutes,
     WrapperRoutes,
-    SliderRoutes,
     SectionsRoutes,
     FormRoutes,
     // LayoutRoutes
