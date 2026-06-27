@@ -39,14 +39,14 @@
 }
 
 .select-value[data-placeholder] {
-  color: #111827;
+  color: #9ca3af;
 }
 
 .select-icon {
   width: 18px;
   height: 18px;
   color: #111827;
-  transition: transform 0.6s ease;
+  transition: transform 0.2s ease;
   flex-shrink: 0;
 }
 
@@ -129,8 +129,9 @@
   background-color: #f1f5f9;
 }
 
-.select-item[data-highlighted] {
-  background-color: #f1f5f9;
+.select-item:focus-visible {
+  outline: 2px solid #020817;
+  outline-offset: -2px;
 }
 
 .select-item[data-selected] {

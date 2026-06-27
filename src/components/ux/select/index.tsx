@@ -256,8 +256,8 @@ const calculateAvailableSpace = (triggerRect: DOMRect, scrollableContainer: HTML
       const scrollBottom = scrollableContainer.scrollHeight - scrollableContainer.clientHeight - scrollTop
 
       // Ajustar espacios considerando el scroll disponible
-      spaceAbove += Math.min(scrollTop, 0) // Solo si podemos scroll hacia arriba
-      spaceBelow += Math.min(scrollBottom, 0) // Solo si podemos scroll hacia abajo
+      spaceAbove += scrollTop
+      spaceBelow += scrollBottom
     }
   } else {
     // Usar viewport como referencia (comportamiento original mejorado)
@@ -568,54 +568,68 @@ const filterChildren = useCallback((children: React.ReactNode, query: string): R
 
   const lowerQuery = query.toLowerCase()
 
-  const filterElement = (element: React.ReactNode): React.ReactNode => {
-    if (!React.isValidElement(element)) return null
-
-    // Handle SelectItem
-    if (element.type === SelectItem) {
-      const props = element.props as { children: React.ReactNode; value: string }
-      const label = typeof props.children === "string" ? props.children : props.value
-
-      if (label.toLowerCase().includes(lowerQuery)) {
-        return element
-      }
-      return null
-    }
-
-    // Handle SelectLabel (categories)
-    if (element.type === SelectLabel) {
-      return element
-    }
-
-    // Handle SelectSeparator
-    if (element.type === SelectSeparator) {
-      return element
-    }
-
-    // Handle React.Fragment
-    if (element.type === React.Fragment) {
-      const fragmentProps = element.props as { children: React.ReactNode }
-      const filteredChildren = React.Children.toArray(fragmentProps.children).map(filterElement).filter(Boolean)
-
-      if (filteredChildren.length === 0) return null
-
-      return React.createElement(React.Fragment, { key: element.key }, ...filteredChildren)
-    }
-
-    // Handle other elements with children
-    if (element.props && typeof element.props === 'object' && element.props !== null && 'children' in element.props) {
-      const elementProps = element.props as { children: React.ReactNode }
-      const filteredChildren = React.Children.toArray(elementProps.children).map(filterElement).filter(Boolean)
-
-      if (filteredChildren.length === 0) return null
-
-      return React.cloneElement(element, { key: element.key }, ...filteredChildren)
-    }
-
-    return element
+  const itemMatches = (element: React.ReactElement): boolean => {
+    const props = element.props as { children: React.ReactNode; value: string }
+    const label = typeof props.children === "string" ? props.children : props.value
+    return label.toLowerCase().includes(lowerQuery)
   }
 
-  const filteredChildren = React.Children.toArray(children).map(filterElement).filter(Boolean)
+  // Filtra una lista de hermanos. Los SelectLabel/SelectSeparator solo se
+  // conservan si hay al menos un SelectItem que haga match antes del
+  // siguiente label/separador (o del final de la lista).
+  const filterList = (nodes: React.ReactNode[]): React.ReactElement[] => {
+    const elements = nodes.filter(React.isValidElement) as React.ReactElement[]
+    const result: React.ReactElement[] = []
+
+    for (let i = 0; i < elements.length; i++) {
+      const element = elements[i]
+
+      if (element.type === SelectItem) {
+        if (itemMatches(element)) result.push(element)
+        continue
+      }
+
+      if (element.type === SelectLabel || element.type === SelectSeparator) {
+        let hasMatchAhead = false
+        for (let j = i + 1; j < elements.length; j++) {
+          const next = elements[j]
+          if (next.type === SelectLabel || next.type === SelectSeparator) break
+          if (next.type === SelectItem && itemMatches(next)) {
+            hasMatchAhead = true
+            break
+          }
+        }
+        if (hasMatchAhead) result.push(element)
+        continue
+      }
+
+      // React.Fragment: filtrar sus hijos recursivamente
+      if (element.type === React.Fragment) {
+        const fragmentProps = element.props as { children: React.ReactNode }
+        const filtered = filterList(React.Children.toArray(fragmentProps.children))
+        if (filtered.length > 0) {
+          result.push(React.createElement(React.Fragment, { key: element.key }, ...filtered))
+        }
+        continue
+      }
+
+      // Otros elementos con children: filtrar recursivamente
+      if (element.props && typeof element.props === "object" && element.props !== null && "children" in element.props) {
+        const elementProps = element.props as { children: React.ReactNode }
+        const filtered = filterList(React.Children.toArray(elementProps.children))
+        if (filtered.length > 0) {
+          result.push(React.cloneElement(element, { key: element.key }, ...filtered))
+        }
+        continue
+      }
+
+      result.push(element)
+    }
+
+    return result
+  }
+
+  const filteredChildren = filterList(React.Children.toArray(children))
 
   return filteredChildren.length > 0 ? filteredChildren : <div className="select-no-results">No results found.</div>
 }, [])
@@ -640,39 +654,35 @@ const filterChildren = useCallback((children: React.ReactNode, query: string): R
   }, [desiredWidth, longestOptionWidth])
 
   useEffect(() => {
-    if (open) {
-      // Focus the search input when the dropdown opens
-      const timeoutId = setTimeout(() => {
-        searchInputRef.current?.focus()
+    if (!open) return
 
-        const handleClickOutside = (event: MouseEvent) => {
-          const target = event.target as Node
-          const selectRoot = contentRef.current?.closest(".select-root")
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Node
+      const selectRoot = contentRef.current?.closest(".select-root")
 
-          if (selectRoot && !selectRoot.contains(target)) {
-            onOpenChange(false)
-          }
-        }
-
-        document.addEventListener("click", handleClickOutside, true)
-
-        return () => {
-          document.removeEventListener("click", handleClickOutside, true)
-        }
-      }, 0)
-
-      const handleEscape = (event: KeyboardEvent) => {
-        if (event.key === "Escape") {
-          onOpenChange(false)
-        }
+      if (selectRoot && !selectRoot.contains(target)) {
+        onOpenChange(false)
       }
+    }
 
-      document.addEventListener("keydown", handleEscape)
-
-      return () => {
-        clearTimeout(timeoutId)
-        document.removeEventListener("keydown", handleEscape)
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        onOpenChange(false)
       }
+    }
+
+    // Focus the search input when the dropdown opens
+    const timeoutId = setTimeout(() => {
+      searchInputRef.current?.focus()
+      document.addEventListener("click", handleClickOutside, true)
+    }, 0)
+
+    document.addEventListener("keydown", handleEscape)
+
+    return () => {
+      clearTimeout(timeoutId)
+      document.removeEventListener("click", handleClickOutside, true)
+      document.removeEventListener("keydown", handleEscape)
     }
   }, [open, onOpenChange])
 
